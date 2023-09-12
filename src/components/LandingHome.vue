@@ -55,7 +55,7 @@
 							<SvgIcon name="notifications" />
 						</div>
 						<Dropdown class="xhover as-icon item">
-							<img src="images/profile.jpg" alt="profile"  class="fully-rounded logo" />
+							<img src="/images/profile.jpg" alt="profile"  class="fully-rounded logo" />
 							<Sharerables name="profile_menu" />
 						</Dropdown>
 					</div>
@@ -63,7 +63,7 @@
 			</div>
 			<form id="searchbox" class="rounded centered" @submit.prevent="submitSearch">
 				<div style="margin-bottom: 16px;">
-					<img src="images/logo_full.png" alt="site logo" class="site-logo fluid image" style="max-width: 500px; background-color: rgba(128,128,128,0.025);" />
+					<img src="/images/logo_full.png" alt="site logo" class="site-logo fluid image" style="max-width: 500px; background-color: rgba(128,128,128,0.025);" />
 					<p class="huge" style="margin-top: 8px;">Search for business names, products and services.</p>
 				</div>
 				<div>
@@ -118,7 +118,7 @@
 					<h6 class="centered" style="margin-bottom: 16px;">Sponsored (Ads)</h6>
 					<div class="ads">
 						<div class="centered rounded ad">
-							<img src="images/ads.jpg" alt="ad" class="image">
+							<img src="/images/ads.jpg" alt="ad" class="image">
 							<div>
 								Fix your laptops and desktops (Hardware and Software).
 								<button class="primary button">contact us</button>
