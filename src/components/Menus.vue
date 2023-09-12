@@ -30,7 +30,7 @@
 			<div class="rounded vertical transparent menu">
 				<div class="centered item exit-sidepanel"><SvgIcon name="arrow_back" /></div>
 				<router-link to="/" class="xhover centered item exit-sidepanel">
-					<img src="images/logo.png" alt="site logo" class="logo-sm site-logo">
+					<img src="/images/logo.png" alt="site logo" class="logo-sm site-logo">
 				</router-link>
 				<div class="items">
 					<navMenu />
@@ -54,7 +54,7 @@
 				<SvgIcon name="menu" />
 			</div>
 			<router-link to="/" class="xhover item as-icon">
-				<img src="images/logo_sqr.png" alt="site logo" class="logo-lg site-logo">
+				<img src="/images/logo_sqr.png" alt="site logo" class="logo-lg site-logo">
 			</router-link>
 			<form class="xhover adaptable item md-and-down-hidden" @submit.prevent="submitSearch">
 				<label class="input fluid rounded transparent clue-bg" style="max-width: 550px;">
@@ -76,7 +76,7 @@
 					<SvgIcon name="notifications" />
 				</div>
 				<Dropdown class="xhover as-icon item">
-					<img src="images/profile.jpg" alt="profile"  class="fully-rounded logo" />
+					<img src="/images/profile.jpg" alt="profile"  class="fully-rounded logo" />
 					<Sharerables name="profile_menu" />
 				</Dropdown>
 			</div>

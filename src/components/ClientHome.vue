@@ -35,7 +35,7 @@
 						<SvgIcon name="menu" />
 					</div>
 					<div class="xhover item as-icon">
-						<img src="images/logo_sqr.png" alt="site logo" class="logo-lg site-logo" />
+						<img src="/images/logo_sqr.png" alt="site logo" class="logo-lg site-logo" />
 					</div>
 					<div class="items r-aligned">
 						<div class="items lg-and-down-hidden">
@@ -117,7 +117,7 @@
 			<section class="sec-block">
 				<div class="container grid">
 					<div class="col">
-						<img src="images/explore.jpg" alt="picture depicting explore" class="rounded image" />
+						<img src="/images/explore.jpg" alt="picture depicting explore" class="rounded image" />
 					</div>
 					<div class="col big">
 						<div>
@@ -150,7 +150,7 @@
 						</div>
 					</div>
 					<div class="col">
-						<img src="images/qr.jpg" alt="picture depicting qr" class="rounded image" />
+						<img src="/images/qr.jpg" alt="picture depicting qr" class="rounded image" />
 					</div>
 				</div>
 			</section>
