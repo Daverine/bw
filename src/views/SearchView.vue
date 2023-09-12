@@ -44,7 +44,7 @@
 						<SvgIcon name="menu" />
 					</div>
 					<router-link to="/" class="xhover item as-icon">
-						<img src="images/logo_sqr.png" alt="site logo" class="logo-lg site-logo" />
+						<!-- <img src="images/logo_sqr.png" alt="site logo" class="logo-lg site-logo" /> -->
 					</router-link>
 					<form class="xhover adaptable item md-and-down-hidden" @submit.prevent="submitSearch">
 						<label class="input fluid rounded transparent clue-bg" style="max-width: 550px;">
