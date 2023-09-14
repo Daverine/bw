@@ -9,7 +9,7 @@ export default {
 			default: {
 				namespace: 'sidepanel',
 				toBeConsidered: ':scope .panel, :scope .sp-control',
-				triggerer: '.open-sidepanel',
+				toggler: '.open-sidepanel',
 				setHighlightRange: true,
 				setTabRange: true,
 				closeOnEsc: true,
