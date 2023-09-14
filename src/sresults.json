@@ -1,7 +1,7 @@
 [
     {
         "type": "business",
-        "logo": "images/logo-sq.png",
+        "logo": "/images/logo-sq.png",
         "bizName": "Emmadave Computer Technology Services",
         "bizUrl": "https://www.edtech.com",
         "location": {
@@ -25,7 +25,7 @@
     },
     {
         "type": "product",
-        "displayImg": "images/product.jpeg",
+        "displayImg": "/images/product.jpeg",
         "title": "Dell Inspiron 5050, Intel Core i5 5th Gen, 8gb RAM, 256gb SSD. Very clean and rugged laptop. Suitable for office use. Long lasting battery",
         "labels": ["used", "15.6"],
         "price": "N100,000",
@@ -44,7 +44,7 @@
     },
 	{
         "type": "service",
-        "displayImg": "images/product.jpeg",
+        "displayImg": "/images/product.jpeg",
         "title": "Create, design and format a document in Word, Powerpoint, Excel and CorelDRAW",
         "priceDefinition": "From",
         "price": "N5,000",
@@ -63,7 +63,7 @@
     },
     {
         "type": "business",
-        "logo": "images/logo-sq.png",
+        "logo": "/images/logo-sq.png",
         "bizName": "Emmadave Computer Technology Services",
         "bizUrl": "https://www.edtech.com",
         "location": {
@@ -87,7 +87,7 @@
     },
     {
         "type": "product",
-        "displayImg": "images/product.jpeg",
+        "displayImg": "/images/product.jpeg",
         "title": "Dell Inspiron 5050, Intel Core i5 5th Gen, 8gb RAM, 256gb SSD. Very clean and rugged laptop. Suitable for office use. Long lasting battery",
         "labels": ["used", "15.6"],
         "price": "N100,000",
@@ -106,7 +106,7 @@
     },
 	{
         "type": "service",
-        "displayImg": "images/product.jpeg",
+        "displayImg": "/images/product.jpeg",
         "title": "Create, design and format a document in Word, Powerpoint, Excel and CorelDRAW",
         "priceDefinition": "From",
         "price": "N5,000",
@@ -125,7 +125,7 @@
     },
     {
         "type": "business",
-        "logo": "images/logo-sq.png",
+        "logo": "/images/logo-sq.png",
         "bizName": "Emmadave Computer Technology Services",
         "bizUrl": "https://www.edtech.com",
         "location": {
@@ -149,7 +149,7 @@
     },
     {
         "type": "product",
-        "displayImg": "images/product.jpeg",
+        "displayImg": "/images/product.jpeg",
         "title": "Dell Inspiron 5050, Intel Core i5 5th Gen, 8gb RAM, 256gb SSD. Very clean and rugged laptop. Suitable for office use. Long lasting battery",
         "labels": ["used", "15.6"],
         "price": "N100,000",
@@ -168,7 +168,7 @@
     },
 	{
         "type": "service",
-        "displayImg": "images/product.jpeg",
+        "displayImg": "/images/product.jpeg",
         "title": "Create, design and format a document in Word, Powerpoint, Excel and CorelDRAW",
         "priceDefinition": "From",
         "price": "N5,000",
@@ -187,7 +187,7 @@
     },
     {
         "type": "business",
-        "logo": "images/logo-sq.png",
+        "logo": "/images/logo-sq.png",
         "bizName": "Emmadave Computer Technology Services",
         "bizUrl": "https://www.edtech.com",
         "location": {
@@ -211,7 +211,7 @@
     },
     {
         "type": "product",
-        "displayImg": "images/product.jpeg",
+        "displayImg": "/images/product.jpeg",
         "title": "Dell Inspiron 5050, Intel Core i5 5th Gen, 8gb RAM, 256gb SSD. Very clean and rugged laptop. Suitable for office use. Long lasting battery",
         "labels": ["used", "15.6"],
         "price": "N100,000",
@@ -230,7 +230,7 @@
     },
 	{
         "type": "service",
-        "displayImg": "images/product.jpeg",
+        "displayImg": "/images/product.jpeg",
         "title": "Create, design and format a document in Word, Powerpoint, Excel and CorelDRAW",
         "priceDefinition": "From",
         "price": "N5,000",
@@ -249,7 +249,7 @@
     },
     {
         "type": "business",
-        "logo": "images/logo-sq.png",
+        "logo": "/images/logo-sq.png",
         "bizName": "Emmadave Computer Technology Services",
         "bizUrl": "https://www.edtech.com",
         "location": {
@@ -273,7 +273,7 @@
     },
     {
         "type": "product",
-        "displayImg": "images/product.jpeg",
+        "displayImg": "/images/product.jpeg",
         "title": "Dell Inspiron 5050, Intel Core i5 5th Gen, 8gb RAM, 256gb SSD. Very clean and rugged laptop. Suitable for office use. Long lasting battery",
         "labels": ["used", "15.6"],
         "price": "N100,000",
@@ -292,7 +292,7 @@
     },
 	{
         "type": "service",
-        "displayImg": "images/product.jpeg",
+        "displayImg": "/images/product.jpeg",
         "title": "Create, design and format a document in Word, Powerpoint, Excel and CorelDRAW",
         "priceDefinition": "From",
         "price": "N5,000",
@@ -311,7 +311,7 @@
     },
     {
         "type": "business",
-        "logo": "images/logo-sq.png",
+        "logo": "/images/logo-sq.png",
         "bizName": "Emmadave Computer Technology Services",
         "bizUrl": "https://www.edtech.com",
         "location": {
@@ -335,7 +335,7 @@
     },
     {
         "type": "product",
-        "displayImg": "images/product.jpeg",
+        "displayImg": "/images/product.jpeg",
         "title": "Dell Inspiron 5050, Intel Core i5 5th Gen, 8gb RAM, 256gb SSD. Very clean and rugged laptop. Suitable for office use. Long lasting battery",
         "labels": ["used", "15.6"],
         "price": "N100,000",
@@ -354,7 +354,7 @@
     },
 	{
         "type": "service",
-        "displayImg": "images/product.jpeg",
+        "displayImg": "/images/product.jpeg",
         "title": "Create, design and format a document in Word, Powerpoint, Excel and CorelDRAW",
         "priceDefinition": "From",
         "price": "N5,000",
@@ -373,7 +373,7 @@
     },
     {
         "type": "business",
-        "logo": "images/logo-sq.png",
+        "logo": "/images/logo-sq.png",
         "bizName": "Emmadave Computer Technology Services",
         "bizUrl": "https://www.edtech.com",
         "location": {
@@ -397,7 +397,7 @@
     },
     {
         "type": "product",
-        "displayImg": "images/product.jpeg",
+        "displayImg": "/images/product.jpeg",
         "title": "Dell Inspiron 5050, Intel Core i5 5th Gen, 8gb RAM, 256gb SSD. Very clean and rugged laptop. Suitable for office use. Long lasting battery",
         "labels": ["used", "15.6"],
         "price": "N100,000",
@@ -416,7 +416,7 @@
     },
 	{
         "type": "service",
-        "displayImg": "images/product.jpeg",
+        "displayImg": "/images/product.jpeg",
         "title": "Create, design and format a document in Word, Powerpoint, Excel and CorelDRAW",
         "priceDefinition": "From",
         "price": "N5,000",
@@ -435,7 +435,7 @@
     },
     {
         "type": "business",
-        "logo": "images/logo-sq.png",
+        "logo": "/images/logo-sq.png",
         "bizName": "Emmadave Computer Technology Services",
         "bizUrl": "https://www.edtech.com",
         "location": {
@@ -459,7 +459,7 @@
     },
     {
         "type": "product",
-        "displayImg": "images/product.jpeg",
+        "displayImg": "/images/product.jpeg",
         "title": "Dell Inspiron 5050, Intel Core i5 5th Gen, 8gb RAM, 256gb SSD. Very clean and rugged laptop. Suitable for office use. Long lasting battery",
         "labels": ["used", "15.6"],
         "price": "N100,000",
@@ -478,7 +478,7 @@
     },
 	{
         "type": "service",
-        "displayImg": "images/product.jpeg",
+        "displayImg": "/images/product.jpeg",
         "title": "Create, design and format a document in Word, Powerpoint, Excel and CorelDRAW",
         "priceDefinition": "From",
         "price": "N5,000",

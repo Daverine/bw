@@ -9,7 +9,7 @@ export default {
 			default: {
 				namespace: 'modal',
 				toBeConsidered: ':scope .dialog, :scope .md-control',
-				triggerer: '.open-modal',
+				toggler: '.open-modal',
 				setHighlightRange: true,
 				setTabRange: true,
 				closeOnEsc: true,

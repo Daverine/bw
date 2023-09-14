@@ -10,7 +10,7 @@ export default {
 			factory: {
 				namespace: "panel",
 				toBeConsidered: ':scope .panel, :scope .pl-controls',
-				triggerer: '.open-panel',
+				toggler: '.open-panel',
 				setHighlightRange: true,
 				setTabRange: true,
 				closeOnEsc: true,
@@ -51,9 +51,9 @@ export default {
 			if (e.key === 'Escape' && this.checkEscStatus(this.EscTrack)) this.EscTrack = undefined, this.showPanel = false;
 		},
 		togglePanel(e) {
-			let triggerer = [...document.querySelectorAll(this.settings.triggerer)].filter((el) => el.contains(e.target) && (el.getAttribute('data-target') === this.id || el.getAttribute('href') === `#${this.id}`))[0];
-			if (!triggerer) return;
-			this.settings.caller = triggerer;
+			let toggler = [...document.querySelectorAll(this.settings.toggler)].filter((el) => el.contains(e.target) && (el.getAttribute('data-target') === this.id || el.getAttribute('href') === `#${this.id}`))[0];
+			if (!toggler) return;
+			this.settings.caller = toggler;
 			this.showPanel = !this.showPanel;
 		},
 		pl_console(e) {

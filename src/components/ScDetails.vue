@@ -142,7 +142,28 @@
                         "rating": 4,
                         "review": "I enjoy my experience doing business with you guys. keep it up."
                     }
+                },
+                todaySch: [
+                    [2,3],
+                    [2,4],
+                    [2,3],
+                    [3,4],
+                    [4,5],
+                    [3,5],
+                    [3,4],
+                    [4,6]
+                ]
+            }
+        },
+        computed: {
+            maxCol() {
+                let cols = [];
+
+                for(let i = 1; i < 24; i++) {
+                    cols.push(this.todaySch.filter(el => el.includes(i)).length);
                 }
+
+                return Math.max(...cols);
             }
         },
         methods: {
@@ -181,7 +202,7 @@
 			}
         },
         mounted() {
-			this.$refs.dgContent.dispatchEvent(new Event("scroll"));
+			// this.$refs.dgContent.dispatchEvent(new Event("scroll"));
 		}
     }
 </script>
@@ -347,9 +368,40 @@
             <button class="circular button" style="margin-left: auto;"><SvgIcon name="bookmark" /></button>
         </div>
     </div>
+    <!-- <div class="dialog self-scroll rounded" style="padding:1rem !important;">
+        <div class="grid">
+            <div class="c-row grid col 12-width" v-for="hr in 24">
+                <div class="c-hr">{{ hr }}</div>
+                <div class="c-schedule"></div>
+            </div>
+        </div>
+    </div> -->
 </template>
 
 <style lang="scss">
+    // .c-row {
+    //     display: flex;
+    //     flex-flow: row nowrap;
+    //     border-bottom: 1px solid var(--outline);
+    //     height: 4.5rem;
+        
+    //     &:first-child {
+    //         border-top: 1px solid var(--outline);
+    //     }
+
+    //     & > .c-hr {
+    //         height: 100%;
+    //         width: 2rem;
+    //         border-right: 1px solid var(--outline);
+    //         text-align: right;
+    //         padding: 0em 0.25em;
+    //     }
+
+    //     & > .c-schedule {
+    //         height: 100%;
+    //         width: calc(100% - 2rem);
+    //     }
+    // }
     .dm-header {
         position: absolute;
         width: 100%;
