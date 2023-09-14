@@ -1,7 +1,7 @@
-import Modal from './components/modal.vue';
-import SidePanel from './components/SidePanel.vue';
-import Dropdown from './components/Dropdown.vue';
-import Dropmenu from './components/Dropmenu.vue';
+import Modal from 'components/modal.vue';
+import SidePanel from 'components/SidePanel.vue';
+import Dropdown from 'components/Dropdown.vue';
+import Dropmenu from 'components/Dropmenu.vue';
 
 export default {
     install(app, options) {
