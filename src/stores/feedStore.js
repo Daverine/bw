@@ -1,6 +1,6 @@
 import axios from "axios";
 import { defineStore } from "pinia/dist/pinia";
-import newFeeds from '../feeds.json'
+import newFeeds from '../jsons/feeds.json'
 
 export const useFeedStore = defineStore('feeds', {
     states: () => ({

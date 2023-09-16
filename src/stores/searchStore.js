@@ -1,6 +1,6 @@
 import axios from "axios";
 import { defineStore } from "pinia/dist/pinia";
-import sresults from '../sresults.json'
+import sresults from '../jsons/sresults.json'
 
 export const useSearchStore = defineStore('search', {
     states: () => ({
