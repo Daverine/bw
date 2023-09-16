@@ -3,10 +3,9 @@
 	import { useSearchStore } from '../stores/searchStore';
 	import { useUserStore } from '../stores/userStore';
 	import Sharerables from './Sharerables.vue';
-	import navMenu from './navMenu.vue';
 
     export default {
-		components: { navMenu, Sharerables },
+		components: { Sharerables },
 		setup() {
 			const
 				mainStore = useMainStore(),
@@ -33,7 +32,7 @@
 					<img src="/images/logo.png" alt="site logo" class="logo-sm site-logo">
 				</router-link>
 				<div class="items">
-					<navMenu />
+					<Sharerables name="nav_menu" />
 				</div>
 			</div>
 			<footer>

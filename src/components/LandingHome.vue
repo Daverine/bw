@@ -4,11 +4,10 @@
 	import { useUserStore } from '../stores/userStore';
 	import { useFeedStore } from '../stores/feedStore';
 	import FeedCard from './FeedCard.vue';
-	import navMenu from './navMenu.vue';
 	import Sharerables from './Sharerables.vue';
 
 	export default {
-		components: { FeedCard, navMenu, Sharerables },
+		components: { FeedCard, Sharerables },
 		setup() {
 			const
 				mainStore = useMainStore(),
@@ -99,7 +98,7 @@
 		<article id="main" ref="main" class="grid" style="position: relative; min-height: 100vh; padding-top: 64px;">
 			<div class="manual-width col lg-and-down-hidden" id="navmenu">
 				<div class="vertical rounded transparent menu">
-					<navMenu />
+					<Sharerables name="nav_menu" />
 				</div>
 			</div>
 			<div class="col" id="feeds">
