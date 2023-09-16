@@ -1,4 +1,4 @@
-import Modal from './components/modal.vue';
+import Modal from '@/plugins/lui/components/modal.vue';
 import SidePanel from './components/SidePanel.vue';
 import Dropdown from './components/Dropdown.vue';
 import Dropmenu from './components/Dropmenu.vue';
