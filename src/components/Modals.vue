@@ -17,9 +17,164 @@ export default {
         popupSubmitSearch(e) {
             e.currentTarget.closest('.modal').dispatchEvent(new CustomEvent('plconsole', { detail: 'close panel' }));
             this.submitSearch();
-        }
+        },
+		getScDetails(md, settings) {
+			let caller = settings.caller;
+			if (caller.getAttribute('data-target') !== 'sc-details' && caller.getAttribute('href') !== '#sc-details') return;
+
+			let
+				sctype = caller.getAttribute('data-type'), // might not be needed soon.
+				scid = caller.getAttribute('data-id')
+			;
+			if (sctype === 'business') {
+				this.sDetails = {
+                    "type": "business",
+                    "logo": "images/logo-sq.png",
+                    "bizName": "Emmadave Computer Technology Services",
+                    "bizUrl": "https://www.edtech.com",
+                    "description": "We offer technical services on laptop and desktop. We offer computer tech training We also do web development.",
+                    "contacts": {
+                        "tel": "08157483233",
+                        "email": "contact_us@edtech.com"
+                    },
+                    "location": {
+                        "address": "3 Nepal road, beside Igbagboyemi Pharmacy, Isabo 111102",
+                        "city": "Abeokuta",
+                        "state": "Ogun State",
+                        "url": "https://goo.gl/maps/y9ExQLSq37FL6EHm6"
+                    },
+                    "verified": true,
+                    "mainCategory": "Computer repair services",
+                    "rating": { "rate": 3.5, "raters": 30 },
+                    "reviews": [
+                        {
+                            "userid": "e8e34",
+                            "username": "daverine",
+                            "userpic": "images/profile_pic.jpg",
+                            "anonymous": false,
+                            "timestamp": 1694061107318,
+                            "rating": 4,
+                            "review": "I enjoy my experience doing business with you guys. keep it up."
+                        },
+                        {
+                            "userid": "e8e34",
+                            "username": "daverine",
+                            "userpic": "images/profile_pic.jpg",
+                            "anonymous": false,
+                            "timestamp": 1694061107318,
+                            "rating": 3,
+                            "review": "I enjoy my experience doing business with you guys. keep it up."
+                        },
+                        {
+                            "userid": "e8e34",
+                            "username": "daverine",
+                            "userpic": "images/profile_pic.jpg",
+                            "anonymous": false,
+                            "timestamp": 1694061107318,
+                            "rating": 3,
+                            "review": "I enjoy my experience doing business with you guys. keep it up."
+                        },
+                        {
+                            "userid": "e8e34",
+                            "username": "daverine",
+                            "userpic": "images/profile_pic.jpg",
+                            "anonymous": false,
+                            "timestamp": 1694061107318,
+                            "rating": 2,
+                            "review": "I enjoy my experience doing business with you guys. keep it up."
+                        },
+                        {
+                            "userid": "e8e34",
+                            "username": "daverine",
+                            "userpic": "images/profile_pic.jpg",
+                            "anonymous": false,
+                            "timestamp": 1694061107318,
+                            "rating": 2,
+                            "review": "I enjoy my experience doing business with you guys. keep it up."
+                        },
+                        {
+                            "userid": "e8e34",
+                            "username": "daverine",
+                            "userpic": "images/profile_pic.jpg",
+                            "anonymous": false,
+                            "timestamp": 1694061107318,
+                            "rating": 2,
+                            "review": "I enjoy my experience doing business with you guys. keep it up."
+                        },
+                        {
+                            "userid": "e8e34",
+                            "username": "daverine",
+                            "userpic": "images/profile_pic.jpg",
+                            "anonymous": false,
+                            "timestamp": 1694061107318,
+                            "rating": 4,
+                            "review": "I enjoy my experience doing business with you guys. keep it up."
+                        },
+                        {
+                            "userid": "e8e34",
+                            "username": "daverine",
+                            "userpic": "images/profile_pic.jpg",
+                            "anonymous": false,
+                            "timestamp": 1694061107318,
+                            "rating": 4,
+                            "review": "I enjoy my experience doing business with you guys. keep it up."
+                        },
+                        {
+                            "userid": "e8e34",
+                            "username": "daverine",
+                            "userpic": "images/profile_pic.jpg",
+                            "anonymous": false,
+                            "timestamp": 1694061107318,
+                            "rating": 4,
+                            "review": "I enjoy my experience doing business with you guys. keep it up."
+                        },
+                        {
+                            "userid": "e8e34",
+                            "username": "daverine",
+                            "userpic": "images/profile_pic.jpg",
+                            "anonymous": false,
+                            "timestamp": 1694061107318,
+                            "rating": 4,
+                            "review": "I enjoy my experience doing business with you guys. keep it up."
+                        },
+                        {
+                            "userid": "e8e34",
+                            "username": "daverine",
+                            "userpic": "images/profile_pic.jpg",
+                            "anonymous": false,
+                            "timestamp": 1694061107318,
+                            "rating": 4,
+                            "review": "I enjoy my experience doing business with you guys. keep it up."
+                        }
+                    ],
+                    "hours": [
+                        [-1],
+                        ["8:30", "18:30"],
+                        ["8:30", "18:30"],
+                        ["15:30", "18:30"],
+                        ["8:30", "18:30"],
+                        [-1],
+                        ["8:30", "18:30"]
+                    ],
+                    "template": {
+                        "userid": "e8e34",
+                        "username": "daverine",
+                        "userpic": "images/profile_pic.jpg",
+                        "anonymous": false,
+                        "timestamp": 1694061107318,
+                        "rating": 4,
+                        "review": "I enjoy my experience doing business with you guys. keep it up."
+                    }
+                }
+			}
+		}
     },
-    components: { ScDetails }
+    components: { ScDetails },
+	data() {
+		return {
+			sDetails: false
+		}
+	}
 }
 </script>
 <template>
@@ -71,8 +226,8 @@ export default {
 				</div>
 		</div>
 	</Modal>
-	<Modal id="sc-details">
-		<ScDetails />
+	<Modal id="sc-details" :options="{ controller: getScDetails, complete: function() { sDetails = false; } }">
+		<ScDetails :details="sDetails" />
 	</Modal>
 	<template v-if="!userStore.auth">
 		<Modal id="register-modal">

@@ -74,13 +74,13 @@ export default {
 	watch: {
 		showPanel(value) {
 			if (value) {
-				if (typeof(this.settings.controller) === 'function') this.settings.controller(this.settings, this.e.pl);
+				if (typeof(this.settings.controller) === 'function') this.settings.controller(this.e.pl, this.settings);
 				document.addEventListener('keydown', this.panelKbdFunc);
 				this.e.pl.addEventListener('click', this.panelClickFunc);
 				if (this.settings.closeOnEsc) this.EscTrack = this.getEscTrack(), document.addEventListener('keyup', this.panelEscFunc);
 				this.e.pl.classList.add('active');
 				setTimeout(() => {
-					if (typeof(this.settings.ready) === 'function') this.settings.ready(this.settings, this.e.pl);
+					if (typeof(this.settings.ready) === 'function') this.settings.ready(this.e.pl, this.settings);
 					this.e.pl.scrollTop = 0;
 
 					let autoFocusEl = [...this.e.pl.querySelectorAll(this.settings.autoFocusEl)][0];
@@ -115,7 +115,7 @@ export default {
 				}
 				this.e.pl.classList.remove('active');
 				setTimeout(() => {
-					if (typeof(this.settings.complete) === 'function') this.settings.complete(this.settings, this.e.pl);
+					if (typeof(this.settings.complete) === 'function') this.settings.complete(this.e.pl, this.settings);
 					if (this.settings.caller) this.settings.caller.focus();
 					this.settings.caller = undefined;
 				}, this.settings.outDuration);

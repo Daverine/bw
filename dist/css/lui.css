@@ -272,6 +272,7 @@
   --negative-hover-alpha: rgba(241, 170, 167, 0.08);
   --negative-focus-alpha: rgba(241, 170, 167, 0.12);
   --clue-bg: rgba(255, 255, 255, 0.15);
+  --scrim-bg: rgba(0,0,0,0.65);
 }
 
 @media screen and (prefers-color-scheme: dark) {
@@ -362,6 +363,7 @@
     --negative-hover-alpha: rgba(241, 170, 167, 0.08);
     --negative-focus-alpha: rgba(241, 170, 167, 0.12);
     --clue-bg: rgba(255, 255, 255, 0.15);
+    --scrim-bg: rgba(0,0,0,0.65);
   }
 }
 :root {
@@ -1640,8 +1642,8 @@ hr.vertical:empty,
 }
 
 .image.avatar {
-  max-height: 2em;
-  max-width: 2em;
+  height: 2em;
+  width: 2em;
 }
 
 .image.fluid,
@@ -6708,10 +6710,10 @@ form .field {
   width: -moz-max-content;
   width: max-content;
   min-width: 150px;
-  top: -100%;
-  bottom: auto;
-  left: -100%;
-  right: auto;
+  top: auto;
+  bottom: 0px;
+  left: auto;
+  right: 0px;
   margin: 0.2em 0em;
   text-align: left;
   font-weight: normal;
@@ -6766,7 +6768,7 @@ form .field {
 
 .drop.menu,
 .drop-board {
-  z-index: var(--z-level-4);
+  z-index: var(--z-level-2);
   transition: transform 300ms ease-in 0s, opacity 300ms linear 0s;
 }
 .drop.menu.upward,

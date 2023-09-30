@@ -3,156 +3,146 @@
         props: ['details'],
         data() {
             return  {
-                activeFixedMenu: false,
-                details: {
-                    "type": "business",
-                    "logo": "images/logo-sq.png",
-                    "bizName": "Emmadave Computer Technology Services",
-                    "bizUrl": "https://www.edtech.com",
-                    "description": "We offer technical services on laptop and desktop. We offer computer tech training We also do web development.",
-                    "contacts": {
-                        "tel": "08157483233",
-                        "email": "contact_us@edtech.com"
-                    },
-                    "location": {
-                        "address": "3 Nepal road, beside Igbagboyemi Pharmacy, Isabo 111102",
-                        "city": "Abeokuta",
-                        "state": "Ogun State",
-                        "url": "https://goo.gl/maps/y9ExQLSq37FL6EHm6"
-                    },
-                    "verified": true,
-                    "mainCategory": "Computer repair services",
-                    "rating": { "rate": 3.5, "raters": 30 },
-                    "reviews": [
-                        {
-                            "userid": "e8e34",
-                            "username": "daverine",
-                            "userpic": "images/profile_pic.jpg",
-                            "anonymous": false,
-                            "timestamp": 1694061107318,
-                            "rating": 4,
-                            "review": "I enjoy my experience doing business with you guys. keep it up."
-                        },
-                        {
-                            "userid": "e8e34",
-                            "username": "daverine",
-                            "userpic": "images/profile_pic.jpg",
-                            "anonymous": false,
-                            "timestamp": 1694061107318,
-                            "rating": 3,
-                            "review": "I enjoy my experience doing business with you guys. keep it up."
-                        },
-                        {
-                            "userid": "e8e34",
-                            "username": "daverine",
-                            "userpic": "images/profile_pic.jpg",
-                            "anonymous": false,
-                            "timestamp": 1694061107318,
-                            "rating": 3,
-                            "review": "I enjoy my experience doing business with you guys. keep it up."
-                        },
-                        {
-                            "userid": "e8e34",
-                            "username": "daverine",
-                            "userpic": "images/profile_pic.jpg",
-                            "anonymous": false,
-                            "timestamp": 1694061107318,
-                            "rating": 2,
-                            "review": "I enjoy my experience doing business with you guys. keep it up."
-                        },
-                        {
-                            "userid": "e8e34",
-                            "username": "daverine",
-                            "userpic": "images/profile_pic.jpg",
-                            "anonymous": false,
-                            "timestamp": 1694061107318,
-                            "rating": 2,
-                            "review": "I enjoy my experience doing business with you guys. keep it up."
-                        },
-                        {
-                            "userid": "e8e34",
-                            "username": "daverine",
-                            "userpic": "images/profile_pic.jpg",
-                            "anonymous": false,
-                            "timestamp": 1694061107318,
-                            "rating": 2,
-                            "review": "I enjoy my experience doing business with you guys. keep it up."
-                        },
-                        {
-                            "userid": "e8e34",
-                            "username": "daverine",
-                            "userpic": "images/profile_pic.jpg",
-                            "anonymous": false,
-                            "timestamp": 1694061107318,
-                            "rating": 4,
-                            "review": "I enjoy my experience doing business with you guys. keep it up."
-                        },
-                        {
-                            "userid": "e8e34",
-                            "username": "daverine",
-                            "userpic": "images/profile_pic.jpg",
-                            "anonymous": false,
-                            "timestamp": 1694061107318,
-                            "rating": 4,
-                            "review": "I enjoy my experience doing business with you guys. keep it up."
-                        },
-                        {
-                            "userid": "e8e34",
-                            "username": "daverine",
-                            "userpic": "images/profile_pic.jpg",
-                            "anonymous": false,
-                            "timestamp": 1694061107318,
-                            "rating": 4,
-                            "review": "I enjoy my experience doing business with you guys. keep it up."
-                        },
-                        {
-                            "userid": "e8e34",
-                            "username": "daverine",
-                            "userpic": "images/profile_pic.jpg",
-                            "anonymous": false,
-                            "timestamp": 1694061107318,
-                            "rating": 4,
-                            "review": "I enjoy my experience doing business with you guys. keep it up."
-                        },
-                        {
-                            "userid": "e8e34",
-                            "username": "daverine",
-                            "userpic": "images/profile_pic.jpg",
-                            "anonymous": false,
-                            "timestamp": 1694061107318,
-                            "rating": 4,
-                            "review": "I enjoy my experience doing business with you guys. keep it up."
-                        }
-                    ],
-                    "hours": [
-                        [-1],
-                        ["8:30", "18:30"],
-                        ["8:30", "18:30"],
-                        ["15:30", "18:30"],
-                        ["8:30", "18:30"],
-                        [-1],
-                        ["8:30", "18:30"]
-                    ],
-                    "template": {
-                        "userid": "e8e34",
-                        "username": "daverine",
-                        "userpic": "images/profile_pic.jpg",
-                        "anonymous": false,
-                        "timestamp": 1694061107318,
-                        "rating": 4,
-                        "review": "I enjoy my experience doing business with you guys. keep it up."
-                    }
-                },
-                todaySch: [
-                    [2,3],
-                    [2,4],
-                    [2,3],
-                    [3,4],
-                    [4,5],
-                    [3,5],
-                    [3,4],
-                    [4,6]
-                ]
+                activeFixedMenu: false
+                // details: {
+                //     "type": "business",
+                //     "logo": "images/logo-sq.png",
+                //     "bizName": "Emmadave Computer Technology Services",
+                //     "bizUrl": "https://www.edtech.com",
+                //     "description": "We offer technical services on laptop and desktop. We offer computer tech training We also do web development.",
+                //     "contacts": {
+                //         "tel": "08157483233",
+                //         "email": "contact_us@edtech.com"
+                //     },
+                //     "location": {
+                //         "address": "3 Nepal road, beside Igbagboyemi Pharmacy, Isabo 111102",
+                //         "city": "Abeokuta",
+                //         "state": "Ogun State",
+                //         "url": "https://goo.gl/maps/y9ExQLSq37FL6EHm6"
+                //     },
+                //     "verified": true,
+                //     "mainCategory": "Computer repair services",
+                //     "rating": { "rate": 3.5, "raters": 30 },
+                //     "reviews": [
+                //         {
+                //             "userid": "e8e34",
+                //             "username": "daverine",
+                //             "userpic": "images/profile_pic.jpg",
+                //             "anonymous": false,
+                //             "timestamp": 1694061107318,
+                //             "rating": 4,
+                //             "review": "I enjoy my experience doing business with you guys. keep it up."
+                //         },
+                //         {
+                //             "userid": "e8e34",
+                //             "username": "daverine",
+                //             "userpic": "images/profile_pic.jpg",
+                //             "anonymous": false,
+                //             "timestamp": 1694061107318,
+                //             "rating": 3,
+                //             "review": "I enjoy my experience doing business with you guys. keep it up."
+                //         },
+                //         {
+                //             "userid": "e8e34",
+                //             "username": "daverine",
+                //             "userpic": "images/profile_pic.jpg",
+                //             "anonymous": false,
+                //             "timestamp": 1694061107318,
+                //             "rating": 3,
+                //             "review": "I enjoy my experience doing business with you guys. keep it up."
+                //         },
+                //         {
+                //             "userid": "e8e34",
+                //             "username": "daverine",
+                //             "userpic": "images/profile_pic.jpg",
+                //             "anonymous": false,
+                //             "timestamp": 1694061107318,
+                //             "rating": 2,
+                //             "review": "I enjoy my experience doing business with you guys. keep it up."
+                //         },
+                //         {
+                //             "userid": "e8e34",
+                //             "username": "daverine",
+                //             "userpic": "images/profile_pic.jpg",
+                //             "anonymous": false,
+                //             "timestamp": 1694061107318,
+                //             "rating": 2,
+                //             "review": "I enjoy my experience doing business with you guys. keep it up."
+                //         },
+                //         {
+                //             "userid": "e8e34",
+                //             "username": "daverine",
+                //             "userpic": "images/profile_pic.jpg",
+                //             "anonymous": false,
+                //             "timestamp": 1694061107318,
+                //             "rating": 2,
+                //             "review": "I enjoy my experience doing business with you guys. keep it up."
+                //         },
+                //         {
+                //             "userid": "e8e34",
+                //             "username": "daverine",
+                //             "userpic": "images/profile_pic.jpg",
+                //             "anonymous": false,
+                //             "timestamp": 1694061107318,
+                //             "rating": 4,
+                //             "review": "I enjoy my experience doing business with you guys. keep it up."
+                //         },
+                //         {
+                //             "userid": "e8e34",
+                //             "username": "daverine",
+                //             "userpic": "images/profile_pic.jpg",
+                //             "anonymous": false,
+                //             "timestamp": 1694061107318,
+                //             "rating": 4,
+                //             "review": "I enjoy my experience doing business with you guys. keep it up."
+                //         },
+                //         {
+                //             "userid": "e8e34",
+                //             "username": "daverine",
+                //             "userpic": "images/profile_pic.jpg",
+                //             "anonymous": false,
+                //             "timestamp": 1694061107318,
+                //             "rating": 4,
+                //             "review": "I enjoy my experience doing business with you guys. keep it up."
+                //         },
+                //         {
+                //             "userid": "e8e34",
+                //             "username": "daverine",
+                //             "userpic": "images/profile_pic.jpg",
+                //             "anonymous": false,
+                //             "timestamp": 1694061107318,
+                //             "rating": 4,
+                //             "review": "I enjoy my experience doing business with you guys. keep it up."
+                //         },
+                //         {
+                //             "userid": "e8e34",
+                //             "username": "daverine",
+                //             "userpic": "images/profile_pic.jpg",
+                //             "anonymous": false,
+                //             "timestamp": 1694061107318,
+                //             "rating": 4,
+                //             "review": "I enjoy my experience doing business with you guys. keep it up."
+                //         }
+                //     ],
+                //     "hours": [
+                //         [-1],
+                //         ["8:30", "18:30"],
+                //         ["8:30", "18:30"],
+                //         ["15:30", "18:30"],
+                //         ["8:30", "18:30"],
+                //         [-1],
+                //         ["8:30", "18:30"]
+                //     ],
+                //     "template": {
+                //         "userid": "e8e34",
+                //         "username": "daverine",
+                //         "userpic": "images/profile_pic.jpg",
+                //         "anonymous": false,
+                //         "timestamp": 1694061107318,
+                //         "rating": 4,
+                //         "review": "I enjoy my experience doing business with you guys. keep it up."
+                //     }
+                // }
             }
         },
         computed: {
@@ -201,14 +191,14 @@
 				else { this.activeFixedMenu = false; } 
 			}
         },
-        mounted() {
-			// this.$refs.dgContent.dispatchEvent(new Event("scroll"));
-		}
+        updated() {
+            if (this.details) this.$refs.dgContent.dispatchEvent(new Event("scroll"));
+        }
     }
 </script>
 
 <template>
-    <div class="dialog self-scroll rounded">
+    <div v-if="details" class="dialog self-scroll rounded">
         <div class="header dm-header grid" :class="{ active: activeFixedMenu }">
             <div class="content h6 semibold 0-margined truncate">{{ details.bizName }} Wee waa wooo</div>
             <button class="circular button trailing icon exit-modal">
@@ -358,6 +348,32 @@
                             </Dropmenu>
                         </Dropdown>
                     </div>
+                    <div class="dm-reviews">
+                        <div v-for="a in Math.min(5, details.reviews.length)" class="dm-review" :set="review = details.reviews[a - 1]">
+                            <header>
+                                <div class="avatar image"><span class="huge">{{ review.username.split('')[0].toUpperCase() }}</span></div>
+                                <div class="content">
+                                    <div class="bold">{{ review.username }}</div>
+                                    <div class="dm-gap" style="gap: 0.5em;">
+                                        <div class="rating mini yellow-text" :set="rating = review.rating">
+                                            <SvgIcon v-for="i in Math.floor(rating)" name="star_filled" />
+                                            <SvgIcon v-if="rating - Math.floor(rating) >= 0.5" name="star_half" />
+                                            <SvgIcon v-for="i in (5 - Math.round(rating))" name="star" />
+                                        </div>
+                                        <div>Render Time here.</div>
+                                    </div>
+                                </div>
+                                <Dropdown>
+                                    <SvgIcon name="more_vert" />
+                                    <Dropmenu class="small">
+                                        <div class="item"><SvgIcon name="flag" class="lead" /> Report</div>
+                                    </Dropmenu>
+                                </Dropdown>
+                            </header>
+                            <article>{{ review.review }}</article>
+                        </div>
+                        <div v-if="details.reviews.length > 5" class="centered"><a href="#" class="text primary button">More reviews ({{ details.reviews.length - 5 }})</a></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -365,17 +381,12 @@
             <button class="primary rounded button">Visit Business Page</button>
             <button class="circular button"><SvgIcon name="direction_filled" /></button>
             <button class="circular button"><SvgIcon name="share_filled" /></button>
-            <button class="circular button" style="margin-left: auto;"><SvgIcon name="bookmark" /></button>
+            <button class="outlined circular button" style="margin-left: auto;"><SvgIcon name="bookmark" /></button>
         </div>
     </div>
-    <!-- <div class="dialog self-scroll rounded" style="padding:1rem !important;">
-        <div class="grid">
-            <div class="c-row grid col 12-width" v-for="hr in 24">
-                <div class="c-hr">{{ hr }}</div>
-                <div class="c-schedule"></div>
-            </div>
-        </div>
-    </div> -->
+    <div v-else class="dialog self-scroll rounded">
+        <div class="progress-bar"></div>
+    </div>
 </template>
 
 <style lang="scss">
@@ -407,7 +418,7 @@
         width: 100%;
         align-items: center;
         background-color: transparent;
-        z-index: var(--z-level-1);
+        z-index: var(--z-level-3);
         transition: background-color ease 250ms;
 
         &.active {
@@ -426,10 +437,11 @@
         & > .trailing.icon {
             height: 2em !important;
             width: 2em !important;
-            background-color: #fff;
+            background-color: transparent;
         }
 
         &:not(.active) > .trailing.icon {
+            background-color: var(--surface);
             box-shadow: var(--z-depth-1);
         }
     }
@@ -503,6 +515,29 @@
 
         &:first-child > i.icon {
             color: var(--primary);
+        }
+    }
+
+    .dm-review {
+        & > header {
+            display: flex;
+            gap: 1em;
+            align-items: center;
+            width: 100%;
+
+            & > .avatar.image {
+                width: 2.5rem;
+                height: 2.5rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+                background-color: var(--surface-v5);
+            }
+
+            & > .content {
+                flex: 1 1 auto;
+            }
         }
     }
 </style>
