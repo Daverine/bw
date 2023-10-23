@@ -167,6 +167,163 @@ export default {
                     }
                 }
 			}
+			else if (sctype === 'product') {
+				this.sDetails = {
+                    "type": "product",
+					"title": "Dell Inspiron 5050, Intel Core i5 5th Gen, 8gb RAM, 256gb SSD. Very clean and rugged laptop. Suitable for office use. Long lasting battery",
+                    "price": "N100,000",
+					"currency": "Naira",
+					"negotiable": true,
+					"specifications": {
+						"Type": "Laptop",
+						"Condition": "Used",
+						"Brand": "Dell",
+						"Model": "Inspiron 5050",
+						"Processor": "Intel Corel i5 5th Generation",
+						"RAM": "8gb DDR3",
+						"Storage": "256gb SSD M.2",
+						"Display Size": "15.6\"",
+						"Graphics": "Intel Graphics 3000 (64mb)"
+					},
+					"logo": "images/logo-sq.png",
+                    "bizName": "Emmadave Computer Technology Services",
+                    "bizUrl": "https://www.edtech.com",
+                    "description": "We offer technical services on laptop and desktop. We offer computer tech training We also do web development.",
+                    "contacts": {
+                        "tel": "08157483233",
+                        "email": "contact_us@edtech.com"
+                    },
+                    "location": {
+                        "address": "3 Nepal road, beside Igbagboyemi Pharmacy, Isabo 111102",
+                        "city": "Abeokuta",
+                        "state": "Ogun State",
+                        "url": "https://goo.gl/maps/y9ExQLSq37FL6EHm6"
+                    },
+                    "verified": true,
+                    "mainCategory": "Computer repair services",
+                    "rating": { "rate": 3.5, "raters": 30 },
+                    "reviews": [
+                        {
+                            "userid": "e8e34",
+                            "username": "daverine",
+                            "userpic": "images/profile_pic.jpg",
+                            "anonymous": false,
+                            "timestamp": 1694061107318,
+                            "rating": 4,
+                            "review": "I enjoy my experience doing business with you guys. keep it up."
+                        },
+                        {
+                            "userid": "e8e34",
+                            "username": "daverine",
+                            "userpic": "images/profile_pic.jpg",
+                            "anonymous": false,
+                            "timestamp": 1694061107318,
+                            "rating": 3,
+                            "review": "I enjoy my experience doing business with you guys. keep it up."
+                        },
+                        {
+                            "userid": "e8e34",
+                            "username": "daverine",
+                            "userpic": "images/profile_pic.jpg",
+                            "anonymous": false,
+                            "timestamp": 1694061107318,
+                            "rating": 3,
+                            "review": "I enjoy my experience doing business with you guys. keep it up."
+                        },
+                        {
+                            "userid": "e8e34",
+                            "username": "daverine",
+                            "userpic": "images/profile_pic.jpg",
+                            "anonymous": false,
+                            "timestamp": 1694061107318,
+                            "rating": 2,
+                            "review": "I enjoy my experience doing business with you guys. keep it up."
+                        },
+                        {
+                            "userid": "e8e34",
+                            "username": "daverine",
+                            "userpic": "images/profile_pic.jpg",
+                            "anonymous": false,
+                            "timestamp": 1694061107318,
+                            "rating": 2,
+                            "review": "I enjoy my experience doing business with you guys. keep it up."
+                        },
+                        {
+                            "userid": "e8e34",
+                            "username": "daverine",
+                            "userpic": "images/profile_pic.jpg",
+                            "anonymous": false,
+                            "timestamp": 1694061107318,
+                            "rating": 2,
+                            "review": "I enjoy my experience doing business with you guys. keep it up."
+                        },
+                        {
+                            "userid": "e8e34",
+                            "username": "daverine",
+                            "userpic": "images/profile_pic.jpg",
+                            "anonymous": false,
+                            "timestamp": 1694061107318,
+                            "rating": 4,
+                            "review": "I enjoy my experience doing business with you guys. keep it up."
+                        },
+                        {
+                            "userid": "e8e34",
+                            "username": "daverine",
+                            "userpic": "images/profile_pic.jpg",
+                            "anonymous": false,
+                            "timestamp": 1694061107318,
+                            "rating": 4,
+                            "review": "I enjoy my experience doing business with you guys. keep it up."
+                        },
+                        {
+                            "userid": "e8e34",
+                            "username": "daverine",
+                            "userpic": "images/profile_pic.jpg",
+                            "anonymous": false,
+                            "timestamp": 1694061107318,
+                            "rating": 4,
+                            "review": "I enjoy my experience doing business with you guys. keep it up."
+                        },
+                        {
+                            "userid": "e8e34",
+                            "username": "daverine",
+                            "userpic": "images/profile_pic.jpg",
+                            "anonymous": false,
+                            "timestamp": 1694061107318,
+                            "rating": 4,
+                            "review": "I enjoy my experience doing business with you guys. keep it up."
+                        },
+                        {
+                            "userid": "e8e34",
+                            "username": "daverine",
+                            "userpic": "images/profile_pic.jpg",
+                            "anonymous": false,
+                            "timestamp": 1694061107318,
+                            "rating": 4,
+                            "review": "I enjoy my experience doing business with you guys. keep it up."
+                        }
+                    ],
+                    "hours": [
+                        [-1],
+                        ["8:30", "18:30"],
+                        ["8:30", "18:30"],
+                        ["15:30", "18:30"],
+                        ["8:30", "18:30"],
+                        [-1],
+                        ["8:30", "18:30"]
+                    ],
+                    "template": {
+                        "userid": "e8e34",
+                        "username": "daverine",
+                        "userpic": "images/profile_pic.jpg",
+                        "anonymous": false,
+                        "timestamp": 1694061107318,
+                        "rating": 4,
+                        "review": "I enjoy my experience doing business with you guys. keep it up."
+                    }
+                }
+			}
+
 		}
     },
     components: { ScDetails },

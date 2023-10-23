@@ -736,8 +736,6 @@ h1 + *, h2 + *, h3 + *, h4 + *, h5 + *, h6 + *,
 
 .h1, .h2, .h3, .h4, .h5, .h6 {
   line-height: 1.15;
-  margin-top: 0.5em;
-  margin-bottom: 0.25em;
 }
 
 h1 {
@@ -1199,16 +1197,13 @@ ol.upper-roman-type .sub-list .sub-list .sub-list .sub-list .sub-list .sub-list 
 /* --- PANEL --- */
 .panel {
   position: relative;
-  background-color: #fff;
-  border: 1px solid rgba(34, 36, 38, 0.15);
-  box-shadow: 0 1px 2px 0 rgba(34, 36, 38, 0.15);
+  background-color: var(--surface);
+  color: var(--on-surface);
+  border: 1px solid var(--outline);
+  box-shadow: var(--z-depth-0);
   border-radius: 1px;
   list-style: none;
   margin: 0.5em 0 1em 0;
-}
-.panel.inverted {
-  background: #1B1C1D;
-  color: rgba(255, 255, 255, 0.9);
 }
 .panel > .item {
   line-height: 1.5;
@@ -1218,7 +1213,7 @@ ol.upper-roman-type .sub-list .sub-list .sub-list .sub-list .sub-list .sub-list 
   padding: 0.7em 1em;
 }
 .panel > .item:not(:last-child) {
-  border-bottom: 1px solid #d2d2d2;
+  border-bottom: 1px solid var(--outline);
 }
 .panel > .item:first-child {
   border-top-left-radius: inherit;
@@ -2979,7 +2974,7 @@ hr.vertical:empty,
 .menu > .item,
 .menu .items > .item {
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: row nowrap;
   position: relative;
   align-items: center;
   line-height: inherit;
@@ -3052,10 +3047,6 @@ hr.vertical:empty,
   font-size: 1em;
   margin-left: auto;
   margin-right: -0.5em;
-}
-.menu > .item > .content,
-.menu .items > .item > .content {
-  max-width: calc(100% - 3.5rem);
 }
 .menu > .item > .badge,
 .menu .items > .item > .badge {
@@ -6104,19 +6095,6 @@ form .field {
 .modal > .dialog > .header, .modal > .dialog > .actions, .modal > .dialog > .footer, .modal > .dialog > .content {
   margin: 0px;
   padding: 1rem 1.5rem;
-}
-.modal > .dialog > .header > .lead.icon, .modal > .dialog > .actions > .lead.icon, .modal > .dialog > .footer > .lead.icon, .modal > .dialog > .content > .lead.icon {
-  font-size: 1em;
-  margin-left: -0.5em;
-  margin-right: 1em;
-}
-.modal > .dialog > .header > .trailing.icon, .modal > .dialog > .actions > .trailing.icon, .modal > .dialog > .footer > .trailing.icon, .modal > .dialog > .content > .trailing.icon {
-  font-size: 1em;
-  margin-left: auto;
-  margin-right: -0.5em;
-}
-.modal > .dialog > .header > .content, .modal > .dialog > .actions > .content, .modal > .dialog > .footer > .content, .modal > .dialog > .content > .content {
-  max-width: calc(100% - 3.5rem);
 }
 .modal > .dialog > .content {
   overflow: auto;
@@ -10459,12 +10437,35 @@ textarea.clue-bg,
   margin-right: 0.5em !important;
 }
 
-*:not(.active) > .aview {
+*:not(.active) > .aview,
+*:not(.active) > .viewbox > .a-view {
   display: none !important;
 }
 
-*.active > .nview {
+*.active > .nview,
+*.active > .viewbox > .n-view {
   display: none !important;
+}
+
+.a-block {
+  display: flex;
+  flex-flow: row nowrap;
+}
+.a-block > .lead.icon {
+  font-size: 1em;
+  margin-left: -0.5em;
+  margin-right: 1em;
+}
+.a-block > .trailing.icon {
+  font-size: 1em;
+  margin-left: auto;
+  margin-right: -0.5em;
+}
+.a-block > .content {
+  flex: 1 1 auto;
+}
+.a-block > .content + .trailing.icon {
+  margin-left: 1em;
 }
 
 .hoverer {

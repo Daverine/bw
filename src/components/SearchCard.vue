@@ -105,7 +105,7 @@ export default {
 				<SvgIcon name="verified_sp" title="Verified" class="small green-text" style="position: absolute; bottom: 0px; right: 0px;" />
 			</div>
 			<div class="sc-content">
-				<a :href="details.bizUrl" class="sc-title">{{ details.bizName }}</a>
+				<a href="#" class="sc-title">{{ details.bizName }}</a>
 				<div class="sc-gap">
 					<span class="small semibold">{{ details.mainCategory }}</span>
 					<span :title="details.location.address" class="truncate" style="color: var(--on-surface-variant);">

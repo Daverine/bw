@@ -48,3 +48,9 @@
 		transform: translateY(0%);
 	}
 }
+
+.collapsible {
+	transition: max-height .5s ease-in-out;
+	overflow-y: hidden !important;
+	max-height: 0px;
+}

@@ -64,6 +64,17 @@ export default {
 		
 			return parents;
 		},
+		nextAll(el) {
+			const nextElements = []
+			let nextElement = el
+			
+			while(nextElement.nextElementSibling) {
+				nextElements.push(nextElement.nextElementSibling)
+				nextElement = nextElement.nextElementSibling
+			}
+			
+			return nextElements
+		},
 		triggerEvent(el, eventType) {
 			if (typeof eventType === 'string' && typeof el[eventType] === 'function') {
 				el[eventType]();
