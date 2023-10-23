@@ -41,6 +41,9 @@ export function Collapsible() {
         mounted(el) {
             dnm.toggleCollapsible('initialize', el);
             el.addEventListener('click', dnm.toggleCollapsible);
+        },
+        unmounted(el) {
+            el.removeEventListener('click', dnm.toggleCollapsible);
         }
     }
 }
