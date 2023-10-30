@@ -4,10 +4,10 @@
 	import { useUserStore } from '../stores/userStore';
 	import { useFeedStore } from '../stores/feedStore';
 	import FeedCard from './FeedCard.vue';
-	import Sharerables from './Sharerables.vue';
+	import Shareables from './Shareables.vue';
 
 	export default {
-		components: { FeedCard, Sharerables },
+		components: { FeedCard, Shareables },
 		setup() {
 			const
 				mainStore = useMainStore(),
@@ -47,7 +47,13 @@
 						<router-link to="/bookmarks" class="item">Bookmarks</router-link>
 						<router-link to="/following" class="item">Following</router-link>
 						<router-link to="/help#shop-online" class="item">Have a shop online</router-link>
-						<router-link to="/support" class="item">Support</router-link>
+						<Dropdown class="item">
+							Support
+							<SvgIcon name="expand_more" class="trailing" />
+							<Dropmenu class="rounded">
+								<Shareables name="supports" />
+							</Dropmenu>
+						</Dropdown>
 					</div>
 					<div class="items r-aligned">
 						<div class="as-icon item">
@@ -55,7 +61,7 @@
 						</div>
 						<Dropdown class="xhover as-icon item">
 							<img src="/images/profile.jpg" alt="profile"  class="fully-rounded logo" />
-							<Sharerables name="profile_menu" />
+							<Shareables name="profile_menu" />
 						</Dropdown>
 					</div>
 				</div>
@@ -77,7 +83,7 @@
 					<div class="grid" style="gap: 16px; margin: 32px auto 0px; max-width: 300px;">
 						<div class="col">
 							<button type="submit" class="rounded fluid button">
-								SEARCH
+								<SvgIcon name="search" class="lead" /> SEARCH
 							</button>
 						</div>
 						<div class="col">
@@ -98,7 +104,7 @@
 		<article id="main" ref="main" class="grid" style="position: relative; min-height: 100vh; padding-top: 64px;">
 			<div class="manual-width col lg-and-down-hidden" id="navmenu">
 				<div class="vertical rounded transparent menu">
-					<Sharerables name="nav_menu" />
+					<Shareables name="nav_menu" />
 				</div>
 			</div>
 			<div class="col" id="feeds">

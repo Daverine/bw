@@ -1,5 +1,5 @@
 import { onBeforeUnmount } from 'vue';
-import utils from './utils';
+import { utils } from '../utils';
 
 export default {
 	props: ['id', 'options'],
@@ -39,16 +39,16 @@ export default {
 		},
 		panelKbdFunc(e) {
 			// tab function in panel
-			if (this.settings.setTabRange && e.key === 'Tab') this.focusRangeOnTab(this.e.pl, e);
+			if (this.settings.setTabRange && e.key === 'Tab') utils.focusRangeOnTab(this.e.pl, e);
 			// Control + A function in panel
 			else if (this.settings.setHighlightRange && e.ctrlKey && e.code === 'KeyA') {
 				if (document.querySelectorAll('input:focus, textarea:focus')[0]) return;
 				e.preventDefault();
-				this.setHighlightRange(this.e.pl);
+				utils.setHighlightRange(this.e.pl);
 			}
 		},
 		panelEscFunc(e) {
-			if (e.key === 'Escape' && this.checkEscStatus(this.EscTrack)) this.EscTrack = undefined, this.showPanel = false;
+			if (e.key === 'Escape' && utils.checkEscStatus(this.EscTrack)) this.EscTrack = undefined, this.showPanel = false;
 		},
 		togglePanel(e) {
 			let toggler = [...document.querySelectorAll(this.settings.toggler)].filter((el) => el.contains(e.target) && (el.getAttribute('data-target') === this.id || el.getAttribute('href') === `#${this.id}`))[0];
@@ -77,7 +77,7 @@ export default {
 				if (typeof(this.settings.controller) === 'function') this.settings.controller(this.e.pl, this.settings);
 				document.addEventListener('keydown', this.panelKbdFunc);
 				this.e.pl.addEventListener('click', this.panelClickFunc);
-				if (this.settings.closeOnEsc) this.EscTrack = this.getEscTrack(), document.addEventListener('keyup', this.panelEscFunc);
+				if (this.settings.closeOnEsc) this.EscTrack = utils.getEscTrack(), document.addEventListener('keyup', this.panelEscFunc);
 				this.e.pl.classList.add('active');
 				setTimeout(() => {
 					if (typeof(this.settings.ready) === 'function') this.settings.ready(this.e.pl, this.settings);
@@ -94,12 +94,12 @@ export default {
 				if (this.settings.closeOnEsc) document.removeEventListener('keyup', this.panelEscFunc);					
 				// safely get out of escape track
 				if (typeof(this.EscTrack) === 'number') {
-					if (this.checkEscStatus(this.EscTrack)) this.EscTrack = undefined;
+					if (utils.checkEscStatus(this.EscTrack)) this.EscTrack = undefined;
 					else {
 						let
 							count = 0,
 							counter = setInterval(() => {
-								if (this.checkEscStatus(this.EscTrack)) {
+								if (utils.checkEscStatus(this.EscTrack)) {
 									this.EscTrack = undefined;
 									clearInterval(counter);
 								}

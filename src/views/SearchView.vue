@@ -3,13 +3,13 @@
 	import { useSearchStore } from '../stores/searchStore';
 	import SearchCard from '../components/SearchCard.vue';
 	import { useUserStore } from '../stores/userStore';
-	import Sharerables from '../components/Sharerables.vue';
+	import Shareables from '../components/Shareables.vue';
 
 	export default {
 		title() {
 			return `${this.searchStore.searchBox} | Bizworld`
 		},
-		components: { SearchCard, Sharerables },
+		components: { SearchCard, Shareables },
 		setup() {
 			const
 				mainStore = useMainStore(),
@@ -64,7 +64,7 @@
 						</div>
 						<Dropdown class="xhover as-icon item">
 							<img src="/images/profile.jpg" alt="profile"  class="fully-rounded logo" />
-							<Sharerables name="profile_menu" />
+							<Shareables name="profile_menu" />
 						</Dropdown>
 					</div> 
 					<div v-else class="items r-aligned">

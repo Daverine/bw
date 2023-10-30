@@ -1,8 +1,7 @@
 <script>
-	import utils from './utils';
+	import { utils } from '../utils'
 
 	export default {
-		mixins: [utils],
 		props: ['name', 'placeholder', 'options'],
 		data() {
 			return {
@@ -52,7 +51,7 @@
 
 					if (this.settings.searchable && this.showDropdown) {
 						this.e.sb.value = '';
-						this.triggerEvent(this.e.sb, 'input');
+						utils.triggerEvent(this.e.sb, 'input');
 						this.e.sb.focus();
 					}
 
@@ -109,7 +108,7 @@
 				if (this.showDropdown) {
 					if (this.settings.searchable) {
 						this.e.sb.value = '';
-						this.triggerEvent(this.e.sb, 'input');
+						utils.triggerEvent(this.e.sb, 'input');
 					}
 				
 					this.dd_CalcPosition();
@@ -343,13 +342,13 @@
 			},
 			dd_EscTabFunc(e) {
 				// you should use an Escape tracker here to stop other plugins like modal from triggering close on escape press if the dropdown is opened down.
-				if ((e.key == 'Escape' && this.checkEscStatus(this.EscTrack)) || (e.key == 'Tab' && ![...this.e.dd.querySelectorAll(':scope :focus')][0] && ![...this.e.dm.querySelectorAll(':scope :focus')][0] && ![...this.e.dm.querySelectorAll(':scope .dropdown.active')][0])) {
+				if ((e.key == 'Escape' && utils.checkEscStatus(this.EscTrack)) || (e.key == 'Tab' && ![...this.e.dd.querySelectorAll(':scope :focus')][0] && ![...this.e.dm.querySelectorAll(':scope :focus')][0] && ![...this.e.dm.querySelectorAll(':scope .dropdown.active')][0])) {
 					e.preventDefault();
 					if (e.key === 'Escape') this.EscTrack = undefined;
 					this.showDropdown = false;
 
 					if (e.key == 'Tab') this.dd_closeAll();
-					else if (this.e.dd.matches('.sub') && this.dd_getParentDropdown()) this.triggerEvent(this.dd_getParentDropdown(), new CustomEvent('ddconsole', {detail: {command: 'set hovered item', el: this.e.dd}}));
+					else if (this.e.dd.matches('.sub') && this.dd_getParentDropdown()) utils.triggerEvent(this.dd_getParentDropdown(), new CustomEvent('ddconsole', {detail: {command: 'set hovered item', el: this.e.dd}}));
 				}
 			},
 			dd_KBFunc(e) {
@@ -363,7 +362,7 @@
 					if (!item) return;
 					if (item.matches('.dropdown:not(.active)')) {
 						e.preventDefault();
-						this.triggerEvent(item, new CustomEvent('ddconsole', {detail: 'open with keyboard'}));
+						utils.triggerEvent(item, new CustomEvent('ddconsole', {detail: 'open with keyboard'}));
 					}
 					else if (e.key == 'Enter') {
 						e.preventDefault();
@@ -375,7 +374,7 @@
 				else if (e.key == 'ArrowLeft' && this.e.dd.matches('.sub') && ![...this.e.dm.querySelectorAll(':scope .dropdown.active')][0]) {
 					e.preventDefault();
 					this.showDropdown = false;
-					if (this.e.dd.matches('.sub') && this.dd_getParentDropdown()) this.triggerEvent(this.dd_getParentDropdown(), new CustomEvent('ddconsole', {detail: {command: 'set hovered item', el: this.e.dd}}));
+					if (this.e.dd.matches('.sub') && this.dd_getParentDropdown()) utils.triggerEvent(this.dd_getParentDropdown(), new CustomEvent('ddconsole', {detail: {command: 'set hovered item', el: this.e.dd}}));
 				}
 				// Up and down arrrow key navigation on dropdown menu item.
 				else if (e.key == 'ArrowUp' || e.key == 'ArrowDown') {
@@ -408,7 +407,7 @@
 						/* Enable scroll of overflow parent to hovered-item to make the hovered item visible */
 						if (ci) {
 							let
-								getIop = this.getParents(ci, '', this.e.dm).filter((el) => (window.getComputedStyle(el).getPropertyValue('overflow-y') === 'auto' || window.getComputedStyle(el).getPropertyValue('overflow-y') === 'scroll'))[0],
+								getIop = utils.getParents(ci, '', this.e.dm).filter((el) => (window.getComputedStyle(el).getPropertyValue('overflow-y') === 'auto' || window.getComputedStyle(el).getPropertyValue('overflow-y') === 'scroll'))[0],
 								iOp = getIop ? getIop : this.e.dm,
 								dSc = iOp.scrollTop,
 								dH = iOp.clientHeight,
@@ -537,7 +536,7 @@
 					this.e.dm.style.minWidth = '';
 
 					let
-						getOp = this.getParents(this.e.dm).filter((el) => (window.getComputedStyle(el).getPropertyValue('overflow-y') === 'auto' || window.getComputedStyle(el).getPropertyValue('overflow-y') === 'scroll'))[0],
+						getOp = utils.getParents(this.e.dm).filter((el) => (window.getComputedStyle(el).getPropertyValue('overflow-y') === 'auto' || window.getComputedStyle(el).getPropertyValue('overflow-y') === 'scroll'))[0],
 						op = getOp || document.documentElement,
 						opProp = op.getBoundingClientRect(),
 						dProp = this.e.dd.getBoundingClientRect(),
@@ -607,12 +606,12 @@
 			},
 			dd_closeAll() {
 				let pDd = this.dd_getParentDropdown();
-				if (pDd) this.triggerEvent(pDd, new CustomEvent('ddconsole', {detail: 'close all ancestor dropdown'}));
+				if (pDd) utils.triggerEvent(pDd, new CustomEvent('ddconsole', {detail: 'close all ancestor dropdown'}));
 			},
 			dd_getParentDropdown() {
-				let pDd = this.getParents(this.e.dd, '.drop.menu')[0];
+				let pDd = utils.getParents(this.e.dd, '.drop.menu')[0];
 				if (pDd && pDd.matches('[data-browsed]')) pDd = document.querySelectorAll(`[data-target="${pDd.getAttribute('id')}"]`).filter((el) => el.matches('.dropdown'))[0];
-				else pDd = this.getParents(this.e.dd, '.dropdown')[0];
+				else pDd = utils.getParents(this.e.dd, '.dropdown')[0];
 				return pDd;
 			},
 			dd_console(e) {
@@ -736,13 +735,13 @@
 					if (this.e.dd.matches('.disabled, [disabled]')) return;
 					let items = [...this.e.dm.querySelectorAll(this.s.it_i)];
 
-					this.EscTrack = this.getEscTrack();
+					this.EscTrack = utils.getEscTrack();
 
 					if (this.settings.searchable) {						
 						this.e.sb.focus();
 						// what to do when searching in a dropdown box
 						this.e.sb.addEventListener('input', this.dd_searchFunc);
-						this.triggerEvent(this.e.sb, 'input');
+						utils.triggerEvent(this.e.sb, 'input');
 					}
 					document.addEventListener('click', this.dd_clickOnDom);
 					document.addEventListener('keyup', this.dd_EscTabFunc);
@@ -768,7 +767,7 @@
 						let acItem = items.filter((el) => el.matches('.active'))[0];
 						if (acItem) {
 							let
-								getIop = this.getParents(acItem, '', this.e.dm).filter((el) => (window.getComputedStyle(el).getPropertyValue('overflow-y') === 'auto' || window.getComputedStyle(el).getPropertyValue('overflow-y') === 'scroll'))[0],
+								getIop = utils.getParents(acItem, '', this.e.dm).filter((el) => (window.getComputedStyle(el).getPropertyValue('overflow-y') === 'auto' || window.getComputedStyle(el).getPropertyValue('overflow-y') === 'scroll'))[0],
 								iOp = getIop ? getIop : this.e.dm,
 								dScroll = iOp.scrollTop,
 								sAmt = acItem.getBoundingClientRect().top - iOp.getBoundingClientRect().top + dScroll
@@ -780,7 +779,7 @@
 				}
 				else {
 					// close all it sub-dropdown first.
-					[...this.e.dm.querySelectorAll(':scope .dropdown.active')].forEach((el) => this.triggerEvent(el, new CustomEvent('ddconsole', {detail: 'close'})));
+					[...this.e.dm.querySelectorAll(':scope .dropdown.active')].forEach((el) => utils.triggerEvent(el, new CustomEvent('ddconsole', {detail: 'close'})));
 
 					document.removeEventListener('click', this.dd_clickOnDom);
 					document.removeEventListener('keyup', this.dd_EscTabFunc);
@@ -801,12 +800,12 @@
 					
 					// safely get out of escape track
 					if (typeof(this.EscTrack) === 'number') {
-						if (this.checkEscStatus(this.EscTrack)) this.EscTrack = undefined;
+						if (utils.checkEscStatus(this.EscTrack)) this.EscTrack = undefined;
 						else {
 							let
 								count = 0,
 								counter = setInterval(() => {
-									if (this.checkEscStatus(this.EscTrack)) {
+									if (utils.checkEscStatus(this.EscTrack)) {
 										this.EscTrack = undefined;
 										clearInterval(counter);
 									}
@@ -825,12 +824,12 @@
 				}
 			},
 			allItemFiltered(value) {
-				if (value) this.triggerEvent(this.e.dm, new CustomEvent('dmconsole', {detail: 'on allItemFiltered'}));
-				else this.triggerEvent(this.e.dm, new CustomEvent('dmconsole', {detail: 'off allItemFiltered'}));
+				if (value) utils.triggerEvent(this.e.dm, new CustomEvent('dmconsole', {detail: 'on allItemFiltered'}));
+				else utils.triggerEvent(this.e.dm, new CustomEvent('dmconsole', {detail: 'off allItemFiltered'}));
 			},
 			allItemSelected(value) {
-				if (value) this.triggerEvent(this.e.dm, new CustomEvent('dmconsole', {detail: 'on allItemSelected'}));
-				else this.triggerEvent(this.e.dm, new CustomEvent('dmconsole', {detail: 'off allItemSelected'}));
+				if (value) utils.triggerEvent(this.e.dm, new CustomEvent('dmconsole', {detail: 'on allItemSelected'}));
+				else utils.triggerEvent(this.e.dm, new CustomEvent('dmconsole', {detail: 'off allItemSelected'}));
 			}
 		},	
 		beforeUnmount() {

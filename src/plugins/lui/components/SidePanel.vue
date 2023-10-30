@@ -1,9 +1,8 @@
 <script>
-import utils from './utils';
 import panel from './panel';
 
 export default {
-	mixins: [utils, panel],
+	mixins: [panel],
 	data() {
 		return {
 			default: {

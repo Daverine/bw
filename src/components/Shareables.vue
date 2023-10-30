@@ -3,6 +3,7 @@
 	import { useUserStore } from '../stores/userStore';
     
     export default {
+        name: "rc-shareables",
         props: ['name'],
         setup() {
 			const
@@ -33,6 +34,12 @@
         <router-link to="/feedback" class="item"><SvgIcon name="feedback" class="lead" /> Give feedback</router-link>
         <div class="item" @click="userStore.logout()"><SvgIcon name="logout" class="lead" /> Log out</div>
     </Dropmenu>
+    <template v-else-if="name === 'supports'">
+        <div class="item">Get help</div>
+        <div class="item">Become a developer</div>
+        <div class="item">Support us</div>
+        <div class="item">Thank you</div>
+    </template>
     <template v-else-if="name === 'nav_menu'">
         <template v-if="userStore.auth">
             <router-link to="/" exact-active-class="active" class="item exit-sidepanel">
@@ -64,11 +71,20 @@
                 <SvgIcon name="person_filled" class="lead aview" />
                 Profile
             </router-link>
-            <router-link to="/support" exact-active-class="active" class="item">
-                <SvgIcon name="contact_support" class="lead nview" />
-                <SvgIcon name="contact_support_filled" class="lead aview" />
+            <div v-collapsible class="item">
+                <i class="lead viewbox icon">
+                    <SvgIcon name="contact_support" class="n-view" />
+                    <SvgIcon name="contact_support_filled" class="a-view" />
+                </i>
                 Support
-            </router-link>
+                <i class="trailing viewbox icon">
+                    <SvgIcon name="expand_more" class="a-view" />
+                    <SvgIcon name="chevron_left" class="n-view" />
+                </i>
+            </div>
+            <div class="collapsible sub items">
+                <rc-shareables name="supports" />
+            </div>
             <div class="transparent compact divider"></div>
             <div class="xhover item 0-padding"><button class="fluid rounded button">Have a shop online</button></div>
         </template>
@@ -77,12 +93,20 @@
                 <SvgIcon name="qr_code_scanner" class="lead" />
                 Scan Business QR
             </div>
-            <router-link to="/support" exact-active-class="active" class="item">
-                <SvgIcon name="contact_support" class="lead nview" />
-                <SvgIcon name="contact_support_filled" class="lead aview" />
+            <div v-collapsible class="item">
+                <i class="lead viewbox icon">
+                    <SvgIcon name="contact_support" class="n-view" />
+                    <SvgIcon name="contact_support_filled" class="a-view" />
+                </i>
                 Support
-                <SvgIcon name="expand_more" class="trailing" />
-            </router-link>
+                <i class="trailing viewbox icon">
+                    <SvgIcon name="expand_more" class="a-view" />
+                    <SvgIcon name="chevron_left" class="n-view" />
+                </i>
+            </div>
+            <div class="collapsible sub items">
+                <rc-shareables name="supports" />
+            </div>
             <div class="item">
                 <SvgIcon name="add_business" class="lead" />
                 Have a shop online

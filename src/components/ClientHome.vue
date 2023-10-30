@@ -1,6 +1,7 @@
 <script>
 	import { useMainStore } from '../stores';
 	import { useSearchStore } from '../stores/searchStore';
+	import Shareables from './Shareables.vue';
 
 	export default {
 		setup() {
@@ -11,6 +12,7 @@
 
 			return { mainStore, searchStore }
 		},
+		components: { Shareables },
 		methods: {
 			handleScroll() {
 				if (this.$refs.main.getBoundingClientRect().top <= 0) this.mainStore.mutateSFM(true);
@@ -41,12 +43,9 @@
 						<div class="items lg-and-down-hidden">
 							<Dropdown class="item">
 								Support
-								<SvgIcon name="expand_more" />
-								<Dropmenu>
-									<div class="item">Get help</div>
-									<div class="item">Become a developer</div>
-									<div class="item">Support us</div>
-									<div class="item">Thank you</div>
+								<SvgIcon name="expand_more" class="trailing" />
+								<Dropmenu class="rounded">
+									<Shareables name="supports" />
 								</Dropmenu>
 							</Dropdown>
 							<a href="help.html#shop-online" class="item">Have a shop online</a>

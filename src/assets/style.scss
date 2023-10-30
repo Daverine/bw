@@ -51,6 +51,6 @@
 
 .collapsible {
 	transition: max-height .5s ease-in-out;
-	overflow-y: hidden !important;
+	overflow: hidden !important;
 	max-height: 0px;
 }

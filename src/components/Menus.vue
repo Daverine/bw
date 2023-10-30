@@ -2,10 +2,10 @@
 	import { useMainStore } from '../stores';
 	import { useSearchStore } from '../stores/searchStore';
 	import { useUserStore } from '../stores/userStore';
-	import Sharerables from './Sharerables.vue';
+	import Shareables from './Shareables.vue';
 
     export default {
-		components: { Sharerables },
+		components: { Shareables },
 		setup() {
 			const
 				mainStore = useMainStore(),
@@ -32,7 +32,7 @@
 					<img src="/images/logo.png" alt="site logo" class="logo-sm site-logo">
 				</router-link>
 				<div class="items">
-					<Sharerables name="nav_menu" />
+					<Shareables name="nav_menu" />
 				</div>
 			</div>
 			<footer>
@@ -76,7 +76,7 @@
 				</div>
 				<Dropdown class="xhover as-icon item">
 					<img src="/images/profile.jpg" alt="profile"  class="fully-rounded logo" />
-					<Sharerables name="profile_menu" />
+					<Shareables name="profile_menu" />
 				</Dropdown>
 			</div>
 			<div v-else class="items r-aligned">

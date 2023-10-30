@@ -1,3 +1,5 @@
+import { utils } from "../utils";
+
 export function Collapsible() {
     const dnm = {
         nextAll(el) {
