@@ -394,13 +394,19 @@
             </div>
             <div ref="dgContent" class="content 0-padding" @scroll="handleScroll">
                 <div class="dm-display">
-                    <div class="dm-media"></div>
+                    <div class="dm-media">
+                        <Carousel class="dm-dps" :options="{slidesHeight: 'inherit'}">
+                            <div v-for="slide in details.media" class="cs-slide">
+                                <img v-if="slide[0] === 'pic'" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" :style="`width: 100%; height: 100%; background-image: url(${slide[1]}); background-size: contain; background-repeat: no-repeat; background-position: center;`"/>
+                            </div>
+                        </Carousel>
+                    </div>
                 </div>
                 <div style="padding: 1em 1.5em;">
                     <div class="dm-heading">
-                        <span :title="details.location.address" class="truncate" style="color: var(--on-surface-variant);">
+                        <span :title="details.bizData.location.address" class="truncate" style="color: var(--on-surface-variant);">
                             <SvgIcon name="location_on" class="mini r-spaced" />
-                            <span class="small semibold">{{ `${details.location.city }, ${details.location.state}` }}</span>
+                            <span class="small semibold">{{ `${details.bizData.location.city }, ${details.bizData.location.state}` }}</span>
                         </span>
                         <h4 class="dm-title">{{ details.title }}</h4>
                         <div class="dm-gap">
@@ -576,41 +582,41 @@
                     </div>
                     <div class="a-block collapsible">
                         <div class="lead" style="position: relative; align-self: center;">
-                            <img :src="details.logo" class="loose avatar image" />
+                            <img :src="details.bizData.logo" class="loose avatar image" />
                             <SvgIcon name="verified_sp" title="Verified" class="small green-text" style="position: absolute; bottom: 0px; right: 0px;" />
                         </div>
                         <div class="content">
-                            <a href="#" style="font-weight: var(--bold-weight);">{{ details.bizName }}</a>
+                            <a href="#" style="font-weight: var(--bold-weight);">{{ details.bizData.bizName }}</a>
                             <div class="sc-gap">
-                                <span class="small semibold">{{ details.mainCategory }}</span>
-                                <span :title="details.location.address" class="truncate" style="color: var(--on-surface-variant);">
+                                <span class="small semibold">{{ details.bizData.mainCategory }}</span>
+                                <span :title="details.bizData.location.address" class="truncate" style="color: var(--on-surface-variant);">
                                     <SvgIcon name="location_on" class="mini r-spaced" />
-                                    <span class="small semibold">{{ `${details.location.city }, ${details.location.state}` }}</span>
+                                    <span class="small semibold">{{ `${details.bizData.location.city }, ${details.bizData.location.state}` }}</span>
                                 </span>
                             </div>
                             <div class="semibold sc-gap">
-                                <span v-if="details.rating" class="semibold" title="Average Rate (Number of raters)">
+                                <span v-if="details.bizData.rating" class="semibold" title="Average Rate (Number of raters)">
                                     <SvgIcon name="star_filled" class="yellow-text mini r-spaced" />
-                                    <span class="small">{{ `${details.rating.rate} (${details.rating.raters})` }}</span>
+                                    <span class="small">{{ `${details.bizData.rating.rate} (${details.bizData.rating.raters})` }}</span>
                                 </span>
-                                <span :title="details.hours[new Date().getDay()][0] < 0 ? 'Did not open today at all.' : `Open today by ${details.hours[new Date().getDay()][0]}:00 and closes by ${details.hours[new Date().getDay()][1]}:00.`">
+                                <span :title="details.bizData.hours[new Date().getDay()][0] < 0 ? 'Did not open today at all.' : `Open today by ${details.bizData.hours[new Date().getDay()][0]}:00 and closes by ${details.bizData.hours[new Date().getDay()][1]}:00.`">
                                     <SvgIcon name="today" class="mini r-spaced" />
                                     <span class="small">
-                                        <template v-if="details.hours[new Date().getDay()][0] < 0 || details.hours[new Date().getDay()][0] > new Date().getHours() || details.hours[new Date().getDay()][1] <= new Date().getHours()">
+                                        <template v-if="details.bizData.hours[new Date().getDay()][0] < 0 || details.bizData.hours[new Date().getDay()][0] > new Date().getHours() || details.bizData.hours[new Date().getDay()][1] <= new Date().getHours()">
                                             <span class="negative-text">Closed.</span>
-                                            <span v-if="details.hours[new Date().getDay()][0] > new Date().getHours()">Opens {{ details.hours[new Date().getDay()][0] }}</span>
+                                            <span v-if="details.bizData.hours[new Date().getDay()][0] > new Date().getHours()">Opens {{ details.bizData.hours[new Date().getDay()][0] }}</span>
                                             <span else>
                                                 Opens
                                                 {{
-                                                    details.hours[new Date().getDay() === 6 ? 0 : new Date().getDay() + 1][0] > -1
-                                                        ? `${details.hours[new Date().getDay() === 6 ? 0 : new Date().getDay() + 1][0]}:00 Tomorrow`
-                                                        : `${details.hours[nextOpenDay(details.hours)][0]} on ${whatDay(nextOpenDay(details.hours))}`
+                                                    details.bizData.hours[new Date().getDay() === 6 ? 0 : new Date().getDay() + 1][0] > -1
+                                                        ? `${details.bizData.hours[new Date().getDay() === 6 ? 0 : new Date().getDay() + 1][0]}:00 Tomorrow`
+                                                        : `${details.bizData.hours[nextOpenDay(details.bizData.hours)][0]} on ${whatDay(nextOpenDay(details.bizData.hours))}`
                                                 }}</span>
                                         </template>
                                         <template v-else>
-                                            <span v-if="details.hours[new Date().getDay()][1] - new Date().getHours() < 2" class="caution-text">Closes soon. </span>
+                                            <span v-if="details.bizData.hours[new Date().getDay()][1] - new Date().getHours() < 2" class="caution-text">Closes soon. </span>
                                             <span v-else class="positive-text">Open. </span>
-                                            <span>Closes {{ `${details.hours[new Date().getDay()][1]}:00` }}</span>
+                                            <span>Closes {{ `${details.bizData.hours[new Date().getDay()][1]}:00` }}</span>
                                         </template>
                                     </span>
                                 </span>
@@ -682,7 +688,7 @@
                 width: 100%;
                 height: 0rem;
                 
-                canvas {
+                canvas, .dm-dps {
                     position: absolute;
                     height: 100%;
                     width: 100%;

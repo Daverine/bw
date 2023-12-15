@@ -5219,6 +5219,7 @@ form .field {
   font-weight: 500;
   line-height: 1.5;
   text-align: center;
+  white-space: nowrap;
   border-radius: 1px;
   -webkit-user-select: none;
      -moz-user-select: none;
@@ -5815,6 +5816,7 @@ form .field {
   border-radius: 50em;
   font-size: 0.75em;
   line-height: 1.375;
+  white-space: nowrap;
   padding: 0em 0.375em;
   min-width: 1.375em;
   flex: 0 0 auto;
@@ -5842,6 +5844,7 @@ form .field {
   font-size: 0.875em;
   line-height: 1.5;
   text-align: center;
+  white-space: nowrap;
   padding: 0.25em 1em;
   width: -moz-max-content;
   width: max-content;
@@ -10461,11 +10464,9 @@ textarea.clue-bg,
   gap: 0.5em;
 }
 .a-block > .lead {
-  font-size: 1em;
   flex: 0 0 auto;
 }
 .a-block > .trailing {
-  font-size: 1em;
   margin-left: auto;
   flex: 0 0 auto;
 }

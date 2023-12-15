@@ -107,6 +107,25 @@
 			</div>
 		</header>
 		<article ref="main">
+			<div class="container" style="max-width: 500px !important;">
+				<Carousel>
+					<div class="cs-slide">
+						<h1>1</h1>
+					</div>
+					<div class="cs-slide">
+						<h1>2</h1>
+					</div>
+					<div class="cs-slide">
+						<h1>3</h1>
+					</div>
+					<div class="cs-slide">
+						<h1>4</h1>
+					</div>
+					<div class="cs-slide">
+						<h1>5</h1>
+					</div>
+				</Carousel>
+			</div>
 			<section id="whatfor" class="sec-block">
 				<div class="big centered container">
 					<h1>What is BizWorld for?</h1>

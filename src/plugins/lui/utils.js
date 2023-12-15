@@ -87,7 +87,7 @@ export const utils = {
 			return typeof(elem) != 'undefined' && elem != null
 		}
 
-		if (typeof(selectors) == 'string') {
+		if (typeof(selectors) === 'string') {
 			return checkElem(elem.closest(selectors));
 		}
 

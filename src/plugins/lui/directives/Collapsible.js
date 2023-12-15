@@ -1,5 +1,3 @@
-import { utils } from "../utils";
-
 export function Collapsible() {
     const dnm = {
         nextAll(el) {
@@ -25,7 +23,7 @@ export function Collapsible() {
             
             if (collapsible) {
                 if (el.classList.contains('active')) {
-                    collapsible.style.maxHeight = collapsible.scrollHeight + "px";
+                    collapsible.style.maxHeight = collapsible.scrollHeight + 'px';
                     
                     if (accordiion) {
                         let activeElems = [...el.parentNode.querySelectorAll(`:scope > [data-collapsible='${accordiion}']`)].filter(elem => elem.classList.contains('active') && elem !== el);

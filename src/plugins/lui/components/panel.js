@@ -1,4 +1,3 @@
-import { onBeforeUnmount } from 'vue';
 import { utils } from '../utils';
 
 export default {

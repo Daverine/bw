@@ -36,11 +36,10 @@
 			</div>
 		</div>
 		<div class="fcd-post">
-			{{ details.postText }}
-
 			<div v-if="details.postMediaUrls" class="fcd-media">
 				<img v-for="postMedia in details.postMediaUrls" class="image" :src="postMedia.url" :alt="postMedia.alt" />
 			</div>
+			{{ details.postText }}
 		</div>
 		<div class="icon-bar fillable menu">
 			<div class="item"><SvgIcon name="thumb_up" class="small lead" /> ({{ details.thumbsUp }})</div>
