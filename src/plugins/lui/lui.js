@@ -5,6 +5,8 @@ import Dropmenu from './components/Dropmenu.vue';
 import Carousel from './components/Carousel.vue';
 
 import { Collapsible } from './directives/Collapsible.js';
+import { Tooltip } from './directives/Tooltip.js';
+import { Tab } from './directives/Tab.js';
 
 export default {
     install(app, options) {
@@ -14,5 +16,7 @@ export default {
         app.component('Dropmenu', Dropmenu);
         app.component('Carousel', Carousel);
         app.directive('collapsible', new Collapsible());
+        app.directive('tooltip', new Tooltip());
+        app.directive('tab', new Tab());
     }
 }

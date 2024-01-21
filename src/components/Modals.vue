@@ -3,6 +3,7 @@ import { useMainStore } from '../stores';
 import { useSearchStore } from '../stores/searchStore';
 import { useUserStore } from '../stores/userStore';
 import ScDetails from './ScDetails.vue';
+import Explore from './Explore.vue';
 
 export default {
     setup() {
@@ -29,10 +30,14 @@ export default {
 			if (sctype === 'business') {
 				this.sDetails = {
                     "type": "business",
-                    "logo": "images/logo-sq.png",
                     "bizName": "Emmadave Computer Technology Services",
+                    "mainCategory": "Computer repair services",
+                    "logo": "images/logo-sq.png",
+                    "coverPic": "images/ads.jpg",
                     "bizUrl": "https://www.edtech.com",
                     "description": "We offer technical services on laptop and desktop. We offer computer tech training We also do web development.",
+                    "verified": true,
+                    "rating": { "rate": 3.5, "raters": 30 },
                     "contacts": {
                         "tel": "08157483233",
                         "email": "contact_us@edtech.com"
@@ -43,9 +48,6 @@ export default {
                         "state": "Ogun State",
                         "url": "https://goo.gl/maps/y9ExQLSq37FL6EHm6"
                     },
-                    "verified": true,
-                    "mainCategory": "Computer repair services",
-                    "rating": { "rate": 3.5, "raters": 30 },
                     "reviews": [
                         {
                             "userid": "e8e34",
@@ -173,8 +175,8 @@ export default {
 					"title": "Dell Inspiron 5050, Intel Core i5 5th Gen, 8gb RAM, 256gb SSD. Very clean and rugged laptop. Suitable for office use. Long lasting battery",
                     "price": "N100,000",
 					"currency": "Naira",
+                    "negotiable": true,
                     "media": [['pic', 'images/product.jpeg']],
-					"negotiable": true,
 					"specifications": {
 						"Type": "Laptop",
 						"Condition": "Used",
@@ -186,33 +188,6 @@ export default {
 						"Display Size": "15.6\"",
 						"Graphics": "Intel Graphics 3000 (64mb)"
 					},
-                    "bizData": {
-                        "logo": "images/logo-sq.png",
-                        "bizName": "Emmadave Computer Technology Services",
-                        "bizUrl": "https://www.edtech.com",
-                        "description": "We offer technical services on laptop and desktop. We offer computer tech training We also do web development.",
-                        "contacts": {
-                            "tel": "08157483233",
-                            "email": "contact_us@edtech.com"
-                        },
-                        "location": {
-                            "address": "3 Nepal road, beside Igbagboyemi Pharmacy, Isabo 111102",
-                            "city": "Abeokuta",
-                            "state": "Ogun State",
-                            "url": "https://goo.gl/maps/y9ExQLSq37FL6EHm6"
-                        },
-                        "hours": [
-                            [-1],
-                            ["8:30", "18:30"],
-                            ["8:30", "18:30"],
-                            ["15:30", "18:30"],
-                            ["8:30", "18:30"],
-                            [-1],
-                            ["8:30", "18:30"]
-                        ],
-                        "verified": true,
-                        "mainCategory": "Computer repair services",    
-                    },
 					"reviews": [
                         {
                             "userid": "e8e34",
@@ -313,13 +288,186 @@ export default {
                             "rating": 4,
                             "review": "I enjoy my experience doing business with you guys. keep it up."
                         }
-                    ]
+                    ],
+                    "bizData": {
+                        "logo": "images/logo-sq.png",
+                        "bizName": "Emmadave Computer Technology Services",
+                        "bizUrl": "https://www.edtech.com",
+                        "mainCategory": "Computer repair services",
+                        "contacts": {
+                            "tel": "08157483233",
+                            "email": "contact_us@edtech.com"
+                        },
+                        "verified": true,
+                        "location": {
+                            "address": "3 Nepal road, beside Igbagboyemi Pharmacy, Isabo 111102",
+                            "city": "Abeokuta",
+                            "state": "Ogun State",
+                            "url": "https://goo.gl/maps/y9ExQLSq37FL6EHm6"
+                        },
+                        "hours": [
+                            [-1],
+                            ["8:30", "18:30"],
+                            ["8:30", "18:30"],
+                            ["15:30", "18:30"],
+                            ["8:30", "18:30"],
+                            [-1],
+                            ["8:30", "18:30"]
+                        ]
+                    }
+                }
+			}
+            else if (sctype === 'service') {
+				this.sDetails = {
+                    "type": "service",
+					"title": "Create, design and format a document in Word, Powerpoint, Excel and CorelDRAW",
+                    "price": "N100,000",
+					"currency": "Naira",
+                    "media": [['pic', 'images/product.jpeg']],
+					"specifications": {
+						"Type": "Laptop",
+						"Condition": "Used",
+						"Brand": "Dell",
+						"Model": "Inspiron 5050",
+						"Processor": "Intel Corel i5 5th Generation",
+						"RAM": "8gb DDR3",
+						"Storage": "256gb SSD M.2",
+						"Display Size": "15.6\"",
+						"Graphics": "Intel Graphics 3000 (64mb)"
+					},
+					"reviews": [
+                        {
+                            "userid": "e8e34",
+                            "username": "daverine",
+                            "userpic": "images/profile_pic.jpg",
+                            "anonymous": false,
+                            "timestamp": 1694061107318,
+                            "rating": 4,
+                            "review": "I enjoy my experience doing business with you guys. keep it up."
+                        },
+                        {
+                            "userid": "e8e34",
+                            "username": "daverine",
+                            "userpic": "images/profile_pic.jpg",
+                            "anonymous": false,
+                            "timestamp": 1694061107318,
+                            "rating": 3,
+                            "review": "I enjoy my experience doing business with you guys. keep it up."
+                        },
+                        {
+                            "userid": "e8e34",
+                            "username": "daverine",
+                            "userpic": "images/profile_pic.jpg",
+                            "anonymous": false,
+                            "timestamp": 1694061107318,
+                            "rating": 3,
+                            "review": "I enjoy my experience doing business with you guys. keep it up."
+                        },
+                        {
+                            "userid": "e8e34",
+                            "username": "daverine",
+                            "userpic": "images/profile_pic.jpg",
+                            "anonymous": false,
+                            "timestamp": 1694061107318,
+                            "rating": 2,
+                            "review": "I enjoy my experience doing business with you guys. keep it up."
+                        },
+                        {
+                            "userid": "e8e34",
+                            "username": "daverine",
+                            "userpic": "images/profile_pic.jpg",
+                            "anonymous": false,
+                            "timestamp": 1694061107318,
+                            "rating": 2,
+                            "review": "I enjoy my experience doing business with you guys. keep it up."
+                        },
+                        {
+                            "userid": "e8e34",
+                            "username": "daverine",
+                            "userpic": "images/profile_pic.jpg",
+                            "anonymous": false,
+                            "timestamp": 1694061107318,
+                            "rating": 2,
+                            "review": "I enjoy my experience doing business with you guys. keep it up."
+                        },
+                        {
+                            "userid": "e8e34",
+                            "username": "daverine",
+                            "userpic": "images/profile_pic.jpg",
+                            "anonymous": false,
+                            "timestamp": 1694061107318,
+                            "rating": 4,
+                            "review": "I enjoy my experience doing business with you guys. keep it up."
+                        },
+                        {
+                            "userid": "e8e34",
+                            "username": "daverine",
+                            "userpic": "images/profile_pic.jpg",
+                            "anonymous": false,
+                            "timestamp": 1694061107318,
+                            "rating": 4,
+                            "review": "I enjoy my experience doing business with you guys. keep it up."
+                        },
+                        {
+                            "userid": "e8e34",
+                            "username": "daverine",
+                            "userpic": "images/profile_pic.jpg",
+                            "anonymous": false,
+                            "timestamp": 1694061107318,
+                            "rating": 4,
+                            "review": "I enjoy my experience doing business with you guys. keep it up."
+                        },
+                        {
+                            "userid": "e8e34",
+                            "username": "daverine",
+                            "userpic": "images/profile_pic.jpg",
+                            "anonymous": false,
+                            "timestamp": 1694061107318,
+                            "rating": 4,
+                            "review": "I enjoy my experience doing business with you guys. keep it up."
+                        },
+                        {
+                            "userid": "e8e34",
+                            "username": "daverine",
+                            "userpic": "images/profile_pic.jpg",
+                            "anonymous": false,
+                            "timestamp": 1694061107318,
+                            "rating": 4,
+                            "review": "I enjoy my experience doing business with you guys. keep it up."
+                        }
+                    ],
+                    "bizData": {
+                        "logo": "images/logo-sq.png",
+                        "bizName": "Emmadave Computer Technology Services",
+                        "bizUrl": "https://www.edtech.com",
+                        "mainCategory": "Computer repair services",
+                        "contacts": {
+                            "tel": "08157483233",
+                            "email": "contact_us@edtech.com"
+                        },
+                        "verified": true,
+                        "location": {
+                            "address": "3 Nepal road, beside Igbagboyemi Pharmacy, Isabo 111102",
+                            "city": "Abeokuta",
+                            "state": "Ogun State",
+                            "url": "https://goo.gl/maps/y9ExQLSq37FL6EHm6"
+                        },
+                        "hours": [
+                            [-1],
+                            ["8:30", "18:30"],
+                            ["8:30", "18:30"],
+                            ["15:30", "18:30"],
+                            ["8:30", "18:30"],
+                            [-1],
+                            ["8:30", "18:30"]
+                        ]
+                    }
                 }
 			}
 
 		}
     },
-    components: { ScDetails },
+    components: { ScDetails, Explore },
 	data() {
 		return {
 			sDetails: false
@@ -379,6 +527,9 @@ export default {
 	<Modal id="sc-details" :options="{ controller: getScDetails, complete: function() { sDetails = false; } }">
 		<ScDetails :details="sDetails" />
 	</Modal>
+    <Modal id="explore-modal">
+        <Explore />
+    </Modal>
 	<template v-if="!userStore.auth">
 		<Modal id="register-modal">
 			<div class="dialog rounded">

@@ -49,7 +49,7 @@
 	</SidePanel>
 	<div id="fmenu" class="menu z-level-3" :class="{ pinned: mainStore.showFixedMenu }">
 		<div class="container rounded items auto-margined">
-			<div class="item as-icon open-sidepanel" data-target="msidepanel">
+			<div class="item as-icon open-sidepanel" v-tooltip.unblocking data-tooltip="Menu" data-target="msidepanel">
 				<SvgIcon name="menu" />
 			</div>
 			<router-link to="/" class="xhover item as-icon">
@@ -59,48 +59,40 @@
 				<label class="input fluid rounded transparent clue-bg" style="max-width: 550px;">
 					<SvgIcon name="search" class="xhover" />
 					<input v-model="searchStore.searchBox" type="search" placeholder="Your search here." class="subject">
-					<button type="button" title="Scan QR" class="icon open-modal" data-target="scanqr-modal">
+					<button type="button" v-tooltip.unblocking data-tooltip="Scan QR" class="icon open-modal" data-target="scanqr-modal">
 						<SvgIcon name="qr_code_scanner" />
 					</button>
-					<button type="button" title="Search location is set to Nigeria. Click to change it." class="icon open-modal" data-target="">
+					<button type="button" v-tooltip.unblocking data-tooltip="Search location is set to Nigeria. Click to change it." class="icon open-modal" data-target="">
 						<SvgIcon name="location_on" />	
 					</button>
 				</label>
 			</form>
-			<div v-if="userStore.auth" class="items r-aligned">
-				<div class="open-modal as-icon item md-and-up-hidden" data-target="search-modal">
+			<div class="items r-aligned">
+				<div v-tooltip.unblocking data-tooltip="Search" class="open-modal as-icon item md-and-up-hidden" data-target="search-modal">
 					<SvgIcon name="search" />
 				</div>
-				<div class="as-icon item">
-					<SvgIcon name="notifications" />
-				</div>
-				<Dropdown class="xhover as-icon item">
-					<img src="/images/profile.jpg" alt="profile"  class="fully-rounded logo" />
-					<Shareables name="profile_menu" />
-				</Dropdown>
-			</div>
-			<div v-else class="items r-aligned">
-				<div class="open-modal as-icon item md-and-up-hidden" data-target="search-modal">
-					<SvgIcon name="search" />
-				</div>
-				<div class="items lg-and-down-hidden">
-					<div class="item open-modal" data-target="login-modal">Log in</div>
-					<div class="xhover item 0-h-padding"><button class="rounded primary button open-modal" data-target="register-modal">Sign Up</button></div>
-				</div>
-				<Dropdown class="item lg-and-up-hidden sm-and-down-hidden">
-					<SvgIcon name="person_add" class="lead" /> Account
-					<Dropmenu class="rounded">
+				<template v-if="userStore.auth">
+					<div class="as-icon item" v-tooltip.unblocking data-tooltip="Notifications">
+						<SvgIcon name="notifications" />
+					</div>
+					<Dropdown data-target="dm_profile" :options="{directionPriority: {x: 'left', y: 'bottom'}}" v-tooltip.unblocking data-tooltip="Your profile and also test" class="xhover as-icon item">
+						<img src="/images/profile.jpg" alt="profile"  class="fully-rounded logo" />
+						<Shareables name="profile_menu" />
+					</Dropdown>
+				</template>
+				<template v-else>
+					<div class="items lg-and-down-hidden">
 						<div class="item open-modal" data-target="login-modal">Log in</div>
-						<div class="xhover item"><button class="rounded primary button open-modal" data-target="register-modal">Sign Up</button></div>
-					</Dropmenu>
-				</Dropdown>
-				<Dropdown class="as-icon item sm-and-up-hidden">
-					<SvgIcon name="person_add" />
-					<Dropmenu class="rounded">
-						<div class="item open-modal" data-target="login-modal">Log in</div>
-						<div class="xhover item"><button class="rounded primary button open-modal" data-target="register-modal">Sign Up</button></div>
-					</Dropmenu>
-				</Dropdown>
+						<div class="xhover item 0-h-padding"><button class="rounded primary button open-modal" data-target="register-modal">Sign Up</button></div>
+					</div>
+					<Dropdown :options="{directionPriority: {x: 'left', y: 'bottom'}}" v-tooltip.unblocking data-tooltip="Account" class="item as-icon lg-and-up-hidden">
+						<SvgIcon name="person_add" /> <span class="sm-and-down-hidden">Account</span>
+						<Dropmenu class="rounded">
+							<div class="item open-modal" data-target="login-modal">Log in</div>
+							<div class="xhover item"><button class="rounded primary button open-modal" data-target="register-modal">Sign Up</button></div>
+						</Dropmenu>
+					</Dropdown>
+				</template>
 			</div>
 		</div>
 	</div>

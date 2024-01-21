@@ -87,6 +87,8 @@
 				return e.type.indexOf("touch") > -1 ? e.touches[0].pageX : e.clientX;
 			},
             gestureStart(e) {
+				if (this.tmp.slidesNo <= 1) return; // stop gesture if total number of slides is one or less;
+
 				if (this.tmp.playing) {
 					this.stopSlideshow();
 					this.tmp.playing = true;

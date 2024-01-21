@@ -6,6 +6,7 @@
 		data() {
 			return {
 				showDropdown: false,
+				uniqueId: undefined,
 				EscTrack: undefined,
 				settings: {},
 				e: {},
@@ -47,7 +48,7 @@
 					item.setAttribute('data-ddid', sIValue.length - 1);
 
 					if (!this.tmp.mSelectContent) this.tmp.mSelectContent = [];
-					this.tmp.mSelectContent.push({html: `${item.innerHTML} <i class="luicon close trailing icon"></i>`, index: sIValue.length - 1});
+					this.tmp.mSelectContent.push({html: `${item.innerHTML} <i class="svgv1 action close trailing icon"><svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48"><path d="M480.435-421.652 277.522-219.304q-12.131 12.13-29.392 12.413-17.26.282-28.826-12.848-12.695-12.131-12.478-28.674.217-16.544 12.913-29.674L422.217-480 219.304-683.348q-12.695-12.13-12.695-28.674 0-16.543 12.695-29.674 11.566-12.13 28.826-11.848 17.261.283 29.392 12.414l202.913 202.347L682.478-741.13q12.131-12.131 29.392-12.414 17.26-.282 28.826 11.848 12.695 13.131 12.478 29.674-.217 16.544-11.913 28.674L538.783-480l202.478 201.913q11.696 12.696 11.913 29.457.217 16.76-12.478 28.891-11.566 13.13-28.826 12.848-17.261-.283-29.392-12.413L480.435-421.652Z"/></svg></i>`, index: sIValue.length - 1});
 
 					if (this.settings.searchable && this.showDropdown) {
 						this.e.sb.value = '';
@@ -331,7 +332,7 @@
 					if (this.settings.selectable) {
 						/* deselecting items for multiple select dropdown that has the indicating class */
 						if (item.matches('.selected')) this.dd_setDeselect([...this.e.dd.querySelectorAll(':scope > .content > .chip')].filter((el) => el.getAttribute('data-diid') === item.getAttribute('data-diid'))[0]);
-						// select item is dropdown is selectable
+						// select item if dropdown is selectable
 						else this.dd_setSelect(item, (this.settings.multipleSelect ? true : false));
 					}
 					// close all dropdown including all sub dropdowns and parent dropdowns
@@ -532,74 +533,80 @@
 				}
 				else {
 					this.e.dm.classList.remove('upward', 'downward', 'rhs', 'lhs');
-					this.e.dm.style.maxWidth = '';
-					this.e.dm.style.minWidth = '';
 
 					let
-						getOp = utils.getParents(this.e.dm).filter((el) => (window.getComputedStyle(el).getPropertyValue('overflow-y') === 'auto' || window.getComputedStyle(el).getPropertyValue('overflow-y') === 'scroll'))[0],
-						op = getOp || document.documentElement,
-						opProp = op.getBoundingClientRect(),
 						dProp = this.e.dd.getBoundingClientRect(),
-						dmProp = {}, spacing = {}
+						dmProp = {
+							height: this.e.dm.offsetHeight + parseFloat(window.getComputedStyle(this.e.dm).getPropertyValue('margin-top')),
+							width: this.e.dm.offsetWidth + parseFloat(window.getComputedStyle(this.e.dm).getPropertyValue('margin-left'))
+						},
+						vHeight = window.innerHeight,
+						vWidth = innerWidth,
+						spacing = {}, dmPosition = {}
 					;
-					
-					opProp.offset = {
-						top: getOp ? opProp.top + window.scrollY - document.documentElement.clientTop : 0,
-						left: getOp ? opProp.left + window.scrollX - document.documentElement.clientLeft : 0
-					};
-					opProp.tScroll = op.scrollTop;
-					opProp.lScroll = op.scrollLeft;
-
-					dProp.offset = {
-						top: dProp.top + window.scrollY - document.documentElement.clientTop,
-						left: dProp.left + window.scrollX - document.documentElement.clientLeft
-					}
-					dProp.offset.top = getOp ? dProp.offset.top - opProp.offset.top + opProp.tScroll : dProp.offset.top;
-					dProp.offset.left = getOp ? dProp.offset.left - opProp.offset.left + opProp.lScroll : dProp.offset.left;
-
-					dProp.position = {
-						top: this.e.dd.offsetTop,
-						left: this.e.dd.offsetLeft
-					}
-
-					dmProp.height = this.e.dm.offsetHeight;
-					dmProp.width = this.e.dm.offsetWidth;
 
 					if (this.settings.view === "vertical") {
-						spacing.top = dProp.offset.top - opProp.tScroll;
-						spacing.bottom = opProp.height - spacing.top - dProp.height;
-						spacing.left = dProp.offset.left - opProp.lScroll + dProp.width;
-						spacing.right = opProp.width - dProp.offset.left + opProp.lScroll;	
+						spacing.top = dProp.top;
+						spacing.bottom = vHeight - dProp.top - dProp.height;
+						spacing.left = dProp.left + dProp.width;
+						spacing.right = vWidth - dProp.left;
+
+						dmPosition.left = dProp.left + dProp.width - dmProp.width;
+						dmPosition.right = dProp.left;
+						dmPosition.top = dProp.top - dmProp.height;
+						dmPosition.bottom = dProp.top + dProp.height;
 					}
 					else {
-						spacing.top = dProp.offset.top - opProp.tScroll + dProp.height;
-						spacing.bottom = opProp.height - dProp.offset.top + opProp.tScroll;
-						spacing.left = dProp.offset.left - opProp.lScroll;
-						spacing.right = opProp.width - spacing.left - dProp.width;	
+						spacing.top = dProp.top + dProp.height;
+						spacing.bottom = vHeight - dProp.top;
+						spacing.left = dProp.left;
+						spacing.right = vWidth - dProp.left - dProp.width;
+
+						dmPosition.left = dProp.left - dmProp.width;
+						dmPosition.right = dProp.left + dProp.width;
+						dmPosition.top = dProp.top + dProp.width - dmProp.height;
+						dmPosition.bottom = dProp.top;
 					}
 
-					if (spacing.right >= dmProp.width || spacing.right >= spacing.left || dmProp.width > spacing.left) this.e.dm.classList.add('rhs');
-					else this.e.dm.classList.add('lhs');
-
-					spacing.top -=5;
-					spacing.bottom -=5;
-
-					if (spacing.bottom >= dmProp.height) this.e.dm.classList.add('downward');
-					else if (spacing.top >= dmProp.height) this.e.dm.classList.add('upward');
-					else if (spacing.top > spacing.bottom && spacing.top + opProp.tScroll > dmProp.height) this.e.dm.classList.add('upward');
-					else this.e.dm.classList.add('downward');
-
-					if (this.settings.browse) {
-						this.e.dm.style.right = 'auto';
-						this.e.dm.style.bottom = 'auto';
-
-						if (this.settings.view == "horizontal") {
-							if (!this.e.dm.matches('.board')) this.e.dm.style.left = (this.e.dm.matches('.rhs')) ? `${dProp.position.left + dProp.width}px` : `${dProp.position.left - dmProp.width}px`;
-							this.e.dm.style.top = (this.e.dm.matches('.downward')) ? `${dProp.position.top}px` : `${dProp.position.top - dmProp.height + dProp.height}px`;
+					if (this.settings.directionPriority.x === 'right') {
+						if (spacing.right >= dmProp.width || spacing.right >= spacing.left || dmProp.width > spacing.left) {
+							if (!this.e.dd.classList.contains('select')) this.e.dm.style.left = `${dmPosition.right}px`;
+							this.e.dm.classList.add('rhs');
 						}
 						else {
-							if (!this.e.dm.matches('.board')) this.e.dm.style.left = (this.e.dm.matches('.rhs')) ? `${dProp.position.left}px` : `${dProp.position.left + dProp.width - dmProp.width}px`;
-							this.e.dm.style.top = (this.e.dm.matches('downward')) ? `${dProp.position.top + dProp.height}px` : `${dProp.position.top - dmProp.height}px`;
+							if (!this.e.dd.classList.contains('select')) this.e.dm.style.left = `${dmPosition.left}px`;
+							this.e.dm.classList.add('lhs');
+						}
+					}
+					else {
+						if (spacing.left >= dmProp.width) {
+							if (!this.e.dd.classList.contains('select')) this.e.dm.style.left = `${dmPosition.left}px`;
+							this.e.dm.classList.add('lhs');
+						}
+						else {
+							if (!this.e.dd.classList.contains('select')) this.e.dm.style.left = `${dmPosition.right}px`;
+							this.e.dm.classList.add('rhs');
+						}
+					}
+
+					if (this.settings.directionPriority.y === 'bottom') {
+						if (spacing.bottom >= dmProp.height || spacing.bottom >= spacing.top || dmProp.height > spacing.top) {
+							if (!this.e.dd.classList.contains('select')) this.e.dm.style.top = `${dmPosition.bottom}px`;
+							this.e.dm.classList.add('downward');
+						}
+						else {
+							if (!this.e.dd.classList.contains('select')) this.e.dm.style.top = `${dmPosition.top}px`;
+							this.e.dm.classList.add('upward');
+						}
+					}
+					else {
+						if (spacing.top >= dmProp.height) {
+							if (!this.e.dd.classList.contains('select')) this.e.dm.style.top = `${dmPosition.top}px`;
+							this.e.dm.classList.add('upward');
+						}
+						else {
+							if (!this.e.dd.classList.contains('select')) this.e.dm.style.top = `${dmPosition.bottom}px`;
+							this.e.dm.classList.add('downward');
 						}
 					}
 				}
@@ -640,17 +647,17 @@
 					fluidMinWidth: false,
 					delay: 0,
 					duration: 300,
-					closeOnItemClick: true
+					closeOnItemClick: true,
+					directionPriority: {x: 'right', y: 'bottom'}
 				},
 				...personalSettings
 			}
-
 			this.settings.view = ((classes.includes('sub') && this.settings.view !== 'vertical') || this.settings.view === 'horizontal') ? 'horizontal' : 'vertical';
 			this.settings.hover = ((checkAttr('data-hover') && attribs['data-hover'] !== false) || classes.includes('sub')) || false;
 			this.settings.findTriggerer = checkAttr('data-find-triggerer') || false;
 			this.settings.page = ((this.settings.page && !classes.includes('sub')) && !this.settings.hover) || false;
 			this.settings.browse = (classes.includes('browse')) || false;
-			this.settings.menuId = (this.settings.browse) ? attribs.target : undefined;
+			this.settings.menuId = (this.settings.browse) ? attribs['data-target'] : undefined;
 			this.settings.browseDm = (checkAttr('data-browse-dm')) ? attribs['data-browse-dm'] : false; // replacement for settings.browser and settings.menuid
 			this.settings.selectable = (classes.includes('select') || classes.includes('selection')) || false;
 			this.settings.multipleSelect = (this.settings.selectable && classes.includes('multiple')) || false;
@@ -672,7 +679,9 @@
 				return;
 			}
 
+			this.uniqueId = utils.getUniqueId();
 			this.e.dm.setAttribute('data-view', this.settings.view);
+			this.e.dm.setAttribute('data-dmid', this.uniqueId);
 			if (this.settings.page) this.e.dm.classList.add('fixed');
 			// open dropdown if the enter key or arrow down key is pressed while dropdown is focused-on
 			document.addEventListener('keydown', this.dd_openWithKeyboard);
@@ -733,6 +742,7 @@
 			showDropdown(value) {
 				if (value) {
 					if (this.e.dd.matches('.disabled, [disabled]')) return;
+					if (!this.settings.selectable && !this.e.dd.classList.contains('sub')) document.body.append(this.e.dm);
 					let items = [...this.e.dm.querySelectorAll(this.s.it_i)];
 
 					this.EscTrack = utils.getEscTrack();
@@ -747,6 +757,7 @@
 					document.addEventListener('keyup', this.dd_EscTabFunc);
 					document.addEventListener('keydown', this.dd_KBFunc);
 					window.addEventListener('resize', this.dd_CalcPosition);
+					window.addEventListener('scroll', this.dd_CalcPosition, true);
 					this.dd_onItemsHoverEvent();
 					this.dd_CalcPosition();
 					this.e.dm.classList.add('visible');
@@ -833,6 +844,7 @@
 			}
 		},	
 		beforeUnmount() {
+			this.e.dd.append(this.e.dm); // return drop menu to the drop down to get it removed also.
 			document.removeEventListener('click', this.dd_clickOnDom);
 			document.removeEventListener('keyup', this.dd_EscTabFunc);
 			document.removeEventListener('keydown', this.dd_KBFunc);

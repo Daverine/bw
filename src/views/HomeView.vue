@@ -1,7 +1,7 @@
 <script>
 	import { useUserStore } from '../stores/userStore';
 	import ClientHome from '../components/ClientHome.vue';
-	import LandingHome from '../components/LandingHome.vue';
+	import landinghome from '../components/landinghome.vue';
 
 	export default {
 		setup() {
@@ -10,10 +10,10 @@
 			return { userStore }
 		},
 		title: "Bizworld - The internet world of businesses",
-		components: { ClientHome, LandingHome }
+		components: { ClientHome, landinghome }
 	}
 </script>
 <template>
-	<LandingHome v-if="userStore.auth" />
+	<landinghome v-if="userStore.auth" />
 	<ClientHome v-else />
 </template>

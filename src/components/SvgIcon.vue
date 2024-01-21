@@ -87,10 +87,10 @@
 </template>
 
 <style>
-    .bwsvgico > svg {
+    /* .bwsvgico > svg {
         height: 1.5em;
         width: 1.5em;
         fill: currentColor;
         vertical-align: -0.375em;
-    }
+    } */
 </style>

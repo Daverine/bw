@@ -21,7 +21,7 @@
 				</div>
 			</div>
 			<div>
-				<Dropdown>
+				<Dropdown :options="{directionPriority: {x: 'left', y: 'bottom'}}">
 					<SvgIcon name="more_horiz" />
 					<Dropmenu>
 						<div class="item"><SvgIcon name="bookmark" class="lead" /> Save post</div>

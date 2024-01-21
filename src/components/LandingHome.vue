@@ -29,18 +29,21 @@
 			}
 		},
 		mounted() {
-			this.$refs.page.dispatchEvent(new Event("scroll"));
+			window.dispatchEvent(new Event("scroll"));
+			window.addEventListener('scroll', this.handleScroll);
 			this.feedStore.getUpdate();
-			console.log(this.feedStore.feeds);
+		},
+		unmounted() {
+			window.removeEventListener('scroll', this.handleScroll);
 		}
 	}
 </script>
 <template>
-	<div id="page" class="as-page" ref="page" @scroll="handleScroll">
+	<div class="as-page">
 		<header id="main-header">
 			<div class="rounded transparent menu" style="height: 64px;">
 				<div class="container items auto-margined">
-					<div class="item as-icon md-and-up-hidden open-sidepanel" data-target="msidepanel">
+					<div class="item as-icon md-and-up-hidden open-sidepanel" v-tooltip.unblocking data-tooltip="Menu" data-target="msidepanel">
 						<SvgIcon name="menu" />
 					</div>
 					<div class="items md-and-down-hidden">
@@ -56,13 +59,13 @@
 						</Dropdown>
 					</div>
 					<div class="items r-aligned">
-						<div class="as-icon item">
+						<div class="as-icon item" v-tooltip.unblocking data-tooltip="Notifications">
 							<SvgIcon name="notifications" />
 						</div>
-						<Dropdown class="xhover as-icon item">
+						<Dropdown data-target="dm1_profile" :options="{directionPriority: {x: 'left', y: 'bottom'}}" v-tooltip.unblocking data-tooltip="Your profile and also test" class="xhover browse as-icon item">
 							<img src="/images/profile.jpg" alt="profile"  class="fully-rounded logo" />
-							<Shareables name="profile_menu" />
 						</Dropdown>
+						<Shareables id="dm1_profile" name="profile_menu" />
 					</div>
 				</div>
 			</div>
@@ -75,7 +78,7 @@
 					<label class="input rounded big fluid">
 						<SvgIcon name="search" class="xhover" />
 						<input v-model="searchStore.searchBox" type="search" id="searchinput" ref="inputbox" placeholder="Your search here." class="subject" autofocus />
-						<button type="button" title="Scan QR" class="icon open-modal" data-target="scanqr-modal">
+						<button type="button" v-tooltip.unblocking data-tooltip="Scan QR" class="icon open-modal" data-target="scanqr-modal">
 							<SvgIcon name="qr_code_scanner" />
 						</button>
 					</label>

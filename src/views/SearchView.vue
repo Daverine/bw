@@ -30,13 +30,17 @@
 			}
 		},
 		mounted() {
-			if (!this.searchStore.searchBox) this.$router.push('/');
-			this.$refs.page.dispatchEvent(new Event("scroll"));
+			// if (!this.searchStore.searchBox) this.$router.push('/');
+			window.dispatchEvent(new Event("scroll"));
+			window.addEventListener('scroll', this.handleScroll);
+		},
+		unmounted() {
+			window.removeEventListener('scroll', this.handleScroll);
 		}
 	}
 </script>
 <template>
-	<div class="as-page" ref="page" @scroll="handleScroll">
+	<div class="as-page">
 		<header id="main-header" style="background-color: var(--surface);">
 			<div class="menu" style="height: 64px;">
 				<div class="container rounded items">
@@ -50,10 +54,10 @@
 						<label class="input fluid rounded transparent clue-bg" style="max-width: 550px;">
 							<SvgIcon name="search" class="xhover" />
 							<input v-model="searchStore.searchBox" type="search" id="searchinput" placeholder="Your search here." class="subject" ref="inputbox" autofocus />
-							<button type="button" title="Scan QR" class="icon open-modal" data-target="scanqr-modal">
+							<button type="button" v-tooltip.unblocking data-tooltip="Scan QR" class="icon open-modal" data-target="scanqr-modal">
 								<SvgIcon name="qr_code_scanner" />
 							</button>
-							<button type="button" title="Search location is set to Nigeria. Click to change it." class="icon open-modal" data-target="">
+							<button type="button" v-tooltip.unblocking data-tooltip="Search location is set to Nigeria. Click to change it." class="icon open-modal" data-target="">
 								<SvgIcon name="location_on" />	
 							</button>
 						</label>
@@ -62,7 +66,7 @@
 						<div class="as-icon item">
 							<SvgIcon name="notifications" />
 						</div>
-						<Dropdown class="xhover as-icon item">
+						<Dropdown class="xhover as-icon item" v-tooltip.unblocking data-tooltip="Your profile and also test">
 							<img src="/images/profile.jpg" alt="profile"  class="fully-rounded logo" />
 							<Shareables name="profile_menu" />
 						</Dropdown>
@@ -87,10 +91,10 @@
 					<label class="input fluid rounded transparent clue-bg">
 						<SvgIcon name="search" class="xhover" />
 						<input v-model="searchStore.searchBox" type="search" id="searchinput" placeholder="Your search here." class="subject" ref="inputbox" autofocus />
-						<button type="button" title="Scan QR" class="icon open-modal" data-target="scanqr-modal">
+						<button type="button" v-tooltip.unblocking data-tooltip="Scan QR" class="icon open-modal" data-target="scanqr-modal">
 							<SvgIcon name="qr_code_scanner" />
 						</button>
-						<button type="button" title="Search location is set to Nigeria. Click to change it." class="icon open-modal" data-target="">
+						<button type="button" v-tooltip.unblocking data-tooltip="Search location is set to Nigeria. Click to change it." class="icon open-modal" data-target="">
 							<SvgIcon name="location_on" />	
 						</button>
 					</label>

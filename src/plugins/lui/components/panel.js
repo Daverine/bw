@@ -5,6 +5,7 @@ export default {
 	data() {
 		return {
 			showPanel: false,
+			uniqueId: undefined,
 			EscTrack: undefined,
 			factory: {
 				namespace: "panel",
@@ -67,12 +68,14 @@ export default {
 			...this.options || {}
 		};
 		this.e.pl = this.$refs.panel;
+		this.uniqueId = utils.getUniqueId();
 		document.addEventListener('click', this.togglePanel);
 		this.e.pl.addEventListener('plconsole', this.pl_console);
 	},
 	watch: {
 		showPanel(value) {
 			if (value) {
+				utils.lockWindowScroll(this.uniqueId);
 				if (typeof(this.settings.controller) === 'function') this.settings.controller(this.e.pl, this.settings);
 				document.addEventListener('keydown', this.panelKbdFunc);
 				this.e.pl.addEventListener('click', this.panelClickFunc);
@@ -88,6 +91,7 @@ export default {
 				}, this.settings.inDuration);
 			}
 			else {
+				utils.unlockWindowScroll(this.uniqueId);
 				document.removeEventListener('keydown', this.panelKbdFunc);
 				this.e.pl.removeEventListener('click', this.panelClickFunc);
 				if (this.settings.closeOnEsc) document.removeEventListener('keyup', this.panelEscFunc);					
@@ -123,6 +127,7 @@ export default {
 	},
 	beforeUnmount() {
 		this.showPanel = false;
+		utils.unlockWindowScroll(this.uniqueId);
 		document.removeEventListener('keydown', this.panelKbdFunc);
 		this.e.pl.removeEventListener('click', this.panelClickFunc);
 		document.removeEventListener('click', this.togglePanel);

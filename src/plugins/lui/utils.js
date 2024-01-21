@@ -1,26 +1,4 @@
 export const utils = {
-	setType(value) {
-		if (value == "true") value = true;
-		else if (value == "false") value = false;
-		else if (!isNaN(Number(value))) value = Number(value);
-	
-		return value;
-	},
-	strObj4rmDOM(param) {
-		if (param === undefined) return;
-		let
-			obj = {},
-			items = (param || "").replace(/\s/g, '').split(';');
-		;
-	
-		for (let i = 0; i < items.length; i++) {
-			let current = items[i].split(':');
-
-			obj[current[0]] = this.setType(current[1]);
-		}
-	
-		return obj;
-	},
 	getEscTrack() {
 		if (typeof(window.lui_EscTracker) !== 'number') window.lui_EscTracker = 0; 
 		window.lui_EscTracker++;
@@ -30,6 +8,29 @@ export const utils = {
 		let status = trackNo === window.lui_EscTracker;
 		if (status) { window.lui_EscTracker--; }
 		return status;
+	},
+	getScrollbarWidth() {
+		return window.innerWidth - document.documentElement.clientWidth;
+	},
+	lockWindowScroll(lockerId) {
+		if (!window.lui_ScrollLockers) window.lui_ScrollLockers = [];
+		if (!window.lui_ScrollLockers.includes(lockerId)) window.lui_ScrollLockers.push(lockerId);
+		// we guess it abnormal to add margin to the html unless on circumstance like this
+
+		document.documentElement.classList.add('scroll-locked');
+		document.documentElement.style.marginRight = `${this.getScrollbarWidth()}px`;
+		document.documentElement.style.overflow = 'hidden';
+	},
+	unlockWindowScroll(lockerId) {
+		if (window.lui_ScrollLockers && window.lui_ScrollLockers.includes(lockerId)) {
+			window.lui_ScrollLockers = window.lui_ScrollLockers.filter(el => el !== lockerId);
+			
+			if (!window.lui_ScrollLockers.length) {
+				document.documentElement.style.marginRight = null;
+				document.documentElement.style.overflow = null;
+				document.documentElement.classList.remove('scroll-locked');
+			}
+		}
 	},
 	getUniqueId(nameSpace) {
 		if (typeof(window.lui_uuid) !== 'number') window.lui_uuid = 0; 

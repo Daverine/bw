@@ -24,16 +24,20 @@
 			}
 		},
 		mounted() {
-			this.$refs.page.dispatchEvent(new Event("scroll"));
+			window.dispatchEvent(new Event("scroll"));
+			window.addEventListener('scroll', this.handleScroll);
+		},
+		unmounted() {
+			window.removeEventListener('scroll', this.handleScroll);
 		}
 	}
 </script>
 <template>
-	<div class="as-page" ref="page" @scroll="handleScroll">
+	<div class="as-page">
 		<header id="main-header">
 			<div class="rounded transparent menu" style="height: 64px;">
 				<div class="container items">
-					<div class="item as-icon lg-and-up-hidden open-sidepanel" data-target="msidepanel">
+					<div class="item as-icon lg-and-up-hidden open-sidepanel" v-tooltip.unblocking data-tooltip="Menu" data-target="msidepanel">
 						<SvgIcon name="menu" />
 					</div>
 					<div class="xhover item as-icon">
@@ -55,7 +59,7 @@
 							<div class="xhover item 0-h-padding"><button class="rounded primary button open-modal" data-target="register-modal">Sign Up</button></div>
 						</div>
 						<Dropdown class="as-icon item sm-and-up-hidden">
-							<SvgIcon name="person_add" />
+							<SvgIcon name="person_add" class="lead" /> Account
 							<Dropmenu class="rounded">
 								<div class="item open-modal" data-target="login-modal">Log in</div>
 								<div class="xhover item"><button class="rounded primary button open-modal" data-target="register-modal">Sign Up</button></div>
@@ -73,7 +77,7 @@
 					<label class="input rounded big fluid">
 						<SvgIcon name="search" class="xhover" />
 						<input v-model="searchStore.searchBox" type="search" id="searchinput" placeholder="Your search here." class="subject" ref="inputbox" autofocus />
-						<button type="button" title="Scan QR" class="icon open-modal" data-target="scanqr-modal">
+						<button type="button" v-tooltip.unblocking data-tooltip="Scan QR" class="icon open-modal" data-target="scanqr-modal">
 							<SvgIcon name="qr_code_scanner" />
 						</button>
 					</label>
@@ -85,7 +89,7 @@
 							</button>
 						</div>
 						<div class="col">
-							<button type="button" class="rounded fluid button">
+							<button type="button" class="rounded fluid button open-modal" data-target="explore-modal">
 								EXPLORE
 							</button>
 						</div>
@@ -125,6 +129,24 @@
 						<h1>5</h1>
 					</div>
 				</Carousel>
+
+				<Dropdown class="multiple select">
+					<Dropmenu>
+						<div class="item">Get help</div>
+						<div class="item">Become a developer</div>
+						<div class="item">Support us</div>
+						<div class="item">Thank you</div>
+					</Dropmenu>
+				</Dropdown>
+
+				<div class="menu" v-tab>
+					<div class="item" data-tab="one">One</div>
+					<div class="item" data-tab="two">Two</div>
+					<div class="item" data-tab="three">Three</div>
+				</div>
+				<div class="tab-page" id="one">Page One</div>
+				<div class="tab-page" id="two">Page Two</div>
+				<div class="tab-page" id="three">Page Three</div>
 			</div>
 			<section id="whatfor" class="sec-block">
 				<div class="big centered container">
