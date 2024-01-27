@@ -2,41 +2,40 @@ import { utils } from "../utils";
 
 export function Tooltip() {
     const dnm = {
+        tooltip: 'tooltip',
         createTooltip() {
-            dnm.tooltip = document.createElement('div');
-            dnm.tooltip.classList.add('plain', 'tooltip');
-            dnm.tooltip.setAttribute('data-tooltipid', dnm.uniqueId);
-            dnm.tooltip.appendChild(document.createTextNode(dnm.el.getAttribute('data-tooltip')));
-            document.body.append(dnm.tooltip);
+            this.tooltip = document.createElement('div');
+            this.tooltip.classList.add('plain', 'tooltip');
+            this.tooltip.setAttribute('data-tooltipid', this.uniqueId);
+            this.tooltip.appendChild(document.createTextNode(this.el.getAttribute('data-tooltip')));
+            document.body.append(this.tooltip);
         },
         showTooltip(e) {
-            dnm.el = e.currentTarget;
-            dnm.evt = e;
-            dnm.binding = dnm.el.luiData.tooltip.binding;
-            dnm.delay = 150;
+            this.el = e.currentTarget;
+            this.evt = e;
+            this.binding = this.el.luiData.tooltip.binding;
+            this.delay = 150;
 
-            if (!dnm.el.luiData.tooltipId || !document.querySelector(`[data-tooltipid="${dnm.el.luiData.tooltipId}"]`)) {
-                dnm.uniqueId = utils.getUniqueId();
-                dnm.el.luiData.tooltipId = dnm.uniqueId;
-                dnm.createTooltip();
+            if (!this.el.luiData.tooltipId || !document.querySelector(`[data-tooltipid="${this.el.luiData.tooltipId}"]`)) {
+                this.uniqueId = utils.getUniqueId();
+                this.el.luiData.tooltipId = this.uniqueId;
+                this.createTooltip();
             }
             else {
-                dnm.uniqueId = dnm.el.luiData.tooltipId;
-                dnm.tooltip = document.querySelector(`[data-tooltipid="${dnm.uniqueId}"]`);
+                this.uniqueId = this.el.luiData.tooltipId;
+                this.tooltip = document.querySelector(`[data-tooltipid="${this.uniqueId}"]`);
             }
 
-            dnm.calcPosition();
-            dnm.el.addEventListener('mouseleave', dnm.hideTooltip);
-
-            if (dnm.binding.modifiers.hasOwnProperty('unblocking')) return;
-            
-            dnm.el.addEventListener('mousemove', dnm.mousePosition);
+            this.calcPosition();
+            this.el.addEventListener('mouseleave', this.hideTooltip.bind(this));
+            if (this.binding.modifiers.hasOwnProperty('unblocking')) return;
+            this.el.addEventListener('mousemove', this.mousePosition.bind(this));
         },
         hideTooltip() {
-            dnm.el.removeEventListener('mousemove', dnm.mousePosition);
-            dnm.el.removeEventListener('mouseleave', dnm.hideTooltip);
-            clearTimeout(dnm.renderer);
-            dnm.tooltip.classList.remove('active');
+            this.el.removeEventListener('mousemove', this.mousePosition);
+            this.el.removeEventListener('mouseleave', this.hideTooltip);
+            clearTimeout(this.renderer);
+            this.tooltip.classList.remove('active');
         },
         getCoords(e) {
             return {
@@ -46,37 +45,37 @@ export function Tooltip() {
         },
         mousePosition(e) {
             let
-                coord = dnm.getCoords(e),
-                prevCoord = dnm.getCoords(dnm.evt)
+                coord = this.getCoords(e),
+                prevCoord = this.getCoords(this.evt)
             ;
 
             if (Math.abs(coord.x - prevCoord.x) > 20 || Math.abs(coord.y - prevCoord.y) > 20) {
-                dnm.evt = e;
-                dnm.tooltip.classList.remove('active');
-                clearTimeout(dnm.renderer);
-                dnm.renderer = setTimeout(() => { dnm.calcPosition(); }, dnm.delay);
+                this.evt = e;
+                this.tooltip.classList.remove('active');
+                clearTimeout(this.renderer);
+                this.renderer = setTimeout(() => { this.calcPosition(); }, this.delay);
             }
         },
         calcPosition() {
-            document.body.append(dnm.tooltip);
-            dnm.tooltip.style.width = null;
-            dnm.tooltip.classList.remove('rhs', 'lhs', 'upward', 'downward');
+            document.body.append(this.tooltip);
+            this.tooltip.style.width = null;
+            this.tooltip.classList.remove('rhs', 'lhs', 'upward', 'downward');
 
             let 
-                prop = dnm.getCoords(dnm.evt),
-                tProp = dnm.evt.target.getBoundingClientRect(),
-                unblocking = dnm.binding.modifiers.hasOwnProperty('unblocking'),
+                prop = this.getCoords(this.evt),
+                tProp = this.evt.target.getBoundingClientRect(),
+                unblocking = this.binding.modifiers.hasOwnProperty('unblocking'),
                 vHeight = window.innerHeight,
                 vWidth = window.innerWidth,
                 offset = 5,
                 spacing = {}, tpPos = {}
             ;
 
-            prop.width = dnm.tooltip.offsetWidth;
+            prop.width = this.tooltip.offsetWidth;
 
             if (unblocking) {
-                dnm.tooltip.style.left = `${Math.max(Math.min(Math.max(0, tProp.left + (tProp.width/2) - (prop.width/2)), (vWidth - prop.width)), 0)}px`;
-                if (prop.width > vWidth) dnm.tooltip.style.width = `${vWidth}px`;
+                this.tooltip.style.left = `${Math.max(Math.min(Math.max(0, tProp.left + (tProp.width/2) - (prop.width/2)), (vWidth - prop.width)), 0)}px`;
+                if (prop.width > vWidth) this.tooltip.style.width = `${vWidth}px`;
             }
             else {
                 spacing.top = prop.y - offset;
@@ -84,22 +83,22 @@ export function Tooltip() {
                 spacing.left = prop.x - offset;
                 spacing.right = window.innerWidth - prop.x - offset;
 
-                tpPos.left = prop.x - dnm.tooltip.offsetWidth - offset;
+                tpPos.left = prop.x - this.tooltip.offsetWidth - offset;
                 tpPos.right = prop.x + offset;
 
                 if (spacing.right >= prop.width || spacing.right >= spacing.left) {
-                    if (prop.width > spacing.right) dnm.tooltip.style.width = `${spacing.right}px`;
-                    dnm.tooltip.style.left = `${tpPos.right}px`;
-                    dnm.tooltip.classList.add('rhs');
+                    if (prop.width > spacing.right) this.tooltip.style.width = `${spacing.right}px`;
+                    this.tooltip.style.left = `${tpPos.right}px`;
+                    this.tooltip.classList.add('rhs');
                 }
                 else {
-                    if (prop.width > spacing.left) dnm.tooltip.style.width = `${spacing.left}px`;
-                    dnm.tooltip.style.left = `${tpPos.left}px`;
-                    dnm.tooltip.classList.add('lhs');
+                    if (prop.width > spacing.left) this.tooltip.style.width = `${spacing.left}px`;
+                    this.tooltip.style.left = `${tpPos.left}px`;
+                    this.tooltip.classList.add('lhs');
                 }
             }
 
-            prop.height = dnm.tooltip.offsetHeight;
+            prop.height = this.tooltip.offsetHeight;
 
             if (unblocking) {
                 spacing.top = tProp.top;
@@ -113,15 +112,15 @@ export function Tooltip() {
             }
 
             if (spacing.bottom >= prop.height || spacing.bottom >= spacing.top) {
-                dnm.tooltip.style.top = `${tpPos.bottom}px`;
-                dnm.tooltip.classList.add('upward');
+                this.tooltip.style.top = `${tpPos.bottom}px`;
+                this.tooltip.classList.add('upward');
             }
             else {
-                dnm.tooltip.style.top = `${tpPos.top}px`;
-                dnm.tooltip.classList.add('downward');
+                this.tooltip.style.top = `${tpPos.top}px`;
+                this.tooltip.classList.add('downward');
             }
 
-            dnm.tooltip.classList.add('active');
+            this.tooltip.classList.add('active');
         }
     }
     return {
@@ -134,7 +133,7 @@ export function Tooltip() {
             el.luiData.tooltip.binding = binding;
             dnm.binding = binding;
 
-            el.addEventListener('mouseenter', dnm.showTooltip);
+            el.addEventListener('mouseenter', dnm.showTooltip.bind(dnm));
         },
         unmounted(el) {
             let 

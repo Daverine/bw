@@ -106,7 +106,7 @@
 		</header>
 		<article id="main" ref="main" class="grid" style="position: relative; min-height: 100vh; padding-top: 64px;">
 			<div class="manual-width col lg-and-down-hidden" id="navmenu">
-				<div class="vertical rounded transparent menu">
+				<div v-scrollPin="{ topSpacing: 74, bottomSpacing: 16 }" class="vertical rounded transparent menu">
 					<Shareables name="nav_menu" />
 				</div>
 			</div>
@@ -170,14 +170,17 @@
 	#navmenu,
 	#admenu,
 	#inavmenu {
-		position: sticky;
 		width: 275px;
+		box-shadow: none;
+		background-color: transparent !important;
+		padding: 10px;
+	}
+
+	#admenu {
+		position: sticky;
 		top: 64px;
 		min-height: calc(100vh - 64px);
 		height: min-content !important;
-		padding: 10px;
-		box-shadow: none;
-		background-color: transparent !important;
 	}
 
 	#inavmenu { width: auto; }

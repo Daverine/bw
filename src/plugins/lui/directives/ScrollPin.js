@@ -1,294 +1,261 @@
-(function($, window, document, undefined) {
+import { utils } from "../utils";
 
-	"use strict";
+export function scrollPin() {
+    const dnm = {
+        default: {
+            namespace: "scrollPin",
+            className: "pinned",
+            sticky: false,
+            parentGuided: false,
+            topSpacing: 0,
+            bottomSpacing: 0,
+            pinned: undefined,
+            unpinned: undefined
+        },
+        initialize(el, binding) {
+            // adjust settings
+            dnm.el = el;
+            dnm.settings = utils.isObject(binding.value) ? { ...dnm.default, ...binding.value } : dnm.default;
+            dnm.settings.parentGuided = dnm.settings.sticky ? true : dnm.settings.parentGuided;
+            dnm.uniqueId = utils.getUniqueId(dnm.settings.namespace);
+            dnm.currState = 'unpinned';
+            dnm.scrollableCont = window;
+            // cache current style attribute of the scrollPin element to be used for resetting during window resize.
+            dnm.initStyle = dnm.el.getAttribute('style');
+            dnm.prop = {}; dnm.tmp = {};
+            console.log(dnm.settings.topSpacing);
+            window.addEventListener('resize', dnm.getGeometry);
+            dnm.scrollableCont.addEventListener('scroll', dnm.onScrollMtd);
+            dnm.el.addEventListener('spconsole', dnm.sp_console);
 
-	window = (typeof window != "undefined" && window.Math == Math)
-		? window
-		: (typeof self != "undefined" && self.Math == Math)
-			? self
-			: Function('return this')()
-	;
+            // trigger a resize Method of windows used in scrollPin.
+            dnm.getGeometry();
+        },
+        getGeometry() {
+            // reset scrollPin
+            dnm.el.classList.remove(dnm.settings.className);
+            if (dnm.initStyle) dnm.el.setAttribute('style', dnm.initStyle);
+            else dnm.el.removeAttribute('style');
+            
 
-	$.fn.scrollPin = function(options) {
-		this.each(function(index) {
-			var 
-				$element = $(this),
-				props = {style: $element.attr("style")},
-				settings = $.extend({}, {
-					namespace: "scrollPin",
-					className: "pinned",
-					sticky: false,
-					parentGuide: false,
-					topSpacing: 0,
-					bottomSpacing: 0,
-					pinned: undefined,
-					unpinned: undefined
-				}, options, strObj4rmDOM($element.data("options")))
-			;
-			
-			// adjust settings
-			settings.parentGuide = settings.sticky ? true : settings.parentGuide;
-			settings.uniqueId = getUniqueId(settings.namespace);
+            dnm.scrollPos = window.scrollY;
+            dnm.prop.eBox = dnm.el.getBoundingClientRect();
+            dnm.prop.eOffset = utils.offsetPos(dnm.el);
+            dnm.tmp.pinnable = true;
+
+            // determine if a scrollpin should be independent by element's height
+            dnm.settings.independent = dnm.prop.eBox.height >= window.innerHeight;
+
+            // needed if pinned element needs to be contained inside the parent element's boundaries
+            if (dnm.settings.parentGuided) {
+                dnm.elParent = dnm.el.parentNode;
+                dnm.prop.pBox = elParent.getBoundingClientRect();
+                dnm.prop.pOffset = utils.offsetPos(dnm.elParent);
+
+                if (dnm.prop.eBox.height + dnm.settings.topSpacing + dnm.settings.bottomSpacing > utils.contentSize(dnm.elParent).height) {
+                    dnm.tmp.pinnable = false;
+                    console.warn('a scrollPin element on this page is not currently pinnable.');
+                }
+            }
+
+            // trigger a scroll Method of windows used in scrollPin.
+            dnm.onScrollMtd();
+        },
+        onScrollMtd() {
+            if (!dnm.tmp.pinnable) return;
+            // store previous scroll position to be used in independent scrollPin
+            let prevScrollPos = dnm.tmp.scrollPos;
 
 
-			// update function
-			function update() {
-				$element.attr("style", props.style || "");
-				settings.lastControl = "";
-				
-				// needed if pinned element needs to be contained inside the parent element"s boundaries
-				if (settings.parentGuide) {
-					var $parent = $element.parent(), lastScroll;
+            dnm.tmp.scrollDir = dnm.tmp.scrollPos < window.scrollY ? 1 : dnm.tmp.scrollPos > window.scrollY ? -1 : 0;
+            dnm.tmp.scrollPos = window.scrollY;
 
-			 		// ensure that there would be enough space in element offset to contain both settings.topSpacing and settings.bottomSpacing where needed.
-			 		if (settings.topSpacing > parseFloat($parent.css("paddingTop")) + parseFloat($element.css("marginTop"))) {
-						$element.css("marginTop", settings.topSpacing + 2 - parseFloat($parent.css("paddingTop")));
-					}
-					if (settings.bottomSpacing > parseFloat($parent.css("paddingBottom")) + parseFloat($element.css("marginBottom"))) {
-						$element.css("marginBottom", settings.bottomSpacing + 2 - parseFloat($parent.css("paddingBottom")));
-					}
+            let
+                offsetParent = utils.getParents(dnm.el).filter(el => utils.getCssVal(el, 'position') !== 'static')[0] || document.body,
+                opOffset = utils.offsetPos(offsetParent)
+            ;
 
-					lastScroll = $(window).scrollTop();
-					props.pHeight = $parent.outerHeight();
-					props.pOffset = $parent.offset();
-				}
+            if (dnm.settings.independent) {
+                // pin the element at the bottom
+                // if element bottom and bottomSpacing is visible on the screen
+                // and the user is scrolling down
+                // and element is not parent-guilded
+                // or the parent bottom (excluding it bottom-padding and bottomSpacing) have not reach the screen bottom. 
+                if (
+                    !dnm.el.classList.contains(dnm.settings.className) &&
+                    dnm.tmp.scrollDir === 1 &&
+                    utils.offsetPos(dnm.el).top + dnm.prop.eBox.height + dnm.settings.bottomSpacing <= dnm.tmp.scrollPos + window.innerHeight &&
+                    (!dnm.settings.parentGuided || dnm.prop.pOffset.top + dnm.prop.pBox.height - dnm.settings.bottomSpacing - parseFloat(utils.getCssVal(dnm.elParent, 'padding-bottom')) >= dnm.tmp.scrollPos + window.innerHeight)
+                ) {
+                    dnm.el.classList.add(dnm.settings.className);
+                    dnm.el.style.position = 'fixed';
+                    dnm.el.style.top = `${window.innerHeight - dnm.prop.eBox.height - dnm.settings.bottomSpacing}px`;
+                    dnm.el.style.left = `${dnm.prop.eOffset.left}px`;
+                    // fix for the use of relative width on the element.
+                    dnm.el.style.setProperty('width', dnm.prop.eBox.width + "px", "important");
+                    dnm.currState = 'bottom-pinned';
+                }
+                // pin the element at the top
+                // if element top and topSpacing is visible
+                // and the user is scrolling up
+                // while element have not reach its initial position
+                else if (
+                    !dnm.el.classList.contains(dnm.settings.className) &&
+                    dnm.tmp.scrollDir === -1 &&
+                    utils.offsetPos(dnm.el).top + dnm.settings.topSpacing > dnm.tmp.scrollPos &&
+                    dnm.tmp.scrollPos >= dnm.prop.eOffset.top - dnm.settings.topSpacing
+                ) {
+                    dnm.el.classList.add(dnm.settings.className);
+                    dnm.el.style.position = 'fixed';
+                    dnm.el.style.top = `${dnm.settings.topSpacing}px`;
+                    dnm.el.style.left = `${dnm.prop.eOffset.left}px`;
+                    // fix for the use of relative width on the element.
+                    dnm.el.style.setProperty('width', dnm.prop.eBox.width + "px", "important");
+                    dnm.currState = 'top-pinned';
+                }
+                // unpin the element (from been pinned by pin1)
+                // if it is guided by it parent and it as reach it parent limit at the bottom.
+                else if (
+                    dnm.settings.parentGuided &&
+                    dnm.prop.pOffset.top + dnm.prop.pBox.height - dnm.settings.bottomSpacing - parseFloat(utils.getCssVal(dnm.elParent, 'padding-bottom')) < dnm.tmp.scrollPos + window.innerHeight
+                ) {
+                    dnm.el.classList.remove(dnm.settings.className);
+                    dnm.el.style.position = 'absolute';
+                    dnm.el.style.top = `${dnm.prop.pOffset.top + dnm.prop.pBox.height - dnm.prop.eBox.height - parseFloat(utils.getCssVal(dnm.elParent, 'padding-bottom')) - opOffset.top}px`;
+                    dnm.el.style.left = `${dnm.prop.eOffset.left - opOffset.left}px`;
+                    // fix for the use of relative width on the element.
+                    dnm.el.style.setProperty('width', dnm.prop.eBox.width + "px", "important");
+                    dnm.currState = 'bottom-unpinned';
+                }
+                // unpin the element if the page scrolls to where the initial offset of the element is visible
+                else if (dnm.prop.eOffset.top >= dnm.tmp.scrollPos) {
+                    dnm.el.classList.remove(dnm.settings.className);
+                    dnm.el.style.position = 'absolute';
+                    dnm.el.style.top = `${dnm.prop.eOffset.top - opOffset.top}px`;
+                    dnm.el.style.left = `${dnm.prop.eOffset.left - opOffset.left}px`;
+                    // fix for the use of relative width on the element.
+                    dnm.el.style.setProperty('width', dnm.prop.eBox.width + "px", "important");
+                    dnm.currState = 'top-unpinned';
+                }
+                // unpin element
+                // if element was pinned by pin1
+                // and the scroll direction for been pinned has changed
+                else if (dnm.currState === 'bottom-pinned' && dnm.tmp.scrollDir === -1) {
+                    dnm.el.classList.remove(dnm.settings.className);
+                    dnm.el.style.position = 'absolute';
+                    dnm.el.style.top = `${prevScrollPos + window.innerHeight - dnm.prop.eBox.height - dnm.settings.bottomSpacing - opOffset.top}px`;
+                    dnm.el.style.left = `${dnm.prop.eOffset.left - opOffset.left}px`;
+                    // fix for the use of relative width on the element.
+                    dnm.el.style.setProperty('width', dnm.prop.eBox.width + "px", "important");
+                    dnm.currState = 'dir-bottom-unpinned';
+                }
+                // unpin element
+                // if element was pinned by pin2
+                // and the scroll direction for been pinned has changed
+                else if (dnm.currState === 'top-pinned' && dnm.tmp.scrollDir === 1) {
+                    dnm.el.classList.remove(dnm.settings.className);
+                    dnm.el.style.position = 'absolute';
+                    dnm.el.style.top = `${prevScrollPos + dnm.settings.topSpacing - opOffset.top}px`;
+                    dnm.el.style.left = `${dnm.prop.eOffset.left - opOffset.left}px`;
+                    // fix for the use of relative width on the element.
+                    dnm.el.style.setProperty('width', dnm.prop.eBox.width + "px", "important");
+                    dnm.currState = 'dir-top-unpinned';
+                }
+            }
+            else {
+                // pin element at the top if element has been scrolled out of page (from top)
+                // also if element is guided by parent, the parent must have enough visible area to contain the element and its top spacing
+                // and if element is sticky, then the user must be scrolling down \/ and the element must not be recently unpined by unpin2
+                if (
+                    (!dnm.settings.sticky || (dnm.tmp.scrollDir === 1 && dnm.currState !== 'bottom-unpinned')) &&
+                    dnm.tmp.scrollPos > dnm.prop.eOffset.top - dnm.settings.topSpacing &&
+                    (!dnm.settings.parentGuided || dnm.prop.pOffset.top + dnm.prop.pBox.height - dnm.tmp.scrollPos > dnm.prop.eBox.height + dnm.settings.topSpacing + parseFloat(utils.getCssVal(dnm.elParent, 'padding-bottom'))) &&
+                    !dnm.el.classList.contains(dnm.settings.className)
+                ) {
+                    dnm.el.classList.add(dnm.settings.className);
+                    dnm.el.style.position = 'fixed';
+                    dnm.el.style.top = `${dnm.settings.topSpacing}px`;
+                    dnm.el.style.left = `${dnm.prop.eOffset.left}px`;
+                    // fix for the use of relative width on the element.
+                    dnm.el.style.setProperty('width', `${dnm.prop.eBox.width}px`, 'important');
 
-				props.offset = $element.offset();
-				props.height = $element.outerHeight();
-				props.width = $element.outerWidth();
+                    dnm.currState = 'top-pinned';
+                }
+                // pin element at the bottom if element is sticky
+                // and was recently unpined by unpin2
+                // and the user is scrolling the page up /\
+                // also the parent of sticky has enough space in the viewport to contain the element
+                else if (
+                    dnm.settings.sticky && dnm.currState === 'bottom-unpinned' && dnm.tmp.scrollDir === -1 &&
+                    dnm.prop.pOffset.top + dnm.prop.pBox.height > dnm.tmp.scrollPos + window.innerHeight &&
+                    utils.offsetPos(dnm.el).top + dnm.prop.eBox.height + dnm.settings.bottomSpacing >= window.innerHeight + dnm.tmp.scrollPos &&
+                    !dnm.el.classList.contains(dnm.settings.className)
+                ) {
+                    dnm.el.classList.add(dnm.settings.className);
+                    dnm.el.style.position = 'fixed';
+                    dnm.el.style.top = `${window.innerHeight - dnm.prop.eBox.height - dnm.settings.bottomSpacing}px`;
+                    dnm.el.style.left = `${dnm.prop.eOffset.left}px`;
+                    // fix for the use of relative width on the element.
+                    dnm.el.style.setProperty('width', `${dnm.prop.ebox.width}px`, 'important');
 
-				// determine if a scrollpin should be independent by element's height
-				settings.independent = props.height >= $(window).height();
+                    dnm.currState = 'bottom-pinned';
+                }
+                // unpin the element if the page scrolls to where the initial offset of the element is visible
+                // but element must not be sticky
+                // else element must not be recently pined by pin2
+                // else user must be scrolling up /\ and must have scroll to the initial position of the element
+                else if (
+                    dnm.tmp.scrollPos + dnm.settings.topSpacing <= dnm.prop.eOffset.top &&
+                    (!dnm.settings.sticky || (dnm.currState !== 'bottom-pinned' || dnm.tmp.scrollDir === -1)) &&
+                    dnm.el.classList.contains(dnm.settings.className)
+                ) {
+                    dnm.el.classList.remove(dnm.settings.className);
+                    dnm.el.style.position = 'absolute';
+                    dnm.el.style.top = `${dnm.prop.eOffset.top - opOffset.top}px`;
+                    dnm.el.style.left = `${dnm.prop.eOffset.left - opOffset.left}px`;
+                    // fix for the use of relative width on the element.
+                    dnm.el.style.setProperty('width', `${dnm.prop.eBox.width}px`, 'important');
 
-				// ensure that there would be enough space in element offset to contain settings.topSpacing (not for parent guided elements)
-				if (settings.topSpacing > props.offset.top) { $element.css("marginTop", settings.topSpacing + 2); }
-				
-				props.marginT = parseFloat($element.css("marginTop"));
-				props.marginB = parseFloat($element.css("marginBottom"));
-				props.marginL = parseFloat($element.css("marginLeft"));
-				props.marginV = props.marginT + props.marginB;
+                    dnm.currState = 'top-unpinned';
+                }
+                // unpin element and make it stay at the bottom of parent if it is parent-guided
+                // and the page has scrolled reaching or past the parent
+                // and if element was recently pinned by pin2, the user must be scrolling down \/ the page
+                // must have reach or scrolled the parent out of viewport
+                else if (
+                    dnm.settings.parentGuided &&
+                    (dnm.tmp.scrollPos > dnm.prop.pOffset.top + dnm.prop.pBox.height - dnm.prop.eBox.height - dnm.settings.topSpacing - parseFloat(utils.getCssVal(dnm.elParent, 'padding-bottom')) ||
+                        (dnm.currState === 'bottom-pinned' && dnm.tmp.scrollDir === 1 && dnm.prop.pOffset.top + dnm.prop.pBox.height < dnm.scrollPos + window.innerHeight)    
+                    ) && dnm.el.classList.contains(dnm.settings.className)
+                ) {
+                    dnm.el.classList.remove(dnm.settings.className);
+                    dnm.el.style.position = 'absolute';
+                    dnm.el.style.top = `${dnm.prop.pOffset.top + dnm.prop.pBox.height - dnm.prop.eBox.height - parseFloat(utils.getCssVal(dnm.elParent, 'padding-bottom')) - opOffset.top}px`;
+                    // dnm.el.style.top = dnm.prop.pBox.height - parseFloat(utils.getCssVal(dnm.elParent, 'padding-bottom')) - dnm.prop.eBox.height;
+                    dnm.el.style.left = `${dnm.prop.eOffset.left - opOffset.left}px`;
+                    // fix for the use of relative width on the element.
+                    dnm.el.style.setProperty('width', `${dnm.prop.ebox.width}px`, 'important');
 
-				// adjust offset with margins
-				props.offset.left -= props.marginL;
-				props.offset.top -= props.marginT;
+                    dnm.currState = 'bottom-unpinned';
+                }
+            }
 
-				$element.removeClass(settings.className);
+            console.log(dnm.currState);
+        },
+        sp_console() {
 
-				// off a previously set callback function (if any) and re-on the scroll.settings.uniqueId event
-				$(window).off("scroll."+settings.uniqueId).on("scroll."+settings.uniqueId, function() {
-					var
-						scroll = $(window).scrollTop(),
-						$rp = $element.parents().not(function() {return ($(this).css("position") == "static")}).first() // parent that is not static
-					;
+        }
+    }
+    
+    return {
+        mounted(el, binding) {
+            dnm.initialize(el, binding)
+        },
+        updated(el) {
+            console.log('i sense an update');
+        },
+        unmounted(el) {
 
-					$rp = $rp.length ? $rp : $("body");
-
-					if (settings.independent) {
-						// pin the element at the bottom
-						if ($element.css("position") != "fixed" &&
-							scroll >= lastScroll &&
-							$element.offset().top + props.height - props.marginT + settings.bottomSpacing <= scroll + $(window).height() &&
-							(!settings.parentGuide || props.pOffset.top + props.pHeight - settings.bottomSpacing - parseFloat($parent.css("padding-bottom")) >= scroll + $(window).height())
-						) {
-							$element.css({
-								"top": $(window).height() - settings.bottomSpacing - props.height - props.marginT,
-								"left": props.offset.left,
-								"position": "fixed"
-							}).addClass(settings.className);
-							// fix for the use of relative width on the element.
-							$element[0].style.setProperty("width", props.width + "px", "important");
-							
-							if (settings.pinned && typeof settings.pinned == "function") {
-								settings.pinned($element);
-							}
-							settings.lastControl = "pin1";
-						}
-						// pin the element at the top
-						else if ($element.css("position") != "fixed" &&
-							lastScroll >= scroll &&
-							$element.offset().top + props.marginT - settings.topSpacing >= scroll &&
-							scroll >= props.offset.top + settings.topSpacing
-						) {
-							$element.css({
-								"position": "fixed",
-								"top": settings.topSpacing - props.marginT,
-								"left": props.offset.left
-							}).addClass(settings.className);
-							// fix for the use of relative width on the element.
-							$element[0].style.setProperty("width", props.width + "px", "important");
-
-							if (settings.pinned && typeof settings.pinned == "function") {
-								settings.pinned($element);
-							}
-							settings.lastControl = "pin2";
-						}
-						// unpin the element (from been pinned by pin1) if is guided by it parent and it as reach it parent limit at the bottom.
-						else if (settings.parentGuide && props.pOffset.top + props.pHeight + settings.bottomSpacing - props.marginB - parseFloat($parent.css("padding-bottom")) <= scroll + $(window).height()) {
-							$element.css({
-								"top": props.pHeight - props.height - props.marginV - parseFloat($parent.css("padding-bottom")),
-								"left": props.offset.left - props.pOffset.left,
-								"position": "absolute"
-							}).removeClass(settings.className);
-							// fix for the use of relative width on the element.
-							$element[0].style.setProperty("width", props.width + "px", "important");
-
-							if (settings.unpinned && typeof settings.unpinned == "function") {
-								settings.unpinned($element);
-							}
-							settings.lastControl = "";
-						}
-						// unpin the element if the page scrolls to where the initial offset of the element is visible
-						else if (props.offset.top >= scroll) {
-							$element.css({
-								"position": "absolute",
-								"top": props.offset.top - $rp.offset().top,
-								"left": props.offset.left - $rp.offset().left
-							}).removeClass(settings.className);
-							// fix for the use of relative width on the element.
-							$element[0].style.setProperty("width", props.width + "px", "important");
-
-							if (settings.unpinned && typeof settings.unpinned == "function") {
-								settings.unpinned($element);
-							}
-							settings.lastControl = "";
-						}
-						// unpin element if element was pinned by pin1 and the scroll direction for been pinned has change
-						else if (settings.lastControl == "pin1" && lastScroll > scroll) {
-							$element.css({
-								"top": lastScroll + $(window).height() - props.offset.top + props.offset.top - $rp.offset().top - props.height - settings.bottomSpacing,
-								"left": props.offset.left - $rp.offset().left,
-								"position": "absolute"
-							}).removeClass(settings.className);
-							// fix for the use of relative width on the element.
-							$element[0].style.setProperty("width", props.width + "px", "important");
-
-							if (settings.unpinned && typeof settings.unpinned == "function") {
-								settings.unpinned($element);
-							}
-							settings.lastControl = "";
-						}
-						// unpin element if element was pinned by pin2 and the scroll direction for been pinned has change
-						else if (settings.lastControl == "pin2" && scroll > lastScroll) {
-							$element.css({
-								"top": lastScroll - $rp.offset().top, // lastScroll - props.pOffset.top + settings.topSpacing,
-								"left": props.offset.left - $rp.offset().left,
-								"position": "absolute"
-							}).removeClass(settings.className);
-							// fix for the use of relative width on the element.
-							$element[0].style.setProperty("width", props.width + "px", "important");
-
-							if (settings.unpinned && typeof settings.unpinned == "function") {
-								settings.unpinned($element);
-							}
-							settings.lastControl = "";
-						}
-					}
-					else {
-						// pin element at the top if element has been scrolled out of page (from top)
-						// also if element is guided by parent, the parent must have enough visible area to contain the element and its top spacing
-						// and if element is sticky, then the user must be scrolling down \/ and the element must not be recently unpined by unpin2
-						if (
-							(!settings.sticky || (scroll >= lastScroll && settings.lastControl != "unpin2")) &&
-							scroll >= props.offset.top + props.marginT - settings.topSpacing &&
-							(!settings.parentGuide || props.pHeight + props.pOffset.top - scroll > props.height + settings.topSpacing + parseFloat($parent.css("padding-bottom"))) &&
-							$element.css("position") != "fixed"
-						) {
-							$element.css({
-								"position": "fixed",
-								"top": settings.topSpacing - props.marginT,
-								"left": props.offset.left
-							}).addClass(settings.className);
-							// fix for the use of relative width on the element.
-							$element[0].style.setProperty("width", props.width + "px", "important");
-
-							if (settings.pinned && typeof settings.pinned == "function") {
-								settings.pinned($element);
-							}
-							settings.lastControl = "pin1";
-						}
-						// pin element at the bottom if element is sticky
-						// and was recently unpined by unpin2
-						// and the user is scrolling the page up /\
-						// also the parent of sticky has enough space in the viewport to contain the element
-						else if (settings.sticky && settings.lastControl == "unpin2" && scroll < lastScroll &&							
-							props.pOffset.top + props.pHeight >= scroll + $(window).height() &&
-							$element.offset().top + props.height + settings.bottomSpacing >= $(window).height() + scroll &&
-							$element.css("position") != "fixed"
-						) {
-							$element.css({
-								"position": "fixed",
-								"top": $(window).height() - props.height - settings.bottomSpacing - props.marginT,
-								"left": props.offset.left
-							}).addClass(settings.className);
-							// fix for the use of relative width on the element.
-							$element[0].style.setProperty("width", props.width + "px", "important");
-
-							if (settings.pinned && typeof settings.pinned == "function") {
-								settings.pinned($element);
-							}
-							settings.lastControl = "pin2";
-						}
-						// unpin the element if the page scrolls to where the initial offset of the element is visible
-						// but element must not be sticky
-						// else element must not be recently pined by pin2
-						// else user must be scrolling up /\ and must have scroll to the initial position of the element
-						else if (scroll + settings.topSpacing <= props.offset.top + props.marginT &&
-							(!settings.sticky || (settings.lastControl != "pin2" || (scroll <= lastScroll && $element.offset().top - props.marginT <= props.offset.top))) &&
-							$element.css("position") != "absolute"
-						) {
-							$element.css({
-								"position": "absolute",
-								"left": props.offset.left - $rp.offset().left,
-								"top": props.offset.top - $rp.offset().top,
-							}).removeClass(settings.className);
-							// fix for the use of relative width on the element.
-							$element[0].style.setProperty("width", props.width + "px", "important");
-
-							if (settings.unpinned && typeof settings.unpinned == "function") {
-								settings.unpinned($element);
-							}
-							settings.lastControl = "unpin1";
-						}
-						// unpin element and make it stay at the bottom of parent if it is parent guided
-						// and the page has scrolled reach or past the parent
-						// and if element was recently pined by pin2, the user must be scrolling down \/ the page
-						// must have reach or scrolled the parent out of viewport
-						else if (
-							settings.parentGuide &&
-							(scroll >= props.pOffset.top + props.pHeight - props.height - settings.topSpacing - props.marginB - parseFloat($parent.css("padding-bottom")) ||
-								(settings.lastControl == "pin2" && scroll > lastScroll && props.pOffset.top + props.pHeight <= scroll + $(window).height())) &&
-							$element.css("position") != "absolute"
-						) {
-							$element.css({
-								"position": "absolute", 
-								"top": props.pHeight - parseFloat($parent.css("padding-bottom")) - props.height - props.marginV,
-								"left": props.offset.left - props.pOffset.left
-							}).removeClass(settings.className);
-							// fix for the use of relative width on the element.
-							$element[0].style.setProperty("width", props.width + "px", "important");
-
-							if (settings.unpinned && typeof settings.unpinned == "function") {
-								settings.unpinned($element);
-							}
-							settings.lastControl = "unpin2";
-						}
-					}
-					lastScroll = scroll;
-				});
-
-				// trigger the scroll event so that computations take effect
-				$(window).trigger("scroll." + settings.uniqueId); 
-			}
-
-			// update elements" position
-			update();
-
-			// on window resize update elements" position
-			$(window).on("resize", update);
-		});
-	};
-
-	$(document).ready(function() {
-		$(".scroll-pin").scrollPin();
-	});
-})(jQuery, window, document);
+        }
+    }
+};

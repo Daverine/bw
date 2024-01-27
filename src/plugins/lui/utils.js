@@ -41,6 +41,23 @@ export const utils = {
 
 		return nameSpace + window.lui_uuid;
 	},
+	getCssVal(el, prop) {
+		return window.getComputedStyle(el).getPropertyValue(prop);
+	},
+	contentSize(el) {
+		let styleList = window.getComputedStyle(el), box = el.getBoundingClientRect();
+		return {
+			height: box.height - parseFloat(styleList.paddingTop) - parseFloat(styleList.paddingBottom) - parseFloat(styleList.borderTopWidth) - parseFloat(styleList.borderBottomWidth),
+			width: box.width - parseFloat(styleList.paddingLeft) - parseFloat(styleList.paddingRight) - parseFloat(styleList.borderLeftWidth) - parseFloat(styleList.borderRightWidth)
+		}
+	},
+	offsetPos(el) {
+		let box = el.getBoundingClientRect(), docElem = document.documentElement;
+		return {
+		  top: box.top + window.scrollY - docElem.clientTop,
+		  left: box.left + window.scrollX - docElem.clientLeft
+		};
+	},
 	getParents(el, selector, until) {
 		if (until) {
 			if (typeof(until) == 'string') {
@@ -82,6 +99,13 @@ export const utils = {
 			const event = typeof eventType === 'string' ? new Event(eventType, {bubbles: true}) : eventType;
 			el.dispatchEvent(event);
 		}
+	},
+	isObject(value) {
+		return (
+			typeof value === 'object' &&
+			value !== null &&
+			!Array.isArray(value)
+		);
 	},
 	isClose(elem, selectors) {
 		function checkElem(elem) {
