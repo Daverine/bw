@@ -33,7 +33,7 @@ export default {
 				</div>
 			</div>
 			<div class="sc-content">
-				<a href="#" class="sc-title" :title="details.title">{{ details.title }}</a>
+				<a class="sc-title" :title="details.title">{{ details.title }}</a>
 				<div class="sc-gap">
 					<div>
 						<span class="h5 bold 0-margined" style="color: var(--primary);">{{ details.price }}&nbsp;</span>
@@ -69,7 +69,7 @@ export default {
 				</div>
 			</div>
 			<div class="sc-content">
-				<a href="#" class="sc-title" :title="details.title">{{ details.title }}</a>
+				<a class="sc-title" :title="details.title">{{ details.title }}</a>
 				<div class="sc-gap">
 					<div>
 						<span class="0-margined h6" style="font-weight: var(--bold-weight);">{{ details.priceDefinition }}&nbsp;</span>
@@ -105,7 +105,7 @@ export default {
 				<SvgIcon name="verified_sp" title="Verified" class="small green-text" style="position: absolute; bottom: 0px; right: 0px;" />
 			</div>
 			<div class="sc-content">
-				<a href="#" class="sc-title">{{ details.bizName }}</a>
+				<a class="sc-title">{{ details.bizName }}</a>
 				<div class="sc-gap">
 					<span class="small semibold">{{ details.mainCategory }}</span>
 					<span :title="details.location.address" class="truncate" style="color: var(--on-surface-variant);">

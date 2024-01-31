@@ -35,21 +35,12 @@
 					<Shareables name="nav_menu" />
 				</div>
 			</div>
-			<footer>
-				<div class="transparent text menu wrap flex-centered">
-					<div class="item">Terms of use</div>
-					<div class="item">About us</div>
-					<div class="item">Help</div>
-					<div class="item">Settings</div>
-					<div class="item">@ Copyright 2023</div>
-					<div class="item">Emmadave Inc.</div>
-				</div>
-			</footer>
+			<Shareables name="common_footer" />
 		</div>
 	</SidePanel>
 	<div id="fmenu" class="menu z-level-3" :class="{ pinned: mainStore.showFixedMenu }">
 		<div class="container rounded items auto-margined">
-			<div class="item as-icon open-sidepanel" v-tooltip.unblocking data-tooltip="Menu" data-target="msidepanel">
+			<div class="item as-icon open-sidepanel lg-and-up-hidden" v-tooltip.unblocking data-tooltip="Menu" data-target="msidepanel">
 				<SvgIcon name="menu" />
 			</div>
 			<router-link to="/" class="xhover item as-icon">

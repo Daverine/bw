@@ -47,7 +47,7 @@
 						<SvgIcon name="menu" />
 					</div>
 					<div class="items md-and-down-hidden">
-						<router-link to="/bookmarks" class="item">Bookmarks</router-link>
+						<router-link to="/saved" class="item">Saved Posts</router-link>
 						<router-link to="/following" class="item">Following</router-link>
 						<router-link to="/help#shop-online" class="item">Have a shop online</router-link>
 						<Dropdown class="item">
@@ -90,7 +90,7 @@
 							</button>
 						</div>
 						<div class="col">
-							<button type="button" class="rounded fluid button">
+							<button type="button" class="rounded fluid button open-modal" data-target="explore-modal">
 								EXPLORE
 							</button>
 						</div>
@@ -105,12 +105,8 @@
 			</div>
 		</header>
 		<article id="main" ref="main" class="grid" style="position: relative; min-height: 100vh; padding-top: 64px;">
-			<div class="manual-width col lg-and-down-hidden" id="navmenu">
-				<div v-scrollPin="{ topSpacing: 74, bottomSpacing: 16 }" class="vertical rounded transparent menu">
-					<Shareables name="nav_menu" />
-				</div>
-			</div>
-			<div class="col" id="feeds">
+			<Shareables name="page_nav" />
+			<main class="col" id="feed">
 				<h6 class="centered" id="bizupdate">Update from page you're following (Feeds)</h6>
 				<FeedCard v-for="(feed, i) in feedStore.feeds" :key="i" :details="feed" />
 				<div class="divider">
@@ -120,39 +116,12 @@
 					</button>
 				</div>
 
-			</div>
-			<div class="manual-width col" id="admenu">
-				<div style="width: 100%;">
-					<h6 class="centered" style="margin-bottom: 16px;">Sponsored (Ads)</h6>
-					<div class="ads">
-						<div class="centered rounded ad">
-							<img src="/images/ads.jpg" alt="ad" class="image">
-							<div>
-								Fix your laptops and desktops (Hardware and Software).
-								<button class="primary button">contact us</button>
-							</div>
-						</div>
-					</div>
-				</div>
-				<footer style="align-self: flex-end;">
-					<div class="transparent text menu wrap flex-centered">
-						<div class="item">Terms of use</div>
-						<div class="item">About us</div>
-						<div class="item">Help</div>
-						<div class="item">Settings</div>
-						<div class="item">@ Copyright 2023</div>
-						<div class="item">Emmadave Inc.</div>
-					</div>
-				</footer>
-			</div>
+			</main>
+			<Shareables name="ad_menu" />
 		</article>
 	</div>
 </template>
 <style scoped>
-	.as-page {
-		scroll-behavior: smooth;
-	}
-
 	#main-header {
 		min-height: 100vh;
 		display: flex;
@@ -165,56 +134,5 @@
 		padding: 0px 1rem;
 		margin: 32px auto;
 		align-self: center;
-	}
-
-	#navmenu,
-	#admenu,
-	#inavmenu {
-		width: 275px;
-		box-shadow: none;
-		background-color: transparent !important;
-		padding: 10px;
-	}
-
-	#admenu {
-		position: sticky;
-		top: 64px;
-		min-height: calc(100vh - 64px);
-		height: min-content !important;
-	}
-
-	#inavmenu { width: auto; }
-
-	#navmenu .item {
-		padding-left: 72px;
-	}
-
-	#admenu {
-		display: flex;
-		flex-flow: row wrap;
-		padding: 25px 1rem;
-	}
-
-	@media only screen and (max-width: 800px) {
-		#admenu { display: none !important; }
-	}
-
-	.ad {
-		box-shadow: 0px 0px 5px #aaa;
-		padding: 10px;
-		background-color: var(--surface);
-	}
-
-	#feeds {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		gap: 20px;
-		position: relative;
-		width: 100%;
-		max-width: 700px;
-		min-height: 120vh;
-		padding: 20px 1em;
-		margin: 0px auto;
 	}
 </style>

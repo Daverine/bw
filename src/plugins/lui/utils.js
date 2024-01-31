@@ -166,5 +166,6 @@ export const utils = {
 			selection.removeAllRanges();
 			selection.addRange(range);
 		}
-	}
+	},
+	reqAnimFrame: window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame,
 }

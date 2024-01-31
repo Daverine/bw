@@ -1,6 +1,7 @@
 <script>
     import { useMainStore } from '../stores';
 	import { useUserStore } from '../stores/userStore';
+    import { useSearchStore } from '../stores/searchStore';
     
     export default {
         name: "rc-shareables",
@@ -8,10 +9,11 @@
         setup() {
 			const
 				mainStore = useMainStore(),
-				userStore = useUserStore()
+				userStore = useUserStore(),
+                searchStore = useSearchStore()
 			;
 
-			return { mainStore, userStore }
+			return { mainStore, userStore, searchStore }
 		},
         methods: {
             timeInDateJs(time) {
@@ -22,7 +24,11 @@
                 result.setSeconds(0);
                 result.setMilliseconds(0);
                 return result;
-            }
+            },
+            submitSearch() {
+				this.searchStore.triggerSearch();
+				this.$router.push('/search?'+this.searchStore.searchBox);
+			}
         }
     }
 </script>
@@ -47,12 +53,12 @@
                 <SvgIcon name="home_filled" class="lead aview" />
                 Home
             </router-link>
-            <router-link to="saved" exact-active-class="active" class="item">
+            <router-link to="saved" exact-active-class="active" class="item exit-sidepanel">
                 <SvgIcon name="bookmarks" class="lead nview" />
                 <SvgIcon name="bookmarks_filled" class="lead aview" />
-                Saved
+                Saved Posts
             </router-link>
-            <div class="item">
+            <div class="item exit-sidepanel open-modal" data-target="explore-modal">
                 <SvgIcon name="explore" class="lead nview" />
                 <SvgIcon name="explore_filled" class="lead aview" />
                 Explore
@@ -118,5 +124,123 @@
             <div class="transparent compact divider"></div>
             <div class="xhover item 0-padding"><button class="fluid rounded primary button open-modal exit-sidepanel" data-target="register-modal">Sign Up</button></div>
         </template>
+    </template>
+    <template v-else-if="name === 'common_header'">
+        <div class="menu" style="height: 64px;">
+            <div class="container rounded items">
+                <div class="item as-icon open-sidepanel lg-and-up-hidden" data-target="msidepanel">
+                    <SvgIcon name="menu" />
+                </div>
+                <router-link to="/" class="xhover item as-icon">
+                    <img src="/images/logo_sqr.png" alt="site logo" class="logo-lg site-logo" />
+                </router-link>
+                <form class="xhover adaptable item md-and-down-hidden" @submit.prevent="submitSearch">
+                    <label class="input fluid rounded transparent clue-bg" style="max-width: 550px;">
+                        <SvgIcon name="search" class="xhover" />
+                        <input v-model="searchStore.searchBox" type="search" id="searchinput" placeholder="Your search here." class="subject" ref="inputbox" autofocus />
+                        <button type="button" v-tooltip.unblocking data-tooltip="Scan QR" class="icon open-modal" data-target="scanqr-modal">
+                            <SvgIcon name="qr_code_scanner" />
+                        </button>
+                        <button type="button" v-tooltip.unblocking data-tooltip="Search location is set to Nigeria. Click to change it." class="icon open-modal" data-target="">
+                            <SvgIcon name="location_on" />	
+                        </button>
+                    </label>
+                </form>
+                <div v-if="userStore.auth" class="items r-aligned">
+                    <div class="as-icon item">
+                        <SvgIcon name="notifications" />
+                    </div>
+                    <Dropdown class="xhover as-icon item" v-tooltip.unblocking data-tooltip="Your profile and also test">
+                        <img src="/images/profile.jpg" alt="profile"  class="fully-rounded logo" />
+                        <rc-shareables name="profile_menu" />
+                    </Dropdown>
+                </div> 
+                <div v-else class="items r-aligned">
+                    <div class="items sm-and-down-hidden">
+                        <div class="item open-modal" data-target="login-modal">Log in</div>
+                        <div class="xhover item 0-h-padding"><button class="rounded primary button open-modal" data-target="register-modal">Sign Up</button></div>
+                    </div>
+                    <Dropdown class="as-icon item sm-and-up-hidden">
+                        <SvgIcon name="person_add" />
+                        <Dropmenu class="rounded">
+                            <div class="item open-modal" data-target="login-modal">Log in</div>
+                            <div class="xhover item"><button class="rounded primary button open-modal" data-target="register-modal">Sign Up</button></div>
+                        </Dropmenu>
+                    </Dropdown>
+                </div>
+            </div>
+        </div>
+        <div class="container md-and-up-hidden" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
+            <form class="fluid" @submit.prevent="submitSearch">
+                <label class="input fluid rounded transparent clue-bg">
+                    <SvgIcon name="search" class="xhover" />
+                    <input v-model="searchStore.searchBox" type="search" id="searchinput" placeholder="Your search here." class="subject" ref="inputbox" autofocus />
+                    <button type="button" v-tooltip.unblocking data-tooltip="Scan QR" class="icon open-modal" data-target="scanqr-modal">
+                        <SvgIcon name="qr_code_scanner" />
+                    </button>
+                    <button type="button" v-tooltip.unblocking data-tooltip="Search location is set to Nigeria. Click to change it." class="icon open-modal" data-target="">
+                        <SvgIcon name="location_on" />	
+                    </button>
+                </label>
+            </form>
+        </div>
+        <div class="md-and-down-hidden" style="padding: 0em 0em 0.5em;">
+            <div class="container grid flex-no-wrap">
+                <div class="manual-width col r-padded d-flex flex-middle"><span class="d-block bold">Explore:</span> </div>
+                <div id="categories" class="scroll-items col" style="overflow: hidden; padding: 4px 0px;">
+                    <div class="l-scroll"><SvgIcon name="double_arrow_left" class="mini" /></div>
+                    <div class="r-scroll"><SvgIcon name="double_arrow_right" class="mini" /></div>
+                    <div class="items" style="gap: 8px;">
+                        <button class="fully-rounded chip"><SvgIcon name="restaurant" class="small lead" /> Restaurants</button>
+                        <button class="fully-rounded chip"><SvgIcon name="local_bar" class="small lead" /> Bars</button>
+                        <button class="fully-rounded chip"><SvgIcon name="local_parking" class="small lead" /> Parks</button>
+                        <button class="fully-rounded chip"><SvgIcon name="hotel" class="small lead" /> Hotels</button>
+                        <button class="fully-rounded chip"><SvgIcon name="shopping_cart" class="small lead" /> Groceries</button>
+                        <button class="fully-rounded chip"><SvgIcon name="local_gas_station" class="small lead" /> Filling stations</button>
+                        <button class="fully-rounded chip"><SvgIcon name="local_pharmacy" class="small lead" /> Pharmacies</button>
+                        <button class="fully-rounded chip"><SvgIcon name="local_hospital" class="small lead" /> Hospitals and clinics</button>
+                        <button class="fully-rounded chip"><SvgIcon name="more_horiz" class="small lead" /> More</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+    <template v-else-if="name === 'common_footer'">
+        <footer style="align-self: flex-end;">
+            <div class="transparent text wrappable menu flex-centered">
+                <div class="item">Terms of use</div>
+                <div class="item">About us</div>
+                <div class="item">Help</div>
+                <div class="item">Settings</div>
+                <div class="item">@ Copyright 2023</div>
+                <div class="item">Emmadave Inc.</div>
+            </div>
+        </footer>
+    </template>
+    <template v-else-if="name === 'page_nav'">
+        <aside class="manual-width col sidemenu lg-and-down-hidden">
+            <div id="navmenu" v-scrollPin="{ topSpacing: 84, bottomSpacing: 16, parentGuided: true }" class="vertical rounded transparent menu">
+                <rc-shareables name="nav_menu" />
+            </div>
+        </aside>
+    </template>
+    <template v-else-if="name === 'ad_menu'">
+        <aside class="manual-width col sidemenu">
+            <div id="admenu" v-scrollPin="{ topSpacing: 84, bottomSpacing: 16, parentGuided: true }">
+                <div style="width: 100%;">
+                    <h6 class="centered" style="margin-bottom: 16px;">Sponsored (Ads)</h6>
+                    <div class="ads">
+                        <div class="centered rounded ad">
+                            <img src="/images/ads.jpg" alt="ad" class="image">
+                            <div>
+                                Fix your laptops and desktops (Hardware and Software).
+                                <button class="primary button">contact us</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <rc-shareables name="common_footer" />
+            </div>
+        </aside>
     </template>
 </template>

@@ -3141,7 +3141,7 @@ hr.vertical:empty,
   min-width: max-content;
   flex-flow: row nowrap;
 }
-.menu:not(.vertical):not(.drop).wrap {
+.menu:not(.vertical):not(.drop).wrappable, .menu:not(.vertical):not(.drop).wrappable .items {
   min-width: 0px;
   flex-flow: row wrap;
 }

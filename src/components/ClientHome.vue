@@ -111,43 +111,6 @@
 			</div>
 		</header>
 		<article ref="main">
-			<div class="container" style="max-width: 500px !important;">
-				<Carousel>
-					<div class="cs-slide">
-						<h1>1</h1>
-					</div>
-					<div class="cs-slide">
-						<h1>2</h1>
-					</div>
-					<div class="cs-slide">
-						<h1>3</h1>
-					</div>
-					<div class="cs-slide">
-						<h1>4</h1>
-					</div>
-					<div class="cs-slide">
-						<h1>5</h1>
-					</div>
-				</Carousel>
-
-				<Dropdown class="multiple select">
-					<Dropmenu>
-						<div class="item">Get help</div>
-						<div class="item">Become a developer</div>
-						<div class="item">Support us</div>
-						<div class="item">Thank you</div>
-					</Dropmenu>
-				</Dropdown>
-
-				<div class="menu" v-tab>
-					<div class="item" data-tab="one">One</div>
-					<div class="item" data-tab="two">Two</div>
-					<div class="item" data-tab="three">Three</div>
-				</div>
-				<div class="tab-page" id="one">Page One</div>
-				<div class="tab-page" id="two">Page Two</div>
-				<div class="tab-page" id="three">Page Three</div>
-			</div>
 			<section id="whatfor" class="sec-block">
 				<div class="big centered container">
 					<h1>What is BizWorld for?</h1>
@@ -172,7 +135,7 @@
 								<!-- Browse for products and services around you and know where to get things done without having to ask anyone. Our explore section displays businesses in categories of what they offer. So you can easily compare businesses there. If the category you are looking for is not there you can make use of seach instead.</li> -->
 							</ul>
 							<div class="centered">
-								<button class="rounded primary button">EXPLORE</button>
+								<button class="rounded primary button open-modal" data-target="explore-modal">EXPLORE</button>
 							</div>
 						</div>
 					</div>
@@ -243,7 +206,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="transparent text menu" style="padding: 10px 0px;">
+			<div class="transparent wrappable text menu" style="padding: 10px 0px;">
 				<div class="container items">
 					<div class="item">Terms of use</div>
 					<div class="item">About us</div>

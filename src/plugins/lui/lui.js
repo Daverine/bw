@@ -8,6 +8,7 @@ import { Collapsible } from './directives/Collapsible.js';
 import { Tooltip } from './directives/Tooltip.js';
 import { Tab } from './directives/Tab.js';
 import { scrollPin } from './directives/ScrollPin.js';
+import { streamSize } from './directives/streamSize.js';
 
 export default {
     install(app, options) {
@@ -20,5 +21,6 @@ export default {
         app.directive('tooltip', new Tooltip());
         app.directive('tab', new Tab());
         app.directive('scrollPin', new scrollPin());
+        // app.directive('streamSize', new streamSize());
     }
 }
