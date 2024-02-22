@@ -3,13 +3,13 @@
 	import { useSearchStore } from '../stores/searchStore';
 	import { useUserStore } from '../stores/userStore';
 	import Shareables from '../components/Shareables.vue';
-	import SearchCard from '../components/searchcard.vue';
+	import ItemCard from '../components/ItemCard.vue';
 
 	export default {
 		title() {
 			return `${this.searchStore.searchBox} | Bizworld`
 		},
-		components: { SearchCard, Shareables },
+		components: { ItemCard, Shareables },
 		setup() {
 			const
 				mainStore = useMainStore(),
@@ -20,17 +20,17 @@
 			return { mainStore, searchStore, userStore }
 		},
 		methods: {
-			submitSearch() {
-				this.searchStore.triggerSearch();
-				this.$router.push('/search?'+this.searchStore.searchBox);
-			},
 			handleScroll() {
 				if (this.$refs.main.getBoundingClientRect().top <= 0) this.mainStore.mutateSFM(true);
 				else this.mainStore.mutateSFM(false);
 			}
 		},
+		created() {
+			this.$watch(() => this.$route.query, (to, from) => {
+				document.title = this.$options.title.call(this);
+			});
+		},
 		mounted() {
-			// if (!this.searchStore.searchBox) this.$router.push('/');
 			window.dispatchEvent(new Event("scroll"));
 			window.addEventListener('scroll', this.handleScroll);
 		},
@@ -54,9 +54,9 @@
 		<section id="main" ref="main" class="grid" style="position: relative; margin-top: 25px; min-height: 70vh;">
 			<Shareables name="page_nav" />
 			<main class="col" id="feed">
-				<SearchCard v-for="(result, i) in searchStore.searchResults" :key="i" :details="result" />
+				<ItemCard v-for="(result, i) in searchStore.searchResults" :key="i" :details="result" />
 
-				<div class="divider"><button class="fully-rounded button">More results <SvgIcon name="expand_more" /></button></div>
+				<div class="divider"><button class="button">More results <SvgIcon name="expand_more" /></button></div>
 			</main>
 			<Shareables name="ad_menu" />
 		</section>

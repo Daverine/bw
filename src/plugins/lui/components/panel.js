@@ -11,6 +11,7 @@ export default {
 				namespace: "panel",
 				toBeConsidered: ':scope .panel, :scope .pl-controls',
 				toggler: '.open-panel',
+				toExcuseToggler: '.ex-open-panel',
 				setHighlightRange: true,
 				setTabRange: true,
 				closeOnEsc: true,
@@ -52,7 +53,7 @@ export default {
 		},
 		togglePanel(e) {
 			let toggler = [...document.querySelectorAll(this.settings.toggler)].filter((el) => el.contains(e.target) && (el.getAttribute('data-target') === this.id || el.getAttribute('href') === `#${this.id}`))[0];
-			if (!toggler) return;
+			if (!toggler || e.target.closest(this.settings.toExcuseToggler)) return;
 			this.settings.caller = toggler;
 			this.showPanel = !this.showPanel;
 		},

@@ -1,21 +1,21 @@
-import { createApp } from 'vue'
+import { createApp, markRaw } from 'vue';
+import router from './router';
+import { createPinia } from 'pinia';
+import App from './App.vue';
 
-import router from './router'
-import { createPinia } from 'pinia/dist/pinia'
-import { markRaw } from 'vue'
-import TitleMixin from './mixins/TitleMixin'
-import lui from './plugins/lui/lui'
-import SvgIcon from './components/SvgIcon.vue'
-import './assets/style.scss'
-import App from './App.vue'
+import TitleMixin from './mixins/TitleMixin';
+import lui from './plugins/lui/lui';
+import SvgIcon from './components/SvgIcon.vue';
+import './assets/style.scss';
 
 
-const pinia = createPinia()
-const app = createApp(App)
+const app = createApp(App);
+const pinia = createPinia();
 
-app.use(router)
-app.use(pinia)
-app.mixin(TitleMixin)
-app.use(lui)
-app.component('SvgIcon', SvgIcon)
-app.mount('#app')
+pinia.use(({ store }) => { store.$router = markRaw(router) });
+app.use(router);
+app.use(pinia);
+app.mixin(TitleMixin);
+app.use(lui);
+app.component('SvgIcon', SvgIcon);
+app.mount('#app');

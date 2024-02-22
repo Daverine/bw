@@ -1,9 +1,11 @@
-import { defineStore } from "pinia/dist/pinia"
+import { defineStore } from "pinia/dist/pinia";
+import sresults from '../jsons/sresults.json';
 
 export const useUserStore = defineStore('user', {
     state: () => ({
         auth: false,
-        userData: {}
+        userData: {},
+        savedCards: []
     }),
     actions: {
         login(email, password) {
@@ -27,6 +29,13 @@ export const useUserStore = defineStore('user', {
         logout() {
             this.auth = false;
             this.userData = {};
+        },
+        async getSavedCards() {
+            return new Promise(() => {
+                setTimeout(() => {
+                    this.savedCards = sresults;
+                }, 500);
+            });
         }
     }
 })

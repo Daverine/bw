@@ -1,4 +1,5 @@
 :root {
+	--radius-default: 0.5em;
 	--site-logo-filter: invert(0);
 	--fmenu-bg: rgba(255,255,255,0.8);
 }
@@ -56,20 +57,16 @@
 }
 
 .scroll-locked {
-	background-color: #8b8b8b;
+	background-color: #eee;
 }
 
 // landing page style
 
 .sidemenu {
-	width: 275px;
+	width: var(--sidepanel-width);
 	box-shadow: none;
 	background-color: transparent !important;
 	padding: 10px;
-}
-
-#navmenu .item {
-	padding-left: 72px;
 }
 
 #admenu {
@@ -93,7 +90,7 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	gap: 20px;
+	gap: 1rem;
 	position: relative;
 	width: 100%;
 	max-width: 600px;

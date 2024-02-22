@@ -17,10 +17,6 @@
 			handleScroll() {
 				if (this.$refs.main.getBoundingClientRect().top <= 0) this.mainStore.mutateSFM(true);
 				else this.mainStore.mutateSFM(false);
-			},
-			submitSearch() {
-				this.searchStore.triggerSearch();
-				this.$router.push('/search?'+this.searchStore.searchBox);
 			}
 		},
 		mounted() {
@@ -35,8 +31,8 @@
 <template>
 	<div class="as-page">
 		<header id="main-header">
-			<div class="rounded transparent menu" style="height: 64px;">
-				<div class="container items">
+			<div class="transparent menu" style="height: 64px;">
+				<div class="container items" style="border-radius: var(--radius-default);">
 					<div class="item as-icon lg-and-up-hidden open-sidepanel" v-tooltip.unblocking data-tooltip="Menu" data-target="msidepanel">
 						<SvgIcon name="menu" />
 					</div>
@@ -48,7 +44,7 @@
 							<Dropdown class="item">
 								Support
 								<SvgIcon name="expand_more" class="trailing" />
-								<Dropmenu class="rounded">
+								<Dropmenu>
 									<Shareables name="supports" />
 								</Dropmenu>
 							</Dropdown>
@@ -56,25 +52,25 @@
 						</div>
 						<div class="items sm-and-down-hidden">
 							<div class="item open-modal" data-target="login-modal">Log in</div>
-							<div class="xhover item 0-h-padding"><button class="rounded primary button open-modal" data-target="register-modal">Sign Up</button></div>
+							<div class="xhover item 0-h-padding"><button class="primary button open-modal" data-target="register-modal">Sign Up</button></div>
 						</div>
 						<Dropdown class="as-icon item sm-and-up-hidden">
 							<SvgIcon name="person_add" class="lead" /> Account
-							<Dropmenu class="rounded">
+							<Dropmenu>
 								<div class="item open-modal" data-target="login-modal">Log in</div>
-								<div class="xhover item"><button class="rounded primary button open-modal" data-target="register-modal">Sign Up</button></div>
+								<div class="xhover item"><button class="primary button open-modal" data-target="register-modal">Sign Up</button></div>
 							</Dropmenu>
 						</Dropdown>
 					</div>
 				</div>
 			</div>
-			<form id="searchbox" class="rounded centered" @submit.prevent="submitSearch">
+			<form id="searchbox" class="centered" @submit.prevent="searchStore.triggerSearch()">
 				<div style="margin-bottom: 32px;">
 					<h1 id="call-text">Let's do business</h1>
 					<p class="huge">Search for business names, products and services.</p>
 				</div>
 				<div>
-					<label class="input rounded big fluid">
+					<label class="input big fluid">
 						<SvgIcon name="search" class="xhover" />
 						<input v-model="searchStore.searchBox" type="search" id="searchinput" placeholder="Your search here." class="subject" ref="inputbox" autofocus />
 						<button type="button" v-tooltip.unblocking data-tooltip="Scan QR" class="icon open-modal" data-target="scanqr-modal">
@@ -84,12 +80,12 @@
 					<div style="margin-top: 8px;">Search in: <span class="bold">Nigeria</span>. <a href="#">Change Location</a></div>
 					<div class="grid" style="gap: 16px; margin: 32px auto 0px; max-width: 300px;">
 						<div class="col">
-							<button class="rounded fluid button">
+							<button class="fluid button">
 								SEARCH
 							</button>
 						</div>
 						<div class="col">
-							<button type="button" class="rounded fluid button open-modal" data-target="explore-modal">
+							<button type="button" class="fluid button open-modal" data-target="explore-modal">
 								EXPLORE
 							</button>
 						</div>
@@ -120,7 +116,7 @@
 			<section class="sec-block">
 				<div class="container grid">
 					<div class="col">
-						<img src="/images/explore.jpg" alt="picture depicting explore" class="rounded image" />
+						<img src="/images/explore.jpg" alt="picture depicting explore" class="image" />
 					</div>
 					<div class="col big">
 						<div>
@@ -135,7 +131,7 @@
 								<!-- Browse for products and services around you and know where to get things done without having to ask anyone. Our explore section displays businesses in categories of what they offer. So you can easily compare businesses there. If the category you are looking for is not there you can make use of seach instead.</li> -->
 							</ul>
 							<div class="centered">
-								<button class="rounded primary button open-modal" data-target="explore-modal">EXPLORE</button>
+								<button class="primary button open-modal" data-target="explore-modal">EXPLORE</button>
 							</div>
 						</div>
 					</div>
@@ -148,12 +144,12 @@
 							<h2>Know there products and services without asking</h2>
 							<p>Scan a business bizWorld QR Code and get to know what products or services a business offer. Businesses that have page(s) on bizWorld usually have their BizWorld QR Code pasted in public places to help people easyly access their page. You can utilize the QR scanner on this page on such Code and directly access a business page and explore their business world.</p>
 							<div class="centered">
-								<button class="rounded primary button open-modal" data-target="scanqr-modal">SCAN QR</button>
+								<button class="primary button open-modal" data-target="scanqr-modal">SCAN QR</button>
 							</div>
 						</div>
 					</div>
 					<div class="col">
-						<img src="/images/qr.jpg" alt="picture depicting qr" class="rounded image" />
+						<img src="/images/qr.jpg" alt="picture depicting qr" class="image" />
 					</div>
 				</div>
 			</section>
@@ -162,7 +158,7 @@
 					<h2>Take your business online with ease.</h2>
 					<p>Are you a business owner? Do you want people to connect with your business with ease online? We got you covered. Get started create your microsite here on BizWorld today and get connected with new clients and customers.</p>
 					<div class="centered">
-						<button class="rounded primary button">GET STARTED</button>
+						<button class="primary button">GET STARTED</button>
 					</div>
 				</div>
 			</section>
@@ -194,7 +190,7 @@
 						<a href="#" class="item">info@bizworld.com</a>
 						<a href="#" class="item">support@bizworld.com</a>
 					</div>
-					<button class="rounded secondary button">Anonymous Feedback</button>
+					<button class="secondary button">Anonymous Feedback</button>
 				</div>
 				<div class="col">
 					<div class="heading">Follow us</div>

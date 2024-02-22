@@ -477,7 +477,7 @@ export default {
 </script>
 <template>
 	<Modal id="search-modal">
-		<div class="dialog rounded self-scroll">
+		<div class="dialog self-scroll">
 				<div class="header grid">
 					<div class="bold">
 						Make your business search here
@@ -488,7 +488,7 @@ export default {
 				</div>
 				<div class="content">
 					<form @submit.prevent="popupSubmitSearch">
-						<label class="input fluid rounded" style="font-size: 1.125rem">
+						<label class="input fluid" style="font-size: 1.125rem">
 							<SvgIcon name="search" class="xhover" />
 							<input v-model="searchStore.searchBox" type="search" placeholder="Your search here." class="subject" md-autofocus>
 							<button type="button" title="Scan QR" class="icon open-modal" data-target="scanqr-modal">
@@ -503,7 +503,7 @@ export default {
 		</div>
 	</Modal>
     <Modal id="scanqr-modal">
-		<div class="dialog rounded self-scroll">
+		<div class="dialog self-scroll">
 				<div class="header grid">
 					<div class="bold">
 						Scan Business QR
@@ -519,7 +519,7 @@ export default {
 					</div>
 					<div class="no-spacing divider">OR</div>
 					<div class="centered" style="padding: 2em;">
-						<button class="rounded primary button">Upload QR image</button>
+						<button class="primary button">Upload QR image</button>
 					</div>
 				</div>
 		</div>
@@ -532,7 +532,7 @@ export default {
     </Modal>
 	<template v-if="!userStore.auth">
 		<Modal id="register-modal">
-			<div class="dialog rounded">
+			<div class="dialog">
 				<div class="header grid">
 					<div class="bold">
 						Join BizWorld
@@ -543,7 +543,7 @@ export default {
 				</div>
 				<div class="content">
 					<div class="field">
-						<button class="rounded left-labeled fluid button">
+						<button class="left-labeled fluid button">
 							<SvgIcon name="login" class="label" />
 							Continue with Google
 						</button>
@@ -574,7 +574,7 @@ export default {
 						</div>
 						<div class="field">
 							<p>By signing up, you agree to our <a href="#">terms of use</a> & <a href="#">privacy policy</a></p>
-							<button class="fluid rounded primary button">Create Account</button>
+							<button class="fluid primary button">Create Account</button>
 						</div>
 						<hr />
 						<div class="field centered">
@@ -585,7 +585,7 @@ export default {
 			</div>
 		</Modal>
 		<Modal id="login-modal">
-			<div class="dialog rounded">
+			<div class="dialog">
 				<div class="header grid">
 					<div class="bold">
 						Login to BizWorld
@@ -596,7 +596,7 @@ export default {
 				</div>
 				<div class="content">
 					<div class="field">
-						<button class="rounded left-labeled fluid button">
+						<button class="left-labeled fluid button">
 							<SvgIcon name="login" class="label" />
 							Continue with Google
 						</button>
@@ -611,7 +611,7 @@ export default {
 							<input type="text" placeholder="Password" />
 						</div>
 						<div class="field">
-							<button class="fluid rounded primary button">Continue</button>
+							<button class="fluid primary button">Continue</button>
 						</div>
 						<hr />
 						<div class="field centered">

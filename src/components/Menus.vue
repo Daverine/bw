@@ -17,6 +17,7 @@
 		},
 		methods: {
 			submitSearch() {
+				if (!this.searchStore.searchBox) return;
 				this.searchStore.triggerSearch();
 				this.$router.push('/search?'+this.searchStore.searchBox);
 			}
@@ -26,28 +27,28 @@
 <template>
 	<SidePanel class="left" id="msidepanel">
 		<div class="panel padded">
-			<div class="rounded vertical transparent menu">
-				<div class="centered item exit-sidepanel"><SvgIcon name="arrow_back" /></div>
-				<router-link to="/" class="xhover centered item exit-sidepanel">
-					<img src="/images/logo.png" alt="site logo" class="logo-sm site-logo">
-				</router-link>
-				<div class="items">
-					<Shareables name="nav_menu" />
+			<div class="vertical transparent menu">
+				<div class="items" style="border-radius: var(--radius-default);">
+					<div class="centered item exit-sidepanel"><SvgIcon name="arrow_back" /></div>
+					<router-link to="/" class="xhover centered item exit-sidepanel">
+						<img src="/images/logo.png" alt="site logo" class="logo-sm site-logo">
+					</router-link>
 				</div>
+				<Shareables name="nav_menu" />
 			</div>
 			<Shareables name="common_footer" />
 		</div>
 	</SidePanel>
 	<div id="fmenu" class="menu z-level-3" :class="{ pinned: mainStore.showFixedMenu }">
-		<div class="container rounded items auto-margined">
-			<div class="item as-icon open-sidepanel lg-and-up-hidden" v-tooltip.unblocking data-tooltip="Menu" data-target="msidepanel">
+		<div class="container items auto-margined" style="border-radius: var(--radius-default)">
+			<div class="item as-icon open-sidepanel" :class="!userStore.auth && $route.name === 'home' ? '' : 'lg-and-up-hidden'" v-tooltip.unblocking data-tooltip="Menu" data-target="msidepanel">
 				<SvgIcon name="menu" />
 			</div>
 			<router-link to="/" class="xhover item as-icon">
 				<img src="/images/logo_sqr.png" alt="site logo" class="logo-lg site-logo">
 			</router-link>
 			<form class="xhover adaptable item md-and-down-hidden" @submit.prevent="submitSearch">
-				<label class="input fluid rounded transparent clue-bg" style="max-width: 550px;">
+				<label class="input fluid transparent clue-bg" style="max-width: 550px;">
 					<SvgIcon name="search" class="xhover" />
 					<input v-model="searchStore.searchBox" type="search" placeholder="Your search here." class="subject">
 					<button type="button" v-tooltip.unblocking data-tooltip="Scan QR" class="icon open-modal" data-target="scanqr-modal">
@@ -74,13 +75,13 @@
 				<template v-else>
 					<div class="items lg-and-down-hidden">
 						<div class="item open-modal" data-target="login-modal">Log in</div>
-						<div class="xhover item 0-h-padding"><button class="rounded primary button open-modal" data-target="register-modal">Sign Up</button></div>
+						<div class="xhover item 0-h-padding"><button class="primary button open-modal" data-target="register-modal">Sign Up</button></div>
 					</div>
 					<Dropdown :options="{directionPriority: {x: 'left', y: 'bottom'}}" v-tooltip.unblocking data-tooltip="Account" class="item as-icon lg-and-up-hidden">
 						<SvgIcon name="person_add" /> <span class="sm-and-down-hidden">Account</span>
-						<Dropmenu class="rounded">
+						<Dropmenu>
 							<div class="item open-modal" data-target="login-modal">Log in</div>
-							<div class="xhover item"><button class="rounded primary button open-modal" data-target="register-modal">Sign Up</button></div>
+							<div class="xhover item"><button class="primary button open-modal" data-target="register-modal">Sign Up</button></div>
 						</Dropmenu>
 					</Dropdown>
 				</template>

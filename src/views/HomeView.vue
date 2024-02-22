@@ -10,7 +10,7 @@
 			return { userStore }
 		},
 		title: "Bizworld - The internet world of businesses",
-		components: { ClientHome, landinghome }
+		components: { ClientHome, landinghome },
 	}
 </script>
 <template>

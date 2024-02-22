@@ -1,40 +1,38 @@
 <script>
+import Shareables from './Shareables.vue';
+import SvgIcon from './SvgIcon.vue';
+
 export default {
-	props: ['details'],
-	methods: {
-		nextOpenDay(hours) {
-			let
-				ex = new Date().getDay() === 6 ? 0 : new Date().getDay() + 1,
-				i = 1,
-				result
-			;
-
-			for(; i < 6; i++) {
-				if (hours[ex > 5 ? -1+i : ex+i][0] > -1) {
-					result = ex > 5 ? -1+i : ex+i;
-					break;
-				}
-			}
-
-			return result;
-		},
-		whatDay(index) {
-			return ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][index];
-		}
-	}
+    props: ['details', 'isSaved'],
+    methods: {
+        nextOpenDay(hours) {
+            let ex = new Date().getDay() === 6 ? 0 : new Date().getDay() + 1, i = 1, result;
+            for (; i < 6; i++) {
+                if (hours[ex > 5 ? -1 + i : ex + i][0] > -1) {
+                    result = ex > 5 ? -1 + i : ex + i;
+                    break;
+                }
+            }
+            return result;
+        },
+        whatDay(index) {
+            return ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][index];
+        }
+    },
+    components: { SvgIcon, Shareables }
 }
 </script>
 <template>
-	<div class="fluid rounded search-card card open-modal" :data-type="details.type" data-target="sc-details">
+	<div class="fluid item-card card open-modal" :data-type="details.type" data-target="sc-details">
 		<template v-if="details.type === 'product'">
-			<div class="sc-display">
-				<div class="sc-media">
+			<div class="itm-display">
+				<div class="itm-media">
 					<canvas :style="`background-image: url(${details.displayImg})`"></canvas>
 				</div>
 			</div>
-			<div class="sc-content">
-				<a class="sc-title" :title="details.title">{{ details.title }}</a>
-				<div class="sc-gap">
+			<div class="itm-content">
+				<a class="itm-title" :title="details.title">{{ details.title }}</a>
+				<div class="itm-gap">
 					<div>
 						<span class="h5 bold 0-margined" style="color: var(--primary);">{{ details.price }}&nbsp;</span>
 						<SvgIcon name="handshake" class="l-spaced small" v-if="details.negotiable" title="Negotiable" />
@@ -43,7 +41,7 @@ export default {
 						<span v-for="label in details.labels" class="label">{{ label }}</span>
 					</div>
 				</div>
-				<div class="sc-gap">
+				<div class="itm-gap">
 					<div class="truncate">
 						<SvgIcon name="verified" v-if="details.verified" title="Verified" class="r-spaced mini green-text" />
 						<a :href="details.bizUrl" target="_blank" :title="details.bizName" class="small semibold" style="color: var(--secondary);">{{ details.bizName }}</a>
@@ -53,7 +51,7 @@ export default {
 						<span class="small semibold">{{ `${details.location.city }, ${details.location.state}` }}</span>
 					</span>
 				</div>
-				<div class="sc-gap">
+				<div class="itm-gap">
 					<span class="small semibold" style="text-transform: capitalize; color: var(--on-surface-variant);">{{ details.type }}</span>
 					<span v-if="details.rating" class="semibold" title="Average Rate (Number of raters)">
 						<SvgIcon name="star_filled" class="yellow-text mini r-spaced" />
@@ -63,14 +61,14 @@ export default {
 			</div>
 		</template>
 		<template v-else-if="details.type === 'service'">
-			<div class="sc-display">
-				<div class="sc-media">
+			<div class="itm-display">
+				<div class="itm-media">
 					<canvas :style="`background-image: url(${details.displayImg})`"></canvas>
 				</div>
 			</div>
-			<div class="sc-content">
-				<a class="sc-title" :title="details.title">{{ details.title }}</a>
-				<div class="sc-gap">
+			<div class="itm-content">
+				<a class="itm-title" :title="details.title">{{ details.title }}</a>
+				<div class="itm-gap">
 					<div>
 						<span class="0-margined h6" style="font-weight: var(--bold-weight);">{{ details.priceDefinition }}&nbsp;</span>
 						<span class="h5 bold 0-margined" style="color: var(--primary);">{{ details.price }}</span>
@@ -80,7 +78,7 @@ export default {
 						<span class="small semibold">Deliver in {{ details.deliveryTime }} time.</span>
 					</div>
 				</div>
-				<div class="sc-gap">
+				<div class="itm-gap">
 					<div class="truncate">
 						<SvgIcon name="verified" v-if="details.verified" title="Verified" class="mini green-text r-spaced" />
 						<a :href="details.bizUrl" target="_blank" :title="details.bizName" class="small semibold" style="color: var(--secondary);">{{ details.bizName }}</a>
@@ -90,7 +88,7 @@ export default {
 						<span class="small semibold">{{ `${details.location.city }, ${details.location.state}` }}</span>
 					</span>
 				</div>
-				<div class="sc-gap">
+				<div class="itm-gap">
 					<span class="small semibold" style="text-transform: capitalize; color: var(--on-surface-variant);">{{ details.type }}</span>
 					<span v-if="details.rating" class="semibold" title="Average Rate (Number of raters)">
 						<SvgIcon name="star_filled" class="yellow-text mini r-spaced" />
@@ -100,20 +98,20 @@ export default {
 			</div>
 		</template>
 		<template v-else-if="details.type === 'business'">
-			<div class="sc-display">
+			<div class="itm-display">
 				<img :src="details.logo" class="image" />
-				<SvgIcon name="verified_sp" title="Verified" class="small green-text" style="position: absolute; bottom: 0px; right: 0px;" />
+				<SvgIcon v-if="details.verified" name="verified_sp" title="Verified" class="small green-text" style="position: absolute; bottom: 0px; right: 0px;" />
 			</div>
-			<div class="sc-content">
-				<a class="sc-title">{{ details.bizName }}</a>
-				<div class="sc-gap">
+			<div class="itm-content">
+				<a class="itm-title">{{ details.bizName }}</a>
+				<div class="itm-gap">
 					<span class="small semibold">{{ details.mainCategory }}</span>
 					<span :title="details.location.address" class="truncate" style="color: var(--on-surface-variant);">
 						<SvgIcon name="location_on" class="mini r-spaced" />
 						<span class="small semibold">{{ `${details.location.city }, ${details.location.state}` }}</span>
 					</span>
 				</div>
-				<div class="semibold sc-gap">
+				<div class="semibold itm-gap">
 					<span v-if="details.rating" class="semibold" title="Average Rate (Number of raters)">
 						<SvgIcon name="star_filled" class="yellow-text mini r-spaced" />
 						<span class="small">{{ `${details.rating.rate} (${details.rating.raters})` }}</span>
@@ -140,33 +138,56 @@ export default {
 						</span>
 					</span>
 				</div>
+				<div class="itm-gap">
+					<span class="small semibold" style="text-transform: capitalize; color: var(--on-surface-variant);">{{ details.type }}</span>
+				</div>
 			</div>
 		</template>
+		<template v-else-if="details.type === 'post'">
+			<div class="itm-display">
+				<div class="itm-media">
+					<canvas :style="`background-image: url(${details.displayImg})`"></canvas>
+				</div>
+			</div>
+			<div class="itm-content">
+				<a class="itm-title">{{ details.textContent }}</a>
+				<div class="itm-gap">
+					<div class="truncate">
+						<SvgIcon name="verified" v-if="details.verified" title="Verified" class="mini green-text r-spaced" />
+						<a :href="details.bizUrl" target="_blank" :title="details.bizName" class="small semibold" style="color: var(--secondary);">{{ details.bizName }}</a>
+					</div>
+				</div>
+				<div class="itm-gap">
+					<span class="small semibold" style="text-transform: capitalize; color: var(--on-surface-variant);">{{ details.type }}</span>
+				</div>
+			</div>
+		</template>
+		<Shareables v-if="isSaved" name="isSaved_menu" />
 	</div>
 </template>
 
 <style lang="scss">
-	.search-card {
+	.item-card {
 		--display-width: 11rem;
 		--logo-width: 4.25rem;
-		--sc-gap: 0.5rem;
+		--itm-gap: 0.5rem;
 
 		display: flex;
 		flex-flow: row nowrap;
 		align-items: center;
 		width: 100%;
-		gap: var(--sc-gap);
+		gap: var(--itm-gap);
 		padding: 0.5rem;
 		cursor: pointer;
 
-		.sc-display {
+		.itm-display {
 			position: relative;
 			width: 100%;
 			max-width: var(--display-width);
 			flex: 0 0 auto;
 			border-radius: inherit !important;
 			
-			.sc-media {
+			.itm-media {
 				position: relative;
 				width: 100%;
 				height: 0rem;
@@ -185,8 +206,7 @@ export default {
 			}
 		}
 
-		.sc-content {
-			width: calc(100% - var(--display-width) - var(--sc-gap)); /* 100% - sc-display width - gap width */
+		.itm-content {
 			flex: 1 1 auto;
 			align-self: stretch;
 			display: flex;
@@ -195,7 +215,7 @@ export default {
 			border-radius: inherit;
 		}
 
-		.sc-title {
+		.itm-title {
 			display: -webkit-box;
 			-webkit-box-orient: vertical;
 			-webkit-line-clamp: 3;
@@ -209,7 +229,7 @@ export default {
 			margin: 0 0 0.125em !important;
 		}
 
-		.sc-gap {
+		.itm-gap {
 			display: flex;
 			flex-flow: row wrap;
 			justify-content: space-between;
@@ -217,18 +237,18 @@ export default {
 		}
 
 		&[data-type="business"] {
-			.sc-display {
+			.itm-display {
 				width: var(--logo-width);
 				height: var(--logo-width);
 			}
 
-			.sc-content {
-				width: calc(100% - var(--logo-width) - var(--sc-gap)); /* 100% - sc-display width - gap width */
+			.itm-content {
+				width: calc(100% - var(--logo-width) - var(--itm-gap)); /* 100% - itm-display width - gap width */
 			}
 		}
 
 		@media only screen and (max-width : 500px) {
-			.search-card {
+			.item-card {
 				--display-width: 8rem;
 			}
 		}

@@ -198,7 +198,7 @@
 </script>
 
 <template>
-    <div v-if="details" class="dialog self-scroll rounded sc-dialog" :data-type="details.type">
+    <div v-if="details" class="dialog self-scroll sc-dialog" :data-type="details.type">
         <template v-if="details.type === 'business'">
             <div class="header dm-header a-block grid" :class="{ active: activeFixedMenu }">
                 <div class="content h6 semibold 0-margined truncate">{{ details.bizName }}</div>
@@ -340,10 +340,10 @@
                     <div>
                         <div class="dm-gap">
                             <div class="sub heading">Latest Reviews</div>
-                            <!-- <Dropdown class="outlined small fully-rounded button">
+                            <!-- <Dropdown class="outlined small button">
                                 <SvgIcon name="sort" class="lead" />
                                 Sort
-                                <Dropmenu class="rounded">
+                                <Dropmenu>
                                     <div class="item">Newest</div>
                                     <div class="item">Highest</div>
                                     <div class="item">Lowest</div>
@@ -380,7 +380,7 @@
                 </div>
             </div>
             <div class="footer auto-t-bordered grid" style="gap: 0.5em;">
-                <button class="primary rounded button">Visit Business Page</button>
+                <button class="primary button">Visit Business Page</button>
                 <button class="secondary circular button"><SvgIcon name="direction_filled" /></button>
                 <button class="circular button"><SvgIcon name="share_filled" /></button>
                 <button class="outlined circular button" style="margin-left: auto;"><SvgIcon name="bookmark" /></button>
@@ -458,7 +458,7 @@
                         </i>
                     </div>
                     <div class="collapsible">
-                        <a href="https://www.bw.net/thirdparty-delivery" target="_blank" class="caution rounded compact action note">
+                        <a href="https://www.bw.net/thirdparty-delivery" target="_blank" class="caution compact action note">
                             <SvgIcon name="local_shipping" class="lead huge" />
                             <div class="content">
                                 <div class="heading">Third-party Delivery</div>
@@ -476,7 +476,7 @@
                         </i>
                     </div>
                     <div class="collapsible">
-                        <div class="rounded compact positive note">
+                        <div class="compact positive note">
                             <div class="lead">
                                 <SvgIcon name="verified_user" class="huge" />
                             </div>
@@ -536,10 +536,10 @@
                         <div>
                             <div class="dm-gap">
                                 <div style="font-weight: var(--semibold-weight)">Reviews</div>
-                                <Dropdown class="outlined small fully-rounded button">
+                                <Dropdown class="outlined small button">
                                     <SvgIcon name="sort" class="lead" />
                                     Sort
-                                    <Dropmenu class="rounded">
+                                    <Dropmenu>
                                         <div class="item">Newest</div>
                                         <div class="item">Highest</div>
                                         <div class="item">Lowest</div>
@@ -628,7 +628,7 @@
                 </div>
             </div>
             <div class="footer auto-t-bordered grid" style="gap: 0.5em;">
-                <button class="primary rounded button">Send Inquiry</button>
+                <button class="primary button">Send Inquiry</button>
                 <button class="secondary circular button"><SvgIcon name="call" /></button>
                 <button class="circular button"><SvgIcon name="share_filled" /></button>
                 <button class="outlined circular button" style="margin-left: auto;"><SvgIcon name="bookmark" /></button>
@@ -853,7 +853,7 @@
                         </i>
                     </div>
                     <div class="collapsible">
-                        <div class="rounded compact positive note">
+                        <div class="compact positive note">
                             <div class="lead">
                                 <SvgIcon name="verified_user" class="huge" />
                             </div>
@@ -927,10 +927,10 @@
                         <div>
                             <div class="dm-gap">
                                 <div style="font-weight: var(--semibold-weight)">Reviews</div>
-                                <Dropdown class="outlined small fully-rounded button">
+                                <Dropdown class="outlined small button">
                                     <SvgIcon name="sort" class="lead" />
                                     Sort
-                                    <Dropmenu class="rounded">
+                                    <Dropmenu>
                                         <div class="item">Newest</div>
                                         <div class="item">Highest</div>
                                         <div class="item">Lowest</div>
@@ -1019,14 +1019,14 @@
                 </div>
             </div>
             <div class="footer auto-t-bordered grid" style="gap: 0.5em;">
-                <button class="primary rounded button">Send Inquiry</button>
+                <button class="primary button">Send Inquiry</button>
                 <button class="secondary circular button"><SvgIcon name="call" /></button>
                 <button class="circular button"><SvgIcon name="share_filled" /></button>
                 <button class="outlined circular button" style="margin-left: auto;"><SvgIcon name="bookmark" /></button>
             </div>
         </template>
     </div>
-    <div v-else class="dialog self-scroll rounded">
+    <div v-else class="dialog self-scroll">
         <div class="progress-bar"></div>
     </div>
 </template>

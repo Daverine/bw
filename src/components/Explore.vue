@@ -1,5 +1,5 @@
 <template>
-    <div class="dialog rounded self-scroll">
+    <div class="dialog self-scroll">
         <div class="header grid">
             <div class="bold">
             </div>
@@ -10,27 +10,27 @@
         <div class="content">
             <div class="heading">Business categories</div>
             <div class="grid">
-                <button class="fully-rounded chip"><SvgIcon name="restaurant" class="small lead" /> Restaurants</button>
-                <button class="fully-rounded chip"><SvgIcon name="local_bar" class="small lead" /> Bars</button>
-                <button class="fully-rounded chip"><SvgIcon name="local_parking" class="small lead" /> Parks</button>
-                <button class="fully-rounded chip"><SvgIcon name="hotel" class="small lead" /> Hotels</button>
-                <button class="fully-rounded chip"><SvgIcon name="shopping_cart" class="small lead" /> Groceries</button>
-                <button class="fully-rounded chip"><SvgIcon name="local_gas_station" class="small lead" /> Filling stations</button>
-                <button class="fully-rounded chip"><SvgIcon name="local_pharmacy" class="small lead" /> Pharmacies</button>
-                <button class="fully-rounded chip"><SvgIcon name="local_hospital" class="small lead" /> Hospitals and clinics</button>
-                <button class="fully-rounded chip"><SvgIcon name="more_horiz" class="small lead" /> More</button>
+                <button class="chip"><SvgIcon name="restaurant" class="small lead" /> Restaurants</button>
+                <button class="chip"><SvgIcon name="local_bar" class="small lead" /> Bars</button>
+                <button class="chip"><SvgIcon name="local_parking" class="small lead" /> Parks</button>
+                <button class="chip"><SvgIcon name="hotel" class="small lead" /> Hotels</button>
+                <button class="chip"><SvgIcon name="shopping_cart" class="small lead" /> Groceries</button>
+                <button class="chip"><SvgIcon name="local_gas_station" class="small lead" /> Filling stations</button>
+                <button class="chip"><SvgIcon name="local_pharmacy" class="small lead" /> Pharmacies</button>
+                <button class="chip"><SvgIcon name="local_hospital" class="small lead" /> Hospitals and clinics</button>
+                <button class="chip"><SvgIcon name="more_horiz" class="small lead" /> More</button>
             </div>
             <div class="heading">Product categories</div>
             <div class="grid">
-                <button class="fully-rounded chip"><SvgIcon name="restaurant" class="small lead" /> Vehicles</button>
-                <button class="fully-rounded chip"><SvgIcon name="local_bar" class="small lead" /> Property</button>
-                <button class="fully-rounded chip"><SvgIcon name="local_parking" class="small lead" /> Mobile Phones & Tablets</button>
-                <button class="fully-rounded chip"><SvgIcon name="hotel" class="small lead" /> Electronics</button>
-                <button class="fully-rounded chip"><SvgIcon name="shopping_cart" class="small lead" /> Home Funiture & Appliances</button>
-                <button class="fully-rounded chip"><SvgIcon name="local_gas_station" class="small lead" /> Health & Beauty</button>
-                <button class="fully-rounded chip"><SvgIcon name="local_pharmacy" class="small lead" /> Fashion</button>
-                <button class="fully-rounded chip"><SvgIcon name="local_hospital" class="small lead" /> Arts</button>
-                <button class="fully-rounded chip"><SvgIcon name="local_hospital" class="small lead" /> Food & Beverage</button>
+                <button class="chip"><SvgIcon name="restaurant" class="small lead" /> Vehicles</button>
+                <button class="chip"><SvgIcon name="local_bar" class="small lead" /> Property</button>
+                <button class="chip"><SvgIcon name="local_parking" class="small lead" /> Mobile Phones & Tablets</button>
+                <button class="chip"><SvgIcon name="hotel" class="small lead" /> Electronics</button>
+                <button class="chip"><SvgIcon name="shopping_cart" class="small lead" /> Home Funiture & Appliances</button>
+                <button class="chip"><SvgIcon name="local_gas_station" class="small lead" /> Health & Beauty</button>
+                <button class="chip"><SvgIcon name="local_pharmacy" class="small lead" /> Fashion</button>
+                <button class="chip"><SvgIcon name="local_hospital" class="small lead" /> Arts</button>
+                <button class="chip"><SvgIcon name="local_hospital" class="small lead" /> Food & Beverage</button>
             </div>
             
         </div>

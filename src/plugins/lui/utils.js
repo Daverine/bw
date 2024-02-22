@@ -20,6 +20,7 @@ export const utils = {
 		document.documentElement.classList.add('scroll-locked');
 		document.documentElement.style.marginRight = `${this.getScrollbarWidth()}px`;
 		document.documentElement.style.overflow = 'hidden';
+		[...document.querySelectorAll('.respect-lock')].forEach(el => el.style.maxHeight = `calc(100% - ${this.getScrollbarWidth()}px)`);
 	},
 	unlockWindowScroll(lockerId) {
 		if (window.lui_ScrollLockers && window.lui_ScrollLockers.includes(lockerId)) {
@@ -29,6 +30,8 @@ export const utils = {
 				document.documentElement.style.marginRight = null;
 				document.documentElement.style.overflow = null;
 				document.documentElement.classList.remove('scroll-locked');
+				[...document.querySelectorAll('.respect-lock')].forEach(el => el.style.maxHeight = null);
+
 			}
 		}
 	},

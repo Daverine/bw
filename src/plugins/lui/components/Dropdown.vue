@@ -117,7 +117,7 @@
 			},
 			dd_toggleDropdown(e) {
 				if (typeof(e) === "object") {
-					if ([...this.e.dd.querySelectorAll(':scope > .content > .chip')].filter((el) => el.contains(e.target))[0]) return;
+					if ([...this.e.dd.querySelectorAll(':scope > .content > .chip')].filter((el) => el.contains(e.target))[0] || (e.target && e.target.closest('ex-dropdown'))) return;
 
 					if (this.settings.hover) {
 						let timeDelay = this.settings.delay || 300;

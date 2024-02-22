@@ -4,7 +4,7 @@
 	}
 </script>
 <template>
-	<div class="feed-card rounded card">
+	<div class="feed-card card">
 		<div style="display: flex; padding: 10px 20px; gap: 10px;">
 			<div style="position: relative; height: max-content; line-height: 1;">
 				<img class="fcd-logo" :src="details.logoUrl" />

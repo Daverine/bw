@@ -3,8 +3,8 @@
 	import { useSearchStore } from '../stores/searchStore';
 	import { useUserStore } from '../stores/userStore';
 	import { useFeedStore } from '../stores/feedStore';
-	import FeedCard from './FeedCard.vue';
 	import Shareables from './Shareables.vue';
+	import FeedCard from './FeedCard.vue';
 
 	export default {
 		components: { FeedCard, Shareables },
@@ -22,10 +22,6 @@
 			handleScroll() {
 				if (this.$refs.main.getBoundingClientRect().top <= 0) this.mainStore.mutateSFM(true);
 				else this.mainStore.mutateSFM(false);
-			},
-			submitSearch() {
-				this.searchStore.triggerSearch();
-				this.$router.push('/search?'+this.searchStore.searchBox);
 			}
 		},
 		mounted() {
@@ -41,8 +37,8 @@
 <template>
 	<div class="as-page">
 		<header id="main-header">
-			<div class="rounded transparent menu" style="height: 64px;">
-				<div class="container items auto-margined">
+			<div class="transparent menu" style="height: 64px;">
+				<div class="container items auto-margined" style="border-radius: var(--radius-default);">
 					<div class="item as-icon md-and-up-hidden open-sidepanel" v-tooltip.unblocking data-tooltip="Menu" data-target="msidepanel">
 						<SvgIcon name="menu" />
 					</div>
@@ -53,7 +49,7 @@
 						<Dropdown class="item">
 							Support
 							<SvgIcon name="expand_more" class="trailing" />
-							<Dropmenu class="rounded">
+							<Dropmenu>
 								<Shareables name="supports" />
 							</Dropmenu>
 						</Dropdown>
@@ -69,13 +65,13 @@
 					</div>
 				</div>
 			</div>
-			<form id="searchbox" class="rounded centered" @submit.prevent="submitSearch">
+			<form id="searchbox" class="centered" @submit.prevent="searchStore.triggerSearch()">
 				<div style="margin-bottom: 16px;">
 					<img src="/images/logo_full.png" alt="site logo" class="site-logo fluid image" style="max-width: 500px; background-color: rgba(128,128,128,0.025);" />
 					<p class="huge" style="margin-top: 8px;">Search for business names, products and services.</p>
 				</div>
 				<div>
-					<label class="input rounded big fluid">
+					<label class="input big fluid">
 						<SvgIcon name="search" class="xhover" />
 						<input v-model="searchStore.searchBox" type="search" id="searchinput" ref="inputbox" placeholder="Your search here." class="subject" autofocus />
 						<button type="button" v-tooltip.unblocking data-tooltip="Scan QR" class="icon open-modal" data-target="scanqr-modal">
@@ -85,12 +81,12 @@
 					<div style="margin-top: 8px;">Search in: <span class="bold">Nigeria</span>. <a href="#">Change Location</a></div>
 					<div class="grid" style="gap: 16px; margin: 32px auto 0px; max-width: 300px;">
 						<div class="col">
-							<button type="submit" class="rounded fluid button">
+							<button type="submit" class="fluid button">
 								<SvgIcon name="search" class="lead" /> SEARCH
 							</button>
 						</div>
 						<div class="col">
-							<button type="button" class="rounded fluid button open-modal" data-target="explore-modal">
+							<button type="button" class="fluid button open-modal" data-target="explore-modal">
 								EXPLORE
 							</button>
 						</div>
@@ -110,7 +106,7 @@
 				<h6 class="centered" id="bizupdate">Update from page you're following (Feeds)</h6>
 				<FeedCard v-for="(feed, i) in feedStore.feeds" :key="i" :details="feed" />
 				<div class="divider">
-					<button class="fully-rounded button">
+					<button class="button">
 						Load more
 						<SvgIcon name="expand_more" />
 					</button>

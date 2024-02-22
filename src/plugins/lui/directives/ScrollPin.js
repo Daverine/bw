@@ -4,8 +4,8 @@ export function scrollPin() {
     const dnm = function() {
         return {
             default: {
-                namespace: "scrollPin",
-                className: "pinned",
+                namespace: 'scrollPin',
+                className: 'pinned',
                 sticky: false,
                 parentGuided: false,
                 topSpacing: 0,
@@ -122,7 +122,7 @@ export function scrollPin() {
                     else if (
                         !this.el.classList.contains(this.settings.className) &&
                         (   
-                            (this.tmp.scrollDir === -1 && utils.offsetPos(this.el).top + this.settings.topSpacing > this.tmp.scrollPos) ||
+                            (this.tmp.scrollDir === -1 && utils.offsetPos(this.el).top > this.tmp.scrollPos + this.settings.topSpacing) ||
                             this.currState === 'reset-state' && (this.settings.parentGuided && this.prop.pOffset.top + this.prop.pBox.height - this.tmp.scrollPos > this.prop.eBox.height + this.settings.topSpacing + parseFloat(utils.getCssVal(this.elParent, 'padding-bottom')) || !this.settings.parentGuided && document.body.getBoundingClientRect().height - this.tmp.scrollPos > this.prop.eBox.height + this.settings.topSpacing)
                         ) &&
                         this.tmp.scrollPos >= this.prop.eOffset.top - this.settings.topSpacing
@@ -268,9 +268,9 @@ export function scrollPin() {
                 cancelAnimationFrame(this.sizeStreamId);
 
                 // stop scrollPin events
-                window.removeEventListener('resize', this.getGeometry);
-                window.removeEventListener('scroll', this.onScrollMtd);
-                this.el.removeEventListener('stopScrollPin', this.stopScrollPin);
+                window.removeEventListener('resize', this.getGeometry.bind(this));
+                window.removeEventListener('scroll', this.onScrollMtd.bind(this));
+                this.el.removeEventListener('stopScrollPin', this.stopScrollPin.bind(this));
                 
                 // reset scrollPin element
                 this.el.classList.remove(this.settings.className);
@@ -282,8 +282,9 @@ export function scrollPin() {
     
     return {
         mounted(el, binding) {
-            el.dnm = dnm();
-            el.dnm.initialize(el, binding);
+            if (!el.lui) el.lui = {};
+            el.lui.scrollPin = dnm();
+            el.lui.scrollPin.initialize(el, binding);
         },
         unmounted(el) {
             utils.triggerEvent(el, 'stopScrollPin');

@@ -391,6 +391,12 @@
   --z-depth-3: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
   --z-depth-4: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
   --z-depth-5: 0px 7px 8px -4px rgba(0, 0, 0, 0.2), 0px 12px 17px 2px rgba(0, 0, 0, 0.14), 0px 5px 22px 4px rgba(0, 0, 0, 0.12);
+  --radius-default: 1px;
+  --radius-sm: 2px;
+  --radius-md: 5px;
+  --radius-lg: 10px;
+  --radius-full: 1000rem;
+  --radius-round: 0.3rem;
 }
 
 html {
@@ -666,7 +672,7 @@ input[type=search]::-webkit-search-decoration {
 }
 
 fieldset {
-  border-radius: 0;
+  border-radius: 0px;
 }
 
 legend {
@@ -1222,7 +1228,7 @@ ol.upper-roman-type .sub-list .sub-list .sub-list .sub-list .sub-list .sub-list 
   background-color: var(--surface);
   padding: 0em;
   margin: 0.5em 0 1em;
-  border-radius: 1px;
+  border-radius: var(--radius-default);
   border: 1px solid #d2d2d2;
   box-shadow: 0px 1px 2px rgba(200, 200, 200, 0.5);
   transition: box-shadow 0.1s ease, transform 0.1s ease;
@@ -1738,12 +1744,7 @@ hr.vertical:empty,
 }
 
 .grid.guttered {
-  margin-left: -1rem;
-  margin-right: -1rem;
-}
-.grid.guttered > .col {
-  padding-left: 1rem;
-  padding-right: 1rem;
+  gap: 1rem;
 }
 
 .fields:not(.no-gutter),
@@ -2929,7 +2930,6 @@ hr.vertical:empty,
   padding: 0em;
   line-height: 1.5;
   list-style: none;
-  border-radius: 1px;
   background-color: var(--surface);
   color: var(--on-surface);
   cursor: default;
@@ -3106,7 +3106,7 @@ hr.vertical:empty,
   align-items: center;
   justify-content: center;
   line-height: 1;
-  border-radius: 15rem;
+  border-radius: var(--radius-full);
   z-index: 10000;
 }
 .menu.scroll-items > .l-scroll *, .menu.scroll-items > .r-scroll * {
@@ -3757,7 +3757,7 @@ hr.vertical:empty,
   color: var(--on-surface);
   border: 2px solid var(--outline);
   background: var(--surface-v1);
-  border-radius: 1px;
+  border-radius: var(--radius-default);
   text-decoration: none;
   transition: opacity 0.1s ease, color 0.1s ease, background 0.1s ease, border-color 0.1s ease;
   /* Close Icon */
@@ -3962,7 +3962,7 @@ table.table tbody tr:last-child th {
   border-bottom: 0px none;
 }
 table.table.rounded {
-  border-radius: 0.3rem;
+  border-radius: var(--radius-round);
   border-collapse: separate;
 }
 table.table.rounded th, table.table.rounded td {
@@ -4306,7 +4306,7 @@ textarea,
   line-height: 1.5;
   width: auto;
   max-width: 100%;
-  border-radius: 1px;
+  border-radius: var(--radius-default);
 }
 input.remd,
 select.remd,
@@ -4566,7 +4566,7 @@ input[type=radio]:not(.switch):disabled {
 }
 
 input[type=checkbox]:not(.switch) {
-  border-radius: 0.1em;
+  border-radius: var(--radius-sm);
 }
 input[type=checkbox]:not(.switch):before {
   -webkit-clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
@@ -4577,7 +4577,7 @@ input[type=checkbox]:not(.switch):checked:before {
 }
 
 input[type=radio]:not(.switch) {
-  border-radius: 50%;
+  border-radius: var(--radius-full);
 }
 input[type=radio]:not(.switch):before {
   -webkit-clip-path: circle(50% at 50% 50%);
@@ -4596,7 +4596,7 @@ input[type=radio].switch {
   height: 1em;
   flex: 0 0 auto;
   background-color: var(--outline);
-  border-radius: 500rem;
+  border-radius: var(--radius-full);
   display: inline-flex;
   align-items: center;
   vertical-align: -0.25em;
@@ -4612,7 +4612,7 @@ input[type=radio].switch:before {
   width: 1.4em;
   height: 1.4em;
   flex: 0 0 auto;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   box-shadow: 0 1px 2px 0 var(--outline), 0 0 0 1px var(--outline) inset;
   background-color: var(--surface);
 }
@@ -4671,7 +4671,7 @@ input[type=range]::-webkit-slider-thumb {
 }
 input[type=range]::-moz-range-thumb {
   border: none;
-  border-radius: 0;
+  border-radius: 0px;
   background-color: var(--primary);
   height: 1.5em;
   width: 1em;
@@ -4880,7 +4880,7 @@ form .field {
   line-height: 1 !important;
   width: 1.2em;
   height: 1.2em;
-  border-radius: 1000rem;
+  border-radius: var(--radius-full);
   border: 0.188em solid rgba(0, 0, 0, 0.1);
   border-top-color: #555;
   animation: spin 0.6s linear;
@@ -4960,7 +4960,7 @@ form .field {
   line-height: 1 !important;
   width: 1.2em;
   height: 1.2em;
-  border-radius: 1000rem;
+  border-radius: var(--radius-full);
   border: 0.188em solid rgba(0, 0, 0, 0.1);
   border-top-color: #555;
   animation: spin 0.6s linear;
@@ -5224,6 +5224,20 @@ form .field {
 
 /* --- BUTTONS --- */
 .button {
+  --button-line-height: 1.5;
+  --button-padding-tb: 0.5em;
+  --button-padding-lr: 1.5em;
+  --button-height: calc(var(--button-padding-tb) * 2 + (var(--button-line-height) * 1em));
+  --button-fancy: 0 2px 5px 0 rgba(0, 0, 0, 0.16),0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  --button-fancy-hover: 0 5px 11px 0 rgba(0,0,0,0.18),0 4px 15px 0 rgba(0,0,0,0.15);
+  --button-disabled-opacity: 0.5;
+}
+.button.compact {
+  --button-padding-tb: 0.25em;
+  --button-padding-lr: 1.25em;
+}
+
+.button {
   cursor: pointer;
   display: inline-flex;
   flex-flow: row nowrap;
@@ -5231,14 +5245,14 @@ form .field {
   justify-content: center;
   position: relative;
   margin: 0;
-  padding: 0.5em 1.5em;
+  padding: var(--button-padding-tb) var(--button-padding-lr);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 1em;
-  font-weight: 500;
-  line-height: 1.5;
+  font-weight: var(--semibold-weight);
+  line-height: var(--button-line-height);
   text-align: center;
   white-space: nowrap;
-  border-radius: 1px;
+  border-radius: var(--radius-default);
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
@@ -5248,7 +5262,7 @@ form .field {
   font-size: 1rem;
 }
 .button.outlined {
-  padding: calc(0.5em - 1px) calc(1.5em - 1px);
+  padding: calc(var(--button-padding-tb) - 1px) calc(var(--button-padding-lr) - 1px);
 }
 .button.as-text {
   padding: 0px;
@@ -5280,18 +5294,18 @@ form .field {
   text-decoration: none;
 }
 .button.icon {
-  padding-left: 0.75em;
-  padding-right: 0.75em;
+  padding-left: calc(var(--button-padding-lr) / 2);
+  padding-right: var(--button-padding-lr)/2;
 }
 .button.icon .icon {
   margin: 0em;
 }
 .button.fancy {
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: var(--button-fancy);
   transition: box-shadow 0.3s ease-out;
 }
 .button.fancy:hover {
-  box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: var(--button-fancy-hover);
 }
 .button .emphasized {
   background: rgba(0, 0, 0, 0.06) !important;
@@ -5475,7 +5489,7 @@ form .field {
 
 .button:disabled,
 .button.disabled {
-  opacity: 0.5 !important;
+  opacity: var(--button-disabled-opacity) !important;
   background-image: none !important;
   pointer-events: none !important;
 }
@@ -5483,7 +5497,7 @@ form .field {
 .button[class*=animated] {
   overflow: hidden;
   position: relative;
-  height: 2.5em;
+  height: var(--button-height);
 }
 .button[class*=animated] [class*=content] {
   position: relative;
@@ -5502,7 +5516,7 @@ form .field {
 }
 .button.animated .hidden-content, .button.right-animated .hidden-content, .button.horizontal-right-animated .hidden-content {
   left: -200%;
-  top: -1.5em;
+  top: calc(var(--button-line-height) * -1em);
   right: auto;
 }
 .button.animated:focus .visible-content, .button.animated:hover .visible-content, .button.right-animated:focus .visible-content, .button.right-animated:hover .visible-content, .button.horizontal-right-animated:focus .visible-content, .button.horizontal-right-animated:hover .visible-content {
@@ -5522,7 +5536,7 @@ form .field {
 }
 .button.left-animated .hidden-content, .button.horizontal-left-animated .hidden-content {
   right: -200%;
-  top: -1.5em;
+  top: calc(var(--button-line-height) * -1em);
   left: auto;
 }
 .button.left-animated:focus .visible-content, .button.left-animated:hover .visible-content, .button.horizontal-left-animated:focus .visible-content, .button.horizontal-left-animated:hover .visible-content {
@@ -5540,13 +5554,13 @@ form .field {
   top: 0em;
 }
 .button.vertical-animated .hidden-content, .button.vertical-up-animated .hidden-content {
-  bottom: -1.5em;
+  bottom: calc(var(--button-line-height) * -1em);
 }
 .button.vertical-animated:focus .visible-content, .button.vertical-animated:hover .visible-content, .button.vertical-up-animated:focus .visible-content, .button.vertical-up-animated:hover .visible-content {
-  top: -3em;
+  top: calc(var(--button-line-height) * -2em);
 }
 .button.vertical-animated:focus .hidden-content, .button.vertical-animated:hover .hidden-content, .button.vertical-up-animated:focus .hidden-content, .button.vertical-up-animated:hover .hidden-content {
-  bottom: 1.5em;
+  bottom: calc(var(--button-line-height) * 1em);
 }
 .button.vertical-down-animated .visible-content, .button.vertical-down-animated .hidden-content, .button.vertical-alt-animated .visible-content, .button.vertical-alt-animated .hidden-content {
   transition: top 0.3s ease, bottom 0.3s ease;
@@ -5555,20 +5569,20 @@ form .field {
   top: 0em;
 }
 .button.vertical-down-animated .hidden-content, .button.vertical-alt-animated .hidden-content {
-  bottom: 4.5em;
+  bottom: calc(var(--button-line-height) * 3em);
 }
 .button.vertical-down-animated:focus .visible-content, .button.vertical-down-animated:hover .visible-content, .button.vertical-alt-animated:focus .visible-content, .button.vertical-alt-animated:hover .visible-content {
-  top: 3em;
+  top: calc(var(--button-line-height) * 2em);
 }
 .button.vertical-down-animated:focus .hidden-content, .button.vertical-down-animated:hover .hidden-content, .button.vertical-alt-animated:focus .hidden-content, .button.vertical-alt-animated:hover .hidden-content {
-  bottom: 1.5em;
+  bottom: calc(var(--button-line-height) * 1em);
 }
 .button.fade-animated .visible-content, .button.fade-animated .hidden-content, .button.fade-in-animated .visible-content, .button.fade-in-animated .hidden-content {
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 .button.fade-animated .hidden-content, .button.fade-in-animated .hidden-content {
   opacity: 0;
-  top: -1.5em;
+  top: calc(var(--button-line-height) * -1em);
   transform: scale(1.5);
 }
 .button.fade-animated:focus .visible-content, .button.fade-animated:hover .visible-content, .button.fade-in-animated:focus .visible-content, .button.fade-in-animated:hover .visible-content {
@@ -5584,7 +5598,7 @@ form .field {
 }
 .button.fade-out-animated .hidden-content, .button.fade-alt-animated .hidden-content {
   opacity: 0;
-  top: -1.5em;
+  top: calc(var(--button-line-height) * -1em);
   transform: scale(0);
 }
 .button.fade-out-animated:focus .visible-content, .button.fade-out-animated:hover .visible-content, .button.fade-alt-animated:focus .visible-content, .button.fade-alt-animated:hover .visible-content {
@@ -5599,7 +5613,7 @@ form .field {
 .button[class*=labeled] .label {
   display: inline-flex;
   position: absolute;
-  width: 2.5em;
+  width: var(--button-height);
   margin: 0em;
   top: 0;
   border-radius: inherit;
@@ -5614,7 +5628,7 @@ form .field {
   position: absolute;
 }
 .button.labeled, .button.left-labeled {
-  padding-left: 3.25em !important;
+  padding-left: calc(var(--button-padding-lr) / 2 + var(--button-height)) !important;
 }
 .button.labeled .label, .button.left-labeled .label {
   left: 0;
@@ -5622,7 +5636,7 @@ form .field {
   border-bottom-right-radius: 0em;
 }
 .button.right-labeled {
-  padding-right: 3.25em !important;
+  padding-right: calc(var(--button-padding-lr) / 2 + var(--button-label-width)) !important;
 }
 .button.right-labeled .label {
   right: 0;
@@ -5644,7 +5658,7 @@ form .field {
   content: "";
   width: 1.2em;
   height: 1.2em;
-  border-radius: 1000rem;
+  border-radius: var(--radius-full);
   border: 0.188em solid rgba(0, 0, 0, 0.75);
   border-top-color: rgba(255, 255, 255, 0.75);
   border-right-color: rgba(255, 255, 255, 0.75);
@@ -5663,9 +5677,9 @@ form .field {
   align-items: center;
   justify-content: center;
   line-height: 1;
-  border-radius: 1000rem;
-  height: 2.5em;
-  width: 2.5em;
+  border-radius: var(--radius-full);
+  height: var(--button-height);
+  width: var(--button-height);
   flex: 0 0 auto;
   padding: 0em;
 }
@@ -5686,7 +5700,7 @@ form .field {
   margin: 0;
   background-color: var(--clue-bg);
   font-weight: 500;
-  border-radius: 1px;
+  border-radius: var(--radius-default);
   white-space: nowrap;
   -webkit-user-select: none;
      -moz-user-select: none;
@@ -5831,7 +5845,7 @@ form .field {
 .badge {
   background-color: var(--negative);
   color: var(--on-negative);
-  border-radius: 50em;
+  border-radius: var(--radius-full);
   font-size: 0.75em;
   line-height: 1.375;
   white-space: nowrap;
@@ -5869,7 +5883,7 @@ form .field {
   color: var(--on-surface);
   background-color: var(--surface-v2);
   border: 0px none;
-  border-radius: 0.5em;
+  border-radius: var(--radius-full);
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
@@ -5915,7 +5929,7 @@ form .field {
   align-items: center;
   background-color: var(--surface);
   color: var(--on-surface);
-  border-radius: 1px;
+  border-radius: var(--radius-default);
   margin: 1em 0;
   padding: 0.5em 1em;
 }
@@ -6099,7 +6113,7 @@ form .field {
   margin: 7vh auto 3vh;
   padding: 0px;
   backface-visibility: hidden;
-  border-radius: 1px;
+  border-radius: var(--radius-default);
   box-shadow: var(--z-depth-5);
   opacity: 0;
   transition: transform 500ms ease-out, opacity 350ms ease 150ms;
@@ -6302,7 +6316,7 @@ form .field {
   height: 50px;
   border: 5px solid white;
   border-top-color: black;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   z-index: -1;
   animation: spin 0.6s linear;
   animation-iteration-count: infinite;
@@ -6388,7 +6402,7 @@ form .field {
   transform: translate(0px, -50%);
   height: 1em;
   width: 1em;
-  border-radius: 5px;
+  border-radius: var(--radius-md);
   font-size: 50px;
   color: #fff;
   text-shadow: 0px 0px 5px #000;
@@ -6599,7 +6613,7 @@ form .field {
   border: 1px solid var(--inverse-on-surface);
   text-align: center;
   box-shadow: var(--z-depth-2);
-  border-radius: 0.5em;
+  border-radius: var(--radius-round);
   opacity: 0;
   pointer-events: none;
   z-index: var(--z-level-5);
@@ -6678,6 +6692,7 @@ form .field {
   text-align: left;
   font-weight: normal;
   border: 1px solid rgba(34, 34, 34, 0.15);
+  border-radius: var(--radius-default);
   box-shadow: var(--z-depth-2) !important;
   scroll-behavior: smooth;
   opacity: 0;
@@ -6966,7 +6981,7 @@ form .field {
 .slider ul.indicator > li.item {
   height: 1.3em;
   width: 1.3em;
-  border-radius: 50em;
+  border-radius: var(--radius-full);
   position: relative;
   list-style: none;
   background: #fff;
@@ -6995,7 +7010,7 @@ form .field {
   z-index: 100;
   height: 4em;
   width: 4em;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   background-color: rgba(0, 0, 0, 0.9);
   border: 0px none !important;
   outline: 0px none !important;
@@ -7105,7 +7120,7 @@ form .field {
   transform: translate(-50%, -50%, 0);
   width: 1em;
   height: 1em;
-  border-radius: 1000rem;
+  border-radius: var(--radius-full);
   border: 0.188em solid rgba(0, 0, 0, 0.1);
   border-top-color: #767676;
   animation: spin 0.6s linear;
@@ -8004,7 +8019,7 @@ i.icon.fixed-width {
 i.icon.bordered {
   border-width: 0.08em;
   border-style: solid;
-  border-radius: 0.1em;
+  border-radius: var(--radius-default);
   min-height: 1.2em;
   min-width: 1.2em;
 }
@@ -9885,7 +9900,7 @@ textarea.clue-bg,
   }
 }
 .flex-middle {
-  justify-content: center;
+  justify-content: center !important;
   align-items: center !important;
 }
 
@@ -9986,9 +10001,10 @@ textarea.clue-bg,
 }
 
 .truncate {
-  white-space: nowrap;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
   overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .mini {
@@ -10124,23 +10140,23 @@ textarea.clue-bg,
 }
 
 .rounded {
-  border-radius: 0.3rem !important;
+  border-radius: var(--radius-round) !important;
 }
 
 .sm-rounded {
-  border-radius: 2px !important;
+  border-radius: var(--radius-sm) !important;
 }
 
 .md-rounded {
-  border-radius: 5px !important;
+  border-radius: var(--radius-md) !important;
 }
 
 .lg-rounded {
-  border-radius: 10px !important;
+  border-radius: var(--radius-lg) !important;
 }
 
 .fully-rounded {
-  border-radius: 1000rem !important;
+  border-radius: var(--radius-full) !important;
 }
 
 .not-rounded {
@@ -10314,7 +10330,7 @@ textarea.clue-bg,
   align-items: center;
   justify-content: center;
   line-height: 1;
-  border-radius: 15rem;
+  border-radius: var(--radius-full);
   z-index: var(--z-level-1);
 }
 .scroll-items > .l-scroll *, .scroll-items > .r-scroll * {

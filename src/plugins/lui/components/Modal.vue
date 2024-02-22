@@ -9,6 +9,7 @@
 					namespace: 'modal',
 					toBeConsidered: ':scope .dialog, :scope .md-control',
 					toggler: '.open-modal',
+					toExcuseToggler: '.ex-open-modal',
 					setHighlightRange: true,
 					setTabRange: true,
 					closeOnEsc: true,
