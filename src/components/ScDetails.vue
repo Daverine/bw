@@ -145,17 +145,6 @@
                 // }
             }
         },
-        computed: {
-            maxCol() {
-                let cols = [];
-
-                for(let i = 1; i < 24; i++) {
-                    cols.push(this.todaySch.filter(el => el.includes(i)).length);
-                }
-
-                return Math.max(...cols);
-            }
-        },
         methods: {
             nextOpenDay(hours) {
                 let
@@ -213,7 +202,7 @@
                 <div style="padding: 1em 1.5em;">
                     <div class="dm-gap">
                         <div class="dm-logo" :style="`background-image: url('${details.logo}')`">
-                            <SvgIcon v-if="details.verified" name="verified_sp" title="Verified" class="green-text" style="position: absolute; bottom: -3px; right: -5px;" />
+                            <SvgIcon v-if="details.verified" name="verified_sp" v-tooltip.unblocking data-tooltip="Verified" class="green-text" style="position: absolute; bottom: -3px; right: -5px;" />
                         </div>
                         <div class="dm-heading">
                             <h4 class="dm-title">{{ details.bizName }}</h4>
@@ -221,32 +210,34 @@
                         </div>
                     </div>
                     <div class="dm-gap">
-                        <div class="semibold" title="Average Rate (Number of raters)">
+                        <div class="semibold" v-tooltip.unblocking data-tooltip="Average Rate (Number of raters)">
                             <SvgIcon name="star_filled" class="yellow-text small r-spaced" />
                             <span>{{ `${(details.reviews.reduce((n, i) => n + i.rating, 0)/details.reviews.length).toFixed(1)} (${details.reviews.length} reviews)` }}</span>
                         </div>
-                        <div :title="details.hours[new Date().getDay()][0] === -1 ? 'Did not open today at all.' : `Open today by ${to12hrsTime(details.hours[new Date().getDay()][0])} and closes by ${to12hrsTime(details.hours[new Date().getDay()][1])}.`">
-                            <SvgIcon name="today" class="small r-spaced" />
-                            <span class="semibold">
-                                <template v-if="details.hours[new Date().getDay()][0] === -1 || getMinutes(details.hours[new Date().getDay()][0]) > getMinutes(`${new Date().getHours()}:${new Date().getMinutes()}`) || getMinutes(details.hours[new Date().getDay()][1]) <= getMinutes(`${new Date().getHours()}:${new Date().getMinutes()}`)">
-                                    <span class="negative-text">Closed.</span>
-                                    <span v-if="typeof(details.hours[new Date().getDay()][0]) === 'string' && getMinutes(details.hours[new Date().getDay()][0]) > getMinutes(`${new Date().getHours()}:${new Date().getMinutes()}`)">Opens {{ to12hrsTime(details.hours[new Date().getDay()][0]) }} Today</span>
-                                    <span v-else>
-                                        Opens
-                                        {{
-                                            details.hours[new Date().getDay() === 6 ? 0 : new Date().getDay() + 1][0] !== -1
-                                                ? `${to12hrsTime(details.hours[new Date().getDay() === 6 ? 0 : new Date().getDay() + 1][0])} Tomorrow`
-                                                : `${to12hrsTime(details.hours[nextOpenDay(details.hours)][0])} on ${whatDay(nextOpenDay(details.hours))}`
-                                        }}
-                                    </span>
-                                </template>
-                                <template v-else>
-                                    <span v-if="getMinutes(details.hours[new Date().getDay()][1]) - getMinutes(`${new Date().getHours()}:${new Date().getMinutes()}`) <= 60" class="caution-text">Closes soon. </span>
-                                    <span v-else class="positive-text">Open. </span>
-                                    <span>Closes {{ details.hours[new Date().getDay()][1] }}</span>
-                                </template>
+                        <div>
+                            <span v-tooltip.unblocking :data-tooltip="details.hours[new Date().getDay()][0] === -1 ? 'Did not open today at all.' : `Open today by ${to12hrsTime(details.hours[new Date().getDay()][0])} and closes by ${to12hrsTime(details.hours[new Date().getDay()][1])}.`">
+                                <SvgIcon name="today" class="small r-spaced" />
+                                <span class="semibold">
+                                    <template v-if="details.hours[new Date().getDay()][0] === -1 || getMinutes(details.hours[new Date().getDay()][0]) > getMinutes(`${new Date().getHours()}:${new Date().getMinutes()}`) || getMinutes(details.hours[new Date().getDay()][1]) <= getMinutes(`${new Date().getHours()}:${new Date().getMinutes()}`)">
+                                        <span class="negative-text">Closed. </span>
+                                        <span v-if="typeof(details.hours[new Date().getDay()][0]) === 'string' && getMinutes(details.hours[new Date().getDay()][0]) > getMinutes(`${new Date().getHours()}:${new Date().getMinutes()}`)">Opens {{ to12hrsTime(details.hours[new Date().getDay()][0]) }} Today</span>
+                                        <span v-else>
+                                            Opens
+                                            {{
+                                                details.hours[new Date().getDay() === 6 ? 0 : new Date().getDay() + 1][0] !== -1
+                                                    ? `${to12hrsTime(details.hours[new Date().getDay() === 6 ? 0 : new Date().getDay() + 1][0])} Tomorrow`
+                                                    : `${to12hrsTime(details.hours[nextOpenDay(details.hours)][0])} on ${whatDay(nextOpenDay(details.hours))}`
+                                            }}
+                                        </span>
+                                    </template>
+                                    <template v-else>
+                                        <span v-if="getMinutes(details.hours[new Date().getDay()][1]) - getMinutes(`${new Date().getHours()}:${new Date().getMinutes()}`) <= 60" class="caution-text">Closes soon. </span>
+                                        <span v-else class="positive-text">Open. </span>
+                                        <span>Closes {{ details.hours[new Date().getDay()][1] }}</span>
+                                    </template>
+                                </span>
                             </span>
-                            <SvgIcon name="info" class="mini l-spaced" style="color: var(--on-surface-variant);" title="Note that the given detail is generated using your system time relative to the Business location timezone." />
+                            <SvgIcon name="info" class="mini l-spaced" style="color: var(--on-surface-variant);" v-tooltip.unblocking data-tooltip="Note that the given detail is generated using your system time relative to the Business location timezone." />
                         </div>
                     </div>
                     <hr ref="divider" />
@@ -380,10 +371,24 @@
                 </div>
             </div>
             <div class="footer auto-t-bordered grid" style="gap: 0.5em;">
-                <button class="primary button">Visit Business Page</button>
-                <button class="secondary circular button"><SvgIcon name="direction_filled" /></button>
-                <button class="circular button"><SvgIcon name="share_filled" /></button>
-                <button class="outlined circular button" style="margin-left: auto;"><SvgIcon name="bookmark" /></button>
+                <button class="primary button">
+                    <SvgIcon name="public" class="lead" /> Visit Business Page
+                </button>
+                <button class="transparent button">
+                    <SvgIcon name="follow" class="lead" /> Follow
+                </button>
+                <div style="display: flex; gap: 1em; margin-left: auto;">
+                    <button class="transparent circular button" v-tooltip.unblocking data-tooltip="Save card"><SvgIcon name="bookmark_add" /></button>
+                    <Dropdown :options="{directionPriority: {x: 'left', y: 'top'}}" v-tooltip.unblocking data-tooltip="More options" class="transparent circular button">
+                        <SvgIcon name="more_vert" />
+                        <Dropmenu>
+                            <div class="item"><SvgIcon name="follow" class="lead" /> Follow page</div>
+                            <div class="item"><SvgIcon name="bookmark_add" class="lead" /> Save card</div>
+                            <div class="item"><SvgIcon name="share" class="lead" /> Share</div>
+                            <div class="item"><SvgIcon name="report" class="lead" /> Report page</div>
+                        </Dropmenu>
+                    </Dropdown>
+                </div>
             </div>
         </template>
         <template v-else-if="details.type === 'product'">
@@ -405,19 +410,19 @@
                 </div>
                 <div style="padding: 1em 1.5em;">
                     <div class="dm-heading">
-                        <span :title="details.bizData.location.address" class="truncate" style="color: var(--on-surface-variant);">
+                        <span v-tooltip.unblocking :data-tooltip="details.bizData.location.address" class="truncate" style="color: var(--on-surface-variant);">
                             <SvgIcon name="location_on" class="mini r-spaced" />
                             <span class="small semibold">{{ `${details.bizData.location.city }, ${details.bizData.location.state}` }}</span>
                         </span>
                         <h4 class="dm-title">{{ details.title }}</h4>
                         <div class="dm-gap">
-                            <div title="Average Rate (Number of raters)">
+                            <div v-tooltip.unblocking data-tooltip="Average Rate (Number of raters)">
                                 <SvgIcon name="star_filled" class="yellow-text small r-spaced" />
                                 <span class="semibold">{{ `${(details.reviews.reduce((n, i) => n + i.rating, 0)/details.reviews.length).toFixed(1)} (${details.reviews.length} reviews)` }}</span>
                             </div>
                             <div>
                                 <span class="h5 bold 0-margined" style="color: var(--primary);">{{ details.price }}&nbsp;</span>
-                                <SvgIcon name="handshake" class="l-spaced small" v-if="details.negotiable" title="Negotiable" />
+                                <SvgIcon name="handshake" class="l-spaced small" v-if="details.negotiable" v-tooltip.unblocking data-tooltip="Negotiable" />
                             </div>
                         </div>
                     </div>
@@ -585,27 +590,27 @@
                     <div class="a-block collapsible">
                         <div class="lead" style="position: relative; align-self: center;">
                             <img :src="details.bizData.logo" class="loose avatar image" />
-                            <SvgIcon name="verified_sp" title="Verified" class="small green-text" style="position: absolute; bottom: 0px; right: 0px;" />
+                            <SvgIcon name="verified_sp" v-tooltip.unblocking data-tooltip="Verified" class="small green-text" style="position: absolute; bottom: 0px; right: 0px;" />
                         </div>
                         <div class="content">
                             <a href="#" style="font-weight: var(--bold-weight);">{{ details.bizData.bizName }}</a>
                             <div class="sc-gap">
                                 <span class="small semibold">{{ details.bizData.mainCategory }}</span>
-                                <span :title="details.bizData.location.address" class="truncate" style="color: var(--on-surface-variant);">
+                                <span v-tooltip.unblocking :data-tooltip="details.bizData.location.address" class="truncate" style="color: var(--on-surface-variant);">
                                     <SvgIcon name="location_on" class="mini r-spaced" />
                                     <span class="small semibold">{{ `${details.bizData.location.city }, ${details.bizData.location.state}` }}</span>
                                 </span>
                             </div>
                             <div class="semibold sc-gap">
-                                <span v-if="details.bizData.rating" class="semibold" title="Average Rate (Number of raters)">
+                                <span v-if="details.bizData.rating" class="semibold" v-tooltip.unblocking data-tooltip="Average Rate (Number of raters)">
                                     <SvgIcon name="star_filled" class="yellow-text mini r-spaced" />
                                     <span class="small">{{ `${details.bizData.rating.rate} (${details.bizData.rating.raters})` }}</span>
                                 </span>
-                                <span :title="details.bizData.hours[new Date().getDay()][0] < 0 ? 'Did not open today at all.' : `Open today by ${details.bizData.hours[new Date().getDay()][0]}:00 and closes by ${details.bizData.hours[new Date().getDay()][1]}:00.`">
+                                <span v-tooltip.unblocking :data-tooltip="details.bizData.hours[new Date().getDay()][0] < 0 ? 'Did not open today at all.' : `Open today by ${details.bizData.hours[new Date().getDay()][0]}:00 and closes by ${details.bizData.hours[new Date().getDay()][1]}:00.`">
                                     <SvgIcon name="today" class="mini r-spaced" />
                                     <span class="small">
                                         <template v-if="details.bizData.hours[new Date().getDay()][0] < 0 || details.bizData.hours[new Date().getDay()][0] > new Date().getHours() || details.bizData.hours[new Date().getDay()][1] <= new Date().getHours()">
-                                            <span class="negative-text">Closed.</span>
+                                            <span class="negative-text">Closed. </span>
                                             <span v-if="details.bizData.hours[new Date().getDay()][0] > new Date().getHours()">Opens {{ details.bizData.hours[new Date().getDay()][0] }}</span>
                                             <span else>
                                                 Opens
@@ -653,13 +658,13 @@
                 </div>
                 <div style="padding: 1em 1.5em;">
                     <div class="dm-heading">
-                        <span :title="details.bizData.location.address" class="truncate" style="color: var(--on-surface-variant);">
+                        <span v-tooltip.unblocking :data-tooltip="details.bizData.location.address" class="truncate" style="color: var(--on-surface-variant);">
                             <SvgIcon name="location_on" class="mini r-spaced" />
                             <span class="small semibold">{{ `${details.bizData.location.city }, ${details.bizData.location.state}` }}</span>
                         </span>
                         <h4 class="dm-title">{{ details.title }}</h4>
                         <div class="dm-gap">
-                            <div title="Average Rate (Number of raters)">
+                            <div v-tooltip.unblocking data-tooltip="Average Rate (Number of raters)">
                                 <SvgIcon name="star_filled" class="yellow-text small r-spaced" />
                                 <span class="semibold">{{ `${(details.reviews.reduce((n, i) => n + i.rating, 0)/details.reviews.length).toFixed(1)} (${details.reviews.length} reviews)` }}</span>
                             </div>
@@ -976,27 +981,27 @@
                     <div class="a-block collapsible">
                         <div class="lead" style="position: relative; align-self: center;">
                             <img :src="details.bizData.logo" class="loose avatar image" />
-                            <SvgIcon name="verified_sp" title="Verified" class="small green-text" style="position: absolute; bottom: 0px; right: 0px;" />
+                            <SvgIcon name="verified_sp" v-tooltip.unblocking data-tooltip="Verified" class="small green-text" style="position: absolute; bottom: 0px; right: 0px;" />
                         </div>
                         <div class="content">
                             <a href="#" style="font-weight: var(--bold-weight);">{{ details.bizData.bizName }}</a>
                             <div class="sc-gap">
                                 <span class="small semibold">{{ details.bizData.mainCategory }}</span>
-                                <span :title="details.bizData.location.address" class="truncate" style="color: var(--on-surface-variant);">
+                                <span v-tooltip.unblocking :data-tooltip="details.bizData.location.address" class="truncate" style="color: var(--on-surface-variant);">
                                     <SvgIcon name="location_on" class="mini r-spaced" />
                                     <span class="small semibold">{{ `${details.bizData.location.city }, ${details.bizData.location.state}` }}</span>
                                 </span>
                             </div>
                             <div class="semibold sc-gap">
-                                <span v-if="details.bizData.rating" class="semibold" title="Average Rate (Number of raters)">
+                                <span v-if="details.bizData.rating" class="semibold" v-tooltip.unblocking data-tooltip="Average Rate (Number of raters)">
                                     <SvgIcon name="star_filled" class="yellow-text mini r-spaced" />
                                     <span class="small">{{ `${details.bizData.rating.rate} (${details.bizData.rating.raters})` }}</span>
                                 </span>
-                                <span :title="details.bizData.hours[new Date().getDay()][0] < 0 ? 'Did not open today at all.' : `Open today by ${details.bizData.hours[new Date().getDay()][0]}:00 and closes by ${details.bizData.hours[new Date().getDay()][1]}:00.`">
+                                <span v-tooltip.unblocking :data-tooltip="details.bizData.hours[new Date().getDay()][0] < 0 ? 'Did not open today at all.' : `Open today by ${details.bizData.hours[new Date().getDay()][0]}:00 and closes by ${details.bizData.hours[new Date().getDay()][1]}:00.`">
                                     <SvgIcon name="today" class="mini r-spaced" />
                                     <span class="small">
                                         <template v-if="details.bizData.hours[new Date().getDay()][0] < 0 || details.bizData.hours[new Date().getDay()][0] > new Date().getHours() || details.bizData.hours[new Date().getDay()][1] <= new Date().getHours()">
-                                            <span class="negative-text">Closed.</span>
+                                            <span class="negative-text">Closed. </span>
                                             <span v-if="details.bizData.hours[new Date().getDay()][0] > new Date().getHours()">Opens {{ details.bizData.hours[new Date().getDay()][0] }}</span>
                                             <span else>
                                                 Opens

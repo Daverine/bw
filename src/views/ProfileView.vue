@@ -1,23 +1,18 @@
 <script>
 	import { useMainStore } from '../stores';
-	import { useSearchStore } from '../stores/searchStore';
 	import { useUserStore } from '../stores/userStore';
 	import Shareables from '../components/Shareables.vue';
-	import ItemCard from '../components/ItemCard.vue';
 
 	export default {
-		title() {
-			return `${this.searchStore.searchBox} | Bizworld`
-		},
-		components: { ItemCard, Shareables },
+		title: 'Following | BizWorld',
+		components: { Shareables },
 		setup() {
 			const
 				mainStore = useMainStore(),
-				searchStore = useSearchStore(),
 				userStore = useUserStore()
 			;
 
-			return { mainStore, searchStore, userStore }
+			return { mainStore, userStore }
 		},
 		methods: {
 			handleScroll() {
@@ -25,14 +20,10 @@
 				else this.mainStore.mutateSFM(false);
 			}
 		},
-		created() {
-			this.$watch(() => this.$route.query, (to, from) => {
-				document.title = this.$options.title.call(this);
-			});
-		},
 		mounted() {
 			window.dispatchEvent(new Event("scroll"));
 			window.addEventListener('scroll', this.handleScroll);
+			this.userStore.getFollowedCards();
 		},
 		unmounted() {
 			window.removeEventListener('scroll', this.handleScroll);
@@ -43,22 +34,41 @@
 	<div class="as-page">
 		<header id="main-header" style="background-color: var(--surface);">
 			<Shareables name="common_header" />
-			<div class="centered basic menu">
-				<div class="active item">All</div>
-				<div class="item">Businesses</div>
-				<div class="item">Products</div>
-				<div class="item">Services</div>
-			</div>
 			<hr style="margin: 0px;"/>
 		</header>
 		<section id="main" ref="main" class="grid" style="position: relative; margin-top: 25px; min-height: 70vh;">
 			<Shareables name="page_nav" />
 			<main class="col" id="feed">
-				<ItemCard v-for="(result, i) in searchStore.searchResults" :key="i" :details="result" />
-
-				<div class="divider"><button class="button">More results <SvgIcon class="trailing" name="expand_more" /></button></div>
 			</main>
 			<Shareables name="ad_menu" />
 		</section>
+		<footer>
+			<div class="transparent text menu" style="padding: 10px 0px; background-color: var(--surface-focus-alpha) !important; font-weight: normal;">
+				<div class="container items">
+					<div class="item">Terms of use</div>
+					<div class="item">About us</div>
+					<div class="item">Help</div>
+					<div class="item">Settings</div>
+					<div class="items r-aligned">
+						<div class="item">@ Copyright 2023</div>
+						<div class="item">Emmadave Inc.</div>
+					</div>
+				</div>
+			</div>
+		</footer>
 	</div>
 </template>
+
+<style lang="scss">
+	.following-cont {
+		display: flex;
+		flex-flow: row nowrap;
+		gap: 0.5em;
+		align-items: flex-start;
+		width: 100%;
+		padding: 0rem 1rem;
+		overflow: hidden;
+
+		& > * { flex: 0 0 auto; }
+	}
+</style>

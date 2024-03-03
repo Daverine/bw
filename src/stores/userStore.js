@@ -1,11 +1,20 @@
 import { defineStore } from "pinia/dist/pinia";
-import sresults from '../jsons/sresults.json';
+import saved from '../jsons/saved.json';
+import followed from '../jsons/followed.json';
 
 export const useUserStore = defineStore('user', {
     state: () => ({
         auth: false,
-        userData: {},
-        savedCards: []
+        userData: {
+            firstName: 'Ayoola',
+            lastName: 'Folorunso',
+            email: 'folorunsodavid1@gmail.com',
+            country: 'Nigeria',
+            profileImg: '/images/profile.jpg',
+
+        },
+        savedCards: [],
+        followedCards: [],
     }),
     actions: {
         login(email, password) {
@@ -33,9 +42,16 @@ export const useUserStore = defineStore('user', {
         async getSavedCards() {
             return new Promise(() => {
                 setTimeout(() => {
-                    this.savedCards = sresults;
-                }, 500);
+                    this.savedCards = saved;
+                }, 200);
             });
+        },
+        async getFollowedCards() {
+            return new Promise(() => {
+                // setTimeout(() => {
+                    this.followedCards = followed;
+                // }, 200);
+            })
         }
     }
 })

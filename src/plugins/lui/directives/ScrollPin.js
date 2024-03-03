@@ -289,5 +289,5 @@ export function scrollPin() {
         unmounted(el) {
             utils.triggerEvent(el, 'stopScrollPin');
         }
-    }
+    };
 };

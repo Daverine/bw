@@ -39,7 +39,7 @@
 			<Shareables name="common_footer" />
 		</div>
 	</SidePanel>
-	<div id="fmenu" class="menu z-level-3" :class="{ pinned: mainStore.showFixedMenu }">
+	<div id="fmenu" class="menu z-level-3 respect-lock" :class="{ pinned: mainStore.showFixedMenu }">
 		<div class="container items auto-margined" style="border-radius: var(--radius-default)">
 			<div class="item as-icon open-sidepanel" :class="!userStore.auth && $route.name === 'home' ? '' : 'lg-and-up-hidden'" v-tooltip.unblocking data-tooltip="Menu" data-target="msidepanel">
 				<SvgIcon name="menu" />

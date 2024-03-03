@@ -8,7 +8,7 @@ export default {
 			uniqueId: undefined,
 			EscTrack: undefined,
 			factory: {
-				namespace: "panel",
+				namespace: 'panel',
 				toBeConsidered: ':scope .panel, :scope .pl-controls',
 				toggler: '.open-panel',
 				toExcuseToggler: '.ex-open-panel',
@@ -69,7 +69,7 @@ export default {
 			...this.options || {}
 		};
 		this.e.pl = this.$refs.panel;
-		this.uniqueId = utils.getUniqueId();
+		this.uniqueId = utils.getUniqueId(this.settings.namespace);
 		document.addEventListener('click', this.togglePanel);
 		this.e.pl.addEventListener('plconsole', this.pl_console);
 	},
@@ -92,7 +92,6 @@ export default {
 				}, this.settings.inDuration);
 			}
 			else {
-				utils.unlockWindowScroll(this.uniqueId);
 				document.removeEventListener('keydown', this.panelKbdFunc);
 				this.e.pl.removeEventListener('click', this.panelClickFunc);
 				if (this.settings.closeOnEsc) document.removeEventListener('keyup', this.panelEscFunc);					
@@ -122,6 +121,7 @@ export default {
 					if (typeof(this.settings.complete) === 'function') this.settings.complete(this.e.pl, this.settings);
 					if (this.settings.caller) this.settings.caller.focus();
 					this.settings.caller = undefined;
+					utils.unlockWindowScroll(this.uniqueId);
 				}, this.settings.outDuration);
 			}
 		}

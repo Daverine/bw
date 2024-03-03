@@ -1,12 +1,12 @@
 <script>
     import { utils } from '../utils';
-	import anime from 'animejs';
 
     export default {
         props: ['options'],
         data() {
             return {
                 factory: {
+					namespace: 'carousel',
                     continuous: true, // can also be set it to string 'rewind'
                     slidesPerView: 1,
                     sliderMove: 'slide',
@@ -50,24 +50,55 @@
         },
         methods: {
 			init(breakpoint = {}) {
-				let bpData = {
+				breakpoint = {
 					...{
 						slidesPerView: this.settings.slidesPerView,
 						spaceBetween: this.settings.spaceBetween,
 						slidesHeight: this.settings.slidesHeight
 					},
 					...breakpoint
+				};
+				breakpoint.spaceBetween = typeof(breakpoint.spaceBetween) === 'number' ? `${breakpoint.spaceBetween}px` : breakpoint.spaceBetween;
+				this.e.slides = [...this.e.slider.querySelectorAll(`:scope > .cs-slide`)].filter(el => !el.matches(`[data-creator='${this.uniqueId}']`));
+				if (!this.e.slides[0]) return;
+
+				// Initialize carousel
+				if (!this.initialized || this.tmp.slidesNo !== this.e.slides.length) {
+					[...this.e.carousel.querySelectorAll(`:scope [data-creator='${this.uniqueId}']`)].forEach(el => el.remove());
+					this.e.slides.forEach((el, index) => {
+						el.setAttribute('data-csId', index+1);
+						let track = document.createElement('button');
+						track.classList.add('track');
+						track.setAttribute('data-trackId', index+1);
+						track.setAttribute('data-creator', this.uniqueId);
+						this.e.tracker.append(track);
+
+						if (this.settings.continuous && this.settings.continuous !== 'rewind') {
+							let eC = el.cloneNode(true);
+							eC.setAttribute('data-creator', this.uniqueId);
+							eC.classList.remove('active');
+							this.e.slider.append(eC);
+							if (!index) this.e.slider.prepend(eC.cloneNode(true));
+							else this.e.slider.insertBefore(eC.cloneNode(true), this.e.slider.children[index]);
+						}
+					});
+					this.initialized = true;
 				}
 
-				bpData.spaceBetween = typeof(bpData.spaceBetween) === 'number' ? `${bpData.spaceBetween}px` : bpData.spaceBetween;
-				// ensure the slidePerPage is not more than the number of slides in the carousel in a continuous carousel
-				this.tmp.slidesPerView = (this.settings.continuous && this.settings.continuous !== 'rewind') && bpData.slidesPerView > this.tmp.slidesNo ? this.tmp.slidesNo : bpData.slidesPerView;
-				[...this.e.slider.querySelectorAll(`:scope > .cs-slide`)].forEach((el) => {
-					el.style.width = `calc(((100% + ${bpData.spaceBetween}) / ${this.tmp.slidesPerView}) - ${bpData.spaceBetween})`;
-                	el.style.marginRight = bpData.spaceBetween;
-					if (bpData.slidesHeight === 'inherit') el.style.height = 'inherit';
-				});
+				this.tmp.slidesNo = this.e.slides.length; // number of slides in the carousel
+				// the 1-based index of the current slide
+				this.tmp.slideNo = this.e.slides.filter(el => el.classList.contains('active'))[0]
+					? Number(this.e.slides.filter(el => el.classList.contains('active'))[0].getAttribute('data-csId'))
+					: 1;
+				this.e.currSlide = this.e.slides[this.tmp.slideNo - 1];
 
+				// ensure the slidePerPage is not more than the number of slides in the carousel in a continuous carousel
+				this.tmp.slidesPerView = (this.settings.continuous && this.settings.continuous !== 'rewind') && breakpoint.slidesPerView > this.tmp.slidesNo ? this.tmp.slidesNo : breakpoint.slidesPerView;
+				[...this.e.slider.querySelectorAll(`:scope > .cs-slide`)].forEach((el) => {
+					el.style.width = `calc(((100% + ${breakpoint.spaceBetween}) / ${this.tmp.slidesPerView}) - ${breakpoint.spaceBetween})`;
+                	el.style.marginRight = breakpoint.spaceBetween;
+					if (breakpoint.slidesHeight === 'inherit') el.style.height = 'inherit';
+				});
 				// cache slide extent
 				this.tmp.slideExt = this.e.currSlide.offsetWidth + parseFloat(window.getComputedStyle(this.e.currSlide).getPropertyValue('margin-right'));
 				
@@ -208,7 +239,7 @@
 				let track = e.target.closest('button.track');
 				if (track) this.update(Number(track.getAttribute('data-trackid')));
             },
-			update(newI = this.tmp.slideNo, event) {
+			update(newI = this.tmp.slideNo) {
 				let sBleed = (this.settings.continuous && this.settings.continuous !== 'rewind') ? this.tmp.slidesNo * this.tmp.slideExt : 0;
 				clearTimeout(this.tmp.updateSet);
 				
@@ -295,39 +326,14 @@
                 ...this.factory,
                 ...this.options || {}
             };
-
-            this.e.viewbox = this.$refs.viewbox;
+			this.uniqueId = utils.getUniqueId(this.settings.namespace);
+            this.e.carousel = this.$refs.carousel;
+			this.e.viewbox = this.$refs.viewbox;
 			this.e.slider = this.$refs.slider;
-            this.e.slides = [...this.e.slider.querySelectorAll(`:scope > .cs-slide`)];
-            this.e.prevBtn = this.$refs.prevBtn;
+			this.e.prevBtn = this.$refs.prevBtn;
             this.e.nextBtn = this.$refs.nextBtn;
             this.e.tracker = this.$refs.tracker;
-            this.tmp.slidesNo = this.e.slides.length; // number of slides in the carousel
-			// the 1-based index of the current slide
-			this.tmp.slideNo = this.e.slides.filter(el => el.classList.contains('active'))[0]
-				? indexOf(this.e.slides.filter(el => el.classList.contains('active'))) + 1
-				: 1;
-			
-            // Initialize carousel
 			this.e.slider.style.transitionDuration = `${this.settings.transitionDuration}ms`;
-            this.e.slides.forEach((el, index) => {
-				el.setAttribute('data-csId', index+1);
-				let track = document.createElement('button');
-				track.classList.add('track');
-				track.setAttribute('data-trackId', index+1);
-				this.e.tracker.append(track);
-
-				if (this.settings.continuous && this.settings.continuous !== 'rewind') {
-					let eC = el.cloneNode(true);
-					eC.classList.add('a-copy');
-					eC.classList.remove('active');
-					this.e.slider.append(eC);
-					if (!index) this.e.slider.prepend(eC.cloneNode(true));
-					else this.e.slider.insertBefore(eC.cloneNode(true), this.e.slider.children[index]);
-				}
-            });
-
-			this.e.currSlide = this.e.slides[this.tmp.slideNo - 1];
 			this.e.slider.setAttribute('data-anim', this.settings.animation);
 
 			// Use mouse wheel to zoom image
@@ -346,13 +352,15 @@
 
 			// responsiveness
 			window.addEventListener('resize', this.sizeResponse);
-
 			this.sizeResponse();
-        }
+        },
+		updated() {
+			this.sizeResponse();
+		}
     }
 </script>
 <template>
-    <div class="carousel">
+    <div ref="carousel" class="carousel">
         <div ref="viewbox" class="cs-viewbox">
             <div ref="slider" class="cs-slider">
                 <slot></slot>

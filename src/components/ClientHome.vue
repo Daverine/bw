@@ -111,6 +111,9 @@
 				<div class="big centered container">
 					<h1>What is BizWorld for?</h1>
 					<p>BizWorld is where new and old customers meet businesses. You can perceive Bizworld as a very large market online where you meet variety of businesses. You can get updates from stores and offices. You can rate and write review on businesses.</p>
+					<div class="centered">
+						<button class="primary button open-modal" data-target="register-modal">SIGN UP</button>
+					</div>
 				</div>
 			</section>
 			<section class="sec-block">

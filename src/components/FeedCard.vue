@@ -24,7 +24,7 @@
 				<Dropdown :options="{directionPriority: {x: 'left', y: 'bottom'}}">
 					<SvgIcon name="more_horiz" />
 					<Dropmenu>
-						<div class="item"><SvgIcon name="bookmark" class="lead" /> Save post</div>
+						<div class="item"><SvgIcon name="bookmark_add" class="lead" /> Save post</div>
 						<div class="items">
 							<div class="aview item"><SvgIcon name="notifications_active" class="lead" /> Turn on notificaions for this post</div>
 							<div class="nview item"><SvgIcon name="notifications_off" class="lead" /> Turn off notificaions for this post</div>
@@ -50,6 +50,10 @@
 	</div>
 </template>
 <style>
+	.feed-card {
+		width: 100%;
+		max-width: 500px;
+	}
 	.fcd-logo {
 		width: 36px;
 		height: 36px;
@@ -71,11 +75,5 @@
 		display: flex;
 		flex-direction: column;
 		gap: 15px;
-	}
-
-	.feed-card {
-		width: 100%;
-		max-width: 500px;
-		margin: 0;
 	}
 </style>

@@ -2,11 +2,11 @@
 	import { useMainStore } from '../stores';
 	import { useUserStore } from '../stores/userStore';
 	import Shareables from '../components/Shareables.vue';
-	import SvgIcon from '../components/SvgIcon.vue';
+	import BizCard from '../components/BizCard.vue';
 
 	export default {
 		title: 'Following | BizWorld',
-		components: { Shareables, SvgIcon },
+		components: { Shareables, BizCard },
 		setup() {
 			const
 				mainStore = useMainStore(),
@@ -24,7 +24,7 @@
 		mounted() {
 			window.dispatchEvent(new Event("scroll"));
 			window.addEventListener('scroll', this.handleScroll);
-			this.userStore.getSavedCards();
+			this.userStore.getFollowedCards();
 		},
 		unmounted() {
 			window.removeEventListener('scroll', this.handleScroll);
@@ -41,27 +41,10 @@
 			<Shareables name="page_nav" />
 			<main class="col" id="feed">
 				<h6 class="centered">Following</h6>
-				
-				<div class="biz-card card">
-					<div class="biz-display">
-						<img src="images/logo-sq.png" class="image" />
-						<SvgIcon name="verified_sp" title="Verified" class="small green-text" style="position: absolute; bottom: 0px; right: 0px;" />
-					</div>
-					<div class="biz-title">Emmadave Computer Technology Services</div>
-					<div class="small semibold">Computer Repair Services</div>
-					<div class="sc-gap">
-						<span class="semibold" title="Average Rate (Number of raters)">
-							<SvgIcon name="star_filled" class="yellow-text mini r-spaced" />
-							<span class="small">{{ `4.0 (1323)` }}</span>
-						</span>
-					</div>
-					<div style="display: flex; flex-flow: row; gap: 0.25em; margin-top: 0.5rem;">
-						<div class="primary compact button">Visit</div>
-						<div class="outlined compact button">More</div>
-					</div>
+				<div class="fluid" style="display: flex; flex-flow: row wrap; justify-content: center; gap: 1em; padding: 1rem;">
+					<BizCard v-for="(result, i) in userStore.followedCards" :key="i" :details="result" />
 				</div>
-
-				<div class="divider"><button class="button">More results <SvgIcon name="expand_more" /></button></div>
+				<div class="divider"><button class="button">More results <SvgIcon class="trailing" name="expand_more" /></button></div>
 			</main>
 			<Shareables name="ad_menu" />
 		</section>
@@ -81,34 +64,17 @@
 		</footer>
 	</div>
 </template>
-<style scoped>
-	.biz-card {
+
+<style lang="scss">
+	.following-cont {
 		display: flex;
-		flex-flow: column nowrap;
-		align-items: center;
+		flex-flow: row nowrap;
+		gap: 0.5em;
+		align-items: flex-start;
 		width: 100%;
-		max-width: 15rem;
-		gap: var(--sc-gap);
-		padding: 0.5rem;
-		cursor: pointer;
-	}
-	.biz-display {
-		position: relative;
-		width: 4.25rem;
-		height: 4.25rem;
-	}
-	.biz-title {
-		display: -webkit-box;
-		-webkit-box-orient: vertical;
-		-webkit-line-clamp: 2;
-		text-align: center;
+		padding: 0rem 1rem;
 		overflow: hidden;
-		font-size: 1.125em;
-		font-weight: var(--semibold-weight);
-		color: var(--on-surface);
-		line-height: 1.25 !important;
-		width: 100%;
-		padding-bottom: 0.125em;
-		margin: 0 0 0.125em !important;
+
+		& > * { flex: 0 0 auto; }
 	}
 </style>

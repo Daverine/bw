@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue';
 import SearchView from '../views/SearchView.vue';
 import SavedView from '../views/SavedView.vue';
 import FollowingView from '../views/FollowingView.vue';
+import ProfileView from '../views/ProfileView.vue';
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,6 +27,11 @@ const router = createRouter({
             path: '/following',
             name: 'following',
             component: FollowingView
+        },
+        {
+            path: '/profile',
+            name: 'profile',
+            component: ProfileView
         }
     ],
     scrollBehavior(to, from, savedPosition) {

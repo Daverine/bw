@@ -14,13 +14,15 @@ export const utils = {
 	},
 	lockWindowScroll(lockerId) {
 		if (!window.lui_ScrollLockers) window.lui_ScrollLockers = [];
+		if (!window.lui_ScrollLockers.length) {
+			// we guess it abnormal to add margin to the html unless on circumstance like this
+			let scrollBarWidth = `${this.getScrollbarWidth()}px`;
+			document.documentElement.classList.add('scroll-locked');
+			document.documentElement.style.marginRight = scrollBarWidth;
+			document.documentElement.style.overflow = 'hidden';
+			[...document.querySelectorAll('.respect-lock')].forEach(el => el.style.maxWidth = `calc(100% - ${scrollBarWidth})`);
+		}
 		if (!window.lui_ScrollLockers.includes(lockerId)) window.lui_ScrollLockers.push(lockerId);
-		// we guess it abnormal to add margin to the html unless on circumstance like this
-
-		document.documentElement.classList.add('scroll-locked');
-		document.documentElement.style.marginRight = `${this.getScrollbarWidth()}px`;
-		document.documentElement.style.overflow = 'hidden';
-		[...document.querySelectorAll('.respect-lock')].forEach(el => el.style.maxHeight = `calc(100% - ${this.getScrollbarWidth()}px)`);
 	},
 	unlockWindowScroll(lockerId) {
 		if (window.lui_ScrollLockers && window.lui_ScrollLockers.includes(lockerId)) {
@@ -30,8 +32,7 @@ export const utils = {
 				document.documentElement.style.marginRight = null;
 				document.documentElement.style.overflow = null;
 				document.documentElement.classList.remove('scroll-locked');
-				[...document.querySelectorAll('.respect-lock')].forEach(el => el.style.maxHeight = null);
-
+				[...document.querySelectorAll('.respect-lock')].forEach(el => el.style.maxWidth = null);
 			}
 		}
 	},
@@ -170,5 +171,4 @@ export const utils = {
 			selection.addRange(range);
 		}
 	},
-	reqAnimFrame: window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame,
 }

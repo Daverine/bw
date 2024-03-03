@@ -92,6 +92,11 @@
                 <div class="xhover item 0-padding"><button class="fluid button">Have a shop online</button></div>
             </template>
             <template v-else>
+                <div class="item exit-sidepanel open-modal" data-target="explore-modal">
+                    <SvgIcon name="explore" class="lead nview" />
+                    <SvgIcon name="explore_filled" class="lead aview" />
+                    Explore
+                </div>
                 <div class="item exit-sidepanel open-modal" data-target="scanqr-modal">
                     <SvgIcon name="qr_code_scanner" class="lead" />
                     Scan Business QR
@@ -185,10 +190,10 @@
         <div class="md-and-down-hidden" style="padding: 0em 0em 0.5em;">
             <div class="container grid flex-no-wrap">
                 <div class="manual-width col r-padded d-flex flex-middle"><span class="d-block bold">Explore:</span> </div>
-                <div id="categories" class="scroll-items col" style="overflow: hidden; padding: 4px 0px;">
+                <div v-iScroller id="categories" class="i-scroller col" style="overflow: hidden; padding: 4px 0px;">
                     <div class="l-scroll"><SvgIcon name="double_arrow_left" class="mini" /></div>
                     <div class="r-scroll"><SvgIcon name="double_arrow_right" class="mini" /></div>
-                    <div class="items" style="gap: 8px;">
+                    <div class="scroll-items" style="gap: 8px;">
                         <button class="chip"><SvgIcon name="restaurant" class="small lead" /> Restaurants</button>
                         <button class="chip"><SvgIcon name="local_bar" class="small lead" /> Bars</button>
                         <button class="chip"><SvgIcon name="local_parking" class="small lead" /> Parks</button>

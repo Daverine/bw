@@ -1,37 +1,36 @@
 <script>
-import Shareables from './Shareables.vue';
-import SvgIcon from './SvgIcon.vue';
+	import Shareables from './Shareables.vue';
 
-export default {
-    props: ['details', 'isSaved'],
-    methods: {
-        nextOpenDay(hours) {
-            let ex = new Date().getDay() === 6 ? 0 : new Date().getDay() + 1, i = 1, result;
-            for (; i < 6; i++) {
-                if (hours[ex > 5 ? -1 + i : ex + i][0] > -1) {
-                    result = ex > 5 ? -1 + i : ex + i;
-                    break;
-                }
-            }
-            return result;
-        },
-        whatDay(index) {
-            return ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][index];
-        }
-    },
-    components: { SvgIcon, Shareables }
-}
+	export default {
+		props: ['details', 'isSaved'],
+		methods: {
+			nextOpenDay(hours) {
+				let ex = new Date().getDay() === 6 ? 0 : new Date().getDay() + 1, i = 1, result;
+				for (; i < 6; i++) {
+					if (hours[ex > 5 ? -1 + i : ex + i][0] > -1) {
+						result = ex > 5 ? -1 + i : ex + i;
+						break;
+					}
+				}
+				return result;
+			},
+			whatDay(index) {
+				return ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][index];
+			}
+		},
+		components: { Shareables }
+	}
 </script>
 <template>
 	<div class="fluid item-card card open-modal" :data-type="details.type" data-target="sc-details">
 		<template v-if="details.type === 'product'">
 			<div class="itm-display">
 				<div class="itm-media">
-					<canvas :style="`background-image: url(${details.displayImg})`"></canvas>
+					<canvas :style="`background-image: url(${details.postMedia.filter(el => el.type === 'image')[0].url})`"></canvas>
 				</div>
 			</div>
 			<div class="itm-content">
-				<a class="itm-title" :title="details.title">{{ details.title }}</a>
+				<a class="itm-title" :title="details.postTitle">{{ details.postTitle }}</a>
 				<div class="itm-gap">
 					<div>
 						<span class="h5 bold 0-margined" style="color: var(--primary);">{{ details.price }}&nbsp;</span>
@@ -63,11 +62,11 @@ export default {
 		<template v-else-if="details.type === 'service'">
 			<div class="itm-display">
 				<div class="itm-media">
-					<canvas :style="`background-image: url(${details.displayImg})`"></canvas>
+					<canvas :style="`background-image: url(${details.postMedia.filter(el => el.type === 'image')[0].url})`"></canvas>
 				</div>
 			</div>
 			<div class="itm-content">
-				<a class="itm-title" :title="details.title">{{ details.title }}</a>
+				<a class="itm-title" :title="details.postTitle">{{ details.postTitle }}</a>
 				<div class="itm-gap">
 					<div>
 						<span class="0-margined h6" style="font-weight: var(--bold-weight);">{{ details.priceDefinition }}&nbsp;</span>
@@ -99,7 +98,7 @@ export default {
 		</template>
 		<template v-else-if="details.type === 'business'">
 			<div class="itm-display">
-				<img :src="details.logo" class="image" />
+				<img :src="details.bizLogo" class="image" />
 				<SvgIcon v-if="details.verified" name="verified_sp" title="Verified" class="small green-text" style="position: absolute; bottom: 0px; right: 0px;" />
 			</div>
 			<div class="itm-content">
@@ -146,11 +145,11 @@ export default {
 		<template v-else-if="details.type === 'post'">
 			<div class="itm-display">
 				<div class="itm-media">
-					<canvas :style="`background-image: url(${details.displayImg})`"></canvas>
+					<canvas :style="`background-image: url(${details.postMedia.filter(el => el.type === 'image')[0].url})`"></canvas>
 				</div>
 			</div>
 			<div class="itm-content">
-				<a class="itm-title">{{ details.textContent }}</a>
+				<a class="itm-title">{{ details.postText }}</a>
 				<div class="itm-gap">
 					<div class="truncate">
 						<SvgIcon name="verified" v-if="details.verified" title="Verified" class="mini green-text r-spaced" />
@@ -245,6 +244,10 @@ export default {
 			.itm-content {
 				width: calc(100% - var(--logo-width) - var(--itm-gap)); /* 100% - itm-display width - gap width */
 			}
+		}
+
+		&[data-type="post"] {
+			.itm-title { -webkit-line-clamp: 3; }
 		}
 
 		@media only screen and (max-width : 500px) {

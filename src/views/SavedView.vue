@@ -44,7 +44,7 @@
 				
 				<ItemCard v-for="(result, i) in userStore.savedCards" :key="i" :details="result" :isSaved="true" />
 
-				<div class="divider"><button class="button">More results <SvgIcon name="expand_more" /></button></div>
+				<div class="divider"><button class="button">More results <SvgIcon class="trailing" name="expand_more" /></button></div>
 			</main>
 			<Shareables name="ad_menu" />
 		</section>
