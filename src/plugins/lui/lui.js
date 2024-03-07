@@ -1,15 +1,15 @@
-import Modal from './components/modal.vue';
-import SidePanel from './components/SidePanel.vue';
-import Dropdown from './components/Dropdown.vue';
-import Dropmenu from './components/Dropmenu.vue';
-import Carousel from './components/Carousel.vue';
+import Modal from 'components/modal.vue';
+import SidePanel from 'components/SidePanel.vue';
+import Dropdown from 'components/Dropdown.vue';
+import Dropmenu from 'components/Dropmenu.vue';
+import Carousel from 'components/Carousel.vue';
 
-import { Collapsible } from './directives/Collapsible.js';
-import { Tooltip } from './directives/Tooltip.js';
-import { Tab } from './directives/Tab.js';
-import { scrollPin } from './directives/ScrollPin.js';
-import { iScroller } from './directives/iScroller.js';
-import { streamSize } from './directives/streamSize.js';
+import { Collapsible } from 'directives/Collapsible.js';
+import { Tooltip } from 'directives/Tooltip.js';
+import { Tab } from 'directives/Tab.js';
+import { scrollPin } from 'directives/ScrollPin.js';
+import { iScroller } from 'directives/iScroller.js';
+import { streamSize } from 'directives/streamSize.js';
 
 export default {
     install(app, options) {
