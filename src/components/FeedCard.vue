@@ -41,11 +41,17 @@
 			</div>
 			{{ details.postText }}
 		</div>
-		<div class="icon-bar fillable menu">
-			<div class="item"><SvgIcon name="thumb_up" class="small lead" /> ({{ details.thumbsUp }})</div>
-			<div class="item"><SvgIcon name="comment" class="small lead" /> ({{ details.comments.length }})</div>
-			<div class="item"><SvgIcon name="visibility" class="small lead" /> ({{ details.visibility }})</div>
-			<div class="item"><SvgIcon name="share" class="small" /></div>
+		<!-- <div class="icon-bar fillable menu">
+			<div class="xhover as-icon item"><div class="circular compact transparent button"><SvgIcon name="thumb_up" class="small" /></div> ({{ details.thumbsUp }})</div>
+			<div class="xhover as-icon item"><div class="circular compact transparent button"><SvgIcon name="reply" class="small" /></div></div>
+			<div class="xhover as-icon item"><div class="circular compact transparent button"><SvgIcon name="share" class="small" /></div></div>
+		</div> -->
+		<div class="icon-bar small compact menu">
+			<div class="items adaptable container fillable" style="border-radius: var(--radius-default);">
+				<div class="as-icon item"><SvgIcon name="thumb_up" /> ({{ details.thumbsUp }})</div>
+				<div class="as-icon item"><SvgIcon name="reply" /></div>
+				<div class="as-icon item"><SvgIcon name="share" /></div>
+			</div>
 		</div>
 	</div>
 </template>

@@ -40,53 +40,7 @@
 		</div>
 	</SidePanel>
 	<div id="fmenu" class="menu z-level-3 respect-lock" :class="{ pinned: mainStore.showFixedMenu }">
-		<div class="container items auto-margined" style="border-radius: var(--radius-default)">
-			<div class="item as-icon open-sidepanel" :class="!userStore.auth && $route.name === 'home' ? '' : 'lg-and-up-hidden'" v-tooltip.unblocking data-tooltip="Menu" data-target="msidepanel">
-				<SvgIcon name="menu" />
-			</div>
-			<router-link to="/" class="xhover item as-icon">
-				<img src="/images/logo_sqr.png" alt="site logo" class="logo-lg site-logo">
-			</router-link>
-			<form class="xhover adaptable item md-and-down-hidden" @submit.prevent="submitSearch">
-				<label class="input fluid transparent clue-bg" style="max-width: 550px;">
-					<SvgIcon name="search" class="xhover" />
-					<input v-model="searchStore.searchBox" type="search" placeholder="Your search here." class="subject">
-					<button type="button" v-tooltip.unblocking data-tooltip="Scan QR" class="icon open-modal" data-target="scanqr-modal">
-						<SvgIcon name="qr_code_scanner" />
-					</button>
-					<button type="button" v-tooltip.unblocking data-tooltip="Search location is set to Nigeria. Click to change it." class="icon open-modal" data-target="">
-						<SvgIcon name="location_on" />	
-					</button>
-				</label>
-			</form>
-			<div class="items r-aligned">
-				<div v-tooltip.unblocking data-tooltip="Search" class="open-modal as-icon item md-and-up-hidden" data-target="search-modal">
-					<SvgIcon name="search" />
-				</div>
-				<template v-if="userStore.auth">
-					<div class="as-icon item" v-tooltip.unblocking data-tooltip="Notifications">
-						<SvgIcon name="notifications" />
-					</div>
-					<Dropdown data-target="dm_profile" :options="{directionPriority: {x: 'left', y: 'bottom'}}" v-tooltip.unblocking data-tooltip="Your profile and also test" class="xhover as-icon item">
-						<img src="/images/profile.jpg" alt="profile"  class="fully-rounded logo" />
-						<Shareables name="profile_menu" />
-					</Dropdown>
-				</template>
-				<template v-else>
-					<div class="items lg-and-down-hidden">
-						<div class="item open-modal" data-target="login-modal">Log in</div>
-						<div class="xhover item 0-h-padding"><button class="primary button open-modal" data-target="register-modal">Sign Up</button></div>
-					</div>
-					<Dropdown :options="{directionPriority: {x: 'left', y: 'bottom'}}" v-tooltip.unblocking data-tooltip="Account" class="item as-icon lg-and-up-hidden">
-						<SvgIcon name="person_add" /> <span class="sm-and-down-hidden">Account</span>
-						<Dropmenu>
-							<div class="item open-modal" data-target="login-modal">Log in</div>
-							<div class="xhover item"><button class="primary button open-modal" data-target="register-modal">Sign Up</button></div>
-						</Dropmenu>
-					</Dropdown>
-				</template>
-			</div>
-		</div>
+		<Shareables name="main_menu" />
 	</div>
 </template>
 

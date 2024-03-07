@@ -37,10 +37,8 @@
         <div class="item" @click="userStore.logout()"><SvgIcon name="logout" class="lead" /> Log out</div>
     </Dropmenu>
     <template v-else-if="name === 'supports'">
-        <div class="item">Get help</div>
-        <div class="item">Become a developer</div>
-        <div class="item">Support us</div>
-        <div class="item">Thank you</div>
+        <div class="item"><SvgIcon name="help" class="lead" /> Help center</div>
+        <div class="item"><SvgIcon name="feedback" class="lead" /> Give feedback</div>
     </template>
     <template v-else-if="name === 'nav_menu'">
         <div class="items" style="border-radius: var(--radius-default);">
@@ -56,8 +54,7 @@
                     Saved Posts
                 </router-link>
                 <div class="item exit-sidepanel open-modal" data-target="explore-modal">
-                    <SvgIcon name="explore" class="lead nview" />
-                    <SvgIcon name="explore_filled" class="lead aview" />
+                    <SvgIcon name="manage_search" class="lead" />
                     Explore
                 </div>
                 <div class="item exit-sidepanel open-modal" data-target="scanqr-modal">
@@ -69,7 +66,7 @@
                     <SvgIcon name="groups_filled" class="lead aview" />
                     Following
                 </router-link>
-                <router-link to="/profile" exact-active-class="active" class="item">
+                <router-link to="/profile" exact-active-class="active" class="item exit-sidepanel">
                     <SvgIcon name="person" class="lead nview" />
                     <SvgIcon name="person_filled" class="lead aview" />
                     Profile
@@ -88,13 +85,14 @@
                 <div class="collapsible sub items">
                     <rc-shareables name="supports" />
                 </div>
+                <div class="item"><SvgIcon name="settings" class="lead" /> Settings</div>
                 <div class="transparent compact divider"></div>
                 <div class="xhover item 0-padding"><button class="fluid button">Have a shop online</button></div>
+                <div class="item" @click="userStore.logout()"><SvgIcon name="logout" class="lead" /> Log out</div>
             </template>
             <template v-else>
                 <div class="item exit-sidepanel open-modal" data-target="explore-modal">
-                    <SvgIcon name="explore" class="lead nview" />
-                    <SvgIcon name="explore_filled" class="lead aview" />
+                    <SvgIcon name="manage_search" class="lead" />
                     Explore
                 </div>
                 <div class="item exit-sidepanel open-modal" data-target="scanqr-modal">
@@ -128,53 +126,60 @@
             </template>
         </div>
     </template>
+    <div v-else-if="name === 'main_menu'" class="container items auto-margined" style="border-radius: var(--radius-default)">
+        <div class="item as-icon open-sidepanel" :class="!userStore.auth && $route.name === 'home' ? '' : 'lg-and-up-hidden'" v-tooltip.unblocking data-tooltip="Menu" data-target="msidepanel">
+            <SvgIcon name="menu" />
+        </div>
+        <router-link to="/" class="xhover item as-icon">
+            <img src="/images/logo_sqr.png" alt="site logo" class="logo-lg site-logo">
+        </router-link>
+        <form class="xhover adaptable item md-and-down-hidden" @submit.prevent="searchStore.triggerSearch()">
+            <label class="input fluid transparent clue-bg" style="max-width: 550px;">
+                <SvgIcon name="search" class="xhover" />
+                <input v-model="searchStore.searchBox" type="search" placeholder="Your search here." class="subject">
+                <button type="button" v-tooltip.unblocking data-tooltip="Scan QR" class="icon open-modal" data-target="scanqr-modal">
+                    <SvgIcon name="qr_code_scanner" />
+                </button>
+                <button type="button" v-tooltip.unblocking data-tooltip="Search location is set to Nigeria. Click to change it." class="icon open-modal" data-target="">
+                    <SvgIcon name="location_on" />	
+                </button>
+            </label>
+        </form>
+        <div class="items r-aligned">
+            <div v-tooltip.unblocking data-tooltip="Search" class="open-modal as-icon item md-and-up-hidden" data-target="search-modal">
+                <SvgIcon name="search" />
+            </div>
+            <template v-if="userStore.auth">
+                <div class="as-icon item" v-tooltip.unblocking data-tooltip="Notifications">
+                    <SvgIcon name="notifications" />
+                </div>
+                <Dropdown data-target="dm_profile" :options="{directionPriority: {x: 'left', y: 'bottom'}}" v-tooltip.unblocking data-tooltip="Your profile and also test" class="xhover as-icon item">
+                    <img src="/images/profile.jpg" alt="profile"  class="fully-rounded logo" />
+                    <Shareables name="profile_menu" />
+                </Dropdown>
+            </template>
+            <template v-else>
+                <div class="items lg-and-down-hidden">
+                    <div class="item open-modal" data-target="login-modal">Log in</div>
+                    <div class="xhover item as-icon 0-l-padding"><button class="primary button open-modal" data-target="register-modal">Sign Up</button></div>
+                </div>
+                <Dropdown :options="{directionPriority: {x: 'left', y: 'bottom'}}" v-tooltip.unblocking data-tooltip="Account" class="item as-icon lg-and-up-hidden">
+                    <SvgIcon name="person_add" /> <span class="sm-and-down-hidden">Account</span>
+                    <Dropmenu>
+                        <div class="item open-modal" data-target="login-modal">Log in</div>
+                        <div class="item open-modal" data-target="register-modal">Sign Up</div>
+                    </Dropmenu>
+                </Dropdown>
+            </template>
+        </div>
+    </div>
     <template v-else-if="name === 'common_header'">
         <div class="menu" style="height: 64px;">
-            <div class="container items" style="border-radius: var(--radius-default);">
-                <div class="item as-icon open-sidepanel lg-and-up-hidden" data-target="msidepanel">
-                    <SvgIcon name="menu" />
-                </div>
-                <router-link to="/" class="xhover item as-icon">
-                    <img src="/images/logo_sqr.png" alt="site logo" class="logo-lg site-logo" />
-                </router-link>
-                <form class="xhover adaptable item md-and-down-hidden" @submit.prevent="searchStore.triggerSearch()">
-                    <label class="input fluid transparent clue-bg" style="max-width: 550px;">
-                        <SvgIcon name="search" class="xhover" />
-                        <input v-model="searchStore.searchBox" type="search" id="searchinput" placeholder="Your search here." class="subject" ref="inputbox" autofocus />
-                        <button type="button" v-tooltip.unblocking data-tooltip="Scan QR" class="icon open-modal" data-target="scanqr-modal">
-                            <SvgIcon name="qr_code_scanner" />
-                        </button>
-                        <button type="button" v-tooltip.unblocking data-tooltip="Search location is set to Nigeria. Click to change it." class="icon open-modal" data-target="">
-                            <SvgIcon name="location_on" />	
-                        </button>
-                    </label>
-                </form>
-                <div v-if="userStore.auth" class="items r-aligned">
-                    <div class="as-icon item">
-                        <SvgIcon name="notifications" />
-                    </div>
-                    <Dropdown class="xhover as-icon item" v-tooltip.unblocking data-tooltip="Your profile and also test">
-                        <img src="/images/profile.jpg" alt="profile"  class="fully-rounded logo" />
-                        <rc-shareables name="profile_menu" />
-                    </Dropdown>
-                </div> 
-                <div v-else class="items r-aligned">
-                    <div class="items sm-and-down-hidden">
-                        <div class="item open-modal" data-target="login-modal">Log in</div>
-                        <div class="xhover item 0-h-padding"><button class="primary button open-modal" data-target="register-modal">Sign Up</button></div>
-                    </div>
-                    <Dropdown class="as-icon item sm-and-up-hidden">
-                        <SvgIcon name="person_add" />
-                        <Dropmenu>
-                            <div class="item open-modal" data-target="login-modal">Log in</div>
-                            <div class="xhover item"><button class="primary button open-modal" data-target="register-modal">Sign Up</button></div>
-                        </Dropmenu>
-                    </Dropdown>
-                </div>
-            </div>
+            <rc-shareables name="main_menu" />
         </div>
         <div class="container md-and-up-hidden" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
             <form class="fluid" @submit.prevent="searchStore.triggerSearch()">
+                {{  searchStore.triggerSearch }}
                 <label class="input fluid transparent clue-bg">
                     <SvgIcon name="search" class="xhover" />
                     <input v-model="searchStore.searchBox" type="search" id="searchinput" placeholder="Your search here." class="subject" ref="inputbox" autofocus />
@@ -189,7 +194,7 @@
         </div>
         <div class="md-and-down-hidden" style="padding: 0em 0em 0.5em;">
             <div class="container grid flex-no-wrap">
-                <div class="manual-width col r-padded d-flex flex-middle"><span class="d-block bold">Explore:</span> </div>
+                <div class="manual-width col r-padded d-flex flex-middle"><span class="d-block bold"><SvgIcon name="manage_search" /> Explore:</span> </div>
                 <div v-iScroller id="categories" class="i-scroller col" style="overflow: hidden; padding: 4px 0px;">
                     <div class="l-scroll"><SvgIcon name="double_arrow_left" class="mini" /></div>
                     <div class="r-scroll"><SvgIcon name="double_arrow_right" class="mini" /></div>

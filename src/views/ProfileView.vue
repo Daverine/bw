@@ -4,7 +4,7 @@
 	import Shareables from '../components/Shareables.vue';
 
 	export default {
-		title: 'Following | BizWorld',
+		title: 'Profile | BizWorld',
 		components: { Shareables },
 		setup() {
 			const
@@ -39,6 +39,33 @@
 		<section id="main" ref="main" class="grid" style="position: relative; margin-top: 25px; min-height: 70vh;">
 			<Shareables name="page_nav" />
 			<main class="col" id="feed">
+				<header>
+					<div class="profile-cover">
+						<div class="cover-pic"></div>
+						<div class="profile-wrapper">
+							<div class="profile-pic circular image">
+								<img :src="userStore.userData.profileImg" alt="Your profile Picture" />
+							</div>
+							<div class="compact button">Edit profile</div>
+						</div>
+					</div>
+					
+					<h5>{{ `${userStore.userData.firstName} ${userStore.userData.lastName}` }}</h5>
+					<div class="semibold">
+						<span>{{ userStore.userData.following.length }} Following </span> |
+						<span>{{ userStore.userData.bookmarks.length }} Bookmarks </span>
+					</div>
+					<div class="basic menu" style="margin-top: 1rem;">
+						<div class="item">Reviews</div>
+						<div class="item">Settings</div>
+					</div>
+					<hr style="margin: 0px;"/>
+				</header>
+				
+				<div class="semibold">
+					<SvgIcon name="location" /> Default Search Location: {{ userStore.userData.searchLocation }}
+				</div>
+				<div class="compact button">Create a work profile</div>
 			</main>
 			<Shareables name="ad_menu" />
 		</section>
@@ -59,16 +86,33 @@
 	</div>
 </template>
 
-<style lang="scss">
-	.following-cont {
-		display: flex;
-		flex-flow: row nowrap;
-		gap: 0.5em;
-		align-items: flex-start;
-		width: 100%;
-		padding: 0rem 1rem;
-		overflow: hidden;
+<style lang="scss" scoped>
+	#feed {
+		header {
+			width: 100%;
+		}
+		.profile-cover {
 
-		& > * { flex: 0 0 auto; }
+		}
+
+		.profile-wrapper {
+			display: flex;
+			justify-content: space-between;
+			align-items: start;
+			padding: 1rem;
+		}
+		.cover-pic {
+			width: 100%;
+			padding-top: calc(100% / 3 * 1);
+			background-color: gray;
+		}
+
+		.profile-pic {
+			width: 7.5rem;
+			height: 7.5rem;
+			border: 4px solid var(--surface);
+			margin-top: calc(-7.5rem / 2 - 1rem);
+		}
 	}
+
 </style>

@@ -1581,6 +1581,7 @@ hr.vertical:empty,
 }
 
 .image.circular {
+  border-radius: var(--radius-full);
   overflow: hidden;
 }
 
@@ -2923,12 +2924,27 @@ hr.vertical:empty,
 
 /* --- MENU --- */
 .menu {
+  --menu-line-height: 1.5;
+  --menu-padding-tb: 0.75em;
+  --menu-padding-lr: 1.5em;
+  --menu-logo: 2em;
+  --menu-logo-sm: 1.5em;
+  --menu-logo-lg: 2.5em;
+  --menu-icon-padding-lr: 1em;
+}
+.menu.compact {
+  --menu-padding-tb: 0.375em;
+  --menu-padding-br: 0.75em;
+  --menu-icon-padding-lr: 0.5em;
+}
+
+.menu {
   position: relative;
   font-size: 1em;
   font-weight: 500;
   width: 100%;
   padding: 0em;
-  line-height: 1.5;
+  line-height: var(--menu-line-height);
   list-style: none;
   background-color: var(--surface);
   color: var(--on-surface);
@@ -2963,7 +2979,7 @@ hr.vertical:empty,
   margin: 0;
   color: inherit;
   text-decoration: none;
-  padding: 0.75em 1.5em;
+  padding: var(--menu-padding-tb) var(--menu-padding-lr);
   outline: 0px none;
   border-radius: inherit;
   white-space: nowrap;
@@ -3008,15 +3024,15 @@ hr.vertical:empty,
 }
 .menu > .item .logo,
 .menu .items > .item .logo {
-  max-height: 2em;
+  max-height: var(--menu-logo);
 }
 .menu > .item .logo-sm,
 .menu .items > .item .logo-sm {
-  max-height: 1.5em;
+  max-height: var(--menu-logo-sm);
 }
 .menu > .item .logo-lg,
 .menu .items > .item .logo-lg {
-  max-height: 2.5em;
+  max-height: var(--menu-logo-lg);
 }
 .menu > .item > .lead,
 .menu .items > .item > .lead {
@@ -3054,8 +3070,8 @@ hr.vertical:empty,
 .menu.icon-bar > .item, .menu.icon-bar .items > .item, .menu > .item.as-icon,
 .menu .items > .item.as-icon,
 .menu .items.as-icon > .item {
-  padding-left: 1em;
-  padding-right: 1em;
+  padding-left: var(--menu-icon-padding-lr);
+  padding-right: var(--menu-icon-padding-lr);
 }
 .menu.nav-bar > .item, .menu.nav-bar > .items > .item {
   flex-direction: column;

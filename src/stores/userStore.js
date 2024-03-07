@@ -11,6 +11,9 @@ export const useUserStore = defineStore('user', {
             email: 'folorunsodavid1@gmail.com',
             country: 'Nigeria',
             profileImg: '/images/profile.jpg',
+            following: [],
+            bookmarks: [],
+            searchLocation: 'Itori, Ewekoro, Ogun state, Nigeria',
 
         },
         savedCards: [],
@@ -18,21 +21,9 @@ export const useUserStore = defineStore('user', {
     }),
     actions: {
         login(email, password) {
-            this.userData = {
-                firstname: "Ayoola",
-                lastname: "Folorunso",
-                country: "Nigeria",
-                email: email
-            };
             this.auth = true;
         },
         signup(firstname, lastname, email, password, country) {
-            this.userData = {
-                firstname: firstname,
-                lastname: lastname,
-                country: country,
-                email: email
-            }
             this.auth = true;
         },
         logout() {
