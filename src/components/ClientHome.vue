@@ -117,7 +117,7 @@
 				</div>
 			</section>
 			<section class="sec-block">
-				<div class="container grid">
+				<div class="container grid 1-cols md-2-cols">
 					<div class="col">
 						<img src="/images/explore.jpg" alt="picture depicting explore" class="image" />
 					</div>
@@ -141,7 +141,10 @@
 				</div>
 			</section>
 			<section class="sec-block">
-				<div class="container grid">
+				<div class="container grid 1-cols md-2-cols" style="flex-flow: row-reverse wrap;">
+					<div class="col">
+						<img src="/images/qr.jpg" alt="picture depicting qr" class="image" />
+					</div>
 					<div class="col big">
 						<div>
 							<h2>Know there products and services without asking</h2>
@@ -150,9 +153,6 @@
 								<button class="primary button open-modal" data-target="scanqr-modal">SCAN QR</button>
 							</div>
 						</div>
-					</div>
-					<div class="col">
-						<img src="/images/qr.jpg" alt="picture depicting qr" class="image" />
 					</div>
 				</div>
 			</section>

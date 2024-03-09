@@ -43,11 +43,13 @@
 	<div class="as-page">
 		<header id="main-header" style="background-color: var(--surface);">
 			<Shareables name="common_header" />
-			<div class="centered basic menu">
-				<div class="active item">All</div>
-				<div class="item">Businesses</div>
-				<div class="item">Products</div>
-				<div class="item">Services</div>
+			<div v-iScroller class="i-scroller" style="overflow: hidden;">
+				<div class="centered basic menu scroll-items">
+					<div class="active item">All</div>
+					<div class="item">Businesses</div>
+					<div class="item">Products</div>
+					<div class="item">Services</div>
+				</div>
 			</div>
 			<hr style="margin: 0px;"/>
 		</header>

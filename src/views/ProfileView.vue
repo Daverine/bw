@@ -70,7 +70,7 @@
 			<Shareables name="ad_menu" />
 		</section>
 		<footer>
-			<div class="transparent text menu" style="padding: 10px 0px; background-color: var(--surface-focus-alpha) !important; font-weight: normal;">
+			<div class="wrappable text menu" style="padding: 10px 0px; background-color: var(--surface-focus-alpha) !important; font-weight: normal;">
 				<div class="container items">
 					<div class="item">Terms of use</div>
 					<div class="item">About us</div>

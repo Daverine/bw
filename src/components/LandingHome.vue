@@ -43,8 +43,6 @@
 						<SvgIcon name="menu" />
 					</div>
 					<div class="items md-and-down-hidden">
-						<router-link to="/saved" class="item">Saved Posts</router-link>
-						<router-link to="/following" class="item">Following</router-link>
 						<router-link to="/help#shop-online" class="item">Have a shop online</router-link>
 						<Dropdown class="item">
 							Support

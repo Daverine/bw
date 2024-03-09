@@ -28,7 +28,6 @@ export const useUserStore = defineStore('user', {
         },
         logout() {
             this.auth = false;
-            this.userData = {};
         },
         async getSavedCards() {
             return new Promise(() => {

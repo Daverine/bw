@@ -10329,6 +10329,7 @@ textarea.clue-bg,
 .i-scroller > .scroll-items {
   display: flex;
   width: 100% !important;
+  min-width: 0px !important;
   flex-flow: row nowrap !important;
   overflow: hidden !important;
   scroll-behavior: auto;

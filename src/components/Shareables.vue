@@ -32,8 +32,9 @@
 <template>
     <Dropmenu v-if="name === 'profile_menu'">
         <div class="header centered item xhover">Welcome,<br /> Ayoola Folorunso</div>
-        <router-link to="/profile" class="item"><SvgIcon name="person" class="lead" /> Profile</router-link>
-        <router-link to="/feedback" class="item"><SvgIcon name="feedback" class="lead" /> Give feedback</router-link>
+        <router-link to="/saved" class="item"><SvgIcon name="bookmarks" class="lead" />Saved cards</router-link>
+        <router-link to="/following" class="item"><SvgIcon name="groups" class="lead" /> Following</router-link>
+        <router-link to="/profile" class="item"><SvgIcon name="person" class="lead" /> Account</router-link>
         <div class="item" @click="userStore.logout()"><SvgIcon name="logout" class="lead" /> Log out</div>
     </Dropmenu>
     <template v-else-if="name === 'supports'">
@@ -48,11 +49,6 @@
                     <SvgIcon name="home_filled" class="lead aview" />
                     Home
                 </router-link>
-                <router-link to="saved" exact-active-class="active" class="item exit-sidepanel">
-                    <SvgIcon name="bookmarks" class="lead nview" />
-                    <SvgIcon name="bookmarks_filled" class="lead aview" />
-                    Saved Posts
-                </router-link>
                 <div class="item exit-sidepanel open-modal" data-target="explore-modal">
                     <SvgIcon name="manage_search" class="lead" />
                     Explore
@@ -61,15 +57,10 @@
                     <SvgIcon name="qr_code_scanner" class="lead" />
                     Scan QR
                 </div>
-                <router-link to="/following" exact-active-class="active" class="item exit-sidepanel">
-                    <SvgIcon name="groups" class="lead nview" />
-                    <SvgIcon name="groups_filled" class="lead aview" />
-                    Following
-                </router-link>
                 <router-link to="/profile" exact-active-class="active" class="item exit-sidepanel">
                     <SvgIcon name="person" class="lead nview" />
                     <SvgIcon name="person_filled" class="lead aview" />
-                    Profile
+                    Account
                 </router-link>
                 <div v-collapsible class="item">
                     <i class="lead viewbox icon">
@@ -85,7 +76,6 @@
                 <div class="collapsible sub items">
                     <rc-shareables name="supports" />
                 </div>
-                <div class="item"><SvgIcon name="settings" class="lead" /> Settings</div>
                 <div class="transparent compact divider"></div>
                 <div class="xhover item 0-padding"><button class="fluid button">Have a shop online</button></div>
                 <div class="item" @click="userStore.logout()"><SvgIcon name="logout" class="lead" /> Log out</div>
@@ -179,7 +169,6 @@
         </div>
         <div class="container md-and-up-hidden" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
             <form class="fluid" @submit.prevent="searchStore.triggerSearch()">
-                {{  searchStore.triggerSearch }}
                 <label class="input fluid transparent clue-bg">
                     <SvgIcon name="search" class="xhover" />
                     <input v-model="searchStore.searchBox" type="search" id="searchinput" placeholder="Your search here." class="subject" ref="inputbox" autofocus />
