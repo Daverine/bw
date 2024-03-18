@@ -32,8 +32,8 @@ export default {
                     "type": "business",
                     "bizName": "Emmadave Computer Technology Services",
                     "mainCategory": "Computer repair services",
-                    "logo": "images/logo-sq.png",
-                    "coverPic": "images/ads.jpg",
+                    "logo": "/images/logo-sq.png",
+                    "coverPic": "/images/ads.jpg",
                     "bizUrl": "https://www.edtech.com",
                     "description": "We offer technical services on laptop and desktop. We offer computer tech training We also do web development.",
                     "verified": true,
@@ -52,7 +52,7 @@ export default {
                         {
                             "userid": "e8e34",
                             "username": "daverine",
-                            "userpic": "images/profile_pic.jpg",
+                            "userpic": "/images/profile_pic.jpg",
                             "anonymous": false,
                             "timestamp": 1694061107318,
                             "rating": 4,
@@ -61,7 +61,7 @@ export default {
                         {
                             "userid": "e8e34",
                             "username": "daverine",
-                            "userpic": "images/profile_pic.jpg",
+                            "userpic": "/images/profile_pic.jpg",
                             "anonymous": false,
                             "timestamp": 1694061107318,
                             "rating": 3,
@@ -70,7 +70,7 @@ export default {
                         {
                             "userid": "e8e34",
                             "username": "daverine",
-                            "userpic": "images/profile_pic.jpg",
+                            "userpic": "/images/profile_pic.jpg",
                             "anonymous": false,
                             "timestamp": 1694061107318,
                             "rating": 3,
@@ -79,7 +79,7 @@ export default {
                         {
                             "userid": "e8e34",
                             "username": "daverine",
-                            "userpic": "images/profile_pic.jpg",
+                            "userpic": "/images/profile_pic.jpg",
                             "anonymous": false,
                             "timestamp": 1694061107318,
                             "rating": 2,
@@ -88,7 +88,7 @@ export default {
                         {
                             "userid": "e8e34",
                             "username": "daverine",
-                            "userpic": "images/profile_pic.jpg",
+                            "userpic": "/images/profile_pic.jpg",
                             "anonymous": false,
                             "timestamp": 1694061107318,
                             "rating": 2,
@@ -97,7 +97,7 @@ export default {
                         {
                             "userid": "e8e34",
                             "username": "daverine",
-                            "userpic": "images/profile_pic.jpg",
+                            "userpic": "/images/profile_pic.jpg",
                             "anonymous": false,
                             "timestamp": 1694061107318,
                             "rating": 2,
@@ -106,7 +106,7 @@ export default {
                         {
                             "userid": "e8e34",
                             "username": "daverine",
-                            "userpic": "images/profile_pic.jpg",
+                            "userpic": "/images/profile_pic.jpg",
                             "anonymous": false,
                             "timestamp": 1694061107318,
                             "rating": 4,
@@ -115,7 +115,7 @@ export default {
                         {
                             "userid": "e8e34",
                             "username": "daverine",
-                            "userpic": "images/profile_pic.jpg",
+                            "userpic": "/images/profile_pic.jpg",
                             "anonymous": false,
                             "timestamp": 1694061107318,
                             "rating": 4,
@@ -124,7 +124,7 @@ export default {
                         {
                             "userid": "e8e34",
                             "username": "daverine",
-                            "userpic": "images/profile_pic.jpg",
+                            "userpic": "/images/profile_pic.jpg",
                             "anonymous": false,
                             "timestamp": 1694061107318,
                             "rating": 4,
@@ -133,7 +133,7 @@ export default {
                         {
                             "userid": "e8e34",
                             "username": "daverine",
-                            "userpic": "images/profile_pic.jpg",
+                            "userpic": "/images/profile_pic.jpg",
                             "anonymous": false,
                             "timestamp": 1694061107318,
                             "rating": 4,
@@ -142,7 +142,7 @@ export default {
                         {
                             "userid": "e8e34",
                             "username": "daverine",
-                            "userpic": "images/profile_pic.jpg",
+                            "userpic": "/images/profile_pic.jpg",
                             "anonymous": false,
                             "timestamp": 1694061107318,
                             "rating": 4,
@@ -161,7 +161,7 @@ export default {
                     "template": {
                         "userid": "e8e34",
                         "username": "daverine",
-                        "userpic": "images/profile_pic.jpg",
+                        "userpic": "/images/profile_pic.jpg",
                         "anonymous": false,
                         "timestamp": 1694061107318,
                         "rating": 4,
@@ -176,7 +176,7 @@ export default {
                     "price": "N100,000",
 					"currency": "Naira",
                     "negotiable": true,
-                    "media": [['pic', 'images/product.jpeg']],
+                    "media": [['pic', '/images/product.jpeg']],
 					"specifications": {
 						"Type": "Laptop",
 						"Condition": "Used",
@@ -192,7 +192,7 @@ export default {
                         {
                             "userid": "e8e34",
                             "username": "daverine",
-                            "userpic": "images/profile_pic.jpg",
+                            "userpic": "/images/profile_pic.jpg",
                             "anonymous": false,
                             "timestamp": 1694061107318,
                             "rating": 4,
@@ -201,7 +201,7 @@ export default {
                         {
                             "userid": "e8e34",
                             "username": "daverine",
-                            "userpic": "images/profile_pic.jpg",
+                            "userpic": "/images/profile_pic.jpg",
                             "anonymous": false,
                             "timestamp": 1694061107318,
                             "rating": 3,
@@ -210,7 +210,7 @@ export default {
                         {
                             "userid": "e8e34",
                             "username": "daverine",
-                            "userpic": "images/profile_pic.jpg",
+                            "userpic": "/images/profile_pic.jpg",
                             "anonymous": false,
                             "timestamp": 1694061107318,
                             "rating": 3,
@@ -219,7 +219,7 @@ export default {
                         {
                             "userid": "e8e34",
                             "username": "daverine",
-                            "userpic": "images/profile_pic.jpg",
+                            "userpic": "/images/profile_pic.jpg",
                             "anonymous": false,
                             "timestamp": 1694061107318,
                             "rating": 2,
@@ -228,7 +228,7 @@ export default {
                         {
                             "userid": "e8e34",
                             "username": "daverine",
-                            "userpic": "images/profile_pic.jpg",
+                            "userpic": "/images/profile_pic.jpg",
                             "anonymous": false,
                             "timestamp": 1694061107318,
                             "rating": 2,
@@ -237,7 +237,7 @@ export default {
                         {
                             "userid": "e8e34",
                             "username": "daverine",
-                            "userpic": "images/profile_pic.jpg",
+                            "userpic": "/images/profile_pic.jpg",
                             "anonymous": false,
                             "timestamp": 1694061107318,
                             "rating": 2,
@@ -246,7 +246,7 @@ export default {
                         {
                             "userid": "e8e34",
                             "username": "daverine",
-                            "userpic": "images/profile_pic.jpg",
+                            "userpic": "/images/profile_pic.jpg",
                             "anonymous": false,
                             "timestamp": 1694061107318,
                             "rating": 4,
@@ -255,7 +255,7 @@ export default {
                         {
                             "userid": "e8e34",
                             "username": "daverine",
-                            "userpic": "images/profile_pic.jpg",
+                            "userpic": "/images/profile_pic.jpg",
                             "anonymous": false,
                             "timestamp": 1694061107318,
                             "rating": 4,
@@ -264,7 +264,7 @@ export default {
                         {
                             "userid": "e8e34",
                             "username": "daverine",
-                            "userpic": "images/profile_pic.jpg",
+                            "userpic": "/images/profile_pic.jpg",
                             "anonymous": false,
                             "timestamp": 1694061107318,
                             "rating": 4,
@@ -273,7 +273,7 @@ export default {
                         {
                             "userid": "e8e34",
                             "username": "daverine",
-                            "userpic": "images/profile_pic.jpg",
+                            "userpic": "/images/profile_pic.jpg",
                             "anonymous": false,
                             "timestamp": 1694061107318,
                             "rating": 4,
@@ -282,7 +282,7 @@ export default {
                         {
                             "userid": "e8e34",
                             "username": "daverine",
-                            "userpic": "images/profile_pic.jpg",
+                            "userpic": "/images/profile_pic.jpg",
                             "anonymous": false,
                             "timestamp": 1694061107318,
                             "rating": 4,
@@ -290,7 +290,7 @@ export default {
                         }
                     ],
                     "bizData": {
-                        "logo": "images/logo-sq.png",
+                        "logo": "/images/logo-sq.png",
                         "bizName": "Emmadave Computer Technology Services",
                         "bizUrl": "https://www.edtech.com",
                         "mainCategory": "Computer repair services",
@@ -323,7 +323,7 @@ export default {
 					"title": "Create, design and format a document in Word, Powerpoint, Excel and CorelDRAW",
                     "price": "N100,000",
 					"currency": "Naira",
-                    "media": [['pic', 'images/product.jpeg']],
+                    "media": [['pic', '/images/product.jpeg']],
 					"specifications": {
 						"Type": "Laptop",
 						"Condition": "Used",
@@ -339,7 +339,7 @@ export default {
                         {
                             "userid": "e8e34",
                             "username": "daverine",
-                            "userpic": "images/profile_pic.jpg",
+                            "userpic": "/images/profile_pic.jpg",
                             "anonymous": false,
                             "timestamp": 1694061107318,
                             "rating": 4,
@@ -348,7 +348,7 @@ export default {
                         {
                             "userid": "e8e34",
                             "username": "daverine",
-                            "userpic": "images/profile_pic.jpg",
+                            "userpic": "/images/profile_pic.jpg",
                             "anonymous": false,
                             "timestamp": 1694061107318,
                             "rating": 3,
@@ -357,7 +357,7 @@ export default {
                         {
                             "userid": "e8e34",
                             "username": "daverine",
-                            "userpic": "images/profile_pic.jpg",
+                            "userpic": "/images/profile_pic.jpg",
                             "anonymous": false,
                             "timestamp": 1694061107318,
                             "rating": 3,
@@ -366,7 +366,7 @@ export default {
                         {
                             "userid": "e8e34",
                             "username": "daverine",
-                            "userpic": "images/profile_pic.jpg",
+                            "userpic": "/images/profile_pic.jpg",
                             "anonymous": false,
                             "timestamp": 1694061107318,
                             "rating": 2,
@@ -375,7 +375,7 @@ export default {
                         {
                             "userid": "e8e34",
                             "username": "daverine",
-                            "userpic": "images/profile_pic.jpg",
+                            "userpic": "/images/profile_pic.jpg",
                             "anonymous": false,
                             "timestamp": 1694061107318,
                             "rating": 2,
@@ -384,7 +384,7 @@ export default {
                         {
                             "userid": "e8e34",
                             "username": "daverine",
-                            "userpic": "images/profile_pic.jpg",
+                            "userpic": "/images/profile_pic.jpg",
                             "anonymous": false,
                             "timestamp": 1694061107318,
                             "rating": 2,
@@ -393,7 +393,7 @@ export default {
                         {
                             "userid": "e8e34",
                             "username": "daverine",
-                            "userpic": "images/profile_pic.jpg",
+                            "userpic": "/images/profile_pic.jpg",
                             "anonymous": false,
                             "timestamp": 1694061107318,
                             "rating": 4,
@@ -402,7 +402,7 @@ export default {
                         {
                             "userid": "e8e34",
                             "username": "daverine",
-                            "userpic": "images/profile_pic.jpg",
+                            "userpic": "/images/profile_pic.jpg",
                             "anonymous": false,
                             "timestamp": 1694061107318,
                             "rating": 4,
@@ -411,7 +411,7 @@ export default {
                         {
                             "userid": "e8e34",
                             "username": "daverine",
-                            "userpic": "images/profile_pic.jpg",
+                            "userpic": "/images/profile_pic.jpg",
                             "anonymous": false,
                             "timestamp": 1694061107318,
                             "rating": 4,
@@ -420,7 +420,7 @@ export default {
                         {
                             "userid": "e8e34",
                             "username": "daverine",
-                            "userpic": "images/profile_pic.jpg",
+                            "userpic": "/images/profile_pic.jpg",
                             "anonymous": false,
                             "timestamp": 1694061107318,
                             "rating": 4,
@@ -429,7 +429,7 @@ export default {
                         {
                             "userid": "e8e34",
                             "username": "daverine",
-                            "userpic": "images/profile_pic.jpg",
+                            "userpic": "/images/profile_pic.jpg",
                             "anonymous": false,
                             "timestamp": 1694061107318,
                             "rating": 4,
@@ -437,7 +437,7 @@ export default {
                         }
                     ],
                     "bizData": {
-                        "logo": "images/logo-sq.png",
+                        "logo": "/images/logo-sq.png",
                         "bizName": "Emmadave Computer Technology Services",
                         "bizUrl": "https://www.edtech.com",
                         "mainCategory": "Computer repair services",

@@ -87,7 +87,6 @@ export function iScroller() {
                 this.prop.width = this.e.scrollElem.clientWidth;
                 this.prop.left = utils.offsetPos(this.e.scrollElem).left;
                 this.prop.scrollPos = this.e.scrollElem.scrollLeft;
-                console.log(this.e.scrollElem);
 
 				if (e.deltaY > 0) {
 					this.e.scrollElem.scrollLeft = this.prop.scrollPos + 30;

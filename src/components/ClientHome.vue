@@ -110,7 +110,7 @@
 			<section id="whatfor" class="sec-block">
 				<div class="big centered container">
 					<h1>What is BizWorld for?</h1>
-					<p>BizWorld is where new and old customers meet businesses; where careers meet employers; where business is done. You can perceive Bizworld as a very large market online where you meet variety of businesses and careers showcase themselves. You can get updates from stores and offices. You can rate and write review on businesses.</p>
+					<p>Perceive Bizworld as a massive online marketplace where you meet a variety of businesses and careers showcasing themselves. You can get updates from stores, offices, and businesses in general. You can rate and write reviews on enterprises.</p>
 					<div class="centered">
 						<button class="primary button open-modal" data-target="register-modal">SIGN UP</button>
 					</div>
@@ -123,16 +123,17 @@
 					</div>
 					<div class="col big">
 						<div>
-							<h2>Explore businesses around you without leaving your spot</h2>
-							<p>You can browse for businesses based on a listed categories of common needed services; You can compare businesses and determine where is best for you to get things done.</p>
+							<h2>Explore businesses around you without leaving your spot.</h2>
+							<p>You can browse for businesses based on listed categories of commonly needed products and services. You can compare enterprises and determine where you should get things done.</p>
 							<ul>
 								<li>Find the category of service or shopping you need</li>
-								<li>Compare distance, rating, review of businesses</li>
+								<li>Compare distance, ratings and reviews of businesses</li>
 								<li>View business info like location, what they offer, etc.</li>
 								<li>Navigate to a business page to interact with the business</li>
-								<li>Rate and write review on a business based on your experience</li>
+								<li>Rate and write a review on a business based on your experience</li>
 								<!-- Browse for products and services around you and know where to get things done without having to ask anyone. Our explore section displays businesses in categories of what they offer. So you can easily compare businesses there. If the category you are looking for is not there you can make use of seach instead.</li> -->
 							</ul>
+							<p>If you can not find the category of interest on our explore page, use the search feature instead.</p>
 							<div class="centered">
 								<button class="primary button open-modal" data-target="explore-modal">EXPLORE</button>
 							</div>
@@ -147,8 +148,9 @@
 					</div>
 					<div class="col big">
 						<div>
-							<h2>Know there products and services without asking</h2>
-							<p>Scan a business bizWorld QR Code and get to know what products or services a business offer. Businesses that have page(s) on bizWorld usually have their BizWorld QR Code pasted in public places to help people easyly access their page. You can utilize the QR scanner on this page on such Code and directly access a business page and explore their business world.</p>
+							<h2>Know their products and services without asking.</h2>
+							<p><strong>BizWorld QR codes</strong> are a convenient way to access information about businesses. These QR codes are often placed in public areas to make it easy for people to access a business’s page. You can use the QR code scanner on this page for such codes.</p>
+							<!-- <p>Scan a business bizWorld QR Code and get to know what products or services a business offer. Businesses that have page(s) on bizWorld usually have their BizWorld QR Code pasted in public places to help people easyly access their page. You can utilize the QR scanner on this page on such Code and directly access a business page and explore their business world.</p> -->
 							<div class="centered">
 								<button class="primary button open-modal" data-target="scanqr-modal">SCAN QR</button>
 							</div>
@@ -159,7 +161,7 @@
 			<section class="sec-block">
 				<div class="big centered container">
 					<h2>Take your business online with ease.</h2>
-					<p>Are you a business owner? Do you want people to connect with your business with ease online? We got you covered. Get started create your microsite here on BizWorld today and get connected with new clients and customers.</p>
+					<p>Are you a business owner? Do you want people to connect with your business with ease online? We have you covered. Click on the Get Started button below to create your microsite here on BizWorld today and get connected with new clients and customers.</p>
 					<div class="centered">
 						<button class="primary button">GET STARTED</button>
 					</div>

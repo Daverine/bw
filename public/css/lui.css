@@ -1230,7 +1230,6 @@ ol.upper-roman-type .sub-list .sub-list .sub-list .sub-list .sub-list .sub-list 
   margin: 0 0 1em;
   border-radius: var(--radius-default);
   border: 1px solid var(--outline);
-  box-shadow: var(--z-depth-1);
   transition: box-shadow 0.1s ease, transform 0.1s ease;
 }
 .card:not(.padded):not(.v-padded):not(.h-padded):not(.t-padded) > *:first-child {
@@ -3002,22 +3001,22 @@ hr.vertical:empty,
 .menu .items > .item.r-aligned {
   justify-content: flex-end;
 }
-.menu > .item:not(.xhover):not(.header):not(.active):hover, .menu > .item.hovered,
-.menu .items > .item:not(.xhover):not(.header):not(.active):hover,
-.menu .items > .item.hovered {
+.menu > .item:not(.xhover):not(.header):hover, .menu > .item:not(.xhover):not(.header).hovered,
+.menu .items > .item:not(.xhover):not(.header):hover,
+.menu .items > .item:not(.xhover):not(.header).hovered {
   text-decoration: none;
   background-color: var(--surface-hover-alpha);
 }
-.menu > .item.active, .menu > .item.selected,
-.menu .items > .item.active,
-.menu .items > .item.selected {
+.menu > .item:not(.xactive).active, .menu > .item:not(.xactive).selected,
+.menu .items > .item:not(.xactive).active,
+.menu .items > .item:not(.xactive).selected {
   cursor: default;
   font-weight: bold;
   background-color: var(--surface-focus-alpha);
 }
 .menu > .item > img,
 .menu .items > .item > img {
-  max-height: 1.5em;
+  max-height: var(--menu-logo-lg);
   width: auto;
   line-height: 1;
   vertical-align: bottom;
@@ -3029,10 +3028,6 @@ hr.vertical:empty,
 .menu > .item .logo-sm,
 .menu .items > .item .logo-sm {
   max-height: var(--menu-logo-sm);
-}
-.menu > .item .logo-lg,
-.menu .items > .item .logo-lg {
-  max-height: var(--menu-logo-lg);
 }
 .menu > .item > .lead,
 .menu .items > .item > .lead {
@@ -3390,24 +3385,29 @@ hr.vertical:empty,
   opacity: 0.9;
   background-color: transparent !important;
 }
-.menu[class*=rail] > .item:not(.xhover):not(.header):not(.active):hover, .menu[class*=rail] > .item.hovered,
-.menu[class*=rail] .items > .item:not(.xhover):not(.header):not(.active):hover,
-.menu[class*=rail] .items > .item.hovered,
-.menu[class*=basic] > .item:not(.xhover):not(.header):not(.active):hover,
-.menu[class*=basic] > .item.hovered,
-.menu[class*=basic] .items > .item:not(.xhover):not(.header):not(.active):hover,
-.menu[class*=basic] .items > .item.hovered {
+.menu[class*=rail] > .item:not(.xhover):not(.header):hover, .menu[class*=rail] > .item:not(.xhover):not(.header).hovered,
+.menu[class*=rail] .items > .item:not(.xhover):not(.header):hover,
+.menu[class*=rail] .items > .item:not(.xhover):not(.header).hovered,
+.menu[class*=basic] > .item:not(.xhover):not(.header):hover,
+.menu[class*=basic] > .item:not(.xhover):not(.header).hovered,
+.menu[class*=basic] .items > .item:not(.xhover):not(.header):hover,
+.menu[class*=basic] .items > .item:not(.xhover):not(.header).hovered {
   opacity: 1;
+  color: var(--primary);
   background-color: transparent;
   border-color: var(--outline-variant);
 }
-.menu[class*=rail] > .item.active,
-.menu[class*=rail] .items > .item.active,
-.menu[class*=basic] > .item.active,
-.menu[class*=basic] .items > .item.active {
+.menu[class*=rail] > .item:not(.xactive).active, .menu[class*=rail] > .item:not(.xactive).selected,
+.menu[class*=rail] .items > .item:not(.xactive).active,
+.menu[class*=rail] .items > .item:not(.xactive).selected,
+.menu[class*=basic] > .item:not(.xactive).active,
+.menu[class*=basic] > .item:not(.xactive).selected,
+.menu[class*=basic] .items > .item:not(.xactive).active,
+.menu[class*=basic] .items > .item:not(.xactive).selected {
   opacity: 1;
+  color: var(--primary);
   background-color: transparent;
-  border-color: var(--high-contrast) !important;
+  border-color: var(--primary) !important;
   font-weight: bold;
 }
 
@@ -3448,7 +3448,7 @@ hr.vertical:empty,
 .menu.rail:not(.vertical):not(.drop) .items > .item,
 .menu.basic:not(.vertical):not(.drop) > .item,
 .menu.basic:not(.vertical):not(.drop) .items > .item {
-  border-bottom: 2px solid transparent;
+  border-bottom: 3px solid transparent;
 }
 .menu.rail.vertical::before, .menu.rail.drop::before,
 .menu.basic.vertical::before,
@@ -3464,7 +3464,7 @@ hr.vertical:empty,
 .menu.basic.vertical .items > .item,
 .menu.basic.drop > .item,
 .menu.basic.drop .items > .item {
-  border-right: 2px solid transparent;
+  border-right: 3px solid transparent;
 }
 
 .menu.alt-rail:not(.vertical):not(.drop) > .item,
@@ -3484,7 +3484,7 @@ hr.vertical:empty,
 .menu.alt-rail:not(.vertical):not(.drop) .items > .item,
 .menu.alt-basic:not(.vertical):not(.drop) > .item,
 .menu.alt-basic:not(.vertical):not(.drop) .items > .item {
-  border-top: 2px solid transparent;
+  border-top: 3px solid transparent;
 }
 .menu.alt-rail.vertical::before, .menu.alt-rail.drop::before,
 .menu.alt-basic.vertical::before,
@@ -3500,7 +3500,7 @@ hr.vertical:empty,
 .menu.alt-basic.vertical .items > .item,
 .menu.alt-basic.drop > .item,
 .menu.alt-basic.drop .items > .item {
-  border-left: 2px solid transparent;
+  border-left: 3px solid transparent;
 }
 
 .menu[class*=tabular] {
@@ -3523,15 +3523,16 @@ hr.vertical:empty,
   background-color: transparent !important;
   border: 1px solid transparent;
 }
-.menu[class*=tabular] > .item:not(.xhover):not(.header):not(.active):hover, .menu[class*=tabular] > .item.hovered,
-.menu[class*=tabular] .items > .item:not(.xhover):not(.header):not(.active):hover,
-.menu[class*=tabular] .items > .item.hovered {
+.menu[class*=tabular] > .item:not(.xhover):not(.header):hover, .menu[class*=tabular] > .item:not(.xhover):not(.header).hovered,
+.menu[class*=tabular] .items > .item:not(.xhover):not(.header):hover,
+.menu[class*=tabular] .items > .item:not(.xhover):not(.header).hovered {
   background-color: transparent;
   border-color: var(--outline-variant) !important;
   background-color: transparent;
 }
-.menu[class*=tabular] > .item.active,
-.menu[class*=tabular] .items > .item.active {
+.menu[class*=tabular] > .item:not(.xactive).active, .menu[class*=tabular] > .item:not(.xactive).selected,
+.menu[class*=tabular] .items > .item:not(.xactive).active,
+.menu[class*=tabular] .items > .item:not(.xactive).selected {
   background-color: transparent;
   border-color: var(--outline) !important;
   font-weight: bold;
@@ -3554,8 +3555,9 @@ hr.vertical:empty,
 .menu.tabular:not(.vertical):not(.drop) .items > .item {
   border-bottom: 0px none;
 }
-.menu.tabular:not(.vertical):not(.drop) > .item.active,
-.menu.tabular:not(.vertical):not(.drop) .items > .item.active {
+.menu.tabular:not(.vertical):not(.drop) > .item:not(.xactive).active, .menu.tabular:not(.vertical):not(.drop) > .item:not(.xactive).selected,
+.menu.tabular:not(.vertical):not(.drop) .items > .item:not(.xactive).active,
+.menu.tabular:not(.vertical):not(.drop) .items > .item:not(.xactive).selected {
   border-bottom: 1px solid var(--surface) !important;
 }
 .menu.tabular.vertical, .menu.tabular.drop {
@@ -3571,9 +3573,11 @@ hr.vertical:empty,
 .menu.tabular.drop .items > .item {
   border-right: 0px none;
 }
-.menu.tabular.vertical > .item.active,
-.menu.tabular.vertical .items > .item.active, .menu.tabular.drop > .item.active,
-.menu.tabular.drop .items > .item.active {
+.menu.tabular.vertical > .item:not(.xactive).active, .menu.tabular.vertical > .item:not(.xactive).selected,
+.menu.tabular.vertical .items > .item:not(.xactive).active,
+.menu.tabular.vertical .items > .item:not(.xactive).selected, .menu.tabular.drop > .item:not(.xactive).active, .menu.tabular.drop > .item:not(.xactive).selected,
+.menu.tabular.drop .items > .item:not(.xactive).active,
+.menu.tabular.drop .items > .item:not(.xactive).selected {
   border-right: 1px solid var-(--surface) !important;
 }
 
@@ -3594,8 +3598,9 @@ hr.vertical:empty,
 .menu.alt-tabular:not(.vertical):not(.drop) .items > .item {
   border-top: 0px none;
 }
-.menu.alt-tabular:not(.vertical):not(.drop) > .item.active,
-.menu.alt-tabular:not(.vertical):not(.drop) .items > .item.active {
+.menu.alt-tabular:not(.vertical):not(.drop) > .item:not(.xactive).active, .menu.alt-tabular:not(.vertical):not(.drop) > .item:not(.xactive).selected,
+.menu.alt-tabular:not(.vertical):not(.drop) .items > .item:not(.xactive).active,
+.menu.alt-tabular:not(.vertical):not(.drop) .items > .item:not(.xactive).selected {
   border-top: 1px solid var(--surface) !important;
 }
 .menu.alt-tabular.vertical, .menu.alt-tabular.drop {
@@ -3611,9 +3616,11 @@ hr.vertical:empty,
 .menu.alt-tabular.drop .items > .item {
   border-left: 0px none;
 }
-.menu.alt-tabular.vertical > .item.active,
-.menu.alt-tabular.vertical .items > .item.active, .menu.alt-tabular.drop > .item.active,
-.menu.alt-tabular.drop .items > .item.active {
+.menu.alt-tabular.vertical > .item:not(.xactive).active, .menu.alt-tabular.vertical > .item:not(.xactive).selected,
+.menu.alt-tabular.vertical .items > .item:not(.xactive).active,
+.menu.alt-tabular.vertical .items > .item:not(.xactive).selected, .menu.alt-tabular.drop > .item:not(.xactive).active, .menu.alt-tabular.drop > .item:not(.xactive).selected,
+.menu.alt-tabular.drop .items > .item:not(.xactive).active,
+.menu.alt-tabular.drop .items > .item:not(.xactive).selected {
   border-left: 1px solid var(--surface) !important;
 }
 
@@ -3630,11 +3637,11 @@ hr.vertical:empty,
   background: transparent !important;
   border: 0px none !important;
 }
-.text.menu .item:not(.xhover):not(.header):not(.active):hover, .text.menu .item.hovered {
+.text.menu .item:not(.xhover):not(.header):hover, .text.menu .item:not(.xhover):not(.header).hovered {
   opacity: 1;
   text-decoration: underline !important;
 }
-.text.menu .item.active {
+.text.menu .item:not(.xactive).active, .text.menu .item:not(.xactive).selected {
   opacity: 1;
   font-weight: bold !important;
 }

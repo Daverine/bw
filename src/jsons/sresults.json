@@ -11,7 +11,7 @@
             "url": "https://goo.gl/maps/y9ExQLSq37FL6EHm6"
         },
         "verified": true,
-        "mainCategory": "Computer repair services",
+        "bizCategory": "Computer repair services",
         "rating": { "rate": 3.5, "raters": 30 },
         "hours": [
             [-1],
@@ -25,7 +25,7 @@
     },
     {
         "type": "product",
-        "postMedia": [{ "type": "image", "url": "./images/product.jpeg", "alt": "pic" }],
+        "postMedia": [{ "type": "image", "url": "/images/product.jpeg", "alt": "pic" }],
         "postTitle": "Dell Inspiron 5050, Intel Core i5 5th Gen, 8gb RAM, 256gb SSD. Very clean and rugged laptop. Suitable for office use. Long lasting battery",
         "labels": ["used", "15.6"],
         "price": "N100,000",
@@ -44,7 +44,7 @@
     },
 	{
         "type": "service",
-        "postMedia": [{ "type": "image", "url": "./images/product.jpeg", "alt": "pic" }],
+        "postMedia": [{ "type": "image", "url": "/images/product.jpeg", "alt": "pic" }],
         "postTitle": "Create, design and format a document in Word, Powerpoint, Excel and CorelDRAW",
         "priceDefinition": "From",
         "price": "N5,000",
@@ -64,12 +64,12 @@
     {
         "type": "post",
         "id": "20230701",
-        "bizLogo": "./images/edads.jpg",
+        "bizLogo": "/images/edads.jpg",
         "verified": true,
         "bizName": "Emmadave Computer Technology and Services",
         "bizCategory": "Computer repair services",
         "postText": "Edtech on work. View profile. Just trying to test how it appears on saved route. It should look nice at least. Is it? Ko bad naa.",
-        "postMedia": [{ "type": "image", "url": "./images/ads.jpg", "alt": "pic" }],
+        "postMedia": [{ "type": "image", "url": "/images/ads.jpg", "alt": "pic" }],
         "date": "May 28",
         "thumbsUp": 0,
         "comments": [],
@@ -87,7 +87,7 @@
             "url": "https://goo.gl/maps/y9ExQLSq37FL6EHm6"
         },
         "verified": true,
-        "mainCategory": "Computer repair services",
+        "bizCategory": "Computer repair services",
         "rating": { "rate": 3.5, "raters": 30 },
         "hours": [
             [-1],
@@ -101,7 +101,7 @@
     },
     {
         "type": "product",
-        "postMedia": [{ "type": "image", "url": "./images/product.jpeg", "alt": "pic" }],
+        "postMedia": [{ "type": "image", "url": "/images/product.jpeg", "alt": "pic" }],
         "postTitle": "Dell Inspiron 5050, Intel Core i5 5th Gen, 8gb RAM, 256gb SSD. Very clean and rugged laptop. Suitable for office use. Long lasting battery",
         "labels": ["used", "15.6"],
         "price": "N100,000",
@@ -120,7 +120,7 @@
     },
 	{
         "type": "service",
-        "postMedia": [{ "type": "image", "url": "./images/product.jpeg", "alt": "pic" }],
+        "postMedia": [{ "type": "image", "url": "/images/product.jpeg", "alt": "pic" }],
         "postTitle": "Create, design and format a document in Word, Powerpoint, Excel and CorelDRAW",
         "priceDefinition": "From",
         "price": "N5,000",
@@ -149,7 +149,7 @@
             "url": "https://goo.gl/maps/y9ExQLSq37FL6EHm6"
         },
         "verified": true,
-        "mainCategory": "Computer repair services",
+        "bizCategory": "Computer repair services",
         "rating": { "rate": 3.5, "raters": 30 },
         "hours": [
             [-1],
@@ -163,7 +163,7 @@
     },
     {
         "type": "product",
-        "postMedia": [{ "type": "image", "url": "./images/product.jpeg", "alt": "pic" }],
+        "postMedia": [{ "type": "image", "url": "/images/product.jpeg", "alt": "pic" }],
         "postTitle": "Dell Inspiron 5050, Intel Core i5 5th Gen, 8gb RAM, 256gb SSD. Very clean and rugged laptop. Suitable for office use. Long lasting battery",
         "labels": ["used", "15.6"],
         "price": "N100,000",
@@ -182,7 +182,7 @@
     },
 	{
         "type": "service",
-        "postMedia": [{ "type": "image", "url": "./images/product.jpeg", "alt": "pic" }],
+        "postMedia": [{ "type": "image", "url": "/images/product.jpeg", "alt": "pic" }],
         "postTitle": "Create, design and format a document in Word, Powerpoint, Excel and CorelDRAW",
         "priceDefinition": "From",
         "price": "N5,000",
@@ -211,7 +211,7 @@
             "url": "https://goo.gl/maps/y9ExQLSq37FL6EHm6"
         },
         "verified": true,
-        "mainCategory": "Computer repair services",
+        "bizCategory": "Computer repair services",
         "rating": { "rate": 3.5, "raters": 30 },
         "hours": [
             [-1],
@@ -225,7 +225,7 @@
     },
     {
         "type": "product",
-        "postMedia": [{ "type": "image", "url": "./images/product.jpeg", "alt": "pic" }],
+        "postMedia": [{ "type": "image", "url": "/images/product.jpeg", "alt": "pic" }],
         "postTitle": "Dell Inspiron 5050, Intel Core i5 5th Gen, 8gb RAM, 256gb SSD. Very clean and rugged laptop. Suitable for office use. Long lasting battery",
         "labels": ["used", "15.6"],
         "price": "N100,000",
@@ -244,7 +244,7 @@
     },
 	{
         "type": "service",
-        "postMedia": [{ "type": "image", "url": "./images/product.jpeg", "alt": "pic" }],
+        "postMedia": [{ "type": "image", "url": "/images/product.jpeg", "alt": "pic" }],
         "postTitle": "Create, design and format a document in Word, Powerpoint, Excel and CorelDRAW",
         "priceDefinition": "From",
         "price": "N5,000",
@@ -273,7 +273,7 @@
             "url": "https://goo.gl/maps/y9ExQLSq37FL6EHm6"
         },
         "verified": true,
-        "mainCategory": "Computer repair services",
+        "bizCategory": "Computer repair services",
         "rating": { "rate": 3.5, "raters": 30 },
         "hours": [
             [-1],
@@ -287,7 +287,7 @@
     },
     {
         "type": "product",
-        "postMedia": [{ "type": "image", "url": "./images/product.jpeg", "alt": "pic" }],
+        "postMedia": [{ "type": "image", "url": "/images/product.jpeg", "alt": "pic" }],
         "postTitle": "Dell Inspiron 5050, Intel Core i5 5th Gen, 8gb RAM, 256gb SSD. Very clean and rugged laptop. Suitable for office use. Long lasting battery",
         "labels": ["used", "15.6"],
         "price": "N100,000",
@@ -306,7 +306,7 @@
     },
 	{
         "type": "service",
-        "postMedia": [{ "type": "image", "url": "./images/product.jpeg", "alt": "pic" }],
+        "postMedia": [{ "type": "image", "url": "/images/product.jpeg", "alt": "pic" }],
         "postTitle": "Create, design and format a document in Word, Powerpoint, Excel and CorelDRAW",
         "priceDefinition": "From",
         "price": "N5,000",
@@ -335,7 +335,7 @@
             "url": "https://goo.gl/maps/y9ExQLSq37FL6EHm6"
         },
         "verified": true,
-        "mainCategory": "Computer repair services",
+        "bizCategory": "Computer repair services",
         "rating": { "rate": 3.5, "raters": 30 },
         "hours": [
             [-1],
@@ -349,7 +349,7 @@
     },
     {
         "type": "product",
-        "postMedia": [{ "type": "image", "url": "./images/product.jpeg", "alt": "pic" }],
+        "postMedia": [{ "type": "image", "url": "/images/product.jpeg", "alt": "pic" }],
         "postTitle": "Dell Inspiron 5050, Intel Core i5 5th Gen, 8gb RAM, 256gb SSD. Very clean and rugged laptop. Suitable for office use. Long lasting battery",
         "labels": ["used", "15.6"],
         "price": "N100,000",
@@ -368,7 +368,7 @@
     },
 	{
         "type": "service",
-        "postMedia": [{ "type": "image", "url": "./images/product.jpeg", "alt": "pic" }],
+        "postMedia": [{ "type": "image", "url": "/images/product.jpeg", "alt": "pic" }],
         "postTitle": "Create, design and format a document in Word, Powerpoint, Excel and CorelDRAW",
         "priceDefinition": "From",
         "price": "N5,000",
@@ -397,7 +397,7 @@
             "url": "https://goo.gl/maps/y9ExQLSq37FL6EHm6"
         },
         "verified": true,
-        "mainCategory": "Computer repair services",
+        "bizCategory": "Computer repair services",
         "rating": { "rate": 3.5, "raters": 30 },
         "hours": [
             [-1],
@@ -411,7 +411,7 @@
     },
     {
         "type": "product",
-        "postMedia": [{ "type": "image", "url": "./images/product.jpeg", "alt": "pic" }],
+        "postMedia": [{ "type": "image", "url": "/images/product.jpeg", "alt": "pic" }],
         "postTitle": "Dell Inspiron 5050, Intel Core i5 5th Gen, 8gb RAM, 256gb SSD. Very clean and rugged laptop. Suitable for office use. Long lasting battery",
         "labels": ["used", "15.6"],
         "price": "N100,000",
@@ -430,7 +430,7 @@
     },
 	{
         "type": "service",
-        "postMedia": [{ "type": "image", "url": "./images/product.jpeg", "alt": "pic" }],
+        "postMedia": [{ "type": "image", "url": "/images/product.jpeg", "alt": "pic" }],
         "postTitle": "Create, design and format a document in Word, Powerpoint, Excel and CorelDRAW",
         "priceDefinition": "From",
         "price": "N5,000",
@@ -459,7 +459,7 @@
             "url": "https://goo.gl/maps/y9ExQLSq37FL6EHm6"
         },
         "verified": true,
-        "mainCategory": "Computer repair services",
+        "bizCategory": "Computer repair services",
         "rating": { "rate": 3.5, "raters": 30 },
         "hours": [
             [-1],
@@ -473,7 +473,7 @@
     },
     {
         "type": "product",
-        "postMedia": [{ "type": "image", "url": "./images/product.jpeg", "alt": "pic" }],
+        "postMedia": [{ "type": "image", "url": "/images/product.jpeg", "alt": "pic" }],
         "postTitle": "Dell Inspiron 5050, Intel Core i5 5th Gen, 8gb RAM, 256gb SSD. Very clean and rugged laptop. Suitable for office use. Long lasting battery",
         "labels": ["used", "15.6"],
         "price": "N100,000",
@@ -492,7 +492,7 @@
     },
 	{
         "type": "service",
-        "postMedia": [{ "type": "image", "url": "./images/product.jpeg", "alt": "pic" }],
+        "postMedia": [{ "type": "image", "url": "/images/product.jpeg", "alt": "pic" }],
         "postTitle": "Create, design and format a document in Word, Powerpoint, Excel and CorelDRAW",
         "priceDefinition": "From",
         "price": "N5,000",

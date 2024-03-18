@@ -5,11 +5,15 @@ import newFeeds from '../jsons/feeds.json'
 export const useFeedStore = defineStore('feeds', {
     states: () => ({
         searchBox: '',
-        feeds: newFeeds
+        feeds: []
     }),
     actions: {
-        getUpdate() {
-            this.feeds = newFeeds;
+        async getUpdate() {
+            new Promise(() => {
+                setTimeout(() => {
+                    this.feeds = newFeeds;
+                }, 200)
+            });
         }
     }
 });

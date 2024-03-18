@@ -104,7 +104,7 @@
 			<div class="itm-content">
 				<a class="itm-title">{{ details.bizName }}</a>
 				<div class="itm-gap">
-					<span class="small semibold">{{ details.mainCategory }}</span>
+					<span class="small semibold">{{ details.bizCategory }}</span>
 					<span :title="details.location.address" class="truncate" style="color: var(--on-surface-variant);">
 						<SvgIcon name="location_on" class="mini r-spaced" />
 						<span class="small semibold">{{ `${details.location.city }, ${details.location.state}` }}</span>

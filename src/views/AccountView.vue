@@ -4,7 +4,7 @@
 	import Shareables from '../components/Shareables.vue';
 
 	export default {
-		title: 'Profile | BizWorld',
+		title: 'Your account page | BizWorld',
 		components: { Shareables },
 		setup() {
 			const
@@ -40,34 +40,38 @@
 			<Shareables name="page_nav" />
 			<main class="col" id="feed">
 				<header>
-					<div class="profile-cover">
-						<div class="cover-pic"></div>
-						<div class="profile-wrapper">
-							<div class="profile-pic circular image">
-								<img :src="userStore.userData.profileImg" alt="Your profile Picture" />
+					<div class="container guttered grid">
+						<div class="col manual-width">
+							<img :src="userStore.userData.profileImg" class="profile-pic circular image" alt="Your profile Picture" />
+						</div>
+						<div class="col">
+							<h5>{{ `${userStore.userData.firstName} ${userStore.userData.lastName}` }}</h5>
+							<div class="semibold">
+								<span>{{ userStore.userData.following.length }} Following </span> |
+								<span>{{ userStore.userData.bookmarks.length }} Bookmarks </span>
 							</div>
-							<div class="compact button">Edit profile</div>
 						</div>
 					</div>
-					
-					<h5>{{ `${userStore.userData.firstName} ${userStore.userData.lastName}` }}</h5>
-					<div class="semibold">
-						<span>{{ userStore.userData.following.length }} Following </span> |
-						<span>{{ userStore.userData.bookmarks.length }} Bookmarks </span>
-					</div>
-					<div class="basic menu" style="margin-top: 1rem;">
-						<div class="item">Reviews</div>
-						<div class="item">Settings</div>
+					<div class="sp-wrapper z-level-3" style="position: relative;">
+						<div v-iScroller v-scrollPin="{ topSpacing: 64, bottomSpacing: 40, ancestorGuarded: true }" class="i-scroller">
+							<div class="basic menu scroll-items" style="margin-top: 1rem;">
+								<router-link to="/account/profile" class="item" exact-active-class="active">Profile</router-link>
+								<router-link to="/account/reviews" class="item" exact-active-class="active">Reviews</router-link>
+								<router-link to="/account/saved" class="item" exact-active-class="active">Saved cards</router-link>
+								<router-link to="/account/followed" class="item" exact-active-class="active">Followed providers</router-link>
+								<router-link to="/account/settings" class="item" exact-active-class="active">Settings</router-link>
+							</div>
+						</div>
 					</div>
 					<hr style="margin: 0px;"/>
+					<div>
+						<router-view></router-view>
+					</div>
 				</header>
 				
-				<div class="semibold">
-					<SvgIcon name="location" /> Default Search Location: {{ userStore.userData.searchLocation }}
-				</div>
-				<div class="compact button">Create a work profile</div>
+				
 			</main>
-			<Shareables name="ad_menu" />
+			<!-- <Shareables name="ad_menu" /> -->
 		</section>
 		<footer>
 			<div class="wrappable text menu" style="padding: 10px 0px; background-color: var(--surface-focus-alpha) !important; font-weight: normal;">
@@ -91,10 +95,6 @@
 		header {
 			width: 100%;
 		}
-		.profile-cover {
-
-		}
-
 		.profile-wrapper {
 			display: flex;
 			justify-content: space-between;
@@ -108,10 +108,10 @@
 		}
 
 		.profile-pic {
-			width: 7.5rem;
-			height: 7.5rem;
+			width: 5rem;
+			height: 5rem;
 			border: 4px solid var(--surface);
-			margin-top: calc(-7.5rem / 2 - 1rem);
+			// margin-top: calc(-7.5rem / 2 - 1rem);
 		}
 	}
 

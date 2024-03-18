@@ -31,6 +31,13 @@
 			});
 		},
 		mounted() {
+			console.log(this.$route.query);
+
+			if (!this.searchStore.searchBox) {
+				console.log(this.$route.query);
+				this.searchStore.searchBox = this.$route.query;
+				this.searchStore.triggerSearch();
+			}
 			window.dispatchEvent(new Event("scroll"));
 			window.addEventListener('scroll', this.handleScroll);
 		},
@@ -60,7 +67,7 @@
 
 				<div class="divider"><button class="button">More results <SvgIcon class="trailing" name="expand_more" /></button></div>
 			</main>
-			<Shareables name="ad_menu" />
+			<!-- <Shareables name="ad_menu" /> -->
 		</section>
 	</div>
 </template>

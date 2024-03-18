@@ -30,11 +30,15 @@
 </script>
 
 <template>
-    <Dropmenu v-if="name === 'profile_menu'">
-        <div class="header centered item xhover">Welcome,<br /> Ayoola Folorunso</div>
-        <router-link to="/saved" class="item"><SvgIcon name="bookmarks" class="lead" />Saved cards</router-link>
-        <router-link to="/following" class="item"><SvgIcon name="groups" class="lead" /> Following</router-link>
-        <router-link to="/profile" class="item"><SvgIcon name="person" class="lead" /> Account</router-link>
+    <template v-if="name === 'account'">
+        <router-link to="/account/profile" class="item exit-sidepanel" exact-active-class="active"><SvgIcon name="person" class="lead" /> Your profile</router-link>
+        <router-link to="/account/reviews" class="item exit-sidepanel" exact-active-class="active"><SvgIcon name="reviews" class="lead" /> Your reviews</router-link>
+        <router-link to="/account/saved" class="item exit-sidepanel" exact-active-class="active"><SvgIcon name="bookmarks" class="lead" />Saved cards</router-link>
+        <router-link to="/account/followed" class="item exit-sidepanel" exact-active-class="active"><SvgIcon name="groups" class="lead" />Followed providers</router-link>
+    </template>
+    <Dropmenu v-else-if="name === 'profile_menu'">
+        <router-link to="/account" class="header centered item"><img :src="userStore.userData.profileImg" class="free-img circular image">{{ `${userStore.userData.firstName} ${userStore.userData.lastName}` }}</router-link>
+        <rc-shareables name="account" />
         <div class="item" @click="userStore.logout()"><SvgIcon name="logout" class="lead" /> Log out</div>
     </Dropmenu>
     <template v-else-if="name === 'supports'">
@@ -57,28 +61,29 @@
                     <SvgIcon name="qr_code_scanner" class="lead" />
                     Scan QR
                 </div>
-                <router-link to="/profile" exact-active-class="active" class="item exit-sidepanel">
+                <div v-collapsible class="item xactive">
                     <SvgIcon name="person" class="lead nview" />
                     <SvgIcon name="person_filled" class="lead aview" />
                     Account
-                </router-link>
-                <div v-collapsible class="item">
-                    <i class="lead viewbox icon">
-                        <SvgIcon name="contact_support" class="n-view" />
-                        <SvgIcon name="contact_support_filled" class="a-view" />
-                    </i>
+                    <SvgIcon name="expand_more" class="trailing aview" />
+                    <SvgIcon name="chevron_left" class="trailing nview" />
+                </div>
+                <div class="collapsible sub items">
+                    <rc-shareables name="account" />
+                </div>
+                <div v-collapsible class="item xhover xactive">
+                    <SvgIcon name="contact_support" class="lead nview" />
+                    <SvgIcon name="contact_support_filled" class="lead aview" />
                     Support
-                    <i class="trailing viewbox icon">
-                        <SvgIcon name="expand_more" class="a-view" />
-                        <SvgIcon name="chevron_left" class="n-view" />
-                    </i>
+                    <SvgIcon name="expand_more" class="trailing aview" />
+                    <SvgIcon name="chevron_left" class="trailing nview" />
                 </div>
                 <div class="collapsible sub items">
                     <rc-shareables name="supports" />
                 </div>
+                <div class="item" @click="userStore.logout()"><SvgIcon name="logout" class="lead" /> Log out</div>
                 <div class="transparent compact divider"></div>
                 <div class="xhover item 0-padding"><button class="fluid button">Have a shop online</button></div>
-                <div class="item" @click="userStore.logout()"><SvgIcon name="logout" class="lead" /> Log out</div>
             </template>
             <template v-else>
                 <div class="item exit-sidepanel open-modal" data-target="explore-modal">
@@ -89,7 +94,7 @@
                     <SvgIcon name="qr_code_scanner" class="lead" />
                     Scan Business QR
                 </div>
-                <div v-collapsible class="item">
+                <div v-collapsible class="item xactive">
                     <i class="lead viewbox icon">
                         <SvgIcon name="contact_support" class="n-view" />
                         <SvgIcon name="contact_support_filled" class="a-view" />
@@ -139,12 +144,15 @@
             <div v-tooltip.unblocking data-tooltip="Search" class="open-modal as-icon item md-and-up-hidden" data-target="search-modal">
                 <SvgIcon name="search" />
             </div>
+            <div v-tooltip.unblocking data-tooltip="Explore categories" class="open-modal item as-icon" data-target="explore-modal">
+                <SvgIcon name="manage_search" />
+            </div>
             <template v-if="userStore.auth">
                 <div class="as-icon item" v-tooltip.unblocking data-tooltip="Notifications">
                     <SvgIcon name="notifications" />
                 </div>
                 <Dropdown data-target="dm_profile" :options="{directionPriority: {x: 'left', y: 'bottom'}}" v-tooltip.unblocking data-tooltip="Your profile and also test" class="xhover as-icon item">
-                    <img src="/images/profile.jpg" alt="profile"  class="fully-rounded logo" />
+                    <img :src="userStore.userData.profileImg" alt="profile"  class="fully-rounded logo" />
                     <Shareables name="profile_menu" />
                 </Dropdown>
             </template>
@@ -215,8 +223,8 @@
         </footer>
     </template>
     <template v-else-if="name === 'page_nav'">
-        <aside class="manual-width col sidemenu lg-and-down-hidden">
-            <div id="navmenu" v-scrollPin="{ topSpacing: 84, bottomSpacing: 16, parentGuided: true }" class="vertical transparent menu">
+        <aside class="manual-width col sidemenu lg-and-down-hidden sp-wrapper">
+            <div id="navmenu" v-scrollPin="{ topSpacing: 84, bottomSpacing: 16, ancestorGuarded: true }" class="vertical transparent menu">
                 <rc-shareables name="nav_menu" />
             </div>
         </aside>

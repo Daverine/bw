@@ -46,7 +46,7 @@
 				</div>
 				<div class="divider"><button class="button">More results <SvgIcon class="trailing" name="expand_more" /></button></div>
 			</main>
-			<Shareables name="ad_menu" />
+			<!-- <Shareables name="ad_menu" /> -->
 		</section>
 		<footer>
 			<div class="wrappable text menu" style="padding: 10px 0px; background-color: var(--surface-focus-alpha) !important; font-weight: normal;">
