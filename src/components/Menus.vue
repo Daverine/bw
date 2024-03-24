@@ -16,10 +16,8 @@
 			return { mainStore, searchStore, userStore }
 		},
 		methods: {
-			submitSearch() {
-				if (!this.searchStore.searchBox) return;
-				this.searchStore.triggerSearch();
-				this.$router.push('/search?'+this.searchStore.searchBox);
+			toTop() {
+				window.scrollTo({top: 0, behavior: 'smooth'});
 			}
 		}
     }
@@ -42,9 +40,28 @@
 	<div id="fmenu" class="menu z-level-3 respect-lock" :class="{ pinned: mainStore.showFixedMenu }">
 		<Shareables name="main_menu" />
 	</div>
+	<button id="qaction" @click="toTop" class="fab circular tertiary button" :class="{ 'now-visible': mainStore.showFixedMenu }">
+		<SvgIcon name="vertical_align_top" />
+	</button>
 </template>
 
-<style scoped>
+<style lang="scss">
+#qaction {
+	position: fixed;
+	font-size: 1.5rem;
+	z-index: var(--z-level-4);
+	bottom: 2.5rem;
+	right: 1rem;
+	pointer-events: none;
+	opacity: 0;
+	transition: opacity 0.2s linear;
+	box-shadow: var(--z-depth-3);
+
+	&.now-visible {
+		pointer-events: all;
+		opacity: 1;
+	}
+}
 #msidepanel > .panel {
 	display: flex;
 	flex-flow: column nowrap;

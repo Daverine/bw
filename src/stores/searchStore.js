@@ -10,7 +10,7 @@ export const useSearchStore = defineStore('search', {
     actions: {
         triggerSearch() {
             if (!this.searchBox) return;
-            this.$router.push('/search?'+this.searchBox);
+            this.$router.push('/search?q='+this.searchBox);
             this.searchResults = sresults;
         }
     }

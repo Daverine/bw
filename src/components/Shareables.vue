@@ -171,7 +171,7 @@
             </template>
         </div>
     </div>
-    <template v-else-if="name === 'common_header'">
+    <header v-else-if="name === 'common_header'" id="main-header" style="border-bottom: 1px solid var(--outline); background-color: var(--surface);">
         <div class="menu" style="height: 64px;">
             <rc-shareables name="main_menu" />
         </div>
@@ -191,7 +191,7 @@
         </div>
         <div class="md-and-down-hidden" style="padding: 0em 0em 0.5em;">
             <div class="container grid flex-no-wrap">
-                <div class="manual-width col r-padded d-flex flex-middle"><span class="d-block bold"><SvgIcon name="manage_search" /> Explore:</span> </div>
+                <div class="manual-width col"><div class="compact transparent button bold open-modal" data-target="explore-modal"><SvgIcon name="manage_search" class="lead" /> Explore:</div></div>
                 <div v-iScroller id="categories" class="i-scroller col" style="overflow: hidden; padding: 4px 0px;">
                     <div class="l-scroll"><SvgIcon name="double_arrow_left" class="mini" /></div>
                     <div class="r-scroll"><SvgIcon name="double_arrow_right" class="mini" /></div>
@@ -209,7 +209,7 @@
                 </div>
             </div>
         </div>
-    </template>
+	</header>
     <template v-else-if="name === 'common_footer'">
         <footer style="align-self: flex-end;">
             <div class="transparent text wrappable menu flex-centered">
@@ -223,8 +223,8 @@
         </footer>
     </template>
     <template v-else-if="name === 'page_nav'">
-        <aside class="manual-width col sidemenu lg-and-down-hidden sp-wrapper">
-            <div id="navmenu" v-scrollPin="{ topSpacing: 84, bottomSpacing: 16, ancestorGuarded: true }" class="vertical transparent menu">
+        <aside id="navmenu" class="manual-width col sidemenu lg-and-down-hidden sp-wrapper">
+            <div v-scrollPin="{ topSpacing: 84, bottomSpacing: 16, ancestorGuarded: true }" class="vertical transparent menu">
                 <rc-shareables name="nav_menu" />
             </div>
         </aside>

@@ -65,9 +65,9 @@
 				</div>
 			</div>
 			<form id="searchbox" class="centered" @submit.prevent="searchStore.triggerSearch()">
-				<div style="margin-bottom: 32px;">
-					<h1 id="call-text">Let's do business</h1>
-					<p class="huge">Search for business names, products and services.</p>
+				<div style="margin-bottom: 2rem;">
+					<h2 id="call-text">Let us do business</h2>
+					<p class="huge">Search for business names, products, and services.</p>
 				</div>
 				<div>
 					<label class="input big fluid">
@@ -169,25 +169,34 @@
 			</section>
 		</article>
 		<footer style="background-color: rgba(128, 128, 128, 0.1);">
-			<div class="container grid" style="gap: 1rem; padding-top: 45px; padding-bottom: 20px;">
+			<div class="container grid" style="gap: 1rem; padding: 2.75rem 1.25rem 1.25rem;">
 				<div class="col">
-					<div class="heading">Resources</div>
+					<div class="heading"><img src="/images/logo.png" style="max-height: 1.25em;" /></div>
 					<div class="vertical text menu">
-						<a href="#" class="item">Help & Support</a>
-						<a href="#" class="item">Blog</a>
-						<a href="#" class="item">What’s a micro-site</a>
-						<a href="#" class="item">What’s new</a>
-						<a href="#" class="item">About Us</a>
+						<div class="item open-modal" data-target="search-modal">Business search</div>
+						<div class="item open-modal" data-target="scanqr-modal">Scan QR code</div>
+						<div class="item open-modal" data-target="explore-modal">Explore categories</div>
+						<a href="#" class="item">Bring your business online</a>
+						<a href="#" class="item">Showcase yourself</a>
 					</div>
 				</div>
 				<div class="col">
+					<div class="heading">Resources</div>
+					<div class="vertical text menu">
+						<a href="#" class="item">Help center</a>
+						<a href="#" class="item">Blog</a>
+						<a href="#" class="item">What’s a micro-site</a>
+						<a href="#" class="item">About Us</a>
+					</div>
+				</div>
+				<!-- <div class="col">
 					<div class="heading">Business</div>
 					<div class="vertical text menu">
 						<a href="#" class="item">BizWorld</a>
 						<a href="#" class="item">Linda - POS</a>
 						<a href="#" class="item">School Management System</a>
 					</div>
-				</div>
+				</div> -->
 				<div class="col">
 					<div class="heading">Contacts</div>
 					<div class="vertical text menu">
@@ -195,19 +204,19 @@
 						<a href="#" class="item">info@bizworld.com</a>
 						<a href="#" class="item">support@bizworld.com</a>
 					</div>
-					<button class="secondary button">Anonymous Feedback</button>
+					<button class="secondary compact button">Anonymous Feedback</button>
 				</div>
 				<div class="col">
 					<div class="heading">Follow us</div>
 					<div class="vertical text menu">
-						<a href="#" class="item">Twitter</a>
+						<a href="#" class="item">LinkedIn</a>
 						<a href="#" class="item">YouTube</a>
 						<a href="#" class="item">Instagram</a>
 						<a href="#" class="item">Facebook</a>
 					</div>
 				</div>
 			</div>
-			<div class="transparent wrappable text menu" style="padding: 10px 0px;">
+			<div class="wrappable text menu" style="padding: 10px 0px;">
 				<div class="container items">
 					<div class="item">Terms of use</div>
 					<div class="item">About us</div>
@@ -224,10 +233,8 @@
 </template>
 
 <style scoped>
-	.as-page {
-		scroll-behavior: smooth;
-	}
-
+	@import url('https://fonts.googleapis.com/css2?family=Lemon&family=Lilita+One&family=Noto+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Sunshiney&display=swap');
+	
 	#main-header {
 		min-height: calc(100vh - 64px);
 		display: flex;
@@ -245,8 +252,9 @@
 	#call-text {
 		margin-top: 0px;
 		margin-bottom: 10px;
+		font-family: "Lemon", cursive;
+		font-size: 3.25rem;
 		line-height: 1.125em;
-		font-family: 'Lilita One', cursive;
 	}
 
 	.sec-block {

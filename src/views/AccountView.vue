@@ -32,11 +32,8 @@
 </script>
 <template>
 	<div class="as-page">
-		<header id="main-header" style="background-color: var(--surface);">
-			<Shareables name="common_header" />
-			<hr style="margin: 0px;"/>
-		</header>
-		<section id="main" ref="main" class="grid" style="position: relative; margin-top: 25px; min-height: 70vh;">
+		<Shareables name="common_header" />
+		<section ref="main" class="csection grid">
 			<Shareables name="page_nav" />
 			<main class="col" id="feed">
 				<header>
@@ -52,14 +49,18 @@
 							</div>
 						</div>
 					</div>
-					<div class="sp-wrapper z-level-3" style="position: relative;">
-						<div v-iScroller v-scrollPin="{ topSpacing: 64, bottomSpacing: 40, ancestorGuarded: true }" class="i-scroller">
-							<div class="basic menu scroll-items" style="margin-top: 1rem;">
-								<router-link to="/account/profile" class="item" exact-active-class="active">Profile</router-link>
-								<router-link to="/account/reviews" class="item" exact-active-class="active">Reviews</router-link>
-								<router-link to="/account/saved" class="item" exact-active-class="active">Saved cards</router-link>
-								<router-link to="/account/followed" class="item" exact-active-class="active">Followed providers</router-link>
-								<router-link to="/account/settings" class="item" exact-active-class="active">Settings</router-link>
+					<div class="sp-wrapper fluid z-level-3" style="margin-top: 1rem;">
+						<div v-iScroller v-scrollPin="{ topSpacing: 68, ancestorGuarded: true }" class="i-scroller">
+							<div class="l-scroll"><SvgIcon name="double_arrow_left" class="mini" /></div>
+                    		<div class="r-scroll"><SvgIcon name="double_arrow_right" class="mini" /></div>
+							<div class="rail menu scroll-items">
+								<div class="items" style="margin: 0px auto;">
+									<router-link to="/account/profile" class="item" exact-active-class="active">Profile</router-link>
+									<router-link to="/account/reviews" class="item" exact-active-class="active">Reviews</router-link>
+									<router-link to="/account/saved" class="item" exact-active-class="active">Saved cards</router-link>
+									<router-link to="/account/followed" class="item" exact-active-class="active">Followed providers</router-link>
+									<router-link to="/account/settings" class="item" exact-active-class="active">Settings</router-link>
+								</div>
 							</div>
 						</div>
 					</div>

@@ -33,10 +33,7 @@
 </script>
 <template>
 	<div class="as-page">
-		<header id="main-header" style="background-color: var(--surface);">
-			<Shareables name="common_header" />
-			<hr style="margin: 0px;"/>
-		</header>
+		<Shareables name="common_header" />
 		<section id="main" ref="main" class="grid" style="position: relative; margin-top: 25px; min-height: 70vh;">
 			<Shareables name="page_nav" />
 			<main class="col" id="feed">

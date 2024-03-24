@@ -1,3 +1,4 @@
+import { parse } from "vue/compiler-sfc";
 import { utils } from "../utils";
 
 export function scrollPin() {
@@ -41,6 +42,8 @@ export function scrollPin() {
                 
                 if (this.settings.streamSizeToParent && this.el.parentNode.matches(this.settings.wrapper)) {
                     this.wrapper = this.el.parentNode;
+                    this.wrapper.classList.add('clearfix');
+                    if (utils.getCssVal(this.wrapper, 'position') === 'static') this.wrapper.style.position = 'relative'; 
                     const requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
                     this.sizeStreamId = requestAnimationFrame(this.streamCallback);
                 }
@@ -53,7 +56,7 @@ export function scrollPin() {
                 let elHeight = this.el.getBoundingClientRect().height;
                 
                 // let parent take scrollPin element height + the parent padding top and bottom as min-height
-                this.el.parentNode.style.minHeight = `${elHeight + parseFloat(utils.getCssVal(this.el.parentNode, 'padding-top')) + parseFloat(utils.getCssVal(this.el.parentNode, 'padding-bottom'))}px`;
+                this.wrapper.style.minHeight = `${elHeight + this.getTB(this.wrapper, true) + this.getTB(this.wrapper)}px`;
                 if (elHeight && Math.round(elHeight) !== Math.round(this.prop.eBox.height)) this.getGeometry();
                 if (this.settings.ancestorGuarded && this.guardian.getBoundingClientRect().height !== this.prop.pBox.height) this.getGeometry();
                 const requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
@@ -100,8 +103,6 @@ export function scrollPin() {
                 if (!this.tmp.pinnable) return;
                 // store previous scroll position to be used in independent scrollPin
                 let prevScrollPos = this.tmp.scrollPos;
-
-
                 this.tmp.scrollDir = this.tmp.scrollPos < window.scrollY ? 1 : this.tmp.scrollPos > window.scrollY ? -1 : 0;
                 this.tmp.scrollPos = window.scrollY;
 
@@ -120,9 +121,9 @@ export function scrollPin() {
                         !this.el.classList.contains(this.settings.className) &&
                         (
                             (this.tmp.scrollDir === 1 && utils.offsetPos(this.el).top + this.prop.eBox.height + this.settings.bottomSpacing <= this.tmp.scrollPos + window.innerHeight) ||
-                            (this.currState === 'reset-state' && !this.settings.ancestorGuarded && document.body.getBoundingClientRect().height - this.tmp.scrollPos <= this.prop.eBox.height + this.settings.topSpacing)
+                            (this.currState === 'reset-state' && (this.settings.ancestorGuarded && this.prop.pOffset.top + this.prop.pBox.height - this.tmp.scrollPos <= this.prop.eBox.height + this.settings.topSpacing + this.getTB(this.guardian) || !this.settings.ancestorGuarded && document.body.getBoundingClientRect().height - this.tmp.scrollPos <= this.prop.eBox.height + this.settings.topSpacing))
                          ) &&
-                        (!this.settings.ancestorGuarded || this.prop.pOffset.top + this.prop.pBox.height - this.settings.bottomSpacing - parseFloat(utils.getCssVal(this.guardian, 'padding-bottom')) >= this.tmp.scrollPos + window.innerHeight)
+                        (!this.settings.ancestorGuarded || this.prop.pOffset.top + this.prop.pBox.height - this.getTB(this.guardian) >= this.tmp.scrollPos + window.innerHeight)
                     ) {
                         this.el.classList.add(this.settings.className);
                         this.el.style.position = 'fixed';
@@ -140,7 +141,7 @@ export function scrollPin() {
                         !this.el.classList.contains(this.settings.className) &&
                         (   
                             (this.tmp.scrollDir === -1 && utils.offsetPos(this.el).top > this.tmp.scrollPos + this.settings.topSpacing) ||
-                            this.currState === 'reset-state' && (this.settings.ancestorGuarded && this.prop.pOffset.top + this.prop.pBox.height - this.tmp.scrollPos > this.prop.eBox.height + this.settings.topSpacing + parseFloat(utils.getCssVal(this.guardian, 'padding-bottom')) || !this.settings.ancestorGuarded && document.body.getBoundingClientRect().height - this.tmp.scrollPos > this.prop.eBox.height + this.settings.topSpacing)
+                            this.currState === 'reset-state' && (this.settings.ancestorGuarded && this.prop.pOffset.top + this.prop.pBox.height - this.tmp.scrollPos > this.prop.eBox.height + this.settings.topSpacing + this.getTB(this.guardian) || !this.settings.ancestorGuarded && document.body.getBoundingClientRect().height - this.tmp.scrollPos > this.prop.eBox.height + this.settings.topSpacing)
                         ) &&
                         this.tmp.scrollPos >= this.prop.eOffset.top - this.settings.topSpacing
                     ) {
@@ -156,11 +157,11 @@ export function scrollPin() {
                     // if it is Guarded by it parent and it as reach it parent limit at the bottom.
                     else if (
                         this.settings.ancestorGuarded &&
-                        this.prop.pOffset.top + this.prop.pBox.height - parseFloat(utils.getCssVal(this.guardian, 'padding-bottom')) < this.tmp.scrollPos + window.innerHeight - this.settings.bottomSpacing
+                        this.prop.pOffset.top + this.prop.pBox.height - this.getTB(this.guardian) <= this.tmp.scrollPos + window.innerHeight - this.settings.bottomSpacing
                     ) {
                         this.el.classList.remove(this.settings.className);
                         this.el.style.position = 'absolute';
-                        this.el.style.top = `${this.prop.pOffset.top + this.prop.pBox.height - this.prop.eBox.height - parseFloat(utils.getCssVal(this.guardian, 'padding-bottom')) - opOffset.top}px`;
+                        this.el.style.top = `${this.prop.pOffset.top + this.prop.pBox.height - this.prop.eBox.height - this.getTB(this.guardian) - opOffset.top}px`;
                         this.el.style.left = `${this.prop.eOffset.left - opOffset.left}px`;
                         // fix for the use of relative width on the element.
                         this.el.style.setProperty('width', this.prop.eBox.width + "px", "important");
@@ -208,7 +209,7 @@ export function scrollPin() {
                     if (
                         (!this.settings.sticky || (this.tmp.scrollDir === 1 && this.currState !== 'bottom-unpinned')) &&
                         this.tmp.scrollPos > this.prop.eOffset.top - this.settings.topSpacing &&
-                        (!this.settings.ancestorGuarded || this.prop.pOffset.top + this.prop.pBox.height - this.tmp.scrollPos > this.prop.eBox.height + this.settings.topSpacing + parseFloat(utils.getCssVal(this.guardian, 'padding-bottom'))) &&
+                        (!this.settings.ancestorGuarded || this.prop.pOffset.top + this.prop.pBox.height - this.tmp.scrollPos > this.prop.eBox.height + this.settings.topSpacing + this.getTB(this.guardian)) &&
                         !this.el.classList.contains(this.settings.className)
                     ) {
                         this.el.classList.add(this.settings.className);
@@ -263,14 +264,14 @@ export function scrollPin() {
                     // must have reach or scrolled the parent out of viewport
                     else if (
                         this.settings.ancestorGuarded &&
-                        (this.tmp.scrollPos > this.prop.pOffset.top + this.prop.pBox.height - this.prop.eBox.height - this.settings.topSpacing - parseFloat(utils.getCssVal(this.guardian, 'padding-bottom')) ||
+                        (this.tmp.scrollPos > this.prop.pOffset.top + this.prop.pBox.height - this.prop.eBox.height - this.settings.topSpacing - this.getTB(this.guardian) ||
                             (this.currState === 'bottom-pinned' && this.tmp.scrollDir === 1 && this.prop.pOffset.top + this.prop.pBox.height < this.scrollPos + window.innerHeight)
                         ) && (this.el.classList.contains(this.settings.className) || this.currState === 'reset-state')
                     ) {
                         this.el.classList.remove(this.settings.className);
                         this.el.style.position = 'absolute';
-                        this.el.style.top = `${this.prop.pOffset.top + this.prop.pBox.height - this.prop.eBox.height - parseFloat(utils.getCssVal(this.guardian, 'padding-bottom')) - opOffset.top}px`;
-                        // this.el.style.top = this.prop.pBox.height - parseFloat(utils.getCssVal(this.guardian, 'padding-bottom')) - this.prop.eBox.height;
+                        this.el.style.top = `${this.prop.pOffset.top + this.prop.pBox.height - this.prop.eBox.height - this.getTB(this.guardian) - opOffset.top}px`;
+                        // this.el.style.top = this.prop.pBox.height - this.getTB(this.guardian) - this.prop.eBox.height;
                         this.el.style.left = `${this.prop.eOffset.left - opOffset.left}px`;
                         // fix for the use of relative width on the element.
                         this.el.style.setProperty('width', `${this.prop.eBox.width}px`, 'important');
@@ -293,6 +294,11 @@ export function scrollPin() {
                 this.el.classList.remove(this.settings.className);
                 if (this.initStyle) this.el.setAttribute('style', this.initStyle);
                 else this.el.removeAttribute('style');
+            },
+            // utility
+            getTB(el, top) {
+                if (top) return parseFloat(utils.getCssVal(el, 'padding-top')) + parseFloat(utils.getCssVal(el, 'border-top-width'));
+                return parseFloat(utils.getCssVal(el, 'padding-bottom')) + parseFloat(utils.getCssVal(el, 'border-bottom-width'));
             }
         }
     };

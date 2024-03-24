@@ -7,7 +7,7 @@
 
 	export default {
 		title() {
-			return `${this.searchStore.searchBox} | Bizworld`
+			return `BizWorld | Search: ${this.$route.query.q}`
 		},
 		components: { ItemCard, Shareables },
 		setup() {
@@ -26,16 +26,13 @@
 			}
 		},
 		created() {
-			this.$watch(() => this.$route.query, (to, from) => {
+			this.$watch(() => this.$route.query.q, (to, from) => {
 				document.title = this.$options.title.call(this);
 			});
 		},
 		mounted() {
-			console.log(this.$route.query);
-
 			if (!this.searchStore.searchBox) {
-				console.log(this.$route.query);
-				this.searchStore.searchBox = this.$route.query;
+				this.searchStore.searchBox = this.$route.query.q;
 				this.searchStore.triggerSearch();
 			}
 			window.dispatchEvent(new Event("scroll"));
@@ -48,26 +45,31 @@
 </script>
 <template>
 	<div class="as-page">
-		<header id="main-header" style="background-color: var(--surface);">
-			<Shareables name="common_header" />
-			<div v-iScroller class="i-scroller" style="overflow: hidden;">
-				<div class="centered basic menu scroll-items">
-					<div class="active item">All</div>
-					<div class="item">Businesses</div>
-					<div class="item">Products</div>
-					<div class="item">Services</div>
-				</div>
-			</div>
-			<hr style="margin: 0px;"/>
-		</header>
-		<section id="main" ref="main" class="grid" style="position: relative; margin-top: 25px; min-height: 70vh;">
+		<Shareables name="common_header" />
+		<section ref="main" class="csection grid">
 			<Shareables name="page_nav" />
 			<main class="col" id="feed">
+				<div class="sp-wrapper fluid z-level-3" style="margin-bottom: 1rem;">
+					<div v-iScroller v-scrollPin="{ topSpacing: 68, ancestorGuarded: true }" class="i-scroller">
+						<div class="l-scroll"><SvgIcon name="double_arrow_left" class="mini" /></div>
+						<div class="r-scroll"><SvgIcon name="double_arrow_right" class="mini" /></div>
+						<div class="rail menu scroll-items">
+							<div class="items" style="margin: 0px auto;">
+								<div class="active item">All</div>
+								<div class="item">Businesses</div>
+								<div class="item">Products</div>
+								<div class="item">Services</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
 				<ItemCard v-for="(result, i) in searchStore.searchResults" :key="i" :details="result" />
 
 				<div class="divider"><button class="button">More results <SvgIcon class="trailing" name="expand_more" /></button></div>
 			</main>
 			<!-- <Shareables name="ad_menu" /> -->
 		</section>
+		<!-- <div style="height: 100px"></div> -->
 	</div>
 </template>

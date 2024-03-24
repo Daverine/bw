@@ -191,7 +191,7 @@
         <template v-if="details.type === 'business'">
             <div class="header dm-header a-block grid" :class="{ active: activeFixedMenu }">
                 <div class="content h6 semibold 0-margined truncate">{{ details.bizName }}</div>
-                <button class="circular button trailing icon exit-modal">
+                <button class="flat circular button trailing icon exit-modal">
                     <SvgIcon name="close" />
                 </button>
             </div>
@@ -374,12 +374,12 @@
                 <button class="primary button">
                     <SvgIcon name="public" class="lead" /> Visit Business Page
                 </button>
-                <button class="transparent button">
+                <button class="flat button">
                     <SvgIcon name="follow" class="lead" /> Follow
                 </button>
                 <div style="display: flex; gap: 1em; margin-left: auto;">
-                    <button class="transparent circular button" v-tooltip.unblocking data-tooltip="Save card"><SvgIcon name="bookmark_add" /></button>
-                    <Dropdown :options="{directionPriority: {x: 'left', y: 'top'}}" v-tooltip.unblocking data-tooltip="More options" class="transparent circular button">
+                    <button class="flat circular button" v-tooltip.unblocking data-tooltip="Save card"><SvgIcon name="bookmark_add" /></button>
+                    <Dropdown :options="{directionPriority: {x: 'left', y: 'top'}}" v-tooltip.unblocking data-tooltip="More options" class="flat circular button">
                         <SvgIcon name="more_vert" />
                         <Dropmenu>
                             <div class="item"><SvgIcon name="follow" class="lead" /> Follow page</div>
@@ -394,7 +394,7 @@
         <template v-else-if="details.type === 'product'">
             <div class="header dm-header grid a-block" :class="{ active: activeFixedMenu }">
                 <div class="content h6 semibold 0-margined truncate">{{ details.title }}</div>
-                <button class="circular button trailing icon exit-modal">
+                <button class="flat circular button trailing icon exit-modal">
                     <SvgIcon name="close" />
                 </button>
             </div>
@@ -642,7 +642,7 @@
         <template v-else-if="details.type === 'service'">
             <div class="header dm-header grid a-block" :class="{ active: activeFixedMenu }">
                 <div class="content h6 semibold 0-margined truncate">{{ details.title }}</div>
-                <button class="circular button trailing icon exit-modal">
+                <button class="flat circular button trailing icon exit-modal">
                     <SvgIcon name="close" />
                 </button>
             </div>
@@ -1062,11 +1062,10 @@
             & > .trailing.icon {
                 height: 2em !important;
                 width: 2em !important;
-                background-color: transparent;
             }
 
             &:not(.active) > .trailing.icon {
-                background-color: var(--surface);
+                background-color: var(--surface) !important;
                 box-shadow: var(--z-depth-1);
             }
         }
