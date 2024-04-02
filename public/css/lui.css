@@ -5256,7 +5256,7 @@ form .field {
 }
 .button.icon {
   padding-left: calc(var(--button-padding-lr) / 2);
-  padding-right: var(--button-padding-lr)/2;
+  padding-right: calc(var(--button-padding-lr) / 2);
 }
 .button.icon .icon {
   margin: 0em;

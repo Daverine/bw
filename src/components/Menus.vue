@@ -2,10 +2,8 @@
 	import { useMainStore } from '../stores';
 	import { useSearchStore } from '../stores/searchStore';
 	import { useUserStore } from '../stores/userStore';
-	import Shareables from './Shareables.vue';
 
     export default {
-		components: { Shareables },
 		setup() {
 			const
 				mainStore = useMainStore(),

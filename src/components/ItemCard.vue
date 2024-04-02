@@ -1,5 +1,4 @@
 <script>
-	import Shareables from './Shareables.vue';
 	import businessCard from './itemCards/businessCard.vue';
 	import productCard from './itemCards/productCard.vue';
 	import serviceCard from './itemCards/serviceCard.vue';
@@ -22,7 +21,7 @@
 				return ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][index];
 			}
 		},
-		components: { businessCard, productCard, serviceCard, postCard, Shareables },
+		components: { businessCard, productCard, serviceCard, postCard },
 		mounted() {
 			// console.log(this.details);
 		}
@@ -35,7 +34,15 @@
 		<serviceCard v-else-if="details.cardType === 'service'" :details="details" />
 		<postCard v-else-if="details.cardType === 'post'" :details="details" />
 
-		<Shareables v-if="isSaved" name="isSaved_menu" />
+		<div v-if="isSaved" class="ex-open-modal">
+			<Dropdown :options="{directionPriority: {x: 'left', y: 'bottom'}}" class="icon circular transparent compact button">
+				<SvgIcon name="more_vert" />
+				<Dropmenu>
+					<div class="item"><SvgIcon name="share" class="lead" /> Share</div>
+					<div class="item"><SvgIcon name="bookmark_remove" class="lead" /> Unsave</div>
+				</Dropmenu>
+			</Dropdown>
+		</div>
 	</div>
 </template>
 

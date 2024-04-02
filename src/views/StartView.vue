@@ -1,7 +1,6 @@
 <script>
 	import { useMainStore } from '../stores';
 	import { useSearchStore } from '../stores/searchStore';
-	import Shareables from './Shareables.vue';
 
 	export default {
 		setup() {
@@ -12,20 +11,6 @@
 
 			return { mainStore, searchStore }
 		},
-		components: { Shareables },
-		methods: {
-			handleScroll() {
-				if (this.$refs.main.getBoundingClientRect().top <= 0) this.mainStore.mutateSFM(true);
-				else this.mainStore.mutateSFM(false);
-			}
-		},
-		mounted() {
-			window.dispatchEvent(new Event("scroll"));
-			window.addEventListener('scroll', this.handleScroll);
-		},
-		unmounted() {
-			window.removeEventListener('scroll', this.handleScroll);
-		}
 	}
 </script>
 <template>
@@ -106,7 +91,7 @@
 				</div>
 			</div>
 		</header>
-		<article ref="main">
+		<article id="firstSec" ref="main">
 			<section id="whatfor" class="sec-block">
 				<div class="big centered container">
 					<h1>What is BizWorld for?</h1>

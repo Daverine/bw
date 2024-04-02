@@ -123,7 +123,7 @@ export function scrollPin() {
                             (this.tmp.scrollDir === 1 && utils.offsetPos(this.el).top + this.prop.eBox.height + this.settings.bottomSpacing <= this.tmp.scrollPos + window.innerHeight) ||
                             (this.currState === 'reset-state' && (this.settings.ancestorGuarded && this.prop.pOffset.top + this.prop.pBox.height - this.tmp.scrollPos <= this.prop.eBox.height + this.settings.topSpacing + this.getTB(this.guardian) || !this.settings.ancestorGuarded && document.body.getBoundingClientRect().height - this.tmp.scrollPos <= this.prop.eBox.height + this.settings.topSpacing))
                          ) &&
-                        (!this.settings.ancestorGuarded || this.prop.pOffset.top + this.prop.pBox.height - this.getTB(this.guardian) >= this.tmp.scrollPos + window.innerHeight)
+                        (!this.settings.ancestorGuarded || Math.ceil(this.prop.pOffset.top + this.prop.pBox.height - this.getTB(this.guardian)) >= this.tmp.scrollPos + window.innerHeight)
                     ) {
                         this.el.classList.add(this.settings.className);
                         this.el.style.position = 'fixed';
@@ -153,7 +153,7 @@ export function scrollPin() {
                         this.el.style.setProperty('width', this.prop.eBox.width + "px", "important");
                         this.currState = 'top-pinned';
                     }
-                    // unpin the element (from been pinned by pin1)
+                    // unpin the element at bottom (from been pinned by pin1)
                     // if it is Guarded by it parent and it as reach it parent limit at the bottom.
                     else if (
                         this.settings.ancestorGuarded &&

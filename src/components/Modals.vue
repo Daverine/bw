@@ -7,7 +7,12 @@ import Explore from './Explore.vue';
 
 export default {
     setup() {
-        const mainStore = useMainStore(), searchStore = useSearchStore(), userStore = useUserStore();
+        const
+            mainStore = useMainStore(),
+            searchStore = useSearchStore(),
+            userStore = useUserStore()
+        ;
+        
         return { mainStore, searchStore, userStore };
     },
     methods: {
@@ -17,7 +22,7 @@ export default {
         },
         popupSubmitSearch(e) {
             e.currentTarget.closest('.modal').dispatchEvent(new CustomEvent('plconsole', { detail: 'close panel' }));
-            this.submitSearch();
+            this.searchStore.triggerSearch();
         },
 		getScDetails(md, settings) {
 			let caller = settings.caller;

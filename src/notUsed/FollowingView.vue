@@ -1,12 +1,11 @@
 <script>
 	import { useMainStore } from '../stores';
 	import { useUserStore } from '../stores/userStore';
-	import Shareables from '../components/Shareables.vue';
-	import ItemCard from '../components/ItemCard.vue';
+	import BizCard from '../components/BizCard.vue';
 
 	export default {
-		title: 'Saved cards | BizWorld',
-		components: { Shareables, ItemCard },
+		title: 'Following | BizWorld',
+		components: { BizCard },
 		setup() {
 			const
 				mainStore = useMainStore(),
@@ -24,7 +23,7 @@
 		mounted() {
 			window.dispatchEvent(new Event("scroll"));
 			window.addEventListener('scroll', this.handleScroll);
-			this.userStore.getSavedCards();
+			this.userStore.getFollowedCards();
 		},
 		unmounted() {
 			window.removeEventListener('scroll', this.handleScroll);
@@ -37,10 +36,10 @@
 		<section id="main" ref="main" class="grid" style="position: relative; margin-top: 25px; min-height: 70vh;">
 			<Shareables name="page_nav" />
 			<main class="col" id="feed">
-				<h6 class="centered">Saved Cards</h6>
-				
-				<ItemCard v-for="(result, i) in userStore.savedCards" :key="i" :details="result" :isSaved="true" />
-
+				<h6 class="centered">Following</h6>
+				<div class="fluid" style="display: flex; flex-flow: row wrap; justify-content: center; gap: 1em; padding: 1rem;">
+					<BizCard v-for="(result, i) in userStore.followedCards" :key="i" :details="result" />
+				</div>
 				<div class="divider"><button class="button">More results <SvgIcon class="trailing" name="expand_more" /></button></div>
 			</main>
 			<!-- <Shareables name="ad_menu" /> -->
@@ -61,3 +60,17 @@
 		</footer>
 	</div>
 </template>
+
+<style lang="scss">
+	.following-cont {
+		display: flex;
+		flex-flow: row nowrap;
+		gap: 0.5em;
+		align-items: flex-start;
+		width: 100%;
+		padding: 0rem 1rem;
+		overflow: hidden;
+
+		& > * { flex: 0 0 auto; }
+	}
+</style>

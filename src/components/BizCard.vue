@@ -1,6 +1,4 @@
 <script>
-	import Shareables from './Shareables.vue';
-
 	export default {
 		props: ['details', 'isSaved'],
 		methods: {
@@ -18,7 +16,6 @@
 				return ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][index];
 			}
 		},
-		components: { Shareables }
 	}
 </script>
 <template>

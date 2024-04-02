@@ -1,41 +1,21 @@
 <script>
-	import { useMainStore } from '../stores';
 	import { useUserStore } from '../stores/userStore';
-	import Shareables from '../components/Shareables.vue';
 
 	export default {
 		title: 'Your account page | BizWorld',
-		components: { Shareables },
 		setup() {
-			const
-				mainStore = useMainStore(),
-				userStore = useUserStore()
-			;
+			const userStore = useUserStore();
 
-			return { mainStore, userStore }
+			return { userStore }
 		},
-		methods: {
-			handleScroll() {
-				if (this.$refs.main.getBoundingClientRect().top <= 0) this.mainStore.mutateSFM(true);
-				else this.mainStore.mutateSFM(false);
-			}
-		},
-		mounted() {
-			window.dispatchEvent(new Event("scroll"));
-			window.addEventListener('scroll', this.handleScroll);
-			this.userStore.getFollowedCards();
-		},
-		unmounted() {
-			window.removeEventListener('scroll', this.handleScroll);
-		}
 	}
 </script>
 <template>
 	<div class="as-page">
-		<Shareables name="common_header" />
-		<section ref="main" class="csection grid">
+        <Shareables name="common_header" />
+		<section id="firstSec" ref="main" class="container csection grid">
 			<Shareables name="page_nav" />
-			<main class="col" id="feed">
+            <main class="col" id="feed">
 				<header>
 					<div class="container guttered grid">
 						<div class="col manual-width">
@@ -50,9 +30,9 @@
 						</div>
 					</div>
 					<div class="sp-wrapper fluid z-level-3" style="margin-top: 1rem;">
-						<div v-iScroller v-scrollPin="{ topSpacing: 68, ancestorGuarded: true }" class="i-scroller">
+						<div v-iScroller v-scrollPin="{ topSpacing: 68, ancestorGuarded: true }" class="i-scroller fluid">
 							<div class="l-scroll"><SvgIcon name="double_arrow_left" class="mini" /></div>
-                    		<div class="r-scroll"><SvgIcon name="double_arrow_right" class="mini" /></div>
+							<div class="r-scroll"><SvgIcon name="double_arrow_right" class="mini" /></div>
 							<div class="rail menu scroll-items">
 								<div class="items" style="margin: 0px auto;">
 									<router-link to="/account/profile" class="item" exact-active-class="active">Profile</router-link>
@@ -72,28 +52,15 @@
 				
 				
 			</main>
-			<!-- <Shareables name="ad_menu" /> -->
-		</section>
-		<footer>
-			<div class="wrappable text menu" style="padding: 10px 0px; background-color: var(--surface-focus-alpha) !important; font-weight: normal;">
-				<div class="container items">
-					<div class="item">Terms of use</div>
-					<div class="item">About us</div>
-					<div class="item">Help</div>
-					<div class="item">Settings</div>
-					<div class="items r-aligned">
-						<div class="item">@ Copyright 2023</div>
-						<div class="item">Emmadave Inc.</div>
-					</div>
-				</div>
-			</div>
-		</footer>
+            <Shareables name="ad_menu" />
+        </section>
 	</div>
 </template>
 
 <style lang="scss" scoped>
 	#feed {
 		header {
+			position: relative;
 			width: 100%;
 		}
 		.profile-wrapper {

@@ -8,6 +8,7 @@
             </button>
         </div>
         <div class="content">
+            <div class="centered"><button class="button"><SvgIcon name="trending_up" class="small lead" /> Trending</button></div>
             <div class="heading">Business categories</div>
             <div class="grid">
                 <button class="chip"><SvgIcon name="restaurant" class="small lead" /> Restaurants</button>

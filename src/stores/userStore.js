@@ -24,9 +24,11 @@ export const useUserStore = defineStore('user', {
     actions: {
         login(email, password) {
             this.auth = true;
+            if (this.$router.currentRoute.value.name === 'start') this.$router.push({ name: 'home'});
         },
         signup(firstname, lastname, email, password, country) {
             this.auth = true;
+            if (this.$router.currentRoute.value.name === 'start') this.$router.push({ name: 'home'});
         },
         logout() {
             this.auth = false;

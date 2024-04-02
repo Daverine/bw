@@ -48,7 +48,7 @@
     <template v-else-if="name === 'nav_menu'">
         <div class="items" style="border-radius: var(--radius-default);">
             <template v-if="userStore.auth">
-                <router-link to="/" exact-active-class="active" class="item exit-sidepanel">
+                <router-link to="/home" exact-active-class="active" class="item exit-sidepanel">
                     <SvgIcon name="home" class="lead nview" />
                     <SvgIcon name="home_filled" class="lead aview" />
                     Home
@@ -61,6 +61,16 @@
                     <SvgIcon name="qr_code_scanner" class="lead" />
                     Scan QR
                 </div>
+                <router-link to="/shop" exact-active-class="active" class="item exit-sidepanel">
+                    <SvgIcon name="chat" class="lead nview" />
+                    <SvgIcon name="store_filled" class="lead aview" />
+                    Messaging
+                </router-link>
+                <router-link to="/shop" exact-active-class="active" class="item exit-sidepanel">
+                    <SvgIcon name="store" class="lead nview" />
+                    <SvgIcon name="store_filled" class="lead aview" />
+                    My Business
+                </router-link>
                 <div v-collapsible class="item xactive">
                     <SvgIcon name="person" class="lead nview" />
                     <SvgIcon name="person_filled" class="lead aview" />
@@ -125,7 +135,7 @@
         <div class="item as-icon open-sidepanel" :class="!userStore.auth && $route.name === 'home' ? '' : 'lg-and-up-hidden'" v-tooltip.unblocking data-tooltip="Menu" data-target="msidepanel">
             <SvgIcon name="menu" />
         </div>
-        <router-link to="/" class="xhover item as-icon">
+        <router-link :to="userStore.auth ? '/home' : '/'" class="xhover item as-icon">
             <img src="/images/logo_sqr.png" alt="site logo" class="logo-lg site-logo">
         </router-link>
         <form class="xhover adaptable item md-and-down-hidden" @submit.prevent="searchStore.triggerSearch()">
@@ -210,18 +220,18 @@
             </div>
         </div>
 	</header>
-    <template v-else-if="name === 'common_footer'">
-        <footer style="align-self: flex-end;">
-            <div class="transparent text wrappable menu flex-centered">
-                <div class="item">Terms of use</div>
-                <div class="item">About us</div>
-                <div class="item">Help</div>
-                <div class="item">Settings</div>
+    <footer v-else-if="name === 'common_footer'" style="align-self: flex-end;">
+        <div class="transparent text wrappable menu flex-centered">
+            <div class="item">Terms of use</div>
+            <div class="item">About us</div>
+            <div class="item">Help</div>
+            <div class="item">Settings</div>
+            <div class="items r-aligned">
                 <div class="item">@ Copyright 2023</div>
                 <div class="item">Emmadave Inc.</div>
             </div>
-        </footer>
-    </template>
+        </div>
+    </footer>
     <template v-else-if="name === 'page_nav'">
         <aside id="navmenu" class="manual-width col sidemenu lg-and-down-hidden sp-wrapper">
             <div v-scrollPin="{ topSpacing: 84, bottomSpacing: 16, ancestorGuarded: true }" class="vertical transparent menu">
@@ -248,13 +258,4 @@
             </div>
         </aside>
     </template>
-    <div v-else-if="name === 'isSaved_menu'" class="ex-open-modal">
-        <Dropdown :options="{directionPriority: {x: 'left', y: 'bottom'}}" class="icon circular transparent compact button">
-            <SvgIcon name="more_vert" />
-            <Dropmenu>
-                <div class="item"><SvgIcon name="share" class="lead" /> Share</div>
-                <div class="item"><SvgIcon name="bookmark_remove" class="lead" /> Unsave</div>
-            </Dropmenu>
-        </Dropdown>
-    </div>
 </template>

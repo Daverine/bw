@@ -1,12 +1,8 @@
 <script>
 	import { useMainStore } from '../stores';
 	import { useUserStore } from '../stores/userStore';
-	import Shareables from '../components/Shareables.vue';
-	import BizCard from '../components/BizCard.vue';
 
 	export default {
-		title: 'Following | BizWorld',
-		components: { Shareables, BizCard },
 		setup() {
 			const
 				mainStore = useMainStore(),
@@ -14,6 +10,14 @@
 			;
 
 			return { mainStore, userStore }
+		},
+        created() {
+			this.$watch(() => this.$route, () => {
+                // trigger resize on window for scrollpin element on the page
+                setTimeout(() => {
+                    window.dispatchEvent(new Event('resize'));
+                }, 50);
+			});
 		},
 		methods: {
 			handleScroll() {
@@ -31,20 +35,15 @@
 		}
 	}
 </script>
+
 <template>
-	<div class="as-page">
-		<Shareables name="common_header" />
-		<section id="main" ref="main" class="grid" style="position: relative; margin-top: 25px; min-height: 70vh;">
+    <div class="as-page">
+        <Shareables name="common_header" />
+        <section ref="main" class="container csection grid">
 			<Shareables name="page_nav" />
-			<main class="col" id="feed">
-				<h6 class="centered">Following</h6>
-				<div class="fluid" style="display: flex; flex-flow: row wrap; justify-content: center; gap: 1em; padding: 1rem;">
-					<BizCard v-for="(result, i) in userStore.followedCards" :key="i" :details="result" />
-				</div>
-				<div class="divider"><button class="button">More results <SvgIcon class="trailing" name="expand_more" /></button></div>
-			</main>
-			<!-- <Shareables name="ad_menu" /> -->
-		</section>
+            <RouterView />
+            <Shareables name="ad_menu" />
+        </section>
 		<footer>
 			<div class="wrappable text menu" style="padding: 10px 0px; background-color: var(--surface-focus-alpha) !important; font-weight: normal;">
 				<div class="container items">
@@ -59,19 +58,5 @@
 				</div>
 			</div>
 		</footer>
-	</div>
+    </div>
 </template>
-
-<style lang="scss">
-	.following-cont {
-		display: flex;
-		flex-flow: row nowrap;
-		gap: 0.5em;
-		align-items: flex-start;
-		width: 100%;
-		padding: 0rem 1rem;
-		overflow: hidden;
-
-		& > * { flex: 0 0 auto; }
-	}
-</style>
