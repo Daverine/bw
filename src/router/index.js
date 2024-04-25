@@ -3,6 +3,7 @@ import CommonView from '../components/CommonView.vue';
 import StartView from '../views/StartView.vue';
 import HomeView from '../views/HomeView.vue';
 import SearchView from '../views/SearchView.vue';
+import MessagingView from '../views/MessagingView.vue';
 
 import AccountView from '../views/AccountView.vue';
 import Profile from '../components/Profile.vue';
@@ -19,7 +20,10 @@ const router = createRouter({
         {
             path: '/',
             name: 'start',
-            component: StartView
+            component: StartView,
+            meta: {
+                sideMenuToggle: true,
+            }
         },
         {
             path: '/home',
@@ -62,6 +66,14 @@ const router = createRouter({
             path: '/shop',
             name: 'shop',
             component: BusinessView
+        },
+        {
+            path: '/messaging',
+            name: 'messaging',
+            component: MessagingView,
+            meta: {
+                sideMenuToggle: true,
+            }
         },
         {
             path: '/manage'

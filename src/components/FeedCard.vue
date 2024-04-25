@@ -15,7 +15,7 @@
 			</div>
 			<div style="flex: 1 1 auto;">
 				<div class="fcd-displayname">{{ details.displayName }}</div>
-				<div class="aux" style="display: flex; gap: 10px; flex: 1 1 auto;">
+				<div class="aux-text" style="display: flex; gap: 10px; flex: 1 1 auto;">
 					<div class="fcd-bizcategory"> {{ details.bizCategory }}</div> . 
 					<div><SvgIcon name="schedule" class="mini" /> {{ details.date }}</div>
 				</div>

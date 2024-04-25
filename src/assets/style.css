@@ -1,19 +1,26 @@
 :root {
+  --radius-default: 0.5em;
   --site-logo-filter: invert(0);
-  --fmenu-bg: rgba(255,255,255,0.8);
+  --fmenu-bg: rgba(255,255,255,0.9);
 }
 
-.dark-mode {
-  --site-logo-filter: invert(1);
-  --fmenu-bg: rgba(26,26,26,0.7);
+@media screen and (prefers-color-scheme: dark) {
+  :root {
+    --fmenu-bg: rgba(26,26,26,0.8);
+  }
 }
-
 .as-page {
   scroll-behavior: smooth;
+  min-width: 350px;
+}
+
+.material-icons,
+.material-symbols-outlined {
+  font-size: 1.5em;
 }
 
 .material-icons {
-  font-size: 1.5em;
+  vertical-align: -23% !important;
 }
 
 .container {
@@ -33,8 +40,8 @@
   transform: translateY(-100%);
   transform-origin: 0%;
   opacity: 0;
-  overflow: hidden;
-  box-shadow: 0px 1px 10px rgba(128, 128, 128, 0.5);
+  border-bottom: 1px solid var(--outline);
+  box-shadow: 0px 1px 15px rgba(128, 128, 128, 0.05);
   z-index: 9000;
   background-color: var(--fmenu-bg);
   -webkit-backdrop-filter: saturate(50%) blur(8px);
@@ -44,4 +51,61 @@
 #fmenu.pinned {
   opacity: 1;
   transform: translateY(0%);
+}
+
+.collapsible {
+  transition: max-height 0.5s ease-in-out;
+  overflow: hidden !important;
+  max-height: 0px;
+}
+
+.scroll-locked {
+  background-color: #eee;
+}
+
+.csection {
+  position: relative;
+  min-height: 70vh;
+}
+
+.sidemenu {
+  width: var(--sidepanel-width);
+  box-shadow: none;
+  background-color: transparent !important;
+  padding: 10px;
+}
+
+#admenu {
+  display: flex;
+  flex-flow: row wrap;
+  padding: 15px 6px;
+  min-height: calc(100vh - 200px);
+}
+
+#navmenu {
+  border-right: 1px solid var(--outline);
+}
+
+@media only screen and (max-width: 800px) {
+  .sidemenu {
+    display: none !important;
+  }
+}
+.ad {
+  box-shadow: 0px 0px 5px #aaa;
+  padding: 10px;
+  background-color: var(--surface);
+}
+
+#feed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0rem;
+  position: relative;
+  width: calc(100% - var(--sidepanel-width) - var(--sidepanel-width));
+  max-width: 600px;
+  min-height: 100%;
+  padding: 20px 1em;
+  margin: 0px auto;
 }/*# sourceMappingURL=style.css.map */

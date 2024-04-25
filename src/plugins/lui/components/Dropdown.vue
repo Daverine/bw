@@ -19,7 +19,9 @@
 					upward: false,
 					downward: false
 				},
-				tmp: {},
+				tmp: {
+					mSelectContent: []
+				},
 				allItemSelected: false,
 				allItemFiltered: false
 			}
@@ -47,7 +49,6 @@
 					this.e.ip.value = JSON.stringify(sIValue);
 					item.setAttribute('data-ddid', sIValue.length - 1);
 
-					if (!this.tmp.mSelectContent) this.tmp.mSelectContent = [];
 					this.tmp.mSelectContent.push({html: `${item.innerHTML} <i class="svgv1 action close trailing icon"><svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48"><path d="M480.435-421.652 277.522-219.304q-12.131 12.13-29.392 12.413-17.26.282-28.826-12.848-12.695-12.131-12.478-28.674.217-16.544 12.913-29.674L422.217-480 219.304-683.348q-12.695-12.13-12.695-28.674 0-16.543 12.695-29.674 11.566-12.13 28.826-11.848 17.261.283 29.392 12.414l202.913 202.347L682.478-741.13q12.131-12.131 29.392-12.414 17.26-.282 28.826 11.848 12.695 13.131 12.478 29.674-.217 16.544-11.913 28.674L538.783-480l202.478 201.913q11.696 12.696 11.913 29.457.217 16.76-12.478 28.891-11.566 13.13-28.826 12.848-17.261-.283-29.392-12.413L480.435-421.652Z"/></svg></i>`, index: sIValue.length - 1});
 
 					if (this.settings.searchable && this.showDropdown) {
@@ -61,6 +62,7 @@
 					if (!this.showDropdown || this.e.dd.matches('.indicating')) return;
 					
 					item.classList.remove('hovered');
+					this.e.sc.classList.remove('no-content');
 					
 					if (!this.settings.searchable) {
 						let
@@ -83,7 +85,11 @@
 				}
 
 				if (!xClose) {
-					if (this.settings.searchable) this.e.sb.value = '';
+					if (this.settings.searchable) {
+						this.e.sb.value = '';
+						utils.triggerEvent(this.e.sb, 'input');
+					}
+
 					this.showDropdown = false;
 				}
 			},
@@ -105,6 +111,7 @@
 				this.tmp.mSelectContent = this.tmp.mSelectContent.filter((el) => el.index !== Number(sItemIndex));
 	
 				if (this.allItemSelected) this.allItemSelected = false;
+				if (!this.tmp.mSelectContent[0]) this.e.sc.classList.add('no-content');
 
 				if (this.showDropdown) {
 					if (this.settings.searchable) {
@@ -172,7 +179,7 @@
 						if (this.settings.page) this.settings.e = e;
 
 						if (this.showDropdown) {
-							if (this.settings.searchable && !this.$refs.ddIcon.contains(e.target)) {
+							if (this.settings.searchable && this.e.dd.classList.contains('select') && !this.$refs.ddIcon.contains(e.target)) {
 								this.$refs.searchBox.focus();
 								return;
 							}
@@ -214,10 +221,8 @@
 					if (!this.settings.multipleSelect) this.e.sc.classList.remove('filtered');
 				}
 
-				if (this.settings.multipleSelect) {
-					this.e.sz.textContent = this.e.sb.value;
-					this.e.sb.style.width = this.e.sz.clientWidth + 'px';
-				}
+				this.e.sz.textContent = this.e.sb.value;
+				this.e.sb.style.width = this.e.sz.clientWidth + 'px';
 				if (!this.showDropdown) this.dd_toggleDropdown("keyboard");
 			},
 			dd_mSClickFunc(e) {
@@ -313,6 +318,9 @@
 					this.allItemFiltered = false;
 				}
 				
+				if (this.e.sb.value) this.e.sc.classList.remove('no-content');
+				else if (!this.tmp.mSelectContent[0]) this.e.sc.classList.add('no-content');
+
 				this.dd_CalcPosition();
 			},
 			dd_clickOnDom(e) {
@@ -367,7 +375,6 @@
 					}
 					else if (e.key == 'Enter') {
 						e.preventDefault();
-						console.log('i got clicked.');
 						item.click();
 					}
 				}
@@ -673,7 +680,7 @@
 			this.s.it_i = `:scope > .item:not(.xhover):not(.disabled)${!(this.e.dd.matches('.indicating.multiple')) ? ':not(.selected)': ''}, :scope > .items > .item:not(.xhover):not(.disabled)${!(this.e.dd.matches('.indicating.multiple')) ? ':not(.selected)': ''}`; // select all element in dropMenu regarding it statuses
 			this.s.it_f = `:scope > .item:not(.xhover):not(.disabled):not(.filtered)${!(this.e.dd.matches('.indicating.multiple')) ? ':not(.selected)': ''}, :scope > .items > .item:not(.xhover):not(.disabled):not(.filtered)${!(this.e.dd.matches('.indicating.multiple')) ? ':not(.selected)': ''}`; // select all element in dropMenu regarding it statuses and also excluding filtered items
 
-			// check if dropdownMenu exist
+			// check if dropdown Menu exist
 			if (!this.e.dm) {
 				console.log("A dropdown menu is missing");
 				return;
@@ -698,6 +705,7 @@
 				// configure search box and cache concurrent element for searchable dropdown
 				if (this.settings.searchable) {
 					this.e.sb = this.$refs.searchBox;
+					this.e.sz = this.$refs.sbsizer;
 					
 					if (this.e.dd.hasAttribute('tabindex')) {
 						this.e.sb.setAttribute('tabindex', this.e.dd.getAttribute('tabindex'));
@@ -709,15 +717,13 @@
 				}
 
 				if (this.settings.multipleSelect) {
-					this.e.sz = this.$refs.mDSizer;
-
 					document.addEventListener('click', this.dd_mSClickFunc);
 					document.addEventListener('keydown', this.dd_mSKBFunc);
 				}
 
 				/* set select dropdown value for preselected value */
 				let items = [...this.e.dm.querySelectorAll(this.s.it)];
-				if (this.settings.multipleSelect && items.filter((el) => el.matches('.selected'))[0])  items.filter((el) => el.matches('.selected')).forEach((el) => this.dd_setSelect(el));
+				if (this.settings.multipleSelect && items.filter((el) => el.matches('.selected'))[0]) items.filter((el) => el.matches('.selected')).forEach((el) => this.dd_setSelect(el));
 				else if (!this.settings.multipleSelect && items.filter((el) => el.matches('.active'))[0]) this.dd_setSelect(items.filter((el) => el.matches('.active'))[0]);
 			}
 			
@@ -878,17 +884,27 @@
 
 <template>
 	<div ref="dropdown" class="dropdown" :class="{ active: showDropdown }" :tabindex="this.settings.selectable ? 0 : null">
+		<slot></slot>
 		<template v-if="settings.selectable">
-			<div v-if="settings.multipleSelect" ref="sContent" class="content">
+			<div v-if="settings.multipleSelect" ref="sContent" class="content no-content">
 				<div v-for="item in tmp.mSelectContent" :key="item.index" :data-ddid="item.index" v-html="item.html" class="chip"></div>
+				<template v-if="settings.searchable">
+					<input ref="searchBox" class='ssbox' autocomplete='off' tabindex='0'>
+					<span ref="sbsizer" class='ddmss'></span>
+				</template>
 			</div>
-			<div v-else ref="sContent" v-html="tmp.selectContent" class="content"></div>
-			<input v-if="settings.searchable" ref="searchBox" class='search' autocomplete='off' tabindex='0'>
-			<span v-if="settings.searchable && settings.multipleSelect" ref="mDSizer" class='sizer'></span>
+			<template v-else>
+				<template v-if="settings.searchable">
+					<input ref="searchBox" class='ssbox' autocomplete='off' tabindex='0'>
+					<span ref="sbsizer" class='ddmss'></span>
+				</template>
+				<div ref="sContent" v-html="tmp.selectContent" class="content"></div>
+			</template>
 			<div ref="sPlaceholder" class="placeholder">{{ placeholder }}</div>
-			<i v-if="$attrs.class.split(' ').includes('select')" ref="ddIcon" class="indicator icon luicon menu-down"></i>
+			<i v-if="$attrs.class.split(' ').includes('select')" ref="ddIcon" class="ddico icon">
+				<svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48"><path d="m480-222.609 108.913-108.913q13.202-12.696 30.21-12.696 17.007 0 29.138 13.299 12.13 11.734 12.13 29.552 0 17.817-11.13 29.758L509.957-132.87q-6.023 6.131-14.118 9.414-8.095 3.282-16.035 3.282-7.941 0-15.858-3.282-7.918-3.283-12.903-9.414L311.739-271.609q-12.13-12.071-12.13-29.927 0-17.855 12.233-29.769 12.234-12.913 29.834-12.63 17.6.283 29.976 12.413L480-222.609Zm0-512.651L371.087-626.348q-13.202 12.696-30.21 12.696-17.007 0-29.138-13.299-12.13-12.299-12.13-30.116 0-17.818 12.13-30.194l139.304-139.304q5.019-5.182 13.11-9.222 8.09-4.039 16.026-4.039 7.935 0 15.892 4.039 7.957 4.04 13.886 9.222l139.304 139.304q11.13 12.507 11.13 30.362 0 17.856-12.233 30.334-12.234 12.913-29.957 12.348-17.723-.565-29.853-12.696L480-735.26Z"/></svg>
+			</i>
 			<input ref="sInput" type="hidden" :name="name">
 		</template>
-		<slot></slot>
 	</div>
 </template>

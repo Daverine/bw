@@ -206,7 +206,7 @@
                         </div>
                         <div class="dm-heading">
                             <h4 class="dm-title">{{ details.bizName }}</h4>
-                            <div style="color: var(--secondary)">{{ details.mainCategory }}</div>
+                            <div class="aux-text">{{ details.mainCategory }}</div>
                         </div>
                     </div>
                     <div class="dm-gap">
@@ -219,7 +219,7 @@
                                 <SvgIcon name="today" class="small r-spaced" />
                                 <span class="semibold">
                                     <template v-if="details.hours[new Date().getDay()][0] === -1 || getMinutes(details.hours[new Date().getDay()][0]) > getMinutes(`${new Date().getHours()}:${new Date().getMinutes()}`) || getMinutes(details.hours[new Date().getDay()][1]) <= getMinutes(`${new Date().getHours()}:${new Date().getMinutes()}`)">
-                                        <span class="negative-text">Closed. </span>
+                                        <span class="error-text">Closed. </span>
                                         <span v-if="typeof(details.hours[new Date().getDay()][0]) === 'string' && getMinutes(details.hours[new Date().getDay()][0]) > getMinutes(`${new Date().getHours()}:${new Date().getMinutes()}`)">Opens {{ to12hrsTime(details.hours[new Date().getDay()][0]) }} Today</span>
                                         <span v-else>
                                             Opens
@@ -231,8 +231,8 @@
                                         </span>
                                     </template>
                                     <template v-else>
-                                        <span v-if="getMinutes(details.hours[new Date().getDay()][1]) - getMinutes(`${new Date().getHours()}:${new Date().getMinutes()}`) <= 60" class="caution-text">Closes soon. </span>
-                                        <span v-else class="positive-text">Open. </span>
+                                        <span v-if="getMinutes(details.hours[new Date().getDay()][1]) - getMinutes(`${new Date().getHours()}:${new Date().getMinutes()}`) <= 60" class="warning-text">Closes soon. </span>
+                                        <span v-else class="success-text">Open. </span>
                                         <span>Closes {{ details.hours[new Date().getDay()][1] }}</span>
                                     </template>
                                 </span>
@@ -463,11 +463,11 @@
                         </i>
                     </div>
                     <div class="collapsible">
-                        <a href="https://www.bw.net/thirdparty-delivery" target="_blank" class="caution compact action note">
+                        <a href="https://www.bw.net/thirdparty-delivery" target="_blank" class="warning compact action note">
                             <SvgIcon name="local_shipping" class="lead huge" />
                             <div class="content">
                                 <div class="heading">Third-party Delivery</div>
-                                <div class="aux">Click here to check our list of third-party delivery providers.</div>
+                                <div class="aux-text">Click here to check our list of third-party delivery providers.</div>
                             </div>
                             <SvgIcon name="chevron_right" class="trailing" />
                         </a>
@@ -481,13 +481,13 @@
                         </i>
                     </div>
                     <div class="collapsible">
-                        <div class="compact positive note">
+                        <div class="compact success note">
                             <div class="lead">
                                 <SvgIcon name="verified_user" class="huge" />
                             </div>
                             <div class="content">
                                 <div class="heading">Escrow Payment</div>
-                                <div class="aux">The seller receives escrow payment. So you can be assured to get your ordered product.</div>
+                                <div class="aux-text">The seller receives escrow payment. So you can be assured to get your ordered product.</div>
                             </div>
                         </div>
                     </div>
@@ -610,7 +610,7 @@
                                     <SvgIcon name="today" class="mini r-spaced" />
                                     <span class="small">
                                         <template v-if="details.bizData.hours[new Date().getDay()][0] < 0 || details.bizData.hours[new Date().getDay()][0] > new Date().getHours() || details.bizData.hours[new Date().getDay()][1] <= new Date().getHours()">
-                                            <span class="negative-text">Closed. </span>
+                                            <span class="error-text">Closed. </span>
                                             <span v-if="details.bizData.hours[new Date().getDay()][0] > new Date().getHours()">Opens {{ details.bizData.hours[new Date().getDay()][0] }}</span>
                                             <span else>
                                                 Opens
@@ -621,8 +621,8 @@
                                                 }}</span>
                                         </template>
                                         <template v-else>
-                                            <span v-if="details.bizData.hours[new Date().getDay()][1] - new Date().getHours() < 2" class="caution-text">Closes soon. </span>
-                                            <span v-else class="positive-text">Open. </span>
+                                            <span v-if="details.bizData.hours[new Date().getDay()][1] - new Date().getHours() < 2" class="warning-text">Closes soon. </span>
+                                            <span v-else class="success-text">Open. </span>
                                             <span>Closes {{ `${details.bizData.hours[new Date().getDay()][1]}:00` }}</span>
                                         </template>
                                     </span>
@@ -858,13 +858,13 @@
                         </i>
                     </div>
                     <div class="collapsible">
-                        <div class="compact positive note">
+                        <div class="compact success note">
                             <div class="lead">
                                 <SvgIcon name="verified_user" class="huge" />
                             </div>
                             <div class="content">
                                 <div class="heading">Escrow Payment</div>
-                                <div class="aux">The seller receives escrow payment. So you can be assured to get your ordered product.</div>
+                                <div class="aux-text">The seller receives escrow payment. So you can be assured to get your ordered product.</div>
                             </div>
                         </div>
                         <table class="table">
@@ -1001,7 +1001,7 @@
                                     <SvgIcon name="today" class="mini r-spaced" />
                                     <span class="small">
                                         <template v-if="details.bizData.hours[new Date().getDay()][0] < 0 || details.bizData.hours[new Date().getDay()][0] > new Date().getHours() || details.bizData.hours[new Date().getDay()][1] <= new Date().getHours()">
-                                            <span class="negative-text">Closed. </span>
+                                            <span class="error-text">Closed. </span>
                                             <span v-if="details.bizData.hours[new Date().getDay()][0] > new Date().getHours()">Opens {{ details.bizData.hours[new Date().getDay()][0] }}</span>
                                             <span else>
                                                 Opens
@@ -1012,8 +1012,8 @@
                                                 }}</span>
                                         </template>
                                         <template v-else>
-                                            <span v-if="details.bizData.hours[new Date().getDay()][1] - new Date().getHours() < 2" class="caution-text">Closes soon. </span>
-                                            <span v-else class="positive-text">Open. </span>
+                                            <span v-if="details.bizData.hours[new Date().getDay()][1] - new Date().getHours() < 2" class="warning-text">Closes soon. </span>
+                                            <span v-else class="success-text">Open. </span>
                                             <span>Closes {{ `${details.bizData.hours[new Date().getDay()][1]}:00` }}</span>
                                         </template>
                                     </span>

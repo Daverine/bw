@@ -49,7 +49,7 @@
         <div class="itm-gap">
             <div class="truncate">
                 <SvgIcon name="verified" v-if="details.bizDetails.verify" title="Verified" class="r-spaced mini green-text" />
-                <a :href="details.bizDetails.url" target="_blank" :title="details.bizDetails.name" class="small semibold" style="color: var(--secondary);">{{ details.bizDetails.name }}</a>
+                <a :href="details.bizDetails.url" target="_blank" :title="details.bizDetails.name" class="small aux-text semibold">{{ details.bizDetails.name }}</a>
             </div>
             <span :title="details.bizDetails.place.address" class="truncate" style="color: var(--on-surface-variant);">
                 <SvgIcon name="location_on" class="mini r-spaced" />

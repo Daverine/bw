@@ -38,7 +38,7 @@
 	<div id="fmenu" class="menu z-level-3 respect-lock" :class="{ pinned: mainStore.showFixedMenu }">
 		<Shareables name="main_menu" />
 	</div>
-	<button id="qaction" @click="toTop" class="fab circular tertiary button" :class="{ 'now-visible': mainStore.showFixedMenu }">
+	<button id="qaction" @click="toTop" class="fab circular secondary button respect-lock" :class="{ 'now-visible': mainStore.showFixedMenu }">
 		<SvgIcon name="vertical_align_top" />
 	</button>
 </template>
@@ -47,7 +47,7 @@
 #qaction {
 	position: fixed;
 	font-size: 1.5rem;
-	z-index: var(--z-level-4);
+	z-index: var(--z-level-3);
 	bottom: 2.5rem;
 	right: 1rem;
 	pointer-events: none;

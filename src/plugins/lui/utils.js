@@ -20,7 +20,12 @@ export const utils = {
 			document.documentElement.classList.add('scroll-locked');
 			document.documentElement.style.marginRight = scrollBarWidth;
 			document.documentElement.style.overflow = 'hidden';
-			[...document.querySelectorAll('.respect-lock')].forEach(el => el.style.maxWidth = `calc(100% - ${scrollBarWidth})`);
+			[...document.querySelectorAll('.respect-lock')].forEach(el => {
+				if (!el.lui) el.lui = {};
+            	el.lui.styleBeforeLock = el.getAttribute('style');
+				el.style.maxWidth = `calc(100% - ${scrollBarWidth})`;
+				el.style.marginRight = scrollBarWidth; 
+			});
 		}
 		if (!window.lui_ScrollLockers.includes(lockerId)) window.lui_ScrollLockers.push(lockerId);
 	},
@@ -32,7 +37,7 @@ export const utils = {
 				document.documentElement.style.marginRight = null;
 				document.documentElement.style.overflow = null;
 				document.documentElement.classList.remove('scroll-locked');
-				[...document.querySelectorAll('.respect-lock')].forEach(el => el.style.maxWidth = null);
+				[...document.querySelectorAll('.respect-lock')].forEach(el => el.setAttribute('style', el.lui.styleBeforeLock));
 			}
 		}
 	},

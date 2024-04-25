@@ -77,7 +77,7 @@
 					</div>
 				</div>
 			</form>
-
+			
 			<div style="width: 100%; align-self: flex-end; margin: 2rem auto 1rem;">
 				<div role="button" @click="$refs.main.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' })" class="mouse_scroll">
 					<div class="mouse">

@@ -76,7 +76,7 @@
                 <SvgIcon name="today" class="mini r-spaced" />
                 <span class="small">
                     <template v-if="details.hours[new Date().getDay()][0] < 0 || details.hours[new Date().getDay()][0] > new Date().getHours() || details.hours[new Date().getDay()][1] <= new Date().getHours()">
-                        <span class="negative-text">Closed.</span>
+                        <span class="error-text">Closed.</span>
                         <span v-if="details.hours[new Date().getDay()][0] > new Date().getHours()">Opens {{ details.hours[new Date().getDay()][0] }}</span>
                         <span else>
                             Opens
@@ -87,8 +87,8 @@
                             }}</span>
                     </template>
                     <template v-else>
-                        <span v-if="details.hours[new Date().getDay()][1] - new Date().getHours() < 2" class="caution-text">Closes soon. </span>
-                        <span v-else class="positive-text">Open. </span>
+                        <span v-if="details.hours[new Date().getDay()][1] - new Date().getHours() < 2" class="warning-text">Closes soon. </span>
+                        <span v-else class="success-text">Open. </span>
                         <span>Closes {{ `${details.hours[new Date().getDay()][1]}:00` }}</span>
                     </template>
                 </span>

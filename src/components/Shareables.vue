@@ -61,9 +61,9 @@
                     <SvgIcon name="qr_code_scanner" class="lead" />
                     Scan QR
                 </div>
-                <router-link to="/shop" exact-active-class="active" class="item exit-sidepanel">
+                <router-link to="/messaging" exact-active-class="active" class="item exit-sidepanel">
                     <SvgIcon name="chat" class="lead nview" />
-                    <SvgIcon name="store_filled" class="lead aview" />
+                    <SvgIcon name="chat_filled" class="lead aview" />
                     Messaging
                 </router-link>
                 <router-link to="/shop" exact-active-class="active" class="item exit-sidepanel">
@@ -132,14 +132,14 @@
         </div>
     </template>
     <div v-else-if="name === 'main_menu'" class="container items auto-margined" style="border-radius: var(--radius-default)">
-        <div class="item as-icon open-sidepanel" :class="!userStore.auth && $route.name === 'home' ? '' : 'lg-and-up-hidden'" v-tooltip.unblocking data-tooltip="Menu" data-target="msidepanel">
+        <div class="item as-icon open-sidepanel" :class="$route.meta.sideMenuToggle ? '' : 'lg-and-up-hidden'" v-tooltip.unblocking data-tooltip="Menu" data-target="msidepanel">
             <SvgIcon name="menu" />
         </div>
         <router-link :to="userStore.auth ? '/home' : '/'" class="xhover item as-icon">
             <img src="/images/logo_sqr.png" alt="site logo" class="logo-lg site-logo">
         </router-link>
         <form class="xhover adaptable item md-and-down-hidden" @submit.prevent="searchStore.triggerSearch()">
-            <label class="input fluid transparent clue-bg" style="max-width: 550px;">
+            <label class="input fluid transparent" style="max-width: 550px; background-color: var(--surface-v4) !important;">
                 <SvgIcon name="search" class="xhover" />
                 <input v-model="searchStore.searchBox" type="search" placeholder="Your search here." class="subject">
                 <button type="button" v-tooltip.unblocking data-tooltip="Scan QR" class="icon open-modal" data-target="scanqr-modal">
@@ -187,7 +187,7 @@
         </div>
         <div class="container md-and-up-hidden" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
             <form class="fluid" @submit.prevent="searchStore.triggerSearch()">
-                <label class="input fluid transparent clue-bg">
+                <label class="input fluid transparent" style="background-color: var(--surface-v4) !important;">
                     <SvgIcon name="search" class="xhover" />
                     <input v-model="searchStore.searchBox" type="search" id="searchinput" placeholder="Your search here." class="subject" ref="inputbox" autofocus />
                     <button type="button" v-tooltip.unblocking data-tooltip="Scan QR" class="icon open-modal" data-target="scanqr-modal">
@@ -226,10 +226,8 @@
             <div class="item">About us</div>
             <div class="item">Help</div>
             <div class="item">Settings</div>
-            <div class="items r-aligned">
-                <div class="item">@ Copyright 2023</div>
-                <div class="item">Emmadave Inc.</div>
-            </div>
+            <div class="item">@ Copyright 2023</div>
+            <div class="item">Emmadave Inc.</div>
         </div>
     </footer>
     <template v-else-if="name === 'page_nav'">

@@ -32,7 +32,7 @@
 			</div>
 			<div style="flex: 1 1 auto;">
 				<div class="fcd-displayname">{{ details.bizName }}</div>
-				<div class="aux fcd-bizcategory"> {{ details.bizCategory }}</div>
+				<div class="aux-text fcd-bizcategory"> {{ details.bizCategory }}</div>
 			</div>
 			<div>
 				<Dropdown :options="{directionPriority: {x: 'left', y: 'bottom'}}">
