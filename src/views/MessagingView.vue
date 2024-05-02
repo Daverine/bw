@@ -13,21 +13,9 @@ import Shareables from '../components/Shareables.vue';
         <div class="messaging-view">
             <div class="history-view">
                 <header style="display: flex; flex-flow: column nowrap; gap: 0.5em; border-bottom: 1px solid var(--outline); padding: 0.5em;">
-                    <Dropdown>
-                        <div class="icon-bar compact menu" style="border-radius: var(--radius-default);">
-                            <div class="xhover item">
-                                <div class="lead avatar circular image mini" style="flex: 0 0 auto; background-color: #999;"></div>
-                                <div class="text l-aligned">
-                                    <div class="semibold" style="font-size: 1.125em; line-height: 1.25;">Ayoola Folorunso</div>
-                                    <div class="small aux-text">Personal Account</div>
-                                </div>
-                            </div>
-                            <div class="r-aligned item">
-                                <SvgIcon name="expand_more" />
-                            </div>
-                        </div>
+                    <Dropdown class="selection">
                         <Dropmenu>
-                            <div class="item">
+                            <div class="active item">
                                 <div class="lead avatar circular image mini" style="flex: 0 0 auto; background-color: #999;"></div>
                                 <div style="flex: 1 1 auto;">
                                     <div class="text l-aligned">
@@ -101,7 +89,7 @@ import Shareables from '../components/Shareables.vue';
                         <div class="item">
                             <SvgIcon name="add" />
                         </div>
-                        <div class="adaptable xhover item">
+                        <div class="adaptable xhover item 0-h-padding">
                             <input class="fluid" type="text" placeholder="Type your message"/>
                         </div>
                         <div class="item">

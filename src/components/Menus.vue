@@ -38,34 +38,33 @@
 	<div id="fmenu" class="menu z-level-3 respect-lock" :class="{ pinned: mainStore.showFixedMenu }">
 		<Shareables name="main_menu" />
 	</div>
-	<button id="qaction" @click="toTop" class="fab circular secondary button respect-lock" :class="{ 'now-visible': mainStore.showFixedMenu }">
-		<SvgIcon name="vertical_align_top" />
-	</button>
+	<div class="fab-group respect-lock">
+		<button class="open-modal fab radius-lg secondary button" data-target="create-post">
+			<SvgIcon name="edit_square" />
+		</button>
+		<button id="qaction" @click="toTop" class="outlined fab compact radius-lg secondary button" :class="{ 'now-visible': mainStore.showFixedMenu }">
+			<SvgIcon name="vertical_align_top" />
+		</button>
+	</div>
 </template>
 
 <style lang="scss">
-#qaction {
-	position: fixed;
-	font-size: 1.5rem;
-	z-index: var(--z-level-3);
-	bottom: 2.5rem;
-	right: 1rem;
-	pointer-events: none;
-	opacity: 0;
-	transition: opacity 0.2s linear;
-	box-shadow: var(--z-depth-3);
+	#qaction {
+		pointer-events: none;
+		opacity: 0;
+		box-shadow: var(--z-depth-3);
 
-	&.now-visible {
-		pointer-events: all;
-		opacity: 1;
+		&.now-visible {
+			pointer-events: all;
+			opacity: 1;
+		}
 	}
-}
-#msidepanel > .panel {
-	display: flex;
-	flex-flow: column nowrap;
-}
+	#msidepanel > .panel {
+		display: flex;
+		flex-flow: column nowrap;
+	}
 
-#msidepanel > .panel > footer {
-	margin-top: auto;
-}
+	#msidepanel > .panel > footer {
+		margin-top: auto;
+	}
 </style>

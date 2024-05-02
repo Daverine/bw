@@ -39,6 +39,15 @@
     <Dropmenu v-else-if="name === 'profile_menu'">
         <router-link to="/account" class="header centered item"><img :src="userStore.userData.profileImg" class="free-img circular image">{{ `${userStore.userData.firstName} ${userStore.userData.lastName}` }}</router-link>
         <rc-shareables name="account" />
+        <div class="xhover item">
+            <Dropdown v-model="mainStore.colorScheme" class="select fluid">
+                <Dropmenu>
+                    <div data-value="auto-mode" class="active item">Automatic</div>
+                    <div data-value="light-mode" class="item">Light mode</div>
+                    <div data-value="dark-mode" class="item">Dark mode</div>
+                </Dropmenu>
+            </Dropdown>
+        </div>
         <div class="item" @click="userStore.logout()"><SvgIcon name="logout" class="lead" /> Log out</div>
     </Dropmenu>
     <template v-else-if="name === 'supports'">
@@ -154,7 +163,7 @@
             <div v-tooltip.unblocking data-tooltip="Search" class="open-modal as-icon item md-and-up-hidden" data-target="search-modal">
                 <SvgIcon name="search" />
             </div>
-            <div v-tooltip.unblocking data-tooltip="Explore categories" class="open-modal item as-icon" data-target="explore-modal">
+            <div v-tooltip.unblocking data-tooltip="Explore categories" class="open-modal item as-icon sm-and-down-hidden" data-target="explore-modal">
                 <SvgIcon name="manage_search" />
             </div>
             <template v-if="userStore.auth">
@@ -163,7 +172,7 @@
                 </div>
                 <Dropdown data-target="dm_profile" :options="{directionPriority: {x: 'left', y: 'bottom'}}" v-tooltip.unblocking data-tooltip="Your profile and also test" class="xhover as-icon item">
                     <img :src="userStore.userData.profileImg" alt="profile"  class="fully-rounded logo" />
-                    <Shareables name="profile_menu" />
+                    <rc-shareables name="profile_menu" />
                 </Dropdown>
             </template>
             <template v-else>

@@ -1,8 +1,9 @@
 import { defineStore } from "pinia/dist/pinia";
 
 export const useMainStore = defineStore('main', {
-    states: () => ({
-        showFixedMenu: false
+    state: () => ({
+        showFixedMenu: false,
+        colorScheme: 'light-mode'
     }),
     actions: {
         mutateSFM(value) {

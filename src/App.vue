@@ -35,6 +35,16 @@
 				else this.mainStore.mutateSFM(false);
 			}
 		},
+		watch: {
+			'mainStore.colorScheme': {
+				handler(value) {
+					document.documentElement.classList.remove('dark-mode');
+					document.documentElement.classList.remove('light-mode');
+					if (value !== 'auto-mode') document.documentElement.classList.add(value);
+				},
+				immediate: true
+			}
+		}
 	}
 </script>
 

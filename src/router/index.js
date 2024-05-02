@@ -28,7 +28,8 @@ const router = createRouter({
         {
             path: '/home',
             name: 'home',
-            component: HomeView
+            component: HomeView,
+            meta: { auth: true, }
         },
         {
             path: '/search',
@@ -39,6 +40,7 @@ const router = createRouter({
             path: '/account',
             name: 'account',
             component: AccountView,
+            meta: { auth: true, },
             children: [
                 {
                     path: 'profile',
@@ -65,7 +67,8 @@ const router = createRouter({
         {
             path: '/shop',
             name: 'shop',
-            component: BusinessView
+            component: BusinessView,
+            meta: { auth: true, }
         },
         {
             path: '/messaging',
@@ -73,6 +76,7 @@ const router = createRouter({
             component: MessagingView,
             meta: {
                 sideMenuToggle: true,
+                auth: true,
             }
         },
         {

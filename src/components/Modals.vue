@@ -535,6 +535,43 @@ export default {
     <Modal id="explore-modal">
         <Explore />
     </Modal>
+    <Modal id="create-post">
+        <div class="dialog">
+            <div class="header grid">
+                <div class="bold">
+                    create a post
+                </div>
+                <button class="circular text button as-text exit-modal" style="margin-left: auto;">
+                    <SvgIcon name="close" />
+                </button>
+            </div>
+            <div class="content">
+                <div class="field">
+                    <button class="left-labeled fluid button">
+                        <SvgIcon name="login" class="label" />
+                        Continue with Google
+                    </button>
+                </div>
+                <form @submit.prevent="userStore.login()">
+                    <div class="field">
+                        <label>Email</label>
+                        <input type="text" placeholder="Email address" />
+                    </div>
+                    <div class="field">
+                        <label>Password</label>
+                        <input type="text" placeholder="Password" />
+                    </div>
+                    <div class="field">
+                        <button class="fluid primary button">Continue</button>
+                    </div>
+                    <hr />
+                    <div class="field centered">
+                        <p>New to BizWorld? <a href="#register" class="exit-modal open-modal" data-target="register-modal">Sign up</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </Modal>
 	<template v-if="!userStore.auth">
 		<Modal id="register-modal">
 			<div class="dialog">

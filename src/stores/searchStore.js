@@ -3,7 +3,7 @@ import { defineStore } from "pinia/dist/pinia";
 import sresults from '../jsons/sresults.json';
 
 export const useSearchStore = defineStore('search', {
-    states: () => ({
+    state: () => ({
         searchBox: '',
         searchResults: []
     }),

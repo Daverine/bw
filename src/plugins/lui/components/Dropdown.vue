@@ -2,7 +2,8 @@
 	import { utils } from '../utils'
 
 	export default {
-		props: ['name', 'placeholder', 'options'],
+		props: ['modelValue', 'name', 'placeholder', 'options'],
+		emits: ['update:modelValue'],
 		data() {
 			return {
 				showDropdown: false,
@@ -20,36 +21,37 @@
 					downward: false
 				},
 				tmp: {
-					mSelectContent: []
+					selectionContent: undefined
 				},
 				allItemSelected: false,
-				allItemFiltered: false
+				allItemFiltered: false,
+				value: undefined
 			}
 		},
 		methods: {
 			dd_setSelect(item, xClose) {
 				if (!item || !this.settings.selectable) return;
 				
-				let
-					items = [...this.e.dm.querySelectorAll(this.s.it)],
-					sInput = this.$refs.sInput
-				;
+				let items = [...this.e.dm.querySelectorAll(this.s.it)];
 				
 				if (this.settings.multipleSelect) {
 					if (item.matches('.selected')) return;
 
 					let
 						itemIndex = items.indexOf(item),
-						sIValue = JSON.parse(this.e.ip.getAttribute('data-value')) || []
+						ddid = utils.getUniqueId('ddid'),
+						itemValue = item.getAttribute('data-value') || item.textContent
 					;
 					
 					item.classList.add('selected');
-					sIValue.push(item.getAttribute('data-value') || item.textContent);
-					this.e.ip.setAttribute('data-value', JSON.stringify(sIValue));
-					this.e.ip.value = JSON.stringify(sIValue);
-					item.setAttribute('data-ddid', sIValue.length - 1);
-
-					this.tmp.mSelectContent.push({html: `${item.innerHTML} <i class="svgv1 action close trailing icon"><svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48"><path d="M480.435-421.652 277.522-219.304q-12.131 12.13-29.392 12.413-17.26.282-28.826-12.848-12.695-12.131-12.478-28.674.217-16.544 12.913-29.674L422.217-480 219.304-683.348q-12.695-12.13-12.695-28.674 0-16.543 12.695-29.674 11.566-12.13 28.826-11.848 17.261.283 29.392 12.414l202.913 202.347L682.478-741.13q12.131-12.131 29.392-12.414 17.26-.282 28.826 11.848 12.695 13.131 12.478 29.674-.217 16.544-11.913 28.674L538.783-480l202.478 201.913q11.696 12.696 11.913 29.457.217 16.76-12.478 28.891-11.566 13.13-28.826 12.848-17.261-.283-29.392-12.413L480.435-421.652Z"/></svg></i>`, index: sIValue.length - 1});
+					this.e.ip.luiData[ddid] = itemValue;
+					this.value = Object.values(this.e.ip.luiData);
+					item.setAttribute('data-ddid', ddid);
+					this.tmp.selectionContent.push({
+						html: `${item.innerHTML} <i class="svgv1 action close trailing icon"><svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48"><path d="M480.435-421.652 277.522-219.304q-12.131 12.13-29.392 12.413-17.26.282-28.826-12.848-12.695-12.131-12.478-28.674.217-16.544 12.913-29.674L422.217-480 219.304-683.348q-12.695-12.13-12.695-28.674 0-16.543 12.695-29.674 11.566-12.13 28.826-11.848 17.261.283 29.392 12.414l202.913 202.347L682.478-741.13q12.131-12.131 29.392-12.414 17.26-.282 28.826 11.848 12.695 13.131 12.478 29.674-.217 16.544-11.913 28.674L538.783-480l202.478 201.913q11.696 12.696 11.913 29.457.217 16.76-12.478 28.891-11.566 13.13-28.826 12.848-17.261-.283-29.392-12.413L480.435-421.652Z"/></svg></i>`,
+						index: ddid
+					});
+					this.e.sc.classList.remove('no-content');
 
 					if (this.settings.searchable && this.showDropdown) {
 						this.e.sb.value = '';
@@ -60,9 +62,8 @@
 					if (!items.filter((el) => !el.matches('.selected'))[0]) this.allItemSelected = true;
 
 					if (!this.showDropdown || this.e.dd.matches('.indicating')) return;
-					
+
 					item.classList.remove('hovered');
-					this.e.sc.classList.remove('no-content');
 					
 					if (!this.settings.searchable) {
 						let
@@ -80,8 +81,8 @@
 					if (!this.showDropdown && items.filter((el) => el !== item && el.matches('.active'))[0]) console.warn("A selection-dropdown on this page has multiple preselected value which is not suppose to be except it is a multiple-selection-dropdown. Only the first preselected value will be preselected.");
 	
 					items.filter((el) => el !== item).forEach((el) => el.classList.remove('active'));
-					sInput.value = item.getAttribute('data-value') || item.textContent;
-					this.tmp.selectContent = item.innerHTML;
+					this.value = item.getAttribute('data-value') || item.textContent;
+					this.tmp.selectionContent = item.innerHTML;
 				}
 
 				if (!xClose) {
@@ -97,21 +98,18 @@
 				if (!this.settings.multipleSelect) return;
 				
 				let
-					sItemIndex = sItem.getAttribute('data-ddid'),
-					sInput = this.$refs.sInput,
-					sIValue = JSON.parse(this.e.ip.getAttribute('data-value')),
-					item = [...this.e.dm.querySelectorAll(`:scope [data-ddid="${sItemIndex}"]`)][0]
+					ddid = sItem.getAttribute('data-ddid'),
+					item = [...this.e.dm.querySelectorAll(`:scope [data-ddid="${ddid}"]`)][0]
 				;
-				
-				sIValue.splice(Number(sItemIndex), 1);
-				this.e.ip.setAttribute('data-value', JSON.stringify(sIValue));
-				sInput.value = JSON.stringify(sIValue);
+
+				delete this.e.ip.luiData[ddid];
+				this.value = Object.values(this.e.ip.luiData);
 				item.classList.remove('selected');
 				item.setAttribute('data-ddid', '');
-				this.tmp.mSelectContent = this.tmp.mSelectContent.filter((el) => el.index !== Number(sItemIndex));
+				this.tmp.selectionContent = this.tmp.selectionContent.filter((el) => el.index !== ddid);
 	
 				if (this.allItemSelected) this.allItemSelected = false;
-				if (!this.tmp.mSelectContent[0]) this.e.sc.classList.add('no-content');
+				if (!this.tmp.selectionContent[0]) this.e.sc.classList.add('no-content');
 
 				if (this.showDropdown) {
 					if (this.settings.searchable) {
@@ -121,6 +119,8 @@
 				
 					this.dd_CalcPosition();
 				}
+
+				if (this.settings.searchable) this.e.sb.focus();
 			},
 			dd_toggleDropdown(e) {
 				if (typeof(e) === "object") {
@@ -255,7 +255,7 @@
 						prevSib = acSItems[0].previousElementSibling,
 						nextSib = acSItems.slice(-1)[0].nextElementSibling
 					;
-					
+
 					// deselect items with keyboard when they are selected
 					if (e.key === 'Backspace' || e.key === 'Delete') {
 						if (e.key == 'Backspace' && prevSib) prevSib.classList.add('active');
@@ -265,22 +265,37 @@
 
 						acSItems.forEach((el) => this.dd_setDeselect(el));
 					}
-					else if (e.key == 'ArrowRight' && nextSib) {
-						if (!e.shiftKey) acSItems.forEach((el) => el.classList.remove('active'));
-						nextSib.classList.add('active');
+					else if (e.key === 'ArrowRight' && nextSib) {
+						if (nextSib === this.e.sb) {
+							acSItems.forEach((el) => el.classList.remove('active'));
+							this.e.sb.focus();
+							return;
+						}
+						else if (nextSib.matches('.chip')) {
+							if (!e.shiftKey) acSItems.forEach((el) => el.classList.remove('active'));
+							nextSib.classList.add('active');
+						}
 					}
-					else if (e.key == 'ArrowLeft' && prevSib) {
+					else if (e.key === 'ArrowLeft' && prevSib && prevSib.matches('.chip')) {
 						if (!e.shiftKey) acSItems.forEach((el) => el.classList.remove('active'));
 						prevSib.classList.add('active');
 					}
-					else if (e.key == 'ArrowDown') {
+					else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
 						acSItems.forEach((el) => el.classList.remove('active'));
-						this.dd_toggleDropdown('keyboard');
+						if (e.key === 'ArrowDown') this.dd_toggleDropdown('keyboard');
 					}
-					else if (e.key == ' ' || e.key == 'Enter' || e.key == 'Tab') acSItems.forEach((el) => el.classList.remove('active'));
+					else if (e.key === ' ' || e.key === 'Enter' || e.key === 'Tab') acSItems.forEach((el) => el.classList.remove('active'));
 				}
 				/* delete the last chip in multiple dropdown if searchbox is focused-on and seachbox is empty and the backspace key is pressed */
 				else if (this.settings.searchable && this.e.sb.matches(':focus') && !this.e.sb.value && e.key == 'Backspace' && [...this.e.dd.querySelectorAll(':scope > .content > .chip')][0]) this.dd_setDeselect([...this.e.dd.querySelectorAll(':scope > .content > .chip')].slice(-1)[0]);
+				else if ((this.e.dd.matches(':focus') || this.e.dd.querySelectorAll(':scope :focus')[0])) {
+					let sItems = [...this.e.dd.querySelectorAll(':scope > .content > .chip')];
+
+					if (sItems[0]) {
+						if (e.key == 'ArrowRight') sItems[0].classList.add('active');
+						else if (e.key == 'ArrowLeft') sItems.pop().classList.add('active');
+					}
+				}
 			},
 			dd_checkerFill(dm) {
 				if (dm.querySelectorAll(':scope .dropdown.browse')[0]) {
@@ -312,14 +327,20 @@
 					if (filter && !this.allItemFiltered) this.allItemFiltered = true;
 					else if (!filter && this.allItemFiltered) this.allItemFiltered = false;
 				}
-				else {
+				else if (filter && !this.e.dd.matches('.indicating')) {
+					[...this.e.dm.querySelectorAll(this.s.it)].forEach((el) => el.classList.remove('hovered'));
 					items[0].classList.add('hovered');
-					[...this.e.dm.querySelectorAll(this.s.it)].filter((el) => el != items[0]).forEach((el) => el.classList.remove('hovered'));
 					this.allItemFiltered = false;
 				}
 				
-				if (this.e.sb.value) this.e.sc.classList.remove('no-content');
-				else if (!this.tmp.mSelectContent[0]) this.e.sc.classList.add('no-content');
+				if (this.settings.multipleSelect) {
+					if (filter) {
+						this.e.sc.classList.remove('no-content');
+						let sItems = [...this.e.dd.querySelectorAll(':scope > .content > .chip')];
+						if (sItems[0]) sItems.forEach(el => el.classList.remove('active'));
+					}
+					else if (!this.tmp.selectionContent[0]) this.e.sc.classList.add('no-content');
+				}
 
 				this.dd_CalcPosition();
 			},
@@ -339,7 +360,7 @@
 
 					if (this.settings.selectable) {
 						/* deselecting items for multiple select dropdown that has the indicating class */
-						if (item.matches('.selected')) this.dd_setDeselect([...this.e.dd.querySelectorAll(':scope > .content > .chip')].filter((el) => el.getAttribute('data-diid') === item.getAttribute('data-diid'))[0]);
+						if (item.matches('.selected')) this.dd_setDeselect([...this.e.dd.querySelectorAll(':scope > .content > .chip')].filter(el => el.getAttribute('data-ddid') === item.getAttribute('data-ddid'))[0]);
 						// select item if dropdown is selectable
 						else this.dd_setSelect(item, (this.settings.multipleSelect ? true : false));
 					}
@@ -637,6 +658,75 @@
 					[...this.e.dm.querySelectorAll(this.s.it)].forEach((el) => el.classList.remove('hovered'));
 					setTimeout(() => e.detail.el.classList.add('hovered'), 10);
 				}
+			},
+			emit_model(value) {
+				if (JSON.stringify(value) === JSON.stringify(this.modelValue)) return;
+				this.$emit('update:modelValue', value);
+			},
+			absorb_model(newVal) {
+				if (JSON.stringify(newVal) === JSON.stringify(this.value)) return;
+				let items = [...this.e.dm.querySelectorAll(this.s.it)];
+				
+				if (this.settings.multipleSelect) {
+					if (!Array.isArray(newVal)) this.$emit('update:modelValue', this.value);
+					else {
+						let modelItems = [];
+
+						newVal.forEach((el) => {
+							for (let i = 0; i < items.length; i++) {
+								if (el === (items[i].getAttribute('data-value') || items[i].textContent)) {
+									modelItems.push(items[i]);
+									break;
+								}
+							}
+						});
+
+						items.forEach(item => {
+							item.classList.remove('selected');
+							item.setAttribute('data-ddid', '');
+						});
+						this.e.ip.luiData = {};
+						this.tmp.selectionContent = [];
+
+						if (modelItems[0]) {
+							modelItems.forEach((item) => {
+								let 
+									ddid = utils.getUniqueId('ddid'),
+									itemValue = item.getAttribute('data-value') || item.textContent
+								;
+								
+								item.classList.add('selected');
+								this.e.ip.luiData[ddid] = itemValue;
+								item.setAttribute('data-ddid', ddid);
+								this.tmp.selectionContent.push({
+									html: `${item.innerHTML} <i class="svgv1 action close trailing icon"><svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48"><path d="M480.435-421.652 277.522-219.304q-12.131 12.13-29.392 12.413-17.26.282-28.826-12.848-12.695-12.131-12.478-28.674.217-16.544 12.913-29.674L422.217-480 219.304-683.348q-12.695-12.13-12.695-28.674 0-16.543 12.695-29.674 11.566-12.13 28.826-11.848 17.261.283 29.392 12.414l202.913 202.347L682.478-741.13q12.131-12.131 29.392-12.414 17.26-.282 28.826 11.848 12.695 13.131 12.478 29.674-.217 16.544-11.913 28.674L538.783-480l202.478 201.913q11.696 12.696 11.913 29.457.217 16.76-12.478 28.891-11.566 13.13-28.826 12.848-17.261-.283-29.392-12.413L480.435-421.652Z"/></svg></i>`,
+									index: ddid
+								});
+							});
+							this.e.sc.classList.remove('no-content');
+						}
+						else this.e.sc.classList.add('no-content');
+
+						if (!items.filter((el) => !el.matches('.selected'))[0]) this.allItemSelected = true;
+
+						this.value = Object.values(this.e.ip.luiData);
+					}
+				}
+				else {
+					let item = items.filter((item) => newVal === (item.getAttribute('data-value') || item.textContent))[0];
+					
+					items.forEach(item => item.classList.remove('active'));
+						
+					if (item) {
+						item.classList.add('active');
+						this.tmp.selectionContent = item.innerHTML;
+						this.value = newVal;
+					}
+					else {
+						this.tmp.selectionContent = undefined;
+						this.value = undefined;
+					}
+				}
 			}
 		},
 		created() {
@@ -682,7 +772,7 @@
 
 			// check if dropdown Menu exist
 			if (!this.e.dm) {
-				console.log("A dropdown menu is missing");
+				console.error("A dropdown menu is missing");
 				return;
 			}
 
@@ -717,6 +807,8 @@
 				}
 
 				if (this.settings.multipleSelect) {
+					if (!this.e.ip.lui) this.e.ip.luiData = {};
+					this.tmp.selectionContent = [];
 					document.addEventListener('click', this.dd_mSClickFunc);
 					document.addEventListener('keydown', this.dd_mSKBFunc);
 				}
@@ -743,6 +835,11 @@
 			else target.addEventListener('click', this.dd_toggleDropdown);
 
 			this.e.dd.addEventListener('ddconsole', this.dd_console);
+
+			if (this.settings.selectable) {
+				this.$watch('value', this.emit_model);
+				this.$watch('modelValue', this.absorb_model, { immediate: true });
+			}
 		},
 		watch: {
 			showDropdown(value) {
@@ -827,7 +924,7 @@
 										clearInterval(counter);
 									}
 									else if (count >= 5) {
-										console.log(`Escape Track on ${this.e.dd} is lost.`);
+										console.warn(`Escape Track on ${this.e.dd} is lost.`);
 										this.EscTrack = undefined;
 										clearInterval(counter);
 									}
@@ -847,7 +944,7 @@
 			allItemSelected(value) {
 				if (value) utils.triggerEvent(this.e.dm, new CustomEvent('dmconsole', {detail: 'on allItemSelected'}));
 				else utils.triggerEvent(this.e.dm, new CustomEvent('dmconsole', {detail: 'off allItemSelected'}));
-			}
+			},
 		},	
 		beforeUnmount() {
 			this.e.dd.append(this.e.dm); // return drop menu to the drop down to get it removed also.
@@ -887,24 +984,25 @@
 		<slot></slot>
 		<template v-if="settings.selectable">
 			<div v-if="settings.multipleSelect" ref="sContent" class="content no-content">
-				<div v-for="item in tmp.mSelectContent" :key="item.index" :data-ddid="item.index" v-html="item.html" class="chip"></div>
+				<div v-for="item in tmp.selectionContent" :key="item.index" :data-ddid="item.index" v-html="item.html" class="chip"></div>
 				<template v-if="settings.searchable">
 					<input ref="searchBox" class='ssbox' autocomplete='off' tabindex='0'>
 					<span ref="sbsizer" class='ddmss'></span>
 				</template>
+				<div ref="sPlaceholder" class="placeholder">{{ placeholder }}</div>
 			</div>
 			<template v-else>
 				<template v-if="settings.searchable">
 					<input ref="searchBox" class='ssbox' autocomplete='off' tabindex='0'>
 					<span ref="sbsizer" class='ddmss'></span>
 				</template>
-				<div ref="sContent" v-html="tmp.selectContent" class="content"></div>
+				<div ref="sContent" v-html="tmp.selectionContent" class="content"></div>
+				<div ref="sPlaceholder" class="placeholder">{{ placeholder }}</div>
 			</template>
-			<div ref="sPlaceholder" class="placeholder">{{ placeholder }}</div>
-			<i v-if="$attrs.class.split(' ').includes('select')" ref="ddIcon" class="ddico icon">
+			<button v-if="$attrs.class.split(' ').includes('select')" ref="ddIcon" class="ddico icon">
 				<svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 -960 960 960" width="48"><path d="m480-222.609 108.913-108.913q13.202-12.696 30.21-12.696 17.007 0 29.138 13.299 12.13 11.734 12.13 29.552 0 17.817-11.13 29.758L509.957-132.87q-6.023 6.131-14.118 9.414-8.095 3.282-16.035 3.282-7.941 0-15.858-3.282-7.918-3.283-12.903-9.414L311.739-271.609q-12.13-12.071-12.13-29.927 0-17.855 12.233-29.769 12.234-12.913 29.834-12.63 17.6.283 29.976 12.413L480-222.609Zm0-512.651L371.087-626.348q-13.202 12.696-30.21 12.696-17.007 0-29.138-13.299-12.13-12.299-12.13-30.116 0-17.818 12.13-30.194l139.304-139.304q5.019-5.182 13.11-9.222 8.09-4.039 16.026-4.039 7.935 0 15.892 4.039 7.957 4.04 13.886 9.222l139.304 139.304q11.13 12.507 11.13 30.362 0 17.856-12.233 30.334-12.234 12.913-29.957 12.348-17.723-.565-29.853-12.696L480-735.26Z"/></svg>
-			</i>
-			<input ref="sInput" type="hidden" :name="name">
+			</button>
+			<input ref="sInput" :value="value" type="hidden" :name="name">
 		</template>
 	</div>
 </template>

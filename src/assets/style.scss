@@ -1,13 +1,28 @@
 :root {
 	--radius-default: 0.5em;
 	--site-logo-filter: invert(0);
+}
+
+@mixin light-mode() {
 	--fmenu-bg: rgba(255,255,255,0.9);
+}
+@mixin dark-mode() {
+	--fmenu-bg: rgba(26,26,26,0.8);
+}
+
+@media screen and (prefers-color-scheme: light) {
+	:root {
+		@include light-mode();
+	}
 }
 @media screen and (prefers-color-scheme: dark) {
 	:root {
-		--fmenu-bg: rgba(26,26,26,0.8);
+		@include dark-mode();
 	}
 }
+
+.light-mode { @include light-mode(); }
+.dark-mode { @include dark-mode(); }
 
 .as-page {
 	scroll-behavior: smooth;
@@ -55,10 +70,6 @@
 	transition: max-height .5s ease-in-out;
 	overflow: hidden !important;
 	max-height: 0px;
-}
-
-.scroll-locked {
-	background-color: #eee;
 }
 
 // landing page style
