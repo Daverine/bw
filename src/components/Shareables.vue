@@ -39,15 +39,6 @@
     <Dropmenu v-else-if="name === 'profile_menu'">
         <router-link to="/account" class="header centered item"><img :src="userStore.userData.profileImg" class="free-img circular image">{{ `${userStore.userData.firstName} ${userStore.userData.lastName}` }}</router-link>
         <rc-shareables name="account" />
-        <div class="xhover item">
-            <Dropdown v-model="mainStore.colorScheme" class="select fluid">
-                <Dropmenu>
-                    <div data-value="auto-mode" class="active item">Automatic</div>
-                    <div data-value="light-mode" class="item">Light mode</div>
-                    <div data-value="dark-mode" class="item">Dark mode</div>
-                </Dropmenu>
-            </Dropdown>
-        </div>
         <div class="item" @click="userStore.logout()"><SvgIcon name="logout" class="lead" /> Log out</div>
     </Dropmenu>
     <template v-else-if="name === 'supports'">
@@ -141,7 +132,7 @@
         </div>
     </template>
     <div v-else-if="name === 'main_menu'" class="container items auto-margined" style="border-radius: var(--radius-default)">
-        <div class="item as-icon open-sidepanel" :class="$route.meta.sideMenuToggle ? '' : 'lg-and-up-hidden'" v-tooltip.unblocking data-tooltip="Menu" data-target="msidepanel">
+        <div class="item as-icon open-sidepanel" v-tooltip.unblocking data-tooltip="Menu" data-target="msidepanel">
             <SvgIcon name="menu" />
         </div>
         <router-link :to="userStore.auth ? '/home' : '/'" class="xhover item as-icon">
@@ -230,15 +221,16 @@
         </div>
 	</header>
     <footer v-else-if="name === 'common_footer'" style="align-self: flex-end;">
-        <div class="transparent text wrappable menu flex-centered">
-            <div class="item">Terms of use</div>
-            <div class="item">About us</div>
-            <div class="item">Help</div>
-            <div class="item">Settings</div>
-            <div class="item">@ Copyright 2023</div>
-            <div class="item">Emmadave Inc.</div>
-        </div>
+       <rc-shareables name="copyright" />
     </footer>
+    <div v-else-if="name === 'copyright'" class="transparent text wrappable menu flex-centered">
+        <div class="item">Terms of use</div>
+        <div class="item">About us</div>
+        <div class="item">Help</div>
+        <div class="item">Settings</div>
+        <div class="item">@ Copyright 2023</div>
+        <div class="item">Emmadave Inc.</div>
+    </div>
     <template v-else-if="name === 'page_nav'">
         <aside id="navmenu" class="manual-width col sidemenu lg-and-down-hidden sp-wrapper">
             <div v-scrollPin="{ topSpacing: 84, bottomSpacing: 16, ancestorGuarded: true }" class="vertical transparent menu">

@@ -32,7 +32,26 @@
 				</div>
 				<Shareables name="nav_menu" />
 			</div>
-			<Shareables name="common_footer" />
+			<footer style="margin-top: auto;">
+				<div class="field" style="align-self: flex-end">
+					<label>Color scheme settings</label>
+					<div class="icon fluid option-group">
+						<label>
+							<input v-model="mainStore.colorScheme" type="radio" value="light-mode" />
+							<SvgIcon name="light_mode" />
+						</label>
+						<label>
+							<input v-model="mainStore.colorScheme" type="radio" value="auto-mode" />
+							<SvgIcon name="desktop_windows" />
+						</label>
+						<label>
+							<input v-model="mainStore.colorScheme" type="radio" value="dark-mode" />
+							<SvgIcon name="dark_mode" />
+						</label>
+					</div>
+				</div>
+				<Shareables name="copyright" />
+			</footer>
 		</div>
 	</SidePanel>
 	<div id="fmenu" class="menu z-level-3 respect-lock" :class="{ pinned: mainStore.showFixedMenu }">

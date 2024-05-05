@@ -32,7 +32,7 @@
 		<header id="main-header">
 			<div class="transparent menu" style="height: 64px;">
 				<div class="container items auto-margined" style="border-radius: var(--radius-default);">
-					<div class="item as-icon md-and-up-hidden open-sidepanel" v-tooltip.unblocking data-tooltip="Menu" data-target="msidepanel">
+					<div class="item as-icon open-sidepanel" v-tooltip.unblocking data-tooltip="Menu" data-target="msidepanel">
 						<SvgIcon name="menu" />
 					</div>
 					<div class="items md-and-down-hidden">
