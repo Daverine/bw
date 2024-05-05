@@ -4517,8 +4517,10 @@ input[type=file]::-ms-browse:hover {
   color: var(--on-surface);
   cursor: pointer;
 }
-.option-group > label:before {
-  content: "";
+.option-group > label input[type=checkbox], .option-group > label input[type=radio] {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
   position: absolute;
   width: 100%;
   height: 100%;
@@ -4534,24 +4536,17 @@ input[type=file]::-ms-browse:hover {
   -webkit-tap-highlight-color: transparent;
   opacity: 0;
 }
-.option-group > label:hover:before {
+.option-group > label input[type=checkbox]:hover, .option-group > label input[type=radio]:hover {
   opacity: var(--hover-state);
+}
+.option-group > label input[type=checkbox]:checked, .option-group > label input[type=radio]:checked {
+  opacity: var(--press-state);
 }
 .option-group.icon {
   display: inline-flex;
 }
 .option-group.icon > label {
   padding: calc(var(--form-tb-padding) / 2);
-}
-.option-group input[type=checkbox], .option-group input[type=radio] {
-  position: absolute;
-  opacity: 0;
-  height: 0;
-  width: 0;
-}
-.option-group label:has(input:checked):before,
-.option-group input:checked + label:before {
-  opacity: var(--press-state);
 }
 
 .input {
