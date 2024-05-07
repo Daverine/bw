@@ -126,7 +126,7 @@
   --radius-default: 2px;
   --radius-sm: 2px;
   --radius-md: 5px;
-  --radius-lg: 10px;
+  --radius-lg: 12px;
   --radius-full: 1000rem;
   --radius-round: 0.3rem;
   --scrim-opacity: 0.7;
@@ -1039,18 +1039,19 @@ ol.upper-roman-type .sub-list .sub-list .sub-list .sub-list .sub-list .sub-list 
   font-size: 1rem;
   position: relative;
   display: inline-block;
-  width: 300px;
+  width: -moz-max-content;
+  width: max-content;
   max-width: 100%;
   min-height: 0;
-  vertical-align: top;
   backface-visibility: hidden;
   color: var(--on-surface);
   background-color: var(--surface);
   padding: 0em;
   margin: 0 0 1em;
   border-radius: var(--radius-default);
-  border: 1px solid var(--outline);
-  transition: box-shadow 0.1s ease, transform 0.1s ease;
+}
+.card.highlight:hover, .card.highlight:focus {
+  background-color: var(--surface-v1);
 }
 .card:not(.padded):not(.v-padded):not(.h-padded):not(.t-padded) > *:first-child {
   border-top-left-radius: inherit !important;
@@ -2780,7 +2781,7 @@ hr.vertical:empty,
   border: 0px none;
   border-radius: inherit;
   position: relative;
-  line-height: 1;
+  line-height: inherit;
   align-items: inherit;
 }
 .menu > .item,
@@ -4848,6 +4849,7 @@ input[type=file]::-ms-browse:hover {
 }
 .button.fab {
   padding: calc(var(--button-padding-tb) * 7 / 4);
+  border-radius: var(--radius-lg);
 }
 .button.fancy {
   box-shadow: var(--button-fancy);

@@ -32,6 +32,7 @@
 				</div>
 				<Shareables name="nav_menu" />
 			</div>
+			<hr />
 			<footer style="margin-top: auto;">
 				<div class="field" style="align-self: flex-end">
 					<label>Color scheme settings</label>

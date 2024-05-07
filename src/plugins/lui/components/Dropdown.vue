@@ -838,7 +838,7 @@
 
 			if (this.settings.selectable) {
 				this.$watch('value', this.emit_model);
-				this.$watch('modelValue', this.absorb_model, { immediate: true });
+				this.$watch('modelValue', this.absorb_model, { immediate: this.modelValue === undefined ? false : true });
 			}
 		},
 		watch: {

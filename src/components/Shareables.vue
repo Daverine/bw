@@ -141,7 +141,7 @@
         <form class="xhover adaptable item md-and-down-hidden" @submit.prevent="searchStore.triggerSearch()">
             <label class="input fluid transparent" style="max-width: 550px; background-color: var(--surface-v4) !important;">
                 <SvgIcon name="search" class="xhover" />
-                <input v-model="searchStore.searchBox" type="search" placeholder="Your search here." class="subject">
+                <input value="yoyos" v-model="searchStore.searchBox" type="search" placeholder="Your search here." class="subject">
                 <button type="button" v-tooltip.unblocking data-tooltip="Scan QR" class="icon open-modal" data-target="scanqr-modal">
                     <SvgIcon name="qr_code_scanner" />
                 </button>

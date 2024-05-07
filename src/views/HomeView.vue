@@ -94,7 +94,7 @@
 		<section id="firstSec" ref="main" class="container csection grid">
 			<Shareables name="page_nav" />
             <main ref="main" class="col" id="feed">
-				<h6 class="centered" id="bizupdate">Update from page you're following (Feeds)</h6>
+				<h6 class="centered" style="margin-bottom: 2rem;" id="bizupdate">Update from page you're following (Feeds)</h6>
 				<FeedCard v-for="(feed, i) in feedStore.feeds" :key="i" :details="feed" />
 				<div class="divider">
 					<button class="button">
@@ -109,7 +109,7 @@
 </template>
 <style scoped>
 	#feed {
-		padding: 5rem 1em 20px;
+		padding: 5rem 0.5em 20px;
 	}
 	#main-header {
 		min-height: 100vh;
