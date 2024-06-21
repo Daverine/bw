@@ -1,6 +1,6 @@
-import axios from "axios";
-import { defineStore } from "pinia/dist/pinia";
 import sresults from '../jsons/sresults.json';
+import router from '@/router';
+const getRoute = () => router.currentRoute.value;
 
 export const useSearchStore = defineStore('search', {
     state: () => ({
@@ -10,7 +10,7 @@ export const useSearchStore = defineStore('search', {
     actions: {
         triggerSearch() {
             if (!this.searchBox) return;
-            this.$router.push('/search?q='+this.searchBox);
+            router.push('/search?q='+this.searchBox);
             this.searchResults = sresults;
         }
     }

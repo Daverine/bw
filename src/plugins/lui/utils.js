@@ -37,7 +37,7 @@ export const utils = {
 				document.documentElement.style.marginRight = null;
 				document.documentElement.style.overflow = null;
 				document.documentElement.classList.remove('scroll-locked');
-				[...document.querySelectorAll('.respect-lock')].forEach(el => el.setAttribute('style', el.lui.styleBeforeLock));
+				[...document.querySelectorAll('.respect-lock')].forEach(el => el.setAttribute('style', el.lui.styleBeforeLock || null));
 			}
 		}
 	},

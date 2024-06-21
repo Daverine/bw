@@ -36,7 +36,7 @@
         </div>
     </div>
     <div class="itm-content">
-        <a class="itm-title" :title="details.title">{{ details.title }}</a>
+        <div class="link itm-title" :title="details.title">{{ details.title }}</div>
         <div class="itm-gap">
             <div>
                 <span class="0-margined h6" style="font-weight: var(--bold-weight);">{{ details.priceDefinition }}&nbsp;</span>

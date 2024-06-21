@@ -1,18 +1,21 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import CommonView from '../components/CommonView.vue';
-import StartView from '../views/StartView.vue';
-import HomeView from '../views/HomeView.vue';
-import SearchView from '../views/SearchView.vue';
-import MessagingView from '../views/MessagingView.vue';
+import { loadLayoutMiddleware } from '../middleware/loadLayoutMiddleware';
+import { useUserStore } from '../stores/userStore';
 
-import AccountView from '../views/AccountView.vue';
-import Profile from '../components/Profile.vue';
-import Reviews from '../components/Reviews.vue';
-import Followed from '../components/Followed.vue';
-import Saved from '../components/Saved.vue';
-import Settings from '../components/Settings.vue';
+import index from '../pages/index.vue';
+import search from '../pages/search.vue';
+import auth from '../pages/auth.vue';
+import home from '../pages/home.vue';
+import messaging from '../pages/messaging.vue';
+import myshops from '../pages/myshops.vue';
+import account_index from '../pages/account/index.vue';
+import account_profile from '../pages/account/profile.vue';
+import account_reviews from '../pages/account/reviews.vue';
+import account_saved from '../pages/account/saved.vue';
+import account_followed from '../pages/account/followed.vue';
 
-import BusinessView from '../views/BusinessView.vue';
+import SearchPage from '../views/SearchPage.vue';
+import HomePage from '../views/HomePage.vue';
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,69 +23,83 @@ const router = createRouter({
         {
             path: '/',
             name: 'start',
-            component: StartView,
-            meta: {
-                sideMenuToggle: true,
-            }
-        },
-        {
-            path: '/home',
-            name: 'home',
-            component: HomeView,
-            meta: { auth: true, }
+            component: index
         },
         {
             path: '/search',
             name: 'search',
-            component: SearchView
-        },
-        {
-            path: '/account',
-            name: 'account',
-            component: AccountView,
-            meta: { auth: true, },
-            children: [
-                {
-                    path: 'profile',
-                    component: Profile
-                },
-                {
-                    path: 'reviews',
-                    component: Reviews
-                },
-                {
-                    path: 'followed',
-                    component: Followed
-                },
-                {
-                    path: 'saved',
-                    component: Saved
-                },
-                {
-                    path: 'settings',
-                    component: Settings
-                }
-            ]
-        },
-        {
-            path: '/shop',
-            name: 'shop',
-            component: BusinessView,
-            meta: { auth: true, }
-        },
-        {
-            path: '/messaging',
-            name: 'messaging',
-            component: MessagingView,
+            component: search,
             meta: {
-                sideMenuToggle: true,
+                layout: 'Common'
+            }
+        },
+        {
+            path: '/login',
+            name: 'login',
+            component: auth
+        },
+        {
+            path: '/register',
+            name: 'register',
+            component: auth
+        },
+        {
+            path: '/home',
+            name: 'home',
+            component: home,
+            meta: {
                 auth: true,
             }
         },
         {
-            path: '/manage'
-
-        }
+            path: '/messaging',
+            name: 'messaging',
+            component: messaging,
+            meta: {
+                auth: true,
+                noFab: true,
+            }
+        },
+        {
+            path: '/myshops',
+            name: 'myshops',
+            component: myshops,
+            meta: {
+                auth: true,
+                layout: 'Common'
+            }
+        },
+        {
+            path: '/account',
+            name: 'account',
+            component: account_index,
+            meta: {
+                auth: true,
+                layout: 'Common'
+            },
+            children: [
+                {
+                    path: 'profile',
+                    name: 'account_profile',
+                    component: account_profile
+                },
+                {
+                    path: 'reviews',
+                    name: 'account_reviews',
+                    component: account_reviews
+                },
+                {
+                    path: 'saved',
+                    name: 'account_saved',
+                    component: account_saved
+                },
+                {
+                    path: 'followed',
+                    name: 'account_followed',
+                    component: account_followed
+                },
+            ]
+        },
     ],
     scrollBehavior(to, from, savedPosition) {
         if (savedPosition) {
@@ -91,6 +108,17 @@ const router = createRouter({
             return { top: 0 }
         }
     }
-})
+});
+
+router.beforeEach((to) => {
+    const userStore = useUserStore();
+
+    if (to.meta.auth && !userStore.auth) {
+        userStore.routeProceed = to;
+        return '/login';
+    }
+});
+
+router.beforeEach(loadLayoutMiddleware);
 
 export default router

@@ -48,62 +48,58 @@
     <template v-else-if="name === 'nav_menu'">
         <div class="items" style="border-radius: var(--radius-default);">
             <template v-if="userStore.auth">
-                <router-link to="/home" exact-active-class="active" class="item exit-sidepanel">
-                    <SvgIcon name="home" class="lead nview" />
-                    <SvgIcon name="home_filled" class="lead aview" />
-                    Home
-                </router-link>
-                <div class="item exit-sidepanel open-modal" data-target="explore-modal">
-                    <SvgIcon name="manage_search" class="lead" />
-                    Explore
-                </div>
-                <div class="item exit-sidepanel open-modal" data-target="scanqr-modal">
-                    <SvgIcon name="qr_code_scanner" class="lead" />
-                    Scan QR
-                </div>
-                <router-link to="/messaging" exact-active-class="active" class="item exit-sidepanel">
-                    <SvgIcon name="chat" class="lead nview" />
-                    <SvgIcon name="chat_filled" class="lead aview" />
-                    Messaging
-                </router-link>
-                <router-link to="/shop" exact-active-class="active" class="item exit-sidepanel">
-                    <SvgIcon name="store" class="lead nview" />
-                    <SvgIcon name="store_filled" class="lead aview" />
-                    My Business
-                </router-link>
-                <div v-collapsible class="item xactive">
-                    <SvgIcon name="person" class="lead nview" />
-                    <SvgIcon name="person_filled" class="lead aview" />
-                    Account
-                    <SvgIcon name="expand_more" class="trailing aview" />
-                    <SvgIcon name="chevron_left" class="trailing nview" />
-                </div>
-                <div class="collapsible sub items">
-                    <rc-shareables name="account" />
-                </div>
-                <div v-collapsible class="item xhover xactive">
-                    <SvgIcon name="contact_support" class="lead nview" />
-                    <SvgIcon name="contact_support_filled" class="lead aview" />
-                    Support
-                    <SvgIcon name="expand_more" class="trailing aview" />
-                    <SvgIcon name="chevron_left" class="trailing nview" />
-                </div>
-                <div class="collapsible sub items">
-                    <rc-shareables name="supports" />
-                </div>
-                <div class="item" @click="userStore.logout()"><SvgIcon name="logout" class="lead" /> Log out</div>
-                <div class="transparent compact divider"></div>
-                <div class="xhover item 0-padding"><button class="fluid button">Have a shop online</button></div>
+                <template v-if="userStore.auth">
+                    <router-link to="/home" exact-active-class="active" class="item exit-sidepanel">
+                        <SvgIcon name="home" class="lead nview" />
+                        <SvgIcon name="home_filled" class="lead aview" />
+                        Home
+                    </router-link>
+                    <router-link to="/messaging" exact-active-class="active" class="item exit-sidepanel">
+                        <SvgIcon name="chat" class="lead nview" />
+                        <SvgIcon name="chat_filled" class="lead aview" />
+                        Messaging
+                    </router-link>
+                    <router-link to="/myshops" exact-active-class="active" class="item exit-sidepanel">
+                        <SvgIcon name="store" class="lead nview" />
+                        <SvgIcon name="store_filled" class="lead aview" />
+                        My Shops
+                    </router-link>
+                    <div v-collapsible class="item xactive">
+                        <SvgIcon name="person" class="lead nview" />
+                        <SvgIcon name="person_filled" class="lead aview" />
+                        Account
+                        <SvgIcon name="expand_more" class="trailing aview" />
+                        <SvgIcon name="chevron_left" class="trailing nview" />
+                    </div>
+                    <div class="collapsible sub items">
+                        <rc-shareables name="account" />
+                    </div>
+                    <div v-collapsible class="item xactive">
+                        <SvgIcon name="contact_support" class="lead nview" />
+                        <SvgIcon name="contact_support_filled" class="lead aview" />
+                        Support
+                        <SvgIcon name="expand_more" class="trailing aview" />
+                        <SvgIcon name="chevron_left" class="trailing nview" />
+                    </div>
+                    <div class="collapsible sub items">
+                        <rc-shareables name="supports" />
+                    </div>
+                    <div class="item" @click="userStore.logout()"><SvgIcon name="logout" class="lead" /> Log out</div>
+                    <div class="transparent compact divider"></div>
+                    <div class="xhover item 0-padding"><button class="fluid button">Have a shop online</button></div>
+                </template>
+                <template v-else>
+                    <RouterLink to="/myshops" class="item"><SvgIcon name="" class="lead" /> Go back to my shops</RouterLink>
+                    <RouterLink to="manage/" class="item"><SvgIcon name="" class="lead" /> Overview</RouterLink>
+                    <RouterLink to="manage/posts" class="item"><SvgIcon name="" class="lead" /> Posts</RouterLink>
+                    <RouterLink to="manage/pageinfo" class="item"><SvgIcon name="" class="lead" /> Page Info</RouterLink>
+                    <RouterLink to="manage/media" class="item"><SvgIcon name="" class="lead" /> Media</RouterLink>
+                    <RouterLink to="manage/products" class="item"><SvgIcon name="" class="lead" /> Products</RouterLink>
+                    <RouterLink to="manage/services" class="item"><SvgIcon name="" class="lead" /> Services</RouterLink>
+                    <RouterLink to="manage/support" class="item"><SvgIcon name="" class="lead" /> Support</RouterLink>
+                </template>
             </template>
             <template v-else>
-                <div class="item exit-sidepanel open-modal" data-target="explore-modal">
-                    <SvgIcon name="manage_search" class="lead" />
-                    Explore
-                </div>
-                <div class="item exit-sidepanel open-modal" data-target="scanqr-modal">
-                    <SvgIcon name="qr_code_scanner" class="lead" />
-                    Scan Business QR
-                </div>
                 <div v-collapsible class="item xactive">
                     <i class="lead viewbox icon">
                         <SvgIcon name="contact_support" class="n-view" />
@@ -139,10 +135,10 @@
             <img src="/images/logo_sqr.png" alt="site logo" class="logo-lg site-logo">
         </router-link>
         <form class="xhover adaptable item md-and-down-hidden" @submit.prevent="searchStore.triggerSearch()">
-            <label class="input fluid transparent" style="max-width: 550px; background-color: var(--surface-v4) !important;">
+            <label class="input fluid transparent" style="max-width: var(--container-text); background-color: var(--surface-v4) !important;">
                 <SvgIcon name="search" class="xhover" />
-                <input value="yoyos" v-model="searchStore.searchBox" type="search" placeholder="Your search here." class="subject">
-                <button type="button" v-tooltip.unblocking data-tooltip="Scan QR" class="icon open-modal" data-target="scanqr-modal">
+                <input v-model="searchStore.searchBox" type="search" placeholder="Your search here." class="subject">
+                <button type="button" v-tooltip.unblocking data-tooltip="Scan Business QR" class="icon open-modal" data-target="scanqr-modal">
                     <SvgIcon name="qr_code_scanner" />
                 </button>
                 <button type="button" v-tooltip.unblocking data-tooltip="Search location is set to Nigeria. Click to change it." class="icon open-modal" data-target="">
@@ -154,14 +150,30 @@
             <div v-tooltip.unblocking data-tooltip="Search" class="open-modal as-icon item md-and-up-hidden" data-target="search-modal">
                 <SvgIcon name="search" />
             </div>
-            <div v-tooltip.unblocking data-tooltip="Explore categories" class="open-modal item as-icon sm-and-down-hidden" data-target="explore-modal">
-                <SvgIcon name="manage_search" />
-            </div>
+            <Dropdown :options="{directionPriority: {x: 'center', y: 'bottom'}}" v-tooltip.unblocking data-tooltip="Do more" class="xhover as-icon item">
+                <SvgIcon name="apps" />
+                <Dropmenu>
+                    <div class="menu">
+                        <div class="bar-item item open-modal exit-dd" data-target="explore-modal">
+                            <SvgIcon name="manage_search" />
+                            <span class="text label">Explore</span>
+                        </div>
+                        <div class="bar-item item open-modal exit-dd" data-target="scanqr-modal">
+                            <SvgIcon name="qr_code_scanner" />
+                            <span class="text label">Scan QR</span>
+                        </div>
+                        <div v-if="userStore.auth && userStore.userData.manageBisiness" class="bar-item item open-modal exit-dd" data-target="create-post">
+                            <SvgIcon name="edit_square" />
+                            <span class="text label">Create Post</span>
+                        </div>
+                    </div>
+                </Dropmenu>
+            </Dropdown>
             <template v-if="userStore.auth">
                 <div class="as-icon item" v-tooltip.unblocking data-tooltip="Notifications">
                     <SvgIcon name="notifications" />
                 </div>
-                <Dropdown data-target="dm_profile" :options="{directionPriority: {x: 'left', y: 'bottom'}}" v-tooltip.unblocking data-tooltip="Your profile and also test" class="xhover as-icon item">
+                <Dropdown :options="{directionPriority: {x: 'left', y: 'bottom'}}" v-tooltip.unblocking data-tooltip="Your profile" class="xhover as-icon item">
                     <img :src="userStore.userData.profileImg" alt="profile"  class="fully-rounded logo" />
                     <rc-shareables name="profile_menu" />
                 </Dropdown>
@@ -181,6 +193,7 @@
             </template>
         </div>
     </div>
+    
     <header v-else-if="name === 'common_header'" id="main-header" style="border-bottom: 1px solid var(--outline); background-color: var(--surface);">
         <div class="menu" style="height: 64px;">
             <rc-shareables name="main_menu" />
@@ -190,7 +203,7 @@
                 <label class="input fluid transparent" style="background-color: var(--surface-v4) !important;">
                     <SvgIcon name="search" class="xhover" />
                     <input v-model="searchStore.searchBox" type="search" id="searchinput" placeholder="Your search here." class="subject" ref="inputbox" autofocus />
-                    <button type="button" v-tooltip.unblocking data-tooltip="Scan QR" class="icon open-modal" data-target="scanqr-modal">
+                    <button type="button" v-tooltip.unblocking data-tooltip="Scan Business QR" class="icon open-modal" data-target="scanqr-modal">
                         <SvgIcon name="qr_code_scanner" />
                     </button>
                     <button type="button" v-tooltip.unblocking data-tooltip="Search location is set to Nigeria. Click to change it." class="icon open-modal" data-target="">
@@ -200,7 +213,7 @@
             </form>
         </div>
         <div class="md-and-down-hidden" style="padding: 0em 0em 0.5em;">
-            <div class="container grid flex-no-wrap">
+            <div class="container grid flex-no-wrap" style="gap: 0.5em;">
                 <div class="manual-width col"><div class="compact transparent button bold open-modal" data-target="explore-modal"><SvgIcon name="manage_search" class="lead" /> Explore:</div></div>
                 <div v-iScroller id="categories" class="i-scroller col" style="overflow: hidden; padding: 4px 0px;">
                     <div class="l-scroll"><SvgIcon name="double_arrow_left" class="mini" /></div>
@@ -231,6 +244,8 @@
         <div class="item">@ Copyright 2023</div>
         <div class="item">Emmadave Inc.</div>
     </div>
+
+
     <template v-else-if="name === 'page_nav'">
         <aside id="navmenu" class="manual-width col sidemenu lg-and-down-hidden sp-wrapper">
             <div v-scrollPin="{ topSpacing: 84, bottomSpacing: 16, ancestorGuarded: true }" class="vertical transparent menu">
@@ -253,7 +268,7 @@
                         </div>
                     </div>
                 </div>
-                <rc-shareables name="common_footer" />
+                <!-- <rc-shareables name="common_footer" /> -->
             </div>
         </aside>
     </template>

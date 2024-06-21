@@ -40,16 +40,11 @@
 			</div>
 			{{ details.postText }}
 		</div>
-		<!-- <div class="icon-bar fillable menu">
-			<div class="xhover as-icon item"><div class="circular compact transparent button"><SvgIcon name="thumb_up" class="small" /></div> ({{ details.thumbsUp }})</div>
-			<div class="xhover as-icon item"><div class="circular compact transparent button"><SvgIcon name="reply" class="small" /></div></div>
-			<div class="xhover as-icon item"><div class="circular compact transparent button"><SvgIcon name="share" class="small" /></div></div>
-		</div> -->
 		<div class="icon-bar transparent small compact menu">
 			<div class="items adaptable fillable" style="padding: 0em 0.5em; border-radius: var(--radius-default);">
-				<div class="as-icon item"><SvgIcon name="thumb_up" /> ({{ details.thumbsUp }})</div>
-				<div class="as-icon item"><SvgIcon name="reply" /></div>
-				<div class="as-icon item"><SvgIcon name="share" /></div>
+				<div class="as-icon item" v-tooltip.unblocking data-tooltip="Thumb up"><SvgIcon name="thumb_up" /> ({{ details.thumbsUp }})</div>
+				<div class="as-icon item" v-tooltip.unblocking data-tooltip="Private reply"><SvgIcon name="reply" /></div>
+				<div class="as-icon item" v-tooltip.unblocking data-tooltip="Share"><SvgIcon name="share" /></div>
 			</div>
 		</div>
 	</div>

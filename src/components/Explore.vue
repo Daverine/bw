@@ -2,13 +2,14 @@
     <div class="dialog self-scroll">
         <div class="header grid">
             <div class="bold">
+                Explore your caterory of interest here.
             </div>
             <button class="circular text button as-text exit-modal" style="margin-left: auto;">
                 <SvgIcon name="close" />
             </button>
         </div>
         <div class="content">
-            <div class="centered"><button class="button"><SvgIcon name="trending_up" class="small lead" /> Trending</button></div>
+            <div class="centered"><button class="button"><SvgIcon name="trending_up" class="lead" /> Trending</button></div>
             <div class="heading">Business categories</div>
             <div class="grid">
                 <button class="chip"><SvgIcon name="restaurant" class="small lead" /> Restaurants</button>
@@ -32,6 +33,11 @@
                 <button class="chip"><SvgIcon name="local_pharmacy" class="small lead" /> Fashion</button>
                 <button class="chip"><SvgIcon name="local_hospital" class="small lead" /> Arts</button>
                 <button class="chip"><SvgIcon name="local_hospital" class="small lead" /> Food & Beverage</button>
+            </div>
+            <div class="heading">Can't find what you're looking for here?</div>
+            <div>
+                <p class="centered">Search instead. Click on the search button below to enter your search query.</p>
+                <div class="centered"><button class="button open-modal exit-modal" data-target="search-modal"><SvgIcon name="search" class="lead" /> Search</button></div>
             </div>
             
         </div>

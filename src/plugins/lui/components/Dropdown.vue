@@ -21,7 +21,8 @@
 					downward: false
 				},
 				tmp: {
-					selectionContent: undefined
+					selectionContent: undefined,
+					positionStream: undefined,
 				},
 				allItemSelected: false,
 				allItemFiltered: false,
@@ -349,11 +350,12 @@
 					items = [...this.e.dm.querySelectorAll(this.s.it)],
 					item = items.filter((el) => el.contains(e.target))[0],
 					sItem = [...this.e.dd.querySelectorAll(':scope > .content > .chip')].filter((el) => el.contains(e.target))[0],
-					sItemClose = [...this.e.dd.querySelectorAll(':scope > .content > .chip > .close')].filter((el) => el.contains(e.target))[0]
+					sItemClose = [...this.e.dd.querySelectorAll(':scope > .content > .chip > .close')].filter((el) => el.contains(e.target))[0],
+					exiter = [...this.e.dm.querySelectorAll(this.s.ex)].filter(el => el.contains(e.target))[0]
 				;
 
-				/* Close on "Click Out" */
-				if (!this.e.dd.contains(e.target) && !this.e.dm.contains(e.target)) this.showDropdown = false;
+				/* Close when an exiter is clicked or on "Click Out" */
+				if (exiter || (!this.e.dd.contains(e.target) && !this.e.dm.contains(e.target))) this.showDropdown = false;
 				/* do something when an item is clicked */
 				else if (item) {					
 					if (item.matches('.dropdown')) return;
@@ -560,16 +562,14 @@
 					}
 				}
 				else {
-					this.e.dm.classList.remove('upward', 'downward', 'rhs', 'lhs');
-
 					let
 						dProp = this.e.dd.getBoundingClientRect(),
 						dmProp = {
-							height: this.e.dm.offsetHeight + parseFloat(window.getComputedStyle(this.e.dm).getPropertyValue('margin-top')),
-							width: this.e.dm.offsetWidth + parseFloat(window.getComputedStyle(this.e.dm).getPropertyValue('margin-left'))
+							width: this.e.dm.offsetWidth,
+							height: this.e.dm.offsetHeight
 						},
 						vHeight = window.innerHeight,
-						vWidth = innerWidth,
+						vWidth = window.innerWidth - utils.getScrollbarWidth(),
 						spacing = {}, dmPosition = {}
 					;
 
@@ -599,42 +599,69 @@
 					if (this.settings.directionPriority.x === 'right') {
 						if (spacing.right >= dmProp.width || spacing.right >= spacing.left || dmProp.width > spacing.left) {
 							if (!this.e.dd.classList.contains('select')) this.e.dm.style.left = `${dmPosition.right}px`;
-							this.e.dm.classList.add('rhs');
+							if (!this.e.dm.classList.contains('rhs')) {
+								this.e.dm.classList.add('rhs');
+								this.e.dm.classList.remove('lhs');
+							}
 						}
 						else {
 							if (!this.e.dd.classList.contains('select')) this.e.dm.style.left = `${dmPosition.left}px`;
-							this.e.dm.classList.add('lhs');
+							if (!this.e.dm.classList.contains('lhs')) {
+								this.e.dm.classList.add('lhs');
+								this.e.dm.classList.remove('rhs');
+							}
 						}
+					}
+					else if (this.settings.directionPriority.x === 'center') {
+	                    this.e.dm.style.left = `${Math.max(Math.min(Math.max(0, dProp.left + (dProp.width/2) - (dmProp.width/2)), (vWidth - dmProp.width)), 0)}px`;
 					}
 					else {
 						if (spacing.left >= dmProp.width) {
 							if (!this.e.dd.classList.contains('select')) this.e.dm.style.left = `${dmPosition.left}px`;
-							this.e.dm.classList.add('lhs');
+							if (!this.e.dm.classList.contains('lhs')) {
+								this.e.dm.classList.add('lhs');
+								this.e.dm.classList.remove('rhs');
+							}
 						}
 						else {
 							if (!this.e.dd.classList.contains('select')) this.e.dm.style.left = `${dmPosition.right}px`;
-							this.e.dm.classList.add('rhs');
+							if (!this.e.dm.classList.contains('rhs')) {
+								this.e.dm.classList.add('rhs');
+								this.e.dm.classList.remove('lhs');
+							}
 						}
 					}
 
 					if (this.settings.directionPriority.y === 'bottom') {
 						if (spacing.bottom >= dmProp.height || spacing.bottom >= spacing.top || dmProp.height > spacing.top) {
 							if (!this.e.dd.classList.contains('select')) this.e.dm.style.top = `${dmPosition.bottom}px`;
-							this.e.dm.classList.add('downward');
+							if (!this.e.dm.classList.contains('downward')) {
+								this.e.dm.classList.add('downward');
+								this.e.dm.classList.remove('upward');
+							}
 						}
 						else {
 							if (!this.e.dd.classList.contains('select')) this.e.dm.style.top = `${dmPosition.top}px`;
-							this.e.dm.classList.add('upward');
+							if (!this.e.dm.classList.contains('upward')) {
+								this.e.dm.classList.add('upward');
+								this.e.dm.classList.remove('downward');
+							}
 						}
 					}
 					else {
 						if (spacing.top >= dmProp.height) {
 							if (!this.e.dd.classList.contains('select')) this.e.dm.style.top = `${dmPosition.top}px`;
-							this.e.dm.classList.add('upward');
+							if (!this.e.dm.classList.contains('upward')) {
+								this.e.dm.classList.add('upward');
+								this.e.dm.classList.remove('downward');
+							}
 						}
 						else {
 							if (!this.e.dd.classList.contains('select')) this.e.dm.style.top = `${dmPosition.bottom}px`;
-							this.e.dm.classList.add('downward');
+							if (!this.e.dm.classList.contains('downward')) {
+								this.e.dm.classList.add('downward');
+								this.e.dm.classList.remove('upward');
+							}
 						}
 					}
 				}
@@ -769,6 +796,7 @@
 			this.s.it = ':scope > .item:not(.xhover):not(.disabled), :scope > .items > .item:not(.xhover):not(.disabled)'; // select all element in dropMenu regardless of it statuses
 			this.s.it_i = `:scope > .item:not(.xhover):not(.disabled)${!(this.e.dd.matches('.indicating.multiple')) ? ':not(.selected)': ''}, :scope > .items > .item:not(.xhover):not(.disabled)${!(this.e.dd.matches('.indicating.multiple')) ? ':not(.selected)': ''}`; // select all element in dropMenu regarding it statuses
 			this.s.it_f = `:scope > .item:not(.xhover):not(.disabled):not(.filtered)${!(this.e.dd.matches('.indicating.multiple')) ? ':not(.selected)': ''}, :scope > .items > .item:not(.xhover):not(.disabled):not(.filtered)${!(this.e.dd.matches('.indicating.multiple')) ? ':not(.selected)': ''}`; // select all element in dropMenu regarding it statuses and also excluding filtered items
+			this.s.ex = `:scope .exit-dd`; // exiter
 
 			// check if dropdown Menu exist
 			if (!this.e.dm) {
@@ -818,7 +846,8 @@
 				if (this.settings.multipleSelect && items.filter((el) => el.matches('.selected'))[0]) items.filter((el) => el.matches('.selected')).forEach((el) => this.dd_setSelect(el));
 				else if (!this.settings.multipleSelect && items.filter((el) => el.matches('.active'))[0]) this.dd_setSelect(items.filter((el) => el.matches('.active'))[0]);
 			}
-			
+			else if (!this.e.dd.classList.contains('sub')) document.body.append(this.e.dm);
+
 			/* checkerFill is a function to find all sub dropdownMenu
 					that is linked to it dropdown by id and
 					add it to settings.asdm. */
@@ -826,7 +855,7 @@
 			else this.settings.asdm.push(this.e.dd);
 			this.dd_checkerFill(this.e.dm);
 
-			let target = this.settings.findTriggerer && this.e.dd.querySelectorAll(':scope > *:not(".drop.menu").dd-triggerer')[0] ? this.e.dd.querySelectorAll(':scope > *:not(".drop.menu").dd-triggerer')[0] : this.e.dd;
+			let target = this.settings.findTriggerer && this.e.dd.querySelectorAll(':scope > .dd-triggerer:not(".drop.menu")')[0] ? this.e.dd.querySelectorAll(':scope > .dd-triggerer:not(".drop.menu")')[0] : this.e.dd;
 
 			if (this.settings.hover) {
 				target.addEventListener('mouseenter', this.dd_toggleDropdown);
@@ -845,7 +874,6 @@
 			showDropdown(value) {
 				if (value) {
 					if (this.e.dd.matches('.disabled, [disabled]')) return;
-					if (!this.settings.selectable && !this.e.dd.classList.contains('sub')) document.body.append(this.e.dm);
 					let items = [...this.e.dm.querySelectorAll(this.s.it_i)];
 
 					this.EscTrack = utils.getEscTrack();
@@ -892,7 +920,6 @@
 					}, this.settings.duration + 50);
 				}
 				else {
-					// close all it sub-dropdown first.
 					[...this.e.dm.querySelectorAll(':scope .dropdown.active')].forEach((el) => utils.triggerEvent(el, new CustomEvent('ddconsole', {detail: 'close'})));
 
 					document.removeEventListener('click', this.dd_clickOnDom);
@@ -900,6 +927,7 @@
 					document.removeEventListener('keydown', this.dd_KBFunc);
 					document.removeEventListener('mousemove', this.dd_mouseMover);
 					window.removeEventListener('resize', this.dd_CalcPosition);
+					window.removeEventListener('scroll', this.dd_CalcPosition, true);
 					this.dd_offItemHoverEvent();
 					[...this.e.dm.querySelectorAll(this.s.it)].forEach((el) => el.classList.remove('hovered'));
 
@@ -929,7 +957,7 @@
 										clearInterval(counter);
 									}
 									count++
-								}, 5)
+								}, 10)
 							;
 						}
 					}
@@ -947,14 +975,13 @@
 			},
 		},	
 		beforeUnmount() {
-			this.e.dd.append(this.e.dm); // return drop menu to the drop down to get it removed also.
 			document.removeEventListener('click', this.dd_clickOnDom);
 			document.removeEventListener('keyup', this.dd_EscTabFunc);
 			document.removeEventListener('keydown', this.dd_KBFunc);
 			document.removeEventListener('mousemove', this.dd_mouseMover);
 			window.removeEventListener('resize', this.dd_CalcPosition);
-			this.dd_offItemHoverEvent();
-			if (this.settings.searchable) this.e.sb.removeEventListener('input', this.dd_searchFunc);
+			window.removeEventListener('scroll', this.dd_CalcPosition, true);
+
 			if (this.settings.hover) document.removeEventListener('mousemove', this.dd_toggleDropdown);
 
 			document.removeEventListener('keydown', this.dd_openWithKeyboard);
@@ -963,18 +990,7 @@
 				document.removeEventListener('click', this.dd_mSClickFunc);
 				document.removeEventListener('keydown', this.dd_mSKBFunc);
 			}
-
-			if (this.settings.searchable) this.$refs.searchBox.removeEventListener('input', this.dd_openWithSearch);
-			
-			let target = this.settings.findTriggerer && this.e.dd.querySelectorAll(':scope > *:not(".drop.menu") .dd-triggerer')[0] ? this.e.dd.querySelectorAll(':scope > *:not(".drop.menu") .dd-triggerer')[0] : this.e.dd;
-
-			if (this.settings.hover) {
-				target.removeEventListener('mouseenter', this.dd_toggleDropdown);
-				target.removeEventListener('touchstart', this.dd_toggleDropdown);
-			}
-			else target.removeEventListener('click', this.dd_toggleDropdown);
-
-			this.e.dd.removeEventListener('ddconsole', this.dd_console);
+			if(this.e.dm) this.e.dd.append(this.e.dm); // return drop menu to the drop down to get it removed also.
 		}
 	}
 </script>
@@ -1004,5 +1020,6 @@
 			</button>
 			<input ref="sInput" :value="value" type="hidden" :name="name">
 		</template>
+		<slot name="trailing"></slot>
 	</div>
 </template>

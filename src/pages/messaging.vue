@@ -10,11 +10,14 @@ import Shareables from '../components/Shareables.vue';
                 <Shareables name="main_menu" />
             </div>
         </header>
-        <div class="container">
+        <div class="container" style="max-width: 1024px;">
             <div class="messaging-view">
                 <div class="history-view">
                     <header style="display: flex; flex-flow: column nowrap; gap: 0.5em; border-bottom: 1px solid var(--outline); padding: 0.5em;">
-                        <Dropdown class="selection">
+                        <Dropdown class="selection" style="display: flex; align-items: center;">
+                            <template #trailing>
+                                <SvgIcon name="expand_more" class="trailing" />
+                            </template>
                             <Dropmenu>
                                 <div class="active item">
                                     <div class="lead avatar circular image mini" style="flex: 0 0 auto; background-color: #999;"></div>

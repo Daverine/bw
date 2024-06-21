@@ -1,55 +1,30 @@
-<script>
-	import { useMainStore } from './stores';
-	import { useUserStore } from './stores/userStore';
-	import { useSearchStore } from './stores/searchStore';
-	import Modals from './components/Modals.vue';
-	import Menus from './components/Menus.vue';
+<script setup>
+	import AppLayout from './layouts/AppLayout.vue';
 
-	export default {
-		setup() {
-			const
-				mainStore = useMainStore(),
-				userStore = useUserStore(),
-				searchStore = useSearchStore()
-			;
+	const mainStore = useMainStore();
 
-			return { mainStore, userStore, searchStore }
-		},
-		components: {
-			Menus, Modals
-		},
-		mounted() {
-			window.dispatchEvent(new Event("scroll"));
-			window.addEventListener('scroll', this.handleScroll);
-		},
-		unmounted() {
-			window.removeEventListener('scroll', this.handleScroll);
-		},
-		updated() {
-			window.dispatchEvent(new Event("scroll"));
-		},
-		methods: {
-			handleScroll() {
-				let firstSection = document.getElementById('firstSec');
-				if (firstSection && firstSection.getBoundingClientRect().top <= 0) this.mainStore.mutateSFM(true);
-				else this.mainStore.mutateSFM(false);
-			}
-		},
-		watch: {
-			'mainStore.colorScheme': {
-				handler(value) {
-					document.documentElement.classList.remove('dark-mode');
-					document.documentElement.classList.remove('light-mode');
-					if (value !== 'auto-mode') document.documentElement.classList.add(value);
-				},
-				immediate: true
-			}
-		}
+	function handleScroll() {
+		const firstSection = document.getElementById('firstSec');
+		if (firstSection && firstSection.getBoundingClientRect().top <= 0) mainStore.mutateSFM(true);
+		else mainStore.mutateSFM(false);
 	}
-</script>
 
+	onMounted(() => {
+		window.dispatchEvent(new Event("scroll"));
+		window.addEventListener('scroll', handleScroll);
+		watch(() => mainStore.colorScheme, value => {
+			document.documentElement.classList.remove('dark-mode');
+			document.documentElement.classList.remove('light-mode');
+			if (value !== 'auto-mode') document.documentElement.classList.add(value);
+		}, { immediate: true });
+	});
+	onUnmounted(() => window.removeEventListener('scroll', this.handleScroll));
+	onUpdated(() => window.dispatchEvent(new Event('scroll')));
+</script>
 <template>
-	<Menus />
-	<RouterView />
-	<Modals />
+    <Menus/>
+	<AppLayout>
+	    <RouterView />
+	</AppLayout>
+    <Modals/>
 </template>

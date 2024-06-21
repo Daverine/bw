@@ -26,16 +26,11 @@ export function iScroller() {
 				this.prop = {};
 
                 // bind all event methods to the correct 'this'
-                this.onResizeMtd = this.onResizeMtd.bind(this);
-                this.onScrollMtd = this.onScrollMtd.bind(this);
-                this.gestureStart = this.gestureStart.bind(this);
-                this.gestureMove = this.gestureMove.bind(this);
-                this.gestureEnd = this.gestureEnd.bind(this);
-                this.wheelControl = this.wheelControl.bind(this);
-                this.viewActiveItem = this.viewActiveItem.bind(this);
-                this.prevControl = this.prevControl.bind(this);
-                this.nextControl = this.nextControl.bind(this);
-                this.stopIscroller = this.stopIscroller.bind(this);
+                Object.keys(this).forEach(el => {
+                    if (typeof(this[el]) === 'function') {
+                        this[el] = this[el].bind(this);
+                    }
+                });
 
                 if (!this.e.scrollElem) return;
                 this.uniqueId = utils.getUniqueId(this.settings.namespace);

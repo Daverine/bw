@@ -13,10 +13,10 @@ import './assets/style.scss';
 const app = createApp(App);
 const pinia = createPinia();
 
-pinia.use(({ store }) => {
-    store.$router = markRaw(router);
-    store.$route = markRaw(router.currentRoute.value);
-});
+pinia.use(() => ({
+    router: markRaw(router)
+}));
+
 app.use(router);
 app.use(pinia);
 app.mixin(TitleMixin);

@@ -36,11 +36,11 @@
         </div>
     </div>
     <div class="itm-content">
-        <a class="itm-title" :title="details.title">{{ details.title }}</a>
+        <div class="link itm-title" :title="details.title">{{ details.title }}</div>
         <div class="itm-gap">
-            <div>
+            <div style="display: flex; gap: 0.5em; align-items: center;">
                 <span class="h5 bold 0-margined" style="color: var(--primary);">{{ details.price }}&nbsp;</span>
-                <SvgIcon name="handshake" class="l-spaced small" v-if="details.negotiable" title="Negotiable" />
+                <SvgIcon name="handshake" class="small" v-if="details.negotiable" title="Negotiable" />
             </div>
             <div v-if="details.labels" class="labels" style="display: flex; gap: 0.5em;">
                 <span v-for="label in details.labels" class="label">{{ label }}</span>

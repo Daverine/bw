@@ -1,18 +1,7 @@
-<script>
-	import { useMainStore } from '../stores';
-	import { useSearchStore } from '../stores/searchStore';
-
-	export default {
-		setup() {
-			const
-				mainStore = useMainStore(),
-				searchStore = useSearchStore()
-			;
-
-			return { mainStore, searchStore }
-		}
-	}
+<script setup>	
+	const searchStore = useSearchStore();
 </script>
+
 <template>
 	<div class="as-page">
 		<header id="main-header">

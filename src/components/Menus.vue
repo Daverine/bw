@@ -1,25 +1,14 @@
-<script>
-	import { useMainStore } from '../stores';
-	import { useSearchStore } from '../stores/searchStore';
-	import { useUserStore } from '../stores/userStore';
+<script setup>
+	const
+		mainStore = useMainStore(),
+		searchStore = useSearchStore(),
+		userStore = useUserStore(),
+		route = useRoute()
+	;
 
-    export default {
-		setup() {
-			const
-				mainStore = useMainStore(),
-				searchStore = useSearchStore(),
-				userStore = useUserStore()
-			;
-
-			return { mainStore, searchStore, userStore }
-		},
-		methods: {
-			toTop() {
-				window.scrollTo({top: 0, behavior: 'smooth'});
-			}
-		}
-    }
+	function toTop() { window.scrollTo({top: 0, behavior: 'smooth'}); }
 </script>
+
 <template>
 	<SidePanel class="left" id="msidepanel">
 		<div class="panel padded">
@@ -58,8 +47,8 @@
 	<div id="fmenu" class="menu z-level-3 respect-lock" :class="{ pinned: mainStore.showFixedMenu }">
 		<Shareables name="main_menu" />
 	</div>
-	<div class="fab-group respect-lock">
-		<button class="open-modal fab radius-lg secondary button" data-target="create-post">
+	<div v-if="!route.meta.noFab" class="fab-group respect-lock">
+		<button v-if="userStore.auth && userStore.userData.manageBisiness" class="open-modal fab radius-lg secondary button" data-target="create-post">
 			<SvgIcon name="edit_square" />
 		</button>
 		<button id="qaction" @click="toTop" class="outlined fab compact radius-lg secondary button" :class="{ 'now-visible': mainStore.showFixedMenu }">

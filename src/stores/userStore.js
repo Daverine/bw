@@ -1,11 +1,13 @@
-import { defineStore } from "pinia/dist/pinia";
-import saved from '../jsons/saved.json';
-import followed from '../jsons/followed.json';
-import reviews from '../jsons/reviews.json';
+import saved from '@/jsons/saved.json';
+import followed from '@/jsons/followed.json';
+import reviews from '@/jsons/reviews.json';
+import router from '@/router';
+const getRoute = () => router.currentRoute.value;
 
 export const useUserStore = defineStore('user', {
     state: () => ({
         auth: false,
+        routeProceed: '',
         userData: {
             firstName: 'Ayoola',
             lastName: 'Folorunso',
@@ -15,7 +17,7 @@ export const useUserStore = defineStore('user', {
             following: [],
             bookmarks: [],
             searchLocation: 'Itori, Ewekoro, Ogun state, Nigeria',
-
+            manageBisiness: true,
         },
         savedCards: [],
         followedCards: [],
@@ -24,14 +26,18 @@ export const useUserStore = defineStore('user', {
     actions: {
         login(email, password) {
             this.auth = true;
-            if (this.$router.currentRoute.value.name === 'start') this.$router.push({ name: 'home'});
+            
+            if (getRoute().path === '/login' && this.routeProceed) router.push(this.routeProceed);
+            else if (getRoute().path === '/login' || getRoute().path === '/') router.push('/home');
         },
         signup(firstname, lastname, email, password, country) {
             this.auth = true;
-            if (this.$router.currentRoute.value.name === 'start') this.$router.push({ name: 'home'});
+            if (getRoute().path === '/register' && this.routeProceed) router.push(this.routeProceed);
+            else if (getRoute().path === '/register' || getRoute().path === '/') router.push('/home');
         },
         logout() {
             this.auth = false;
+            if (getRoute().meta.auth) router.push('/');
         },
         async getSavedCards() {
             return new Promise(() => {

@@ -36,7 +36,7 @@
         </div>
     </div>
     <div class="itm-content">
-        <a class="itm-title">{{ details.postText }}</a>
+        <div class="link itm-title">{{ details.postText }}</div>
         <div class="itm-gap">
             <div class="truncate">
                 <SvgIcon name="verified" v-if="details.bizDetails.verify" title="Verified" class="mini green-text r-spaced" />

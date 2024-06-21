@@ -181,7 +181,7 @@ export default {
                     "price": "N100,000",
 					"currency": "Naira",
                     "negotiable": true,
-                    "media": [['pic', '/images/product.jpeg']],
+                    "media": [['pic', '/images/product.jpeg'], ['pic', '/images/product.jpeg'], ['pic', '/images/product.jpeg'], ['pic', '/images/product.jpeg']],
 					"specifications": {
 						"Type": "Laptop",
 						"Condition": "Used",
@@ -483,28 +483,40 @@ export default {
 <template>
 	<Modal id="search-modal">
 		<div class="dialog self-scroll">
-				<div class="header grid">
-					<div class="bold">
-						Make your business search here
-					</div>
-					<button class="circular text button as-text exit-modal" style="margin-left: auto;">
-						<SvgIcon name="close" />
-					</button>
-				</div>
-				<div class="content">
-					<form @submit.prevent="popupSubmitSearch">
-						<label class="input fluid" style="font-size: 1.125rem">
-							<SvgIcon name="search" class="xhover" />
-							<input v-model="searchStore.searchBox" type="search" placeholder="Your search here." class="subject" md-autofocus>
-							<button type="button" title="Scan QR" class="icon open-modal" data-target="scanqr-modal">
-								<SvgIcon name="qr_code_scanner" />
-							</button>
-							<button type="button" title="Search location is set to Nigeria. Click to change it." class="icon open-modal" data-target="">
-								<SvgIcon name="location_on" />
-							</button>
-						</label>
-					</form>
-				</div>
+            <div class="header grid">
+                <div class="bold">
+                    Make your business search here ...
+                </div>
+                <button class="circular text button as-text exit-modal" style="margin-left: auto;">
+                    <SvgIcon name="close" />
+                </button>
+            </div>
+            <div class="content">
+                <form @submit.prevent="popupSubmitSearch">
+                    <label class="input fluid" style="font-size: 1.125rem">
+                        <SvgIcon name="search" class="xhover" />
+                        <input v-model="searchStore.searchBox" type="search" placeholder="Your search here." class="subject" md-autofocus>
+                        <button type="button" title="Scan QR" class="icon open-modal exit-modal" data-target="scanqr-modal">
+                            <SvgIcon name="qr_code_scanner" />
+                        </button>
+                        <button type="button" title="Search location is set to Nigeria. Click to change it." class="icon open-modal" data-target="">
+                            <SvgIcon name="location_on" />
+                        </button>
+                    </label>
+                    <div class="grid" style="gap: 1rem; margin: 1rem auto 0px; max-width: 300px;">
+                        <div class="col">
+                            <button type="submit" class="fluid button">
+                                <SvgIcon name="search" class="lead" /> SEARCH
+                            </button>
+                        </div>
+                        <div class="col">
+                            <button type="button" class="fluid button open-modal exit-modal" data-target="explore-modal">
+                                EXPLORE
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
 		</div>
 	</Modal>
     <Modal id="scanqr-modal">
@@ -539,7 +551,7 @@ export default {
         <div class="dialog">
             <div class="header grid">
                 <div class="bold">
-                    create a post
+                    Create post
                 </div>
                 <button class="circular text button as-text exit-modal" style="margin-left: auto;">
                     <SvgIcon name="close" />
@@ -547,26 +559,46 @@ export default {
             </div>
             <div class="content">
                 <div class="field">
-                    <button class="left-labeled fluid button">
-                        <SvgIcon name="login" class="label" />
-                        Continue with Google
-                    </button>
+                    <label>Post as:</label>
+                    <Dropdown class="selection" style="display: flex; align-items: center;">
+                        <template #trailing>
+                            <SvgIcon name="expand_more" class="trailing" />
+                        </template>
+                        <Dropmenu>
+                            <div class="active item">
+                                <div class="lead avatar circular image mini" style="flex: 0 0 auto; background-color: #999;"></div>
+                                <div style="flex: 1 1 auto;">
+                                    <div class="text l-aligned">
+                                        <div class="semibold" style="font-size: 1.125em; line-height: 1.25;">Ayoola Folorunso</div>
+                                        <div class="small aux-text">Personal Account</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="lead avatar circular image mini" style="flex: 0 0 auto; background-color: #999;"></div>
+                                <div style="flex: 1 1 auto;">
+                                    <div class="text l-aligned">
+                                        <div class="semibold" style="font-size: 1.125em; line-height: 1.25;">Emmadave Computers</div>
+                                        <div class="small aux-text">Business Account</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </Dropmenu>
+                    </Dropdown>
                 </div>
-                <form @submit.prevent="userStore.login()">
+                <form @submit.prevent="">
                     <div class="field">
-                        <label>Email</label>
-                        <input type="text" placeholder="Email address" />
+                        <textarea placeholder="What did you want to post?" class="huge transparent"></textarea>
                     </div>
                     <div class="field">
-                        <label>Password</label>
-                        <input type="text" placeholder="Password" />
+                        <div class="compact icon-bar r-aligned menu" style="border-radius: var(--radius-default);">
+                            <div class="item"><SvgIcon name="mood" /></div>
+                            <div class="item"><SvgIcon name="add_image" /></div>
+                            <div class="item"><SvgIcon name="attach_file_add" /></div>
+                        </div>
                     </div>
                     <div class="field">
-                        <button class="fluid primary button">Continue</button>
-                    </div>
-                    <hr />
-                    <div class="field centered">
-                        <p>New to BizWorld? <a href="#register" class="exit-modal open-modal" data-target="register-modal">Sign up</a></p>
+                        <button class="fluid primary button">Post</button>
                     </div>
                 </form>
             </div>

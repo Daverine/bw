@@ -6,35 +6,17 @@
 
 	export default {
 		props: ['details', 'isSaved'],
-		methods: {
-			nextOpenDay(hours) {
-				let ex = new Date().getDay() === 6 ? 0 : new Date().getDay() + 1, i = 1, result;
-				for (; i < 6; i++) {
-					if (hours[ex > 5 ? -1 + i : ex + i][0] > -1) {
-						result = ex > 5 ? -1 + i : ex + i;
-						break;
-					}
-				}
-				return result;
-			},
-			whatDay(index) {
-				return ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][index];
-			}
-		},
 		components: { businessCard, productCard, serviceCard, postCard },
-		mounted() {
-			// console.log(this.details);
-		}
 	}
 </script>
 <template>
-	<div class="fluid item-card card open-modal" :data-type="details.cardType" data-target="sc-details">
+	<div class="fluid item-card card open-modal" :class="isSaved ? 'sav': ''" :data-type="details.cardType" data-target="sc-details">
 		<businessCard v-if="details.cardType === 'business'" :details="details" />
 		<productCard v-else-if="details.cardType === 'product'" :details="details" />
 		<serviceCard v-else-if="details.cardType === 'service'" :details="details" />
 		<postCard v-else-if="details.cardType === 'post'" :details="details" />
 
-		<div v-if="isSaved" class="ex-open-modal">
+		<div v-if="isSaved" class="itm-opt ex-open-modal">
 			<Dropdown :options="{directionPriority: {x: 'left', y: 'bottom'}}" class="icon circular transparent compact button">
 				<SvgIcon name="more_vert" />
 				<Dropmenu>
@@ -53,12 +35,23 @@
 		--itm-gap: 0.5rem;
 
 		display: flex;
-		flex-flow: row nowrap;
+		flex-flow: row wrap;
 		align-items: center;
 		width: 100%;
 		gap: var(--itm-gap);
 		padding: 0.5rem;
 		cursor: pointer;
+		position: relative;
+
+		&.sav {
+			padding-right: 2.5em;
+		}
+
+		.itm-opt {
+			position: absolute;
+			right: 0em;
+			top: 1em;
+		}
 
 		.itm-display {
 			position: relative;
@@ -87,7 +80,8 @@
 		}
 
 		.itm-content {
-			flex: 1 1 auto;
+			flex: 1 1 0;
+			min-width: 55%;
 			align-self: stretch;
 			display: flex;
 			flex-direction: column;
@@ -114,6 +108,7 @@
 			flex-flow: row wrap;
 			justify-content: space-between;
 			align-items: center;
+			gap: 0.5em;
 		}
 
 		&[data-type="business"] {

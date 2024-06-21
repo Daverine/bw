@@ -29,10 +29,11 @@ export function scrollPin() {
                 this.prop = {}; this.tmp = {};
 
                 // bind all event methods to the correct 'this'
-                this.streamCallback = this.streamCallback.bind(this);
-                this.getGeometry = this.getGeometry.bind(this);
-                this.onScrollMtd = this.onScrollMtd.bind(this);
-                this.stopScrollPin = this.stopScrollPin.bind(this);
+                Object.keys(this).forEach(el => {
+                    if (typeof(this[el]) === 'function') {
+                        this[el] = this[el].bind(this);
+                    }
+                });
 
                 window.addEventListener('resize', this.getGeometry);
                 window.addEventListener('scroll', this.onScrollMtd);
@@ -44,23 +45,35 @@ export function scrollPin() {
                     this.wrapper = this.el.parentNode;
                     this.wrapper.classList.add('clearfix');
                     if (utils.getCssVal(this.wrapper, 'position') === 'static') this.wrapper.style.position = 'relative'; 
-                    const requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
-                    this.sizeStreamId = requestAnimationFrame(this.streamCallback);
                 }
                 else this.settings.streamSizeToParent = false;
                 
                 // trigger a resize Method of windows used in scrollPin.
                 this.getGeometry();
+
+                // start parentSize streaming
+                if (this.settings.streamSizeToParent) {
+                    const requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+                    this.sizeStreamId = requestAnimationFrame(this.streamCallback);
+                }
             },
             streamCallback() {
-                let elHeight = this.el.getBoundingClientRect().height;
+                let elHeight = this.el.getBoundingClientRect().height, streamer;
                 
                 // let parent take scrollPin element height + the parent padding top and bottom as min-height
                 this.wrapper.style.minHeight = `${elHeight + this.getTB(this.wrapper, true) + this.getTB(this.wrapper)}px`;
-                if (elHeight && Math.round(elHeight) !== Math.round(this.prop.eBox.height)) this.getGeometry();
-                if (this.settings.ancestorGuarded && this.guardian.getBoundingClientRect().height !== this.prop.pBox.height) this.getGeometry();
+                if (elHeight && elHeight !== this.prop.eBox.height) {
+                    clearTimeout(streamer);
+                    if (this.prop.eBox.height !== elHeight) this.prop.eBox.height = elHeight;
+                    streamer = setTimeout(() => this.onScrollMtd('partial-reset'), 20);
+                }
+                if (this.settings.ancestorGuarded && this.guardian.getBoundingClientRect().height !== this.prop.pBox.height) {
+                    clearTimeout(streamer);
+                    streamer = setTimeout(() => this.getGeometry(), 20);
+                }
+                
                 const requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
-                requestAnimationFrame(this.streamCallback);
+                this.sizeStreamId = requestAnimationFrame(this.streamCallback);
             },
             getGeometry() {
                 // reset scrollPin
@@ -69,12 +82,14 @@ export function scrollPin() {
                 else this.el.removeAttribute('style');
                 this.currState = 'reset-state';
                 this.scrollPos = window.scrollY;
-                this.prop.eBox = this.el.getBoundingClientRect();
-                this.prop.eOffset = utils.offsetPos(this.el);
                 this.tmp.pinnable = true;
+
+                // get data
+                this.prop.eBox = JSON.parse(JSON.stringify(this.el.getBoundingClientRect()));
+                this.prop.eOffset = utils.offsetPos(this.el);
                 // determine if a scrollpin should be independent by element's height
                 this.settings.independent = this.prop.eBox.height + this.settings.topSpacing >= window.innerHeight || this.prop.eBox.height + this.settings.bottomSpacing > window.innerHeight;
-
+                
                 // needed if pinned element needs to be contained inside the parent element's boundaries
                 if (this.settings.ancestorGuarded) {
                     this.guardian = this.settings.guardian && utils.getParents(this.el, this.settings.guardian)[0]
@@ -82,24 +97,21 @@ export function scrollPin() {
                         : this.settings.streamSizeToParent
                             ? this.wrapper.parentNode
                             : this.el.parentNode;
-                    this.prop.pBox = this.guardian.getBoundingClientRect();
+                    
+                    this.prop.pBox = JSON.parse(JSON.stringify(this.guardian.getBoundingClientRect()));
                     this.prop.pOffset = utils.offsetPos(this.guardian);
 
                     if (this.prop.eBox.height + this.settings.topSpacing + this.settings.bottomSpacing > utils.contentSize(this.guardian).height) {
                         this.tmp.pinnable = false;
                         console.warn('a scrollPin element on this page is not currently pinnable.');
+                        return;
                     }
                 }
 
                 // trigger a scroll Method of windows used in scrollPin.
                 this.onScrollMtd();
             },
-            onScrollMtd() {
-                if (this.el.offsetHeight !== Math.round(this.prop.eBox.height)) {
-                    this.getGeometry();
-                    return;
-                }
-
+            onScrollMtd(init) {
                 if (!this.tmp.pinnable) return;
                 // store previous scroll position to be used in independent scrollPin
                 let prevScrollPos = this.tmp.scrollPos;
@@ -108,16 +120,43 @@ export function scrollPin() {
 
                 let
                     offsetParent = utils.getParents(this.el).filter(el => utils.getCssVal(el, 'position') !== 'static')[0] || document.body,
-                    opOffset = utils.offsetPos(offsetParent)
+                    opOffset = utils.offsetPos(offsetParent),
+                    isIndependentBefore = this.settings.independent,
+                    prevState = this.currState
                 ;
+                // partial reset
+                if (init === 'partial-reset') {                    
+                    // determine if a scrollpin should be independent by element's height
+                    this.settings.independent = this.prop.eBox.height + this.settings.topSpacing >= window.innerHeight || this.prop.eBox.height + this.settings.bottomSpacing > window.innerHeight;
+                    this.currState = 'reset-state';
+                    this.el.classList.remove(this.settings.className);
+
+                    if (isIndependentBefore && !this.settings.independent) {
+                        this.el.classList.add(this.settings.className);
+                        this.el.style.position = 'fixed';
+                        this.el.style.top = `${this.settings.topSpacing}px`;
+                        this.el.style.left = `${this.prop.eOffset.left}px`;
+                        // fix for the use of relative width on the element.
+                        this.el.style.setProperty('width', `${this.prop.eBox.width}px`, 'important');
+                        this.currState = 'top-pinned';
+                    }
+                }
 
                 if (this.settings.independent) {
+                    if (this.currState === 'reset-state' && prevState === 'dir-bottom-unpinned' &&
+                        !(utils.offsetPos(this.el).top + this.prop.eBox.height + this.settings.bottomSpacing <= this.tmp.scrollPos + window.innerHeight)) {
+                        this.currState = 'dir-bottom-unpinned';
+                    }
+                    else if (this.currState === 'reset-state' && prevState === 'dir-top-unpinned' &&
+                        !(utils.offsetPos(this.el).top > this.tmp.scrollPos + this.settings.topSpacing)) {
+                        this.currState = 'dir-top-unpinned';
+                    }
                     // pin the element at the bottom
                     // if element bottom and bottomSpacing is visible on the screen
                     // and the user is scrolling down
                     // and element is not parent-guilded
                     // or the parent bottom (excluding it bottom-padding and bottomSpacing) have not reach the screen bottom. 
-                    if (
+                    else if (
                         !this.el.classList.contains(this.settings.className) &&
                         (
                             (this.tmp.scrollDir === 1 && utils.offsetPos(this.el).top + this.prop.eBox.height + this.settings.bottomSpacing <= this.tmp.scrollPos + window.innerHeight) ||

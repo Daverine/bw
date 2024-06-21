@@ -1,4 +1,3 @@
-import { defineStore } from "pinia/dist/pinia";
 
 export const useMainStore = defineStore('main', {
     state: () => ({

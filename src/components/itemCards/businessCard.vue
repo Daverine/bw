@@ -58,7 +58,7 @@
         <SvgIcon v-if="details.verify" name="verified_sp" title="Business verified" class="small green-text" style="position: absolute; bottom: 0px; right: 0px;" />
     </div>
     <div class="itm-content">
-        <a class="itm-title">{{ details.name }}</a>
+        <div class="link itm-title">{{ details.name }}</div>
         <div class="itm-gap">
             <span class="small semibold">{{ details.category }}</span>
             <span :title="details.place.address" class="truncate" style="color: var(--on-surface-variant);">

@@ -13,12 +13,19 @@ export function Tooltip() {
                 this.settings = utils.isObject(binding.value) ? { ...this.default, ...binding.value } : this.default;
                 this.uniqueId = utils.getUniqueId(this.namespace);
                 this.settings.unblocking = (binding.modifiers.hasOwnProperty('unblocking')) ? true : this.settings.unblocking;
-                
                 this.binding = binding;
+
+                // bind all event methods to the correct 'this'
+                Object.keys(this).forEach(el => {
+                    if (typeof(this[el]) === 'function') {
+                        this[el] = this[el].bind(this);
+                    }
+                });
+
                 if (binding.value) el.setAttribute('data-tooltip', String(binding.value));
                 this.createTooltip();
-                this.el.addEventListener('mouseenter', this.showTooltip.bind(this));
-                this.el.addEventListener('removeTooltip', this.removeTooltip.bind(this));
+                this.el.addEventListener('pointerenter', this.showTooltip);
+                this.el.addEventListener('removeTooltip', this.removeTooltip);
             },
             updateTooltip() {
                 this.tooltip.textContent = this.el.getAttribute('data-tooltip');
@@ -30,18 +37,19 @@ export function Tooltip() {
                 this.tooltip.textContent = this.el.getAttribute('data-tooltip');
                 document.body.append(this.tooltip);
 
-                this.observer = new MutationObserver(this.updateTooltip.bind(this));
+                this.observer = new MutationObserver(this.updateTooltip);
                 this.observer.observe(this.el, { attributes: true });
             },
             showTooltip(e) {
+                if (e.pointerType === 'touch') return;
                 this.evt = e;
                 this.calcPosition();
-                this.el.addEventListener('mouseleave', this.hideTooltip.bind(this));
-                if (!this.settings.unblocking) this.el.addEventListener('mousemove', this.mousePosition.bind(this));
+                this.el.addEventListener('mouseleave', this.hideTooltip);
+                if (!this.settings.unblocking) this.el.addEventListener('mousemove', this.mousePosition);
             },
             hideTooltip() {
-                this.el.removeEventListener('mousemove', this.mousePosition.bind(this));
-                this.el.removeEventListener('mouseleave', this.hideTooltip.bind(this));
+                this.el.removeEventListener('mousemove', this.mousePosition);
+                this.el.removeEventListener('mouseleave', this.hideTooltip);
                 clearTimeout(this.renderer);
                 this.tooltip.classList.remove('active');
             },
@@ -87,7 +95,7 @@ export function Tooltip() {
 
                 if (this.settings.unblocking) {
                     this.tooltip.style.left = `${Math.max(Math.min(Math.max(0, tProp.left + (tProp.width/2) - (prop.width/2)), (vWidth - prop.width)), 0)}px`;
-                    if (prop.width > vWidth) this.tooltip.style.width = `${vWidth}px`;
+                    if (prop.width > vWidth) this.tooltip.style.width = `${vWidth}px`; // may need to adjust this later (width should be ajusted before styling left)
                 }
                 else {
                     spacing.top = prop.y - offset;
