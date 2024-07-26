@@ -462,7 +462,7 @@ th {
 
 /* --- TYPOGRAPHY --- */
 html {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 16px;
   color-scheme: var(--color-scheme);
   background-color: var(--surface-v4);
@@ -2683,7 +2683,8 @@ hr.vertical:empty,
 }
 
 /* --- MENU --- */
-.menu {
+.menu,
+.grid-menu {
   --menu-line-height: 1.5;
   --menu-padding-tb: 0.75em;
   --menu-padding-lr: 1.5em;
@@ -2695,7 +2696,8 @@ hr.vertical:empty,
   --text-color: var(--on-surface);
   --bd-color: var(--surface-v4);
 }
-.menu.compact {
+.menu.compact,
+.grid-menu.compact {
   --menu-padding-tb: 0.375em;
   --menu-padding-lr: 0.75em;
   --menu-icon-padding-lr: 0.5em;
@@ -2742,8 +2744,63 @@ hr.vertical:empty,
   line-height: inherit;
   align-items: inherit;
 }
+.menu.transparent {
+  background-color: transparent !important;
+  border-color: transparent !important;
+}
+.menu.disabled > .item, .menu.disabled .items > .item,
+.menu .items.disabled > .item, .menu > .item.disabled,
+.menu .items > .item.disabled {
+  opacity: 0.5 !important;
+  pointer-events: none !important;
+}
+
+.grid-menu {
+  display: grid;
+  grid-template-rows: auto;
+  justify-content: center;
+  justify-items: center;
+  gap: 0.75em;
+  position: relative;
+  font-size: 1em;
+  font-weight: 500;
+  padding: 0em;
+  line-height: var(--menu-line-height);
+  list-style: none;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  cursor: default;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
+}
+.grid-menu > .item {
+  width: 100%;
+}
+.xs-grid {
+  grid-template-columns: 1fr 1fr;
+}
+
+.sm-grid {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.md-grid {
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.lg-grid {
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+.xl-grid {
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
 .menu > .item,
-.menu .items > .item {
+.menu .items > .item, .grid-menu > .item {
   display: flex;
   flex-flow: row nowrap;
   gap: 0.75em;
@@ -2760,29 +2817,29 @@ hr.vertical:empty,
   -webkit-tap-highlight-color: transparent;
 }
 .menu > .item:not(.xhover):not(.header),
-.menu .items > .item:not(.xhover):not(.header) {
+.menu .items > .item:not(.xhover):not(.header), .grid-menu > .item:not(.xhover):not(.header) {
   cursor: pointer;
 }
-.menu > .item:not(.xactive).active, .menu > .item:not(.xactive).selected,
-.menu .items > .item:not(.xactive).active,
-.menu .items > .item:not(.xactive).selected {
+.menu > .item:not(.xactive).active,
+.menu .items > .item:not(.xactive).active, .grid-menu > .item:not(.xactive).active, .menu > .item:not(.xactive).selected,
+.menu .items > .item:not(.xactive).selected, .grid-menu > .item:not(.xactive).selected {
   cursor: default;
   font-weight: bold;
 }
-.menu > .item.l-aligned,
-.menu .items > .item.l-aligned {
+.menu > .l-aligned.item,
+.menu .items > .l-aligned.item, .grid-menu > .l-aligned.item {
   justify-content: flex-start;
 }
-.menu > .item.centered,
-.menu .items > .item.centered {
+.menu > .centered.item,
+.menu .items > .centered.item, .grid-menu > .centered.item {
   justify-content: center;
 }
-.menu > .item.r-aligned,
-.menu .items > .item.r-aligned {
+.menu > .r-aligned.item,
+.menu .items > .r-aligned.item, .grid-menu > .r-aligned.item {
   justify-content: flex-end;
 }
 .menu > .item:before,
-.menu .items > .item:before {
+.menu .items > .item:before, .grid-menu > .item:before {
   content: "";
   position: absolute;
   width: 100%;
@@ -2799,107 +2856,99 @@ hr.vertical:empty,
   -webkit-tap-highlight-color: transparent;
   opacity: 0;
 }
-.menu > .item:not(.xhover):not(.header):hover:before, .menu > .item:not(.xhover):not(.header).hovered:before,
-.menu .items > .item:not(.xhover):not(.header):hover:before,
-.menu .items > .item:not(.xhover):not(.header).hovered:before {
+.menu > .item:not(.xhover):not(.header):hover:before,
+.menu .items > .item:not(.xhover):not(.header):hover:before, .grid-menu > .item:not(.xhover):not(.header):hover:before, .menu > .item:not(.xhover):not(.header).hovered:before,
+.menu .items > .item:not(.xhover):not(.header).hovered:before, .grid-menu > .item:not(.xhover):not(.header).hovered:before {
   opacity: var(--hover-state);
 }
-.menu > .item:not(.xactive).active:before, .menu > .item:not(.xactive).selected:before,
-.menu .items > .item:not(.xactive).active:before,
-.menu .items > .item:not(.xactive).selected:before {
+.menu > .item:not(.xactive).active:before,
+.menu .items > .item:not(.xactive).active:before, .grid-menu > .item:not(.xactive).active:before, .menu > .item:not(.xactive).selected:before,
+.menu .items > .item:not(.xactive).selected:before, .grid-menu > .item:not(.xactive).selected:before {
   opacity: var(--press-state);
 }
 .menu > .item > img,
-.menu .items > .item > img {
+.menu .items > .item > img, .grid-menu > .item > img {
   max-height: var(--menu-logo-lg);
   width: auto;
   line-height: 1;
   vertical-align: bottom;
 }
 .menu > .item .logo,
-.menu .items > .item .logo {
+.menu .items > .item .logo, .grid-menu > .item .logo {
   max-height: var(--menu-logo);
 }
 .menu > .item .logo-sm,
-.menu .items > .item .logo-sm {
+.menu .items > .item .logo-sm, .grid-menu > .item .logo-sm {
   max-height: var(--menu-logo-sm);
 }
 .menu > .item > .lead,
-.menu .items > .item > .lead {
+.menu .items > .item > .lead, .grid-menu > .item > .lead {
   margin-left: -0.5em;
 }
 .menu > .item > .trailing,
-.menu .items > .item > .trailing {
+.menu .items > .item > .trailing, .grid-menu > .item > .trailing {
   margin-left: auto;
   margin-right: -0.5em;
 }
 .menu > .item > .badge,
-.menu .items > .item > .badge {
+.menu .items > .item > .badge, .grid-menu > .item > .badge {
   margin-left: auto;
 }
 .menu > .item > .content,
-.menu .items > .item > .content {
+.menu .items > .item > .content, .grid-menu > .item > .content {
   flex: 1 1 0;
   text-align: left;
 }
-.menu > .item.header, .menu > .item > .header,
-.menu .items > .item.header,
-.menu .items > .item > .header {
+.menu > .header.item,
+.menu .items > .header.item, .grid-menu > .header.item, .menu > .item > .header,
+.menu .items > .item > .header, .grid-menu > .item > .header {
   font-weight: bold;
 }
-.menu > .item.brand, .menu > .item > .brand,
-.menu .items > .item.brand,
-.menu .items > .item > .brand {
+.menu > .brand.item,
+.menu .items > .brand.item, .grid-menu > .brand.item, .menu > .item > .brand,
+.menu .items > .item > .brand, .grid-menu > .item > .brand {
   font-size: 120%;
   font-weight: bold;
 }
 .menu > .item > .brand,
-.menu .items > .item > .brand {
+.menu .items > .item > .brand, .grid-menu > .item > .brand {
   vertical-align: middle;
 }
-.menu.icon-bar > .item, .menu.icon-bar .items > .item, .menu > .item.as-icon,
-.menu .items > .item.as-icon,
-.menu .items.as-icon > .item {
+
+.menu.icon-items > .item, .menu.icon-items .items > .item,
+.menu .items.icon-items > .item, .grid-menu.icon-items > .item, .menu > .as-icon.item,
+.menu .items > .as-icon.item, .grid-menu > .as-icon.item {
   padding-left: var(--menu-icon-padding-lr);
   padding-right: var(--menu-icon-padding-lr);
 }
-.menu.nav-bar > .item, .menu.nav-bar .items > .item, .menu > .item.bar-item,
-.menu .items > .item.bar-item,
-.menu .items.bar-items > .item {
+
+.menu.app-items > .item, .menu.app-items .items > .item,
+.menu .items.app-items > .item, .grid-menu.app-items > .item, .menu > .as-app.item,
+.menu .items > .as-app.item, .grid-menu > .as-app.item {
   flex-direction: column;
   padding: 0.25em;
 }
-.menu.nav-bar > .item > .icon, .menu.nav-bar .items > .item > .icon, .menu > .item.bar-item > .icon,
-.menu .items > .item.bar-item > .icon,
-.menu .items.bar-items > .item > .icon {
+.menu.app-items > .item > .icon, .menu.app-items .items > .item > .icon,
+.menu .items.app-items > .item > .icon, .grid-menu.app-items > .item > .icon, .menu > .as-app.item > .icon,
+.menu .items > .as-app.item > .icon, .grid-menu > .as-app.item > .icon {
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 1em;
   min-height: 2em;
   min-width: 3.5em;
+  margin: 0;
 }
-.menu.nav-bar > .item > .text.label, .menu.nav-bar .items > .item > .text.label, .menu > .item.bar-item > .text.label,
-.menu .items > .item.bar-item > .text.label,
-.menu .items.bar-items > .item > .text.label {
+.menu.app-items > .item > .text.label, .menu.app-items .items > .item > .text.label,
+.menu .items.app-items > .item > .text.label, .grid-menu.app-items > .item > .text.label, .menu > .as-app.item > .text.label,
+.menu .items > .as-app.item > .text.label, .grid-menu > .as-app.item > .text.label {
   margin: 0em;
   font-size: 0.875em;
 }
-.menu.transparent {
-  background-color: transparent !important;
-  border-color: transparent !important;
-}
-.menu.disabled > .item, .menu.disabled .items > .item,
-.menu .items.disabled > .item, .menu > .item.disabled,
-.menu .items > .item.disabled {
-  opacity: 0.5 !important;
-  pointer-events: none !important;
-}
-
 .menu > .item > .badge.floating,
-.menu .items > .item > .badge.floating, .menu.nav-bar > .item > .badge, .menu.nav-bar .items > .item > .badge, .menu > .item.bar-item > .badge,
-.menu .items > .item.bar-item > .badge,
-.menu .items.bar-items > .item > .badge {
+.menu .items > .item > .badge.floating, .grid-menu > .item > .badge.floating, .menu.app-items > .item > .badge, .menu.app-items .items > .item > .badge,
+.menu .items.app-items > .item > .badge, .grid-menu.app-items > .item > .badge, .menu > .as-app.item > .badge,
+.menu .items > .as-app.item > .badge, .grid-menu > .as-app.item > .badge {
   position: absolute;
   top: 0.25em;
   right: 0.25em;
@@ -2908,9 +2957,9 @@ hr.vertical:empty,
   margin: 0;
 }
 .menu > .item > .badge.floating:empty,
-.menu .items > .item > .badge.floating:empty, .menu.nav-bar > .item > .badge:empty, .menu.nav-bar .items > .item > .badge:empty, .menu > .item.bar-item > .badge:empty,
-.menu .items > .item.bar-item > .badge:empty,
-.menu .items.bar-items > .item > .badge:empty {
+.menu .items > .item > .badge.floating:empty, .grid-menu > .item > .badge.floating:empty, .menu.app-items > .item > .badge:empty, .menu.app-items .items > .item > .badge:empty,
+.menu .items.app-items > .item > .badge:empty, .grid-menu.app-items > .item > .badge:empty, .menu > .as-app.item > .badge:empty,
+.menu .items > .as-app.item > .badge:empty, .grid-menu > .as-app.item > .badge:empty {
   top: 0.5em;
   right: 1em;
 }
@@ -4727,7 +4776,7 @@ input[type=file]::-ms-browse:hover {
   position: relative;
   margin: 0;
   padding: var(--button-padding-tb) var(--button-padding-lr);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 1em;
   font-weight: var(--semibold-weight);
   line-height: var(--button-line-height);
@@ -9671,63 +9720,63 @@ i.flag.zw::before {
 }
 
 .padded {
-  padding: 1em;
+  padding: 1em !important;
 }
 
 .t-padded {
-  padding-top: 1em;
+  padding-top: 1em !important;
 }
 
 .b-padded {
-  padding-bottom: 1em;
+  padding-bottom: 1em !important;
 }
 
 .l-padded {
-  padding-left: 1em;
+  padding-left: 1em !important;
 }
 
 .r-padded {
-  padding-right: 1em;
+  padding-right: 1em !important;
 }
 
 .v-padded {
   padding-top: 1em;
-  padding-bottom: 1em;
+  padding-bottom: 1em !important;
 }
 
 .h-padded {
   padding-left: 1em;
-  padding-right: 1em;
+  padding-right: 1em !important;
 }
 
 .padded-sm {
-  padding: 0.5em;
+  padding: 0.5em !important;
 }
 
 .t-padded-sm {
-  padding-top: 0.5em;
+  padding-top: 0.5em !important;
 }
 
 .b-padded-sm {
-  padding-bottom: 0.5em;
+  padding-bottom: 0.5em !important;
 }
 
 .l-padded-sm {
-  padding-left: 0.5em;
+  padding-left: 0.5em !important;
 }
 
 .r-padded-sm {
-  padding-right: 0.5em;
+  padding-right: 0.5em !important;
 }
 
 .v-padded-sm {
   padding-top: 0.5em;
-  padding-bottom: 0.5em;
+  padding-bottom: 0.5em !important;
 }
 
 .h-padded-sm {
   padding-left: 0.5em;
-  padding-right: 0.5em;
+  padding-right: 0.5em !important;
 }
 
 .\30 -padding {
@@ -9769,10 +9818,7 @@ i.flag.zw::before {
 }
 
 *:not(.active) > .aview,
-*:not(.active) > .viewbox > .a-view {
-  display: none !important;
-}
-
+*:not(.active) > .viewbox > .a-view,
 *.active > .nview,
 *.active > .viewbox > .n-view {
   display: none !important;

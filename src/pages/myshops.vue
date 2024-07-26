@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div class="fluid grid" style="gap: 0.5em;">
-                <div class="col"><RouterLink to="/manage" class="compact fluid button">Manage page</RouterLink></div>
+                <div class="col"><RouterLink to="/manage/overview" class="compact fluid button">Manage page</RouterLink></div>
                 <div class="col"><button class="compact fluid button">Create post</button></div>
                 
                 <div class="col">

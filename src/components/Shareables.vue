@@ -36,6 +36,29 @@
         <router-link to="/account/saved" class="item exit-sidepanel" exact-active-class="active"><SvgIcon name="bookmarks" class="lead" />Saved cards</router-link>
         <router-link to="/account/followed" class="item exit-sidepanel" exact-active-class="active"><SvgIcon name="groups" class="lead" />Followed providers</router-link>
     </template>
+    <Dropdown v-else-if="name === 'do_more_item'" :options="{directionPriority: {x: 'center', y: 'bottom'}}" v-tooltip.unblocking data-tooltip="Do more" class="as-icon item">
+        <SvgIcon name="apps" />
+        <Dropmenu class="rounded">
+            <div class="grid-menu sm-grid app-items">
+                <div class="bar-item item open-modal exit-dd" data-target="search-modal">
+                    <SvgIcon name="search" />
+                    <span class="text label">Search</span>
+                </div>
+                <div class="bar-item item open-modal exit-dd" data-target="explore-modal">
+                    <SvgIcon name="manage_search" />
+                    <span class="text label">Explore</span>
+                </div>
+                <div class="bar-item item open-modal exit-dd" data-target="scanqr-modal">
+                    <SvgIcon name="qr_code_scanner" />
+                    <span class="text label">Scan QR</span>
+                </div>
+                <div v-if="userStore.auth && userStore.userData.manageBisiness" class="bar-item item open-modal exit-dd" data-target="create-post">
+                    <SvgIcon name="edit_square" />
+                    <span class="text label">Post</span>
+                </div>
+            </div>
+        </Dropmenu>
+    </Dropdown>
     <Dropmenu v-else-if="name === 'profile_menu'">
         <router-link to="/account" class="header centered item"><img :src="userStore.userData.profileImg" class="free-img circular image">{{ `${userStore.userData.firstName} ${userStore.userData.lastName}` }}</router-link>
         <rc-shareables name="account" />
@@ -48,56 +71,44 @@
     <template v-else-if="name === 'nav_menu'">
         <div class="items" style="border-radius: var(--radius-default);">
             <template v-if="userStore.auth">
-                <template v-if="userStore.auth">
-                    <router-link to="/home" exact-active-class="active" class="item exit-sidepanel">
-                        <SvgIcon name="home" class="lead nview" />
-                        <SvgIcon name="home_filled" class="lead aview" />
-                        Home
-                    </router-link>
-                    <router-link to="/messaging" exact-active-class="active" class="item exit-sidepanel">
-                        <SvgIcon name="chat" class="lead nview" />
-                        <SvgIcon name="chat_filled" class="lead aview" />
-                        Messaging
-                    </router-link>
-                    <router-link to="/myshops" exact-active-class="active" class="item exit-sidepanel">
-                        <SvgIcon name="store" class="lead nview" />
-                        <SvgIcon name="store_filled" class="lead aview" />
-                        My Shops
-                    </router-link>
-                    <div v-collapsible class="item xactive">
-                        <SvgIcon name="person" class="lead nview" />
-                        <SvgIcon name="person_filled" class="lead aview" />
-                        Account
-                        <SvgIcon name="expand_more" class="trailing aview" />
-                        <SvgIcon name="chevron_left" class="trailing nview" />
-                    </div>
-                    <div class="collapsible sub items">
-                        <rc-shareables name="account" />
-                    </div>
-                    <div v-collapsible class="item xactive">
-                        <SvgIcon name="contact_support" class="lead nview" />
-                        <SvgIcon name="contact_support_filled" class="lead aview" />
-                        Support
-                        <SvgIcon name="expand_more" class="trailing aview" />
-                        <SvgIcon name="chevron_left" class="trailing nview" />
-                    </div>
-                    <div class="collapsible sub items">
-                        <rc-shareables name="supports" />
-                    </div>
-                    <div class="item" @click="userStore.logout()"><SvgIcon name="logout" class="lead" /> Log out</div>
-                    <div class="transparent compact divider"></div>
-                    <div class="xhover item 0-padding"><button class="fluid button">Have a shop online</button></div>
-                </template>
-                <template v-else>
-                    <RouterLink to="/myshops" class="item"><SvgIcon name="" class="lead" /> Go back to my shops</RouterLink>
-                    <RouterLink to="manage/" class="item"><SvgIcon name="" class="lead" /> Overview</RouterLink>
-                    <RouterLink to="manage/posts" class="item"><SvgIcon name="" class="lead" /> Posts</RouterLink>
-                    <RouterLink to="manage/pageinfo" class="item"><SvgIcon name="" class="lead" /> Page Info</RouterLink>
-                    <RouterLink to="manage/media" class="item"><SvgIcon name="" class="lead" /> Media</RouterLink>
-                    <RouterLink to="manage/products" class="item"><SvgIcon name="" class="lead" /> Products</RouterLink>
-                    <RouterLink to="manage/services" class="item"><SvgIcon name="" class="lead" /> Services</RouterLink>
-                    <RouterLink to="manage/support" class="item"><SvgIcon name="" class="lead" /> Support</RouterLink>
-                </template>
+                <router-link to="/home" exact-active-class="active" class="item exit-sidepanel">
+                    <SvgIcon name="home" class="lead nview" />
+                    <SvgIcon name="home_filled" class="lead aview" />
+                    Home
+                </router-link>
+                <router-link to="/messaging" exact-active-class="active" class="item exit-sidepanel">
+                    <SvgIcon name="chat" class="lead nview" />
+                    <SvgIcon name="chat_filled" class="lead aview" />
+                    Messaging
+                </router-link>
+                <router-link to="/myshops" exact-active-class="active" class="item exit-sidepanel">
+                    <SvgIcon name="store" class="lead nview" />
+                    <SvgIcon name="store_filled" class="lead aview" />
+                    My Shops
+                </router-link>
+                <div v-collapsible class="item xactive">
+                    <SvgIcon name="person" class="lead nview" />
+                    <SvgIcon name="person_filled" class="lead aview" />
+                    Account
+                    <SvgIcon name="expand_more" class="trailing aview" />
+                    <SvgIcon name="chevron_left" class="trailing nview" />
+                </div>
+                <div class="collapsible sub items">
+                    <rc-shareables name="account" />
+                </div>
+                <div v-collapsible class="item xactive">
+                    <SvgIcon name="contact_support" class="lead nview" />
+                    <SvgIcon name="contact_support_filled" class="lead aview" />
+                    Support
+                    <SvgIcon name="expand_more" class="trailing aview" />
+                    <SvgIcon name="chevron_left" class="trailing nview" />
+                </div>
+                <div class="collapsible sub items">
+                    <rc-shareables name="supports" />
+                </div>
+                <div class="item" @click="userStore.logout()"><SvgIcon name="logout" class="lead" /> Log out</div>
+                <div class="transparent compact divider"></div>
+                <div class="xhover item 0-padding"><button class="fluid button">Have a shop online</button></div>
             </template>
             <template v-else>
                 <div v-collapsible class="item xactive">
@@ -147,28 +158,10 @@
             </label>
         </form>
         <div class="items r-aligned">
-            <div v-tooltip.unblocking data-tooltip="Search" class="open-modal as-icon item md-and-up-hidden" data-target="search-modal">
+            <div v-tooltip.unblocking data-tooltip="Search" class="open-modal as-icon item md-and-up-hidden sm-and-down-hidden" data-target="search-modal">
                 <SvgIcon name="search" />
             </div>
-            <Dropdown :options="{directionPriority: {x: 'center', y: 'bottom'}}" v-tooltip.unblocking data-tooltip="Do more" class="xhover as-icon item">
-                <SvgIcon name="apps" />
-                <Dropmenu>
-                    <div class="menu">
-                        <div class="bar-item item open-modal exit-dd" data-target="explore-modal">
-                            <SvgIcon name="manage_search" />
-                            <span class="text label">Explore</span>
-                        </div>
-                        <div class="bar-item item open-modal exit-dd" data-target="scanqr-modal">
-                            <SvgIcon name="qr_code_scanner" />
-                            <span class="text label">Scan QR</span>
-                        </div>
-                        <div v-if="userStore.auth && userStore.userData.manageBisiness" class="bar-item item open-modal exit-dd" data-target="create-post">
-                            <SvgIcon name="edit_square" />
-                            <span class="text label">Create Post</span>
-                        </div>
-                    </div>
-                </Dropmenu>
-            </Dropdown>
+            <rc-shareables name="do_more_item" />
             <template v-if="userStore.auth">
                 <div class="as-icon item" v-tooltip.unblocking data-tooltip="Notifications">
                     <SvgIcon name="notifications" />
@@ -247,14 +240,14 @@
 
 
     <template v-else-if="name === 'page_nav'">
-        <aside id="navmenu" class="manual-width col sidemenu lg-and-down-hidden sp-wrapper">
+        <aside id="navmenu" class="manual-width col sidemenu sp-wrapper">
             <div v-scrollPin="{ topSpacing: 84, bottomSpacing: 16, ancestorGuarded: true }" class="vertical transparent menu">
                 <rc-shareables name="nav_menu" />
             </div>
         </aside>
     </template>
     <template v-else-if="name === 'ad_menu'">
-        <aside class="manual-width col sidemenu">
+        <aside class="manual-width col sidemenu lg-and-down-hidden">
             <div id="admenu" v-scrollPin="{ topSpacing: 84, bottomSpacing: 16, parentGuided: true }">
                 <div style="width: 100%;">
                     <h6 class="centered" style="margin-bottom: 16px;">Sponsored (Ads)</h6>
@@ -272,4 +265,21 @@
             </div>
         </aside>
     </template>
+    <div v-else-if="name === 'color_scheme'" class="field" style="align-self: flex-end">
+        <label>Color scheme settings</label>
+        <div class="icon fluid option-group">
+            <label>
+                <input v-model="mainStore.colorScheme" type="radio" value="light-mode" />
+                <SvgIcon name="light_mode" />
+            </label>
+            <label>
+                <input v-model="mainStore.colorScheme" type="radio" value="auto-mode" />
+                <SvgIcon name="desktop_windows" />
+            </label>
+            <label>
+                <input v-model="mainStore.colorScheme" type="radio" value="dark-mode" />
+                <SvgIcon name="dark_mode" />
+            </label>
+        </div>
+    </div>
 </template>

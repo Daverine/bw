@@ -114,6 +114,9 @@
 				if (breakpoint) this.init(breakpoint);
 				else this.init();
 			},
+			dist(e) {
+				return e.type.indexOf("touch") > -1 ? e.touches[0].pageX : e.clientX;
+			},
             gestureStart(e) {
 				if (this.tmp.slidesNo <= 1) return; // stop gesture if total number of slides is one or less;
 
@@ -121,31 +124,36 @@
 					this.stopSlideshow();
 					this.tmp.playing = true;
 				}
-	
+
 				// save gesture time start to know gesture duration
 				this.tmp.gT = new Date().getTime();
 				
 				// save the initial value of bb.newCoord to have it accessable when the move-gesture event is triggered. (That's because the newCoord value might change during the event)
 				this.tmp.initCoords = this.tmp.newCoord; 
-				this.tmp.startCoord = e.clientX;
-				this.tmp.endCoord = e.clientX; // set the initial endCoord to the startpoint coord;
+				this.tmp.startCoord = this.dist(e);
+				this.tmp.coordChange = false;
+				this.tmp.endCoord = this.tmp.startCoord; // set the initial endCoord to the startpoint coord;
 
 				// Swiping
 				this.e.slider.classList.add('swiping');
 				
-				e.currentTarget.setPointerCapture(e.pointerId);
-				e.currentTarget.addEventListener('pointermove', this.gestureMove);
-				e.currentTarget.addEventListener('pointerup', this.gestureEnd);
+				if (e.type === 'touchstart') {
+					document.addEventListener('touchmove', this.gestureMove);
+					document.addEventListener('touchend', this.gestureEnd);
+				}
+				else if (e.type === 'mousedown') {
+					document.addEventListener('mousemove', this.gestureMove);
+					document.addEventListener('mouseup', this.gestureEnd);
+				}
 			},
 			gestureMove(e) {
-				this.tmp.gsDir = this.tmp.endCoord > e.clientX ? 1 : this.tmp.endCoord < e.clientX ? -1 : this.tmp.gsDir;
-				this.tmp.endCoord = e.clientX;
+				this.tmp.gsDir = this.tmp.endCoord > this.dist(e) ? 1 : this.tmp.endCoord < this.dist(e) ? -1 : this.tmp.gsDir;
+				this.tmp.endCoord = this.dist(e);
+				if (Math.abs(this.tmp.endCoord - this.tmp.startCoord) > 5 && !this.tmp.coordChange) this.tmp.coordChange = true;
 
-				if (Math.abs(this.tmp.endCoord - this.tmp.startCoord) > 5) {
+				// Swipping in action
+				if (this.tmp.coordChange) {
 					this.tmp.newCoord = this.tmp.initCoords + this.tmp.endCoord - this.tmp.startCoord + (this.tmp.gsmScale * Math.abs(this.tmp.minExt));
-
-					// Swipping in action
-					this.tmp.coordChange = true;
 
 					if (this.settings.continuous && this.settings.continuous !== 'rewind') {
 						if (this.tmp.gsDir === 1 && this.tmp.newCoord < this.tmp.maxExt) this.tmp.gsmScale += 1;
@@ -157,10 +165,15 @@
 				}
 			},
 			gestureEnd(e) {
-				e.currentTarget.removeEventListener('pointermove', this.gestureMove);
-				e.currentTarget.removeEventListener('pointerup', this.gestureEnd);
-			
-				this.tmp.endCoord = e.clientX;
+				if (e.type === 'touchend') {
+					document.removeEventListener('touchmove', this.gestureMove);
+					document.removeEventListener('touchend', this.gestureEnd);
+				}
+				else {
+					document.removeEventListener('mousemove', this.gestureMove);
+					document.removeEventListener('mouseup', this.gestureEnd);
+				}
+
 				this.tmp.gsDir = 0; // reset gesture move direction
 				this.tmp.gsmScale = 0; // reset gesture move scale offset calculation
 
@@ -329,7 +342,8 @@
 
             // Gesture control on carousel
 			this.e.slider.ondragstart = () => false; // prevent browser from hijacking swiping process
-			this.e.slider.addEventListener('pointerdown', this.gestureStart);
+			this.e.slider.addEventListener('mousedown', this.gestureStart);
+            this.e.slider.addEventListener('touchstart', this.gestureStart);
 
             // navigator control on carousel
             this.e.prevBtn.addEventListener('click', this.prevSlides);
@@ -393,7 +407,6 @@
 		width: 100% !important;
 		height: inherit;
 		transition: transform 500ms cubic-bezier(0, 0, 0.25, 1);
-		touch-action: none;
 		
 		&.swiping,
 		&.ghost-walk { transition-duration: 0ms !important; }

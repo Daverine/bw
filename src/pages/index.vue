@@ -23,6 +23,7 @@
 					</Dropdown>
 				</div>
 				<div class="items r-aligned">
+					<Shareables name="do_more_item" />
 					<template v-if="userStore.auth">
 						<div class="as-icon item" v-tooltip.unblocking data-tooltip="Notifications">
 							<SvgIcon name="notifications" />

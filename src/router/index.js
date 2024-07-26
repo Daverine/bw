@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import { loadLayoutMiddleware } from '../middleware/loadLayoutMiddleware';
 import { useUserStore } from '../stores/userStore';
+import { useSearchStore } from '../stores/searchStore';
 
 import index from '../pages/index.vue';
 import search from '../pages/search.vue';
@@ -13,9 +14,14 @@ import account_profile from '../pages/account/profile.vue';
 import account_reviews from '../pages/account/reviews.vue';
 import account_saved from '../pages/account/saved.vue';
 import account_followed from '../pages/account/followed.vue';
-
-import SearchPage from '../views/SearchPage.vue';
-import HomePage from '../views/HomePage.vue';
+import manage_index from '../pages/manage/index.vue';
+import manage_overview from '../pages/manage/overview.vue';
+import manage_posts from '../pages/manage/posts.vue';
+import manage_biz_info from '../pages/manage/biz_info.vue';
+import manage_media from '../pages/manage/media.vue';
+import manage_products from '../pages/manage/products.vue';
+import manage_services from '../pages/manage/services.vue';
+import manage_support from '../pages/manage/support.vue';
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -100,6 +106,52 @@ const router = createRouter({
                 },
             ]
         },
+        {
+            path: '/manage',
+            name: 'managebiz',
+            component: manage_index,
+            meta: {
+                auth: true,
+                layout: 'Manage',
+            },
+            children: [
+                {
+                    path: 'overview',
+                    name: 'biz_overview',
+                    component: manage_overview
+                },
+                {
+                    path: 'biz-info',
+                    name: 'biz_info',
+                    component: manage_biz_info
+                },
+                {
+                    path: 'posts',
+                    name: 'biz_posts',
+                    component: manage_posts
+                },
+                {
+                    path: 'media',
+                    name: 'biz_media',
+                    component: manage_media
+                },
+                {
+                    path: 'products',
+                    name: 'biz_products',
+                    component: manage_products
+                },
+                {
+                    path: 'services',
+                    name: 'biz_services',
+                    component: manage_services
+                },
+                {
+                    path: 'support',
+                    name: 'biz_support',
+                    component: manage_support
+                },
+            ]
+        },
     ],
     scrollBehavior(to, from, savedPosition) {
         if (savedPosition) {
@@ -110,12 +162,19 @@ const router = createRouter({
     }
 });
 
-router.beforeEach((to) => {
-    const userStore = useUserStore();
+router.beforeEach((to, from) => {
+    const
+        userStore = useUserStore(),
+        searchStore = useSearchStore()
+    ;
 
     if (to.meta.auth && !userStore.auth) {
         userStore.routeProceed = to;
         return '/login';
+    }
+
+    if (from.path === '/search') {
+        searchStore.searchBox = '';
     }
 });
 

@@ -19,27 +19,12 @@
 						<img src="/images/logo.png" alt="site logo" class="logo-sm site-logo">
 					</router-link>
 				</div>
-				<Shareables name="nav_menu" />
+				<ManageShareables v-if="route.matched.filter(el => el.path === '/manage')[0]" name="nav_menu" />
+				<Shareables v-else name="nav_menu" />
 			</div>
 			<hr />
 			<footer style="margin-top: auto;">
-				<div class="field" style="align-self: flex-end">
-					<label>Color scheme settings</label>
-					<div class="icon fluid option-group">
-						<label>
-							<input v-model="mainStore.colorScheme" type="radio" value="light-mode" />
-							<SvgIcon name="light_mode" />
-						</label>
-						<label>
-							<input v-model="mainStore.colorScheme" type="radio" value="auto-mode" />
-							<SvgIcon name="desktop_windows" />
-						</label>
-						<label>
-							<input v-model="mainStore.colorScheme" type="radio" value="dark-mode" />
-							<SvgIcon name="dark_mode" />
-						</label>
-					</div>
-				</div>
+				<Shareables name="color_scheme" />
 				<Shareables name="copyright" />
 			</footer>
 		</div>

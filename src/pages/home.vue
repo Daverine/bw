@@ -37,6 +37,7 @@ import { useRouter } from 'vue-router';
 							</Dropmenu>
 						</Dropdown>
 					</div>
+					<Shareables name="do_more_item" />
 					<div class="as-icon item" v-tooltip.unblocking data-tooltip="Notifications">
 						<SvgIcon name="notifications" />
 					</div>
@@ -85,8 +86,8 @@ import { useRouter } from 'vue-router';
 	<section id="firstSec" ref="main" class="container csection grid">
 		<Shareables name="page_nav" />
 		<main ref="main" class="col" id="feed">
-			<div class="sp-wrapper fluid z-level-3" style="margin-bottom: 1rem;">
-				<div v-iScroller v-scrollPin="{ topSpacing: 68, ancestorGuarded: true }" class="i-scroller">
+			<header class="sp-wrapper fluid z-level-3 p-h" style="margin-bottom: 1rem;">
+				<div v-iScroller v-scrollPin="{ topSpacing: 64, ancestorGuarded: true }" class="i-scroller">
 					<div class="l-scroll"><SvgIcon name="double_arrow_left" class="mini" /></div>
 					<div class="r-scroll"><SvgIcon name="double_arrow_right" class="mini" /></div>
 					<div class="rail fillable menu scroll-items">
@@ -96,15 +97,17 @@ import { useRouter } from 'vue-router';
 						</div>
 					</div>
 				</div>
-			</div>
-			<h6 class="centered" style="margin-bottom: 2rem;" id="bizupdate">Update from page you're following (Feeds)</h6>
-			<FeedCard v-for="(feed, i) in feedStore.feeds" :key="i" :details="feed" />
-			<div class="divider">
-				<button class="button">
-					Load more
-					<SvgIcon name="expand_more" />
-				</button>
-			</div>
+			</header>
+			<section style="display: flex; flex-direction: column; align-items: center;">
+				<h6 class="centered" style="margin-bottom: 2rem;" id="bizupdate">Update from page you're following (Feeds)</h6>
+				<FeedCard v-for="(feed, i) in feedStore.feeds" :key="i" :details="feed" />
+				<div class="divider">
+					<button class="button">
+						Load more
+						<SvgIcon name="expand_more" />
+					</button>
+				</div>
+			</section>
 		</main>
 		<Shareables name="ad_menu" />
 	</section>

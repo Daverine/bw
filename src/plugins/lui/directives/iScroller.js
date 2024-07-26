@@ -36,7 +36,9 @@ export function iScroller() {
                 this.uniqueId = utils.getUniqueId(this.settings.namespace);
                 window.addEventListener('resize', this.onResizeMtd);
                 this.e.scrollElem.addEventListener('scroll', this.onScrollMtd);
+                this.el.ondragstart = () => false;
                 this.el.addEventListener('mousedown', this.gestureStart);
+                this.el.addEventListener('touchstart', this.gestureStart);
                 this.el.addEventListener('wheel', this.wheelControl);
                 this.el.addEventListener('activeView', this.viewActiveItem);
                 if (this.e.prevBtn[0]) this.e.prevBtn.forEach(el => el.addEventListener('click', this.prevControl));
@@ -56,24 +58,43 @@ export function iScroller() {
                 if (this.e.scrollElem.scrollLeft + this.e.scrollElem.clientWidth >= this.e.scrollElem.scrollWidth - this.settings.tolerance) this.e.nextBtn.forEach(el => el.classList.add('disabled'));
                 else this.e.nextBtn.forEach(el => el.classList.remove('disabled'));
             },
+            dist(e) {
+				return e.type.indexOf("touch") > -1 ? e.touches[0].pageX : e.clientX;
+			},
             gestureStart(e) {
                 if (this.e.scrollElem.contains(e.target) || e.target === this.e.scrollElem) {
                     this.prop.width = this.e.scrollElem.clientWidth;
                     this.prop.left = utils.offsetPos(this.e.scrollElem).left;
                     this.prop.scrollPos = this.e.scrollElem.scrollLeft;
-                    this.startCoords = e.clientX;
+                    this.startCoords = this.dist(e);
+                    this.coordChange = false;
                     this.e.scrollElem.classList.add('swiping');
-                    document.addEventListener('mousemove', this.gestureMove);
-                    document.addEventListener('mouseup', this.gestureEnd);
+    
+                    if (e.type === 'touchstart') {
+                        document.addEventListener('touchmove', this.gestureMove);
+                        document.addEventListener('touchend', this.gestureEnd);
+                    }
+                    else if (e.type === 'mousedown') {
+                        document.addEventListener('mousemove', this.gestureMove);
+                        document.addEventListener('mouseup', this.gestureEnd);
+                    }
                 }
             },
             gestureMove(e) {
-                this.endCoords = e.clientX;
-                if (Math.abs(this.endCoords - this.startCoords) > 5) this.e.scrollElem.scrollLeft = this.prop.scrollPos - (this.endCoords - this.startCoords);
+                this.endCoords = this.dist(e);
+                if (Math.abs(this.endCoords - this.startCoords) > 5 && !this.coordChange) this.coordChange = true;
+                if (this.coordChange) this.e.scrollElem.scrollLeft = this.prop.scrollPos - (this.endCoords - this.startCoords);
             },
-            gestureEnd() {
-                document.removeEventListener('mousemove', this.gestureMove);
-                document.removeEventListener('mouseup', this.gestureEnd);
+            gestureEnd(e) {
+                if (e.type === 'touchend') {
+					document.removeEventListener('touchmove', this.gestureMove);
+					document.removeEventListener('touchend', this.gestureEnd);
+				}
+				else {
+					document.removeEventListener('mousemove', this.gestureMove);
+					document.removeEventListener('mouseup', this.gestureEnd);
+				}
+
                 this.e.scrollElem.classList.remove('swiping');
                 this.prop.scrollPos = this.e.scrollElem.scrollLeft;
             },
