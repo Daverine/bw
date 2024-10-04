@@ -1,7 +1,7 @@
 <template>
     <div class="dialog self-scroll">
-        <div class="header grid">
-            <div class="bold">
+        <div class="header flexbox guttered">
+            <div class="bold truncate flexible">
                 Explore your caterory of interest here.
             </div>
             <button class="circular text button as-text exit-modal" style="margin-left: auto;">
@@ -11,7 +11,7 @@
         <div class="content">
             <div class="centered"><button class="button"><SvgIcon name="trending_up" class="lead" /> Trending</button></div>
             <div class="heading">Business categories</div>
-            <div class="grid">
+            <div class="flexbox flex-wrap sm-guttered">
                 <button class="chip"><SvgIcon name="restaurant" class="small lead" /> Restaurants</button>
                 <button class="chip"><SvgIcon name="local_bar" class="small lead" /> Bars</button>
                 <button class="chip"><SvgIcon name="local_parking" class="small lead" /> Parks</button>
@@ -23,7 +23,7 @@
                 <button class="chip"><SvgIcon name="more_horiz" class="small lead" /> More</button>
             </div>
             <div class="heading">Product categories</div>
-            <div class="grid">
+            <div class="flexbox flex-wrap sm-guttered">
                 <button class="chip"><SvgIcon name="restaurant" class="small lead" /> Vehicles</button>
                 <button class="chip"><SvgIcon name="local_bar" class="small lead" /> Property</button>
                 <button class="chip"><SvgIcon name="local_parking" class="small lead" /> Mobile Phones & Tablets</button>
@@ -45,10 +45,6 @@
 </template>
 
 <style scoped>
-    .grid {
-        justify-content: center;
-        gap: 0.5em;
-    }
     .chip {
         margin-bottom: 0.25em;
     }

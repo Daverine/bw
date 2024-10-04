@@ -1,5 +1,5 @@
 :root {
-  --radius-default: 0.5em;
+  --default-radius: 0.5em;
   --site-logo-filter: invert(0);
   --fmenu-bg: rgba(255,255,255,0.9);
 }

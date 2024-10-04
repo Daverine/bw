@@ -14,7 +14,7 @@
     }
 </script>
 <template>
-    <div v-if="name === 'nav_menu'" class="items" style="border-radius: var(--radius-default);">
+    <div v-if="name === 'nav_menu'" class="items" style="border-radius: var(--default-radius);">
         <RouterLink to="/myshops" class="item exit-sidepanel">
             <SvgIcon name="arrow_back" class="lead" />
             Go back to my shops
@@ -61,7 +61,7 @@
         </RouterLink>
     </div>
     <template v-else-if="name === 'page_nav'">
-        <aside id="navmenu" class="manual-width col sidemenu md-and-down-hidden sp-wrapper">
+        <aside id="navmenu" class="flex-none col sidemenu md-and-down-hidden sp-wrapper">
             <div v-scrollPin="{ topSpacing: 84, bottomSpacing: 16, ancestorGuarded: true }" class="vertical transparent menu">
                 <rc-manage-shareables name="nav_menu" />
             </div>

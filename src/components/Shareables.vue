@@ -2,10 +2,12 @@
     import { useMainStore } from '../stores';
 	import { useUserStore } from '../stores/userStore';
     import { useSearchStore } from '../stores/searchStore';
+import IScroller from '../plugins/lui/components/IScroller.vue';
     
     export default {
         name: "rc-shareables",
         props: ['name'],
+        components: {IScroller},
         setup() {
 			const
 				mainStore = useMainStore(),
@@ -38,8 +40,8 @@
     </template>
     <Dropdown v-else-if="name === 'do_more_item'" :options="{directionPriority: {x: 'center', y: 'bottom'}}" v-tooltip.unblocking data-tooltip="Do more" class="as-icon item">
         <SvgIcon name="apps" />
-        <Dropmenu class="rounded">
-            <div class="grid-menu sm-grid app-items">
+        <div class="drop menu">
+            <div class="menu grid 3-cols app-items">
                 <div class="bar-item item open-modal exit-dd" data-target="search-modal">
                     <SvgIcon name="search" />
                     <span class="text label">Search</span>
@@ -57,19 +59,19 @@
                     <span class="text label">Post</span>
                 </div>
             </div>
-        </Dropmenu>
+        </div>
     </Dropdown>
-    <Dropmenu v-else-if="name === 'profile_menu'">
+    <div class="drop menu" v-else-if="name === 'profile_menu'">
         <router-link to="/account" class="header centered item"><img :src="userStore.userData.profileImg" class="free-img circular image">{{ `${userStore.userData.firstName} ${userStore.userData.lastName}` }}</router-link>
         <rc-shareables name="account" />
         <div class="item" @click="userStore.logout()"><SvgIcon name="logout" class="lead" /> Log out</div>
-    </Dropmenu>
+    </div>
     <template v-else-if="name === 'supports'">
         <div class="item"><SvgIcon name="help" class="lead" /> Help center</div>
         <div class="item"><SvgIcon name="feedback" class="lead" /> Give feedback</div>
     </template>
     <template v-else-if="name === 'nav_menu'">
-        <div class="items" style="border-radius: var(--radius-default);">
+        <div class="items" style="border-radius: var(--default-radius);">
             <template v-if="userStore.auth">
                 <router-link to="/home" exact-active-class="active" class="item exit-sidepanel">
                     <SvgIcon name="home" class="lead nview" />
@@ -138,7 +140,7 @@
             </template>
         </div>
     </template>
-    <div v-else-if="name === 'main_menu'" class="container items auto-margined" style="border-radius: var(--radius-default)">
+    <div v-else-if="name === 'main_menu'" class="container items auto-margined" style="border-radius: var(--default-radius)">
         <div class="item as-icon open-sidepanel" v-tooltip.unblocking data-tooltip="Menu" data-target="msidepanel">
             <SvgIcon name="menu" />
         </div>
@@ -178,10 +180,10 @@
                 </div>
                 <Dropdown :options="{directionPriority: {x: 'left', y: 'bottom'}}" v-tooltip.unblocking data-tooltip="Account" class="item as-icon lg-and-up-hidden">
                     <SvgIcon name="person_add" /> <span class="sm-and-down-hidden">Account</span>
-                    <Dropmenu>
+                    <div class="drop menu">
                         <div class="item open-modal" data-target="login-modal">Log in</div>
                         <div class="item open-modal" data-target="register-modal">Sign Up</div>
-                    </Dropmenu>
+                    </div>
                 </Dropdown>
             </template>
         </div>
@@ -206,9 +208,9 @@
             </form>
         </div>
         <div class="md-and-down-hidden" style="padding: 0em 0em 0.5em;">
-            <div class="container grid flex-no-wrap" style="gap: 0.5em;">
-                <div class="manual-width col"><div class="compact transparent button bold open-modal" data-target="explore-modal"><SvgIcon name="manage_search" class="lead" /> Explore:</div></div>
-                <div v-iScroller id="categories" class="i-scroller col" style="overflow: hidden; padding: 4px 0px;">
+            <div class="container flexbox" style="gap: 0.5em;">
+                <div class="compact transparent button bold open-modal" data-target="explore-modal"><SvgIcon name="manage_search" class="lead" /> Explore:</div>
+                <IScroller id="categories" class="flexible" style="overflow: hidden; padding: 4px 0px;">
                     <div class="l-scroll"><SvgIcon name="double_arrow_left" class="mini" /></div>
                     <div class="r-scroll"><SvgIcon name="double_arrow_right" class="mini" /></div>
                     <div class="scroll-items" style="gap: 8px;">
@@ -222,7 +224,7 @@
                         <button class="chip"><SvgIcon name="local_hospital" class="small lead" /> Hospitals and clinics</button>
                         <button class="chip"><SvgIcon name="more_horiz" class="small lead" /> More</button>
                     </div>
-                </div>
+                </IScroller>
             </div>
         </div>
 	</header>
@@ -240,14 +242,14 @@
 
 
     <template v-else-if="name === 'page_nav'">
-        <aside id="navmenu" class="manual-width col sidemenu sp-wrapper">
+        <aside id="navmenu" class="flex-none col sidemenu sp-wrapper">
             <div v-scrollPin="{ topSpacing: 84, bottomSpacing: 16, ancestorGuarded: true }" class="vertical transparent menu">
                 <rc-shareables name="nav_menu" />
             </div>
         </aside>
     </template>
     <template v-else-if="name === 'ad_menu'">
-        <aside class="manual-width col sidemenu lg-and-down-hidden">
+        <aside class="flex-none col sidemenu lg-and-down-hidden">
             <div id="admenu" v-scrollPin="{ topSpacing: 84, bottomSpacing: 16, parentGuided: true }">
                 <div style="width: 100%;">
                     <h6 class="centered" style="margin-bottom: 16px;">Sponsored (Ads)</h6>

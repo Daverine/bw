@@ -1,13 +1,42 @@
 export const utils = {
-	getEscTrack() {
-		if (typeof(window.lui_EscTracker) !== 'number') window.lui_EscTracker = 0; 
-		window.lui_EscTracker++;
-		return window.lui_EscTracker;
+	trackEscOn(trackId) {
+		if (trackId === undefined) {
+			console.warn(`You can't get Track Escape without a TrackId`);
+			return;
+		}
+		
+		if (!window.lui_EscTracker) window.lui_EscTracker = [];
+		
+		if (window.lui_EscTracker.includes(trackId)) {
+			console.warn(`The passed trackId is been tracked already`, trackId);
+			return;
+		}
+
+		window.lui_EscTracker.push(trackId);
+		// if (typeof(window.lui_EscTracker) !== 'number') window.lui_EscTracker = 0; 
+		// window.lui_EscTracker++;
+		// return window.lui_EscTracker;
 	},
-	checkEscStatus(trackNo) {
-		let status = trackNo === window.lui_EscTracker;
-		if (status) { window.lui_EscTracker--; }
-		return status;
+	checkEscStatus(trackId, byForce) {
+		if (trackId === undefined && !byForce) {
+			console.warn(`You can't check Escape status without passing a trackId`);
+			return;
+		}
+
+		if (!window.lui_EscTracker) {
+			window.lui_EscTracker = [];
+			return;
+		}
+		
+		if (!window.lui_EscTracker.includes(trackId) && !byForce) {
+			console.warn('The passed TrackId is not tracked', trackId);
+			return;
+		}
+		
+		if (window.lui_EscTracker.slice(-1)[0] === trackId || byForce) {
+			window.lui_EscTracker = window.lui_EscTracker.filter(el => el !== trackId);
+			return true;
+		}
 	},
 	getScrollbarWidth() {
 		return window.innerWidth - document.documentElement.clientWidth;

@@ -19,10 +19,10 @@
 		<div v-if="isSaved" class="itm-opt ex-open-modal">
 			<Dropdown :options="{directionPriority: {x: 'left', y: 'bottom'}}" class="icon circular transparent compact button">
 				<SvgIcon name="more_vert" />
-				<Dropmenu>
+				<div class="drop menu">
 					<div class="item"><SvgIcon name="share" class="lead" /> Share</div>
 					<div class="item"><SvgIcon name="bookmark_remove" class="lead" /> Unsave</div>
-				</Dropmenu>
+				</div>
 			</Dropdown>
 		</div>
 	</div>

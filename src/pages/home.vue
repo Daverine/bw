@@ -1,5 +1,6 @@
 <script setup>
 import { useRouter } from 'vue-router';
+import IScroller from '../plugins/lui/components/IScroller.vue';
 
 	const
 		props = defineProps(['name']),
@@ -19,7 +20,7 @@ import { useRouter } from 'vue-router';
 <template>
 	<header id="main-header">
 		<div class="transparent menu" style="height: 64px;">
-			<div class="container items auto-margined" style="border-radius: var(--radius-default);">
+			<div class="container items auto-margined" style="border-radius: var(--default-radius);">
 				<div class="item as-icon open-sidepanel" v-tooltip.unblocking data-tooltip="Menu" data-target="msidepanel">
 					<SvgIcon name="menu" />
 				</div>
@@ -32,16 +33,16 @@ import { useRouter } from 'vue-router';
 						<Dropdown class="item">
 							Support
 							<SvgIcon name="expand_more" class="trailing" />
-							<Dropmenu>
+							<div class="drop menu">
 								<Shareables name="supports" />
-							</Dropmenu>
+							</div>
 						</Dropdown>
 					</div>
 					<Shareables name="do_more_item" />
 					<div class="as-icon item" v-tooltip.unblocking data-tooltip="Notifications">
 						<SvgIcon name="notifications" />
 					</div>
-					<Dropdown data-target="dm1_profile" :options="{directionPriority: {x: 'left', y: 'bottom'}}" v-tooltip.unblocking data-tooltip="Your profile" class="xhover browse as-icon item">
+					<Dropdown data-browse-dm="dm1_profile" :options="{directionPriority: {x: 'left', y: 'bottom'}}" v-tooltip.unblocking data-tooltip="Your profile" class="xhover browse as-icon item">
 						<img :src="userStore.userData.profileImg" alt="profile"  class="fully-rounded logo" />
 					</Dropdown>
 					<Shareables id="dm1_profile" name="profile_menu" />
@@ -62,7 +63,7 @@ import { useRouter } from 'vue-router';
 					</button>
 				</label>
 				<div style="margin-top: 8px;">Search in: <span class="bold">Nigeria</span>. <a href="#">Change Location</a></div>
-				<div class="grid" style="gap: 16px; margin: 32px auto 0px; max-width: 300px;">
+				<div class="flexbox equal-cols" style="gap: 16px; margin: 32px auto 0px; max-width: 300px;">
 					<div class="col">
 						<button type="submit" class="fluid button">
 							<SvgIcon name="search" class="lead" /> SEARCH
@@ -83,11 +84,11 @@ import { useRouter } from 'vue-router';
 			</div>
 		</div>
 	</header>
-	<section id="firstSec" ref="main" class="container csection grid">
+	<section id="firstSec" ref="main" class="csection flexbox">
 		<Shareables name="page_nav" />
-		<main ref="main" class="col" id="feed">
+		<main ref="main" class="col flexible" id="feed">
 			<header class="sp-wrapper fluid z-level-3 p-h" style="margin-bottom: 1rem;">
-				<div v-iScroller v-scrollPin="{ topSpacing: 64, ancestorGuarded: true }" class="i-scroller">
+				<IScroller v-scrollPin="{ topSpacing: 64, ancestorGuarded: true }">
 					<div class="l-scroll"><SvgIcon name="double_arrow_left" class="mini" /></div>
 					<div class="r-scroll"><SvgIcon name="double_arrow_right" class="mini" /></div>
 					<div class="rail fillable menu scroll-items">
@@ -96,7 +97,7 @@ import { useRouter } from 'vue-router';
 							<div class="item">Following</div>
 						</div>
 					</div>
-				</div>
+				</IScroller>
 			</header>
 			<section style="display: flex; flex-direction: column; align-items: center;">
 				<h6 class="centered" style="margin-bottom: 2rem;" id="bizupdate">Update from page you're following (Feeds)</h6>

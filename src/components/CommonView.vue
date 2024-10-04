@@ -39,7 +39,7 @@
 <template>
     <div class="as-page">
         <Shareables name="common_header" />
-        <section ref="main" class="container csection grid">
+        <section ref="main" class="csection flexbox">
 			<Shareables name="page_nav" />
             <RouterView />
             <Shareables name="ad_menu" />

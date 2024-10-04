@@ -38,11 +38,11 @@
 			</a>
             <Dropdown :options="{directionPriority: {x: 'right', y: 'top'}}" class="compact button ex-open-modal">
 				<SvgIcon name="more_horiz" class="lead" /> More
-				<Dropmenu>
+				<div class="drop menu">
 					<div class="item"><SvgIcon name="unfollow" class="lead" /> Unfollow</div>
 					<div class="item"><SvgIcon name="share" class="lead" /> Share</div>
 					<div class="item"><SvgIcon name="report" class="lead" /> Report page</div>
-				</Dropmenu>
+				</div>
 			</Dropdown>
         </div>
     </div>

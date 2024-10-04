@@ -18,13 +18,13 @@ import Shareables from '../components/Shareables.vue';
                             <template #trailing>
                                 <SvgIcon name="expand_more" class="trailing" />
                             </template>
-                            <Dropmenu>
+                            <div class="drop menu">
                                 <div class="active item">
                                     <div class="lead avatar circular image mini" style="flex: 0 0 auto; background-color: #999;"></div>
                                     <div style="flex: 1 1 auto;">
                                         <div class="text l-aligned">
                                             <div class="semibold" style="font-size: 1.125em; line-height: 1.25;">Ayoola Folorunso</div>
-                                            <div class="small aux-text">Personal Account</div>
+                                            <div class="small faint-text-v1">Personal Account</div>
                                         </div>
                                     </div>
                                 </div>
@@ -33,11 +33,11 @@ import Shareables from '../components/Shareables.vue';
                                     <div style="flex: 1 1 auto;">
                                         <div class="text l-aligned">
                                             <div class="semibold" style="font-size: 1.125em; line-height: 1.25;">Emmadave Computers</div>
-                                            <div class="small aux-text">Business Account</div>
+                                            <div class="small faint-text-v1">Business Account</div>
                                         </div>
                                     </div>
                                 </div>
-                            </Dropmenu>
+                            </div>
                         </Dropdown>
                         <div>
                             <form>
@@ -59,13 +59,13 @@ import Shareables from '../components/Shareables.vue';
                 </div>
                 <div class="chat-view">
                     <header style="padding: 0em 0.5em; border-bottom: 1px solid var(--outline);">
-                        <div class="icon-bar compact menu" style="border-radius: var(--radius-default);">
+                        <div class="icon-bar compact menu" style="border-radius: var(--default-radius);">
                             <div class="adaptable xhover item">
                                 <div class="lead avatar circular image mini" style="flex: 0 0 auto; background-color: #999;"></div>
                                 <div style="flex: 1 1 auto;">
                                     <div class="text l-aligned">
                                         <div class="semibold" style="font-size: 1.125em; line-height: 1.25;">Ayoola Folorunso</div>
-                                        <div class="small aux-text">Online</div>
+                                        <div class="small faint-text-v1">Online</div>
                                     </div>
                                 </div>
                             </div>
@@ -86,7 +86,7 @@ import Shareables from '../components/Shareables.vue';
 
                     </div>
                     <footer class="messaging-box">
-                        <div class="icon-bar compact transparent menu" style="border-radius: var(--radius-default);">
+                        <div class="icon-bar compact transparent menu" style="border-radius: var(--default-radius);">
                             <div class="item">
                                 <SvgIcon name="mood" />
                             </div>
@@ -94,7 +94,7 @@ import Shareables from '../components/Shareables.vue';
                                 <SvgIcon name="add" />
                             </div>
                             <div class="adaptable xhover item 0-h-padding">
-                                <input class="fluid" type="text" placeholder="Type your message"/>
+                                <input class="form-item fluid" type="text" placeholder="Type your message"/>
                             </div>
                             <div class="item">
                                 <SvgIcon name="mic" />
@@ -115,7 +115,7 @@ import Shareables from '../components/Shareables.vue';
         width: 100%;
         height: calc(100vh - 80px);
         border: 1px solid var(--outline);
-        border-radius: var(--radius-default);
+        border-radius: var(--default-radius);
         // box-shadow: var(--z-depth-1);
         overflow: hidden;
 

@@ -1,5 +1,5 @@
 <template>
-    <main class="col" id="feed">
+    <main class="flexible col" id="feed">
         <RouterView />
     </main>
 </template>

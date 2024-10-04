@@ -43,7 +43,7 @@
                 <rc-shareables name="main_menu" />
             </div>
         </header>
-        <section ref="main" class="csection grid">
+        <section ref="main" class="csection flexbox">
 			<Shareables name="page_nav" />
             <RouterView />
             <Shareables name="ad_menu" />

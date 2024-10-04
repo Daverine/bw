@@ -13,7 +13,7 @@
 	<SidePanel class="left" id="msidepanel">
 		<div class="panel padded">
 			<div class="vertical transparent menu">
-				<div class="items" style="border-radius: var(--radius-default);">
+				<div class="items" style="border-radius: var(--default-radius);">
 					<div class="centered item exit-sidepanel"><SvgIcon name="arrow_back" /></div>
 					<router-link to="/" class="xhover centered item exit-sidepanel">
 						<img src="/images/logo.png" alt="site logo" class="logo-sm site-logo">

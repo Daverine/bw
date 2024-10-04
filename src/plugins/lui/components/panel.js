@@ -49,7 +49,7 @@ export default {
 			}
 		},
 		panelEscFunc(e) {
-			if (e.key === 'Escape' && utils.checkEscStatus(this.EscTrack)) this.EscTrack = undefined, this.showPanel = false;
+			if (e.key === 'Escape' && utils.checkEscStatus(this.uniqueId)) this.showPanel = false;
 		},
 		togglePanel(e) {
 			let toggler = [...document.querySelectorAll(this.settings.toggler)].filter((el) => el.contains(e.target) && (el.getAttribute('data-target') === this.id || el.getAttribute('href') === `#${this.id}`))[0];
@@ -65,7 +65,7 @@ export default {
 	mounted() {
 		this.settings = {
 			...this.factory,
-			...this.default,
+			...this.default || {},
 			...this.options || {}
 		};
 		this.e.pl = this.$refs.panel;
@@ -80,7 +80,7 @@ export default {
 				if (typeof(this.settings.controller) === 'function') this.settings.controller(this.e.pl, this.settings);
 				document.addEventListener('keydown', this.panelKbdFunc);
 				this.e.pl.addEventListener('click', this.panelClickFunc);
-				if (this.settings.closeOnEsc) this.EscTrack = utils.getEscTrack(), document.addEventListener('keyup', this.panelEscFunc);
+				if (this.settings.closeOnEsc) utils.trackEscOn(this.uniqueId), document.addEventListener('keyup', this.panelEscFunc);
 				this.e.pl.classList.add('active');
 				setTimeout(() => {
 					if (typeof(this.settings.ready) === 'function') this.settings.ready(this.e.pl, this.settings);
@@ -96,26 +96,8 @@ export default {
 				this.e.pl.removeEventListener('click', this.panelClickFunc);
 				if (this.settings.closeOnEsc) document.removeEventListener('keyup', this.panelEscFunc);					
 				// safely get out of escape track
-				if (typeof(this.EscTrack) === 'number') {
-					if (utils.checkEscStatus(this.EscTrack)) this.EscTrack = undefined;
-					else {
-						let
-							count = 0,
-							counter = setInterval(() => {
-								if (utils.checkEscStatus(this.EscTrack)) {
-									this.EscTrack = undefined;
-									clearInterval(counter);
-								}
-								else if (count >= 5) {
-									console.log(`Escape Track on ${this.e.pl} is lost.`);
-									this.EscTrack = undefined;
-									clearInterval(counter);
-								}
-								count++
-							}, 5)
-						;
-					}
-				}
+				utils.checkEscStatus(this.uniqueId, true);
+				
 				this.e.pl.classList.remove('active');
 				setTimeout(() => {
 					if (typeof(this.settings.complete) === 'function') this.settings.complete(this.e.pl, this.settings);

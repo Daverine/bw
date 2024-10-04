@@ -15,14 +15,14 @@
 			</div>
 			<div style="flex: 1 1 auto;">
 				<div class="fcd-displayname">{{ details.displayName }}</div>
-				<div class="aux-text small semibold" style="display: flex; gap: 10px; flex: 1 1 auto;">
+				<div class="faint-text-v1 small semibold" style="display: flex; gap: 10px; flex: 1 1 auto;">
 					<div><SvgIcon name="schedule" class="mini" /> {{ details.date }}</div>
 				</div>
 			</div>
 			<div>
 				<Dropdown :options="{directionPriority: {x: 'left', y: 'bottom'}}">
 					<SvgIcon name="more_horiz" />
-					<Dropmenu>
+					<div class="drop menu">
 						<div class="item"><SvgIcon name="bookmark_add" class="lead" /> Save post</div>
 						<div class="items">
 							<div class="aview item"><SvgIcon name="notifications_active" class="lead" /> Turn on notificaions for this post</div>
@@ -30,7 +30,7 @@
 						</div>
 						<div class="item"><SvgIcon name="unfollow" class="lead" /> Unfollow</div>
 						<div class="item"><SvgIcon name="report" class="lead" /> Report post</div>
-					</Dropmenu>
+					</div>
 				</Dropdown>
 			</div>
 		</div>
@@ -41,7 +41,7 @@
 			{{ details.postText }}
 		</div>
 		<div class="icon-bar transparent small compact menu">
-			<div class="items adaptable fillable" style="padding: 0em 0.5em; border-radius: var(--radius-default);">
+			<div class="items adaptable fillable" style="padding: 0em 0.5em; border-radius: var(--default-radius);">
 				<div class="as-icon item" v-tooltip.unblocking data-tooltip="Thumb up"><SvgIcon name="thumb_up" /> ({{ details.thumbsUp }})</div>
 				<div class="as-icon item" v-tooltip.unblocking data-tooltip="Private reply"><SvgIcon name="reply" /></div>
 				<div class="as-icon item" v-tooltip.unblocking data-tooltip="Share"><SvgIcon name="share" /></div>

@@ -10,7 +10,7 @@
     <section class="bizmsec">
         <div class="heading small">Progress summary</div>
         <div style="display: flex; gap: 1rem; justify-content: center;">
-            <div style="background-color: var(--surface-v3); padding: 0.75em; display: flex; flex-flow: column nowrap; align-items: center; border-radius: var(--radius-default);">
+            <div style="background-color: var(--surface-v3); padding: 0.75em; display: flex; flex-flow: column nowrap; align-items: center; border-radius: var(--default-radius);">
                 <header>
                     <SvgIcon name="person_filled" class="mini" />
                     Max Visitors
@@ -20,7 +20,7 @@
                     1024
                 </div>
             </div>
-            <div style="background-color: var(--surface-v3); padding: 0.75em; display: flex; flex-flow: column nowrap; align-items: center; border-radius: var(--radius-default);">
+            <div style="background-color: var(--surface-v3); padding: 0.75em; display: flex; flex-flow: column nowrap; align-items: center; border-radius: var(--default-radius);">
                 <header>
                     <SvgIcon name="groups_filled" class="mini" />
                     Post Engagement
@@ -30,7 +30,7 @@
                     200
                 </div>
             </div>
-            <div style="background-color: var(--surface-v3); padding: 0.75em; display: flex; flex-flow: column nowrap; align-items: center; border-radius: var(--radius-default);">
+            <div style="background-color: var(--surface-v3); padding: 0.75em; display: flex; flex-flow: column nowrap; align-items: center; border-radius: var(--default-radius);">
                 <header>
                     <SvgIcon name="reviews" class="mini" />
                     Page Reviews
@@ -117,7 +117,7 @@
     </Teleport>
     <section class="bizmsec">
         <div class="heading small">Business tools</div>
-        <div class="grid-menu xs-grid app-items rounded">
+        <div class="grid menu 2-cols app-items rounded">
             <RouterLink to="/manage/posts" exact-active-class="active" class="item exit-sidepanel">
                 <SvgIcon name="article" class="lead nview" />
                 <SvgIcon name="article_filled" class="lead aview" />

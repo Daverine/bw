@@ -32,15 +32,15 @@
 			</div>
 			<div style="flex: 1 1 auto;">
 				<div class="fcd-displayname">{{ details.bizName }}</div>
-				<div class="aux-text fcd-bizcategory"> {{ details.bizCategory }}</div>
+				<div class="faint-text-v1 fcd-bizcategory"> {{ details.bizCategory }}</div>
 			</div>
 			<div>
 				<Dropdown :options="{directionPriority: {x: 'left', y: 'bottom'}}">
 					<SvgIcon name="more_horiz" />
-					<Dropmenu>
+					<div class="drop menu">
 						<div class="item">Edit review</div>
 						<div class="item">Delete review</div>
-					</Dropmenu>
+					</div>
 				</Dropdown>
 			</div>
         </header>
